@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Materi extends Model
 {
     protected $fillable = [
+        'kode_materi',
         'nama_materi',
         'isi_materi',
         'gambar',

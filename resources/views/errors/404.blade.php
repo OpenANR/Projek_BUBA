@@ -122,6 +122,9 @@
         <p class="mt-12 text-gray-400 text-sm">
             Error Code: <span class="font-mono text-purple-400">404_NOT_FOUND</span>
         </p>
+        <p class="mt-12 text-gray-400 text-sm">
+            &copy; 2026 NAJATIF. Politeknik Negeri Jember.
+        </p>
     </div>
 
 </body>

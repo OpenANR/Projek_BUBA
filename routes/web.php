@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('menu');
 })->name('home');
 
 // Route::get('/materi', [MateriController::class, 'index'])->name('index.materi');
@@ -16,7 +17,25 @@ Route::get('/', function () {
 // Route::delete('/materi/delete/{id}', [MateriController::class, 'destroy'])->name('materi.delete');
 
 Route::prefix('admin')->group(function (){
-    Route::get('/kelas/index', function () {
+    Route::get('/kelas', function () {
         return view('admin.kelas.index');
-    });
+    })->name('kelas.index');
+
+    Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
+
+    Route::get('/materi', function() {
+        return view('admin.materi.index');
+    })->name('materi.index');
+
+    Route::get('/kuis', function () {
+        return view('kuis.index');
+    })->name('kuis.index');
+
+    Route::get('/siswa', function() {
+        return view('admin.siswa.index');
+    })->name('siswa.index');
+
+    Route::get('/kuis', function () {
+        return view('admin.kuis.index');
+    })->name('kuis.index');
 });

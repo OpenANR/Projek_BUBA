@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('materis', function (Blueprint $table) {
             $table->id();
+            $table->char('kode_materi', 10)->unique();
             $table->char('nama_materi', 20);
             $table->text('isi_materi');
             $table->string('gambar')->nullable();

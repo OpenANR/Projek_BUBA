@@ -1,2 +1,2 @@
 @extends('layouts.development.development')
-@section('title', 'Kelola Materi - BUBA');
+@section('title', 'Kelola Siswa - BUBA');

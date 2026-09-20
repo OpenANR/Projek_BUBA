@@ -183,7 +183,7 @@
             <!-- Footer kecil di dalam kartu -->
             <div class="px-6 py-4 bg-slate-50/80 border-t border-slate-100 text-center">
                 <p class="text-xs text-slate-400">
-                    &copy; 2026 NAJATIF. Semua hak dilindungi.
+                    &copy; 2026 NAJATIF. Politeknik Negeri Jember.
                 </p>
             </div>
 

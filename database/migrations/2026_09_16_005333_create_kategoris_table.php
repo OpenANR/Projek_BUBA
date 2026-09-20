@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->char('nama_kategori', 20);
             $table->text('deskripsi');
-            $table->string('gambar')->nullable();
-            $table->string('audio')->nullable();
             $table->foreignId('kelas_id')->constrained('kelas');
             $table->timestamps();
         });
