@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Kategori extends Model
+{
+    protected $fillable = [
+        'nama_kategori',
+        'deskripsi',
+        'gambar',
+        'audio',
+        'kelas_id',
+    ];
+
+    public function materi() {
+        return $this->belongsTo(Materi::class);
+    }
+}
