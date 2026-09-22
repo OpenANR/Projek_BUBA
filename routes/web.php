@@ -17,11 +17,18 @@ Route::get('/', function () {
 // Route::delete('/materi/delete/{id}', [MateriController::class, 'destroy'])->name('materi.delete');
 
 Route::prefix('admin')->group(function (){
+
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
+
     Route::get('/kelas', function () {
         return view('admin.kelas.index');
     })->name('kelas.index');
 
     Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
+    Route::get('/kategori/tambah', [CategoryController::class, 'add'])->name('kategori.tambah');
+    Route::post('/kategori/kirim', [CategoryController::class, 'store'])->name('kategori.kirim');
 
     Route::get('/materi', [MateriController::class, 'index'])->name('materi.index');
     Route::get('/materi/tambah', [MateriController::class, 'add'])->name('materi.tambah');

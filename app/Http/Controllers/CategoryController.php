@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -12,8 +13,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $kelas = Kelas::get();
         $categories = Kategori::all();
-        return view('admin.kategori.index', compact('categories'));
+        return view('admin.kategori.index', compact('categories', 'kelas'));
     }
 
     /**
@@ -31,12 +33,14 @@ class CategoryController extends Controller
     {
         $request->validate([
             'nama_kategori' => 'required|string',
-            'deskripsi' => 'required|string',
+            'deskripsi'     => 'required|string',
+            'kelas_id'      => 'required|exists:kelas,id',
         ]);
 
         $data = [
             'nama_kategori' => $request->nama_kategori,
-            'deskripsi' => $request->deskripsi,
+            'deskripsi'     => $request->deskripsi,
+            'kelas_id'      => $request->kelas_id
         ];
 
         Kategori::create($data);
@@ -57,7 +61,9 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $kelas = Kelas::get();
+        $categories = Kategori::findOrFail($id);
+        return view('admin.kategori.edit', compact('categories', 'kelas'));
     }
 
     /**
@@ -65,7 +71,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama_kategori' => 'required|string',
+            'deskripsi'     => 'required|string',
+            'kelas_id'      => 'required|exists:kelas,id'
+        ]);
+
+        $data = [
+            'nama_kategori' => $request->nama_kategori,
+            'deskripsi'     => $request->deskripsi,
+            'kelas_id'      => $request->kelas_id
+        ];
+
+        $categories = Kategori::findOrFail($id);
+        $categories->update($data);
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambah');   
     }
 
     /**
