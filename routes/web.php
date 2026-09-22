@@ -23,9 +23,13 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
 
-    Route::get('/materi', function() {
-        return view('admin.materi.index');
-    })->name('materi.index');
+    Route::get('/materi', [MateriController::class, 'index'])->name('materi.index');
+    Route::get('/materi/tambah', [MateriController::class, 'add'])->name('materi.tambah');
+    Route::post('/materi/kirim', [MateriController::class, 'store'])->name('materi.kirim');
+    Route::get('/materi/detail/{materi}', [MateriController::class, 'show'])->name('materi.detail');
+    Route::get('/materi/edit/{materi}', [MateriController::class, 'edit'])->name('materi.edit');
+    Route::put('/materi/update/{materi}', [MateriController::class, 'update'])->name('materi.update');
+    Route::delete('/materi/hapus/{materi}', [MateriController::class, 'destroy'])->name('materi.hapus');
 
     Route::get('/kuis', function () {
         return view('kuis.index');
