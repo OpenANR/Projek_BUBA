@@ -22,14 +22,19 @@ Route::prefix('admin')->group(function (){
         return view('admin.dashboard');
     });
 
+    // RUTE HALAMAN KELAS
     Route::get('/kelas', function () {
         return view('admin.kelas.index');
     })->name('kelas.index');
+    // =================================================
 
+    // RUTE HALAMAN KATEGORI
     Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
     Route::get('/kategori/tambah', [CategoryController::class, 'add'])->name('kategori.tambah');
     Route::post('/kategori/kirim', [CategoryController::class, 'store'])->name('kategori.kirim');
+    // =================================================
 
+    // RUTE MATERI
     Route::get('/materi', [MateriController::class, 'index'])->name('materi.index');
     Route::get('/materi/tambah', [MateriController::class, 'add'])->name('materi.tambah');
     Route::post('/materi/kirim', [MateriController::class, 'store'])->name('materi.kirim');
@@ -37,16 +42,17 @@ Route::prefix('admin')->group(function (){
     Route::get('/materi/edit/{materi}', [MateriController::class, 'edit'])->name('materi.edit');
     Route::put('/materi/update/{materi}', [MateriController::class, 'update'])->name('materi.update');
     Route::delete('/materi/hapus/{materi}', [MateriController::class, 'destroy'])->name('materi.hapus');
+    // =================================================
 
+    // RUTE KUIS
     Route::get('/kuis', function () {
         return view('kuis.index');
     })->name('kuis.index');
+    // =================================================
 
+    // RUTE SISWA
     Route::get('/siswa', function() {
         return view('admin.siswa.index');
     })->name('siswa.index');
-
-    Route::get('/kuis', function () {
-        return view('admin.kuis.index');
-    })->name('kuis.index');
+    // =================================================
 });
