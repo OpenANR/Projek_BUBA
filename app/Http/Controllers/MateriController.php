@@ -12,6 +12,7 @@ class MateriController extends Controller
 {
     public function index(){
         $materi = Materi::all();
+        
         $kategori = Kategori::get();
         return view('admin.materi.index', compact(['materi', 'kategori']));
     }

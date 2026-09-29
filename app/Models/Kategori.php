@@ -15,4 +15,8 @@ class Kategori extends Model
     public function materi() {
         return $this->belongsTo(Materi::class);
     }
+
+    public function kelas() {
+        return $this->belongsTo(Kelas::class);
+    }
 }
