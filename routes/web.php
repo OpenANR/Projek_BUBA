@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\CategoryController;
 
@@ -23,9 +24,7 @@ Route::prefix('admin')->group(function (){
     });
 
     // RUTE HALAMAN KELAS
-    Route::get('/kelas', function () {
-        return view('admin.kelas.index');
-    })->name('kelas.index');
+    Route::resource('kelas', KelasController::class)->except(['show']);
     // =================================================
 
     // RUTE HALAMAN KATEGORI
