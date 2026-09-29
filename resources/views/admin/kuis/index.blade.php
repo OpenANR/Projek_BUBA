@@ -1,122 +1,139 @@
-@extends('layouts.development.development')
-
-@section('title', 'Quiz - BUBA')
+@extends('layouts.admin.app')
 
 @section('content')
 
-<div class="min-h-screen bg-gradient-to-br from-yellow-50 via-pink-50 to-blue-50 px-6 py-8">
+<div class="min-h-screen bg-gradient-to-br from-pink-50 via-yellow-50 to-blue-50 p-6">
 
-    {{-- Header --}}
-    <div class="max-w-6xl mx-auto">
-
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-
-            <div>
-                <h1 class="text-3xl font-extrabold text-gray-800">
-                    Quiz Buba 🧩
-                </h1>
-
-                <p class="text-gray-500 mt-1">
-                    Yuk belajar sambil bermain!
-                </p>
-            </div>
-
-            {{-- Score --}}
-            <div class="flex items-center gap-3 bg-white px-5 py-3 rounded-2xl shadow-sm">
-                <span class="text-2xl">⭐</span>
-
-                <div>
-                    <p class="text-xs text-gray-500">
-                        Skor
-                    </p>
-
-                    <p id="score" class="text-xl font-extrabold text-yellow-500">
-                        0
-                    </p>
-                </div>
-            </div>
-
+    <!-- Header -->
+    <div class="mb-6 flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-800">
+                Kuis Buba
+            </h1>
+            <p class="mt-1 text-gray-500">
+                Latihan pengetahuan dasar untuk anak usia dini
+            </p>
         </div>
 
-
-        {{-- Progress --}}
-        <div class="bg-white rounded-2xl shadow-sm p-5 mb-6">
-
-            <div class="flex justify-between items-center mb-3">
-
-                <span class="font-bold text-gray-700">
-                    Soal
-                    <span id="questionNumber">1</span>
-                    dari 5
-                </span>
-
-                <span id="progressText"
-                      class="text-sm font-semibold text-gray-500">
-                    20%
-                </span>
-
+        <div class="rounded-2xl bg-white px-5 py-3 shadow-sm">
+            <span class="text-sm text-gray-500">Skor</span>
+            <div id="score" class="text-2xl font-bold text-pink-500">
+                0
             </div>
-
-            <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
-
-                <div id="progressBar"
-                     class="bg-yellow-400 h-3 rounded-full transition-all duration-500"
-                     style="width: 20%">
-                </div>
-
-            </div>
-
         </div>
+    </div>
 
+    <!-- Quiz Card -->
+    <div class="mx-auto max-w-4xl">
 
-        {{-- Quiz Card --}}
-        <div class="bg-white rounded-3xl shadow-md p-6 md:p-10">
+        <div class="overflow-hidden rounded-3xl bg-white shadow-lg">
 
-            {{-- Question --}}
-            <div class="text-center">
+            <!-- Progress -->
+            <div class="border-b border-gray-100 p-5">
+                <div class="mb-2 flex justify-between text-sm">
+                    <span class="font-semibold text-gray-600">
+                        Pertanyaan
+                        <span id="questionNumber">1</span>
+                        dari 5
+                    </span>
 
-                <div id="questionImage"
-                     class="w-40 h-40 mx-auto rounded-3xl bg-yellow-100 flex items-center justify-center text-8xl mb-6">
-                    🍎
+                    <span id="progressText" class="font-semibold text-pink-500">
+                        20%
+                    </span>
                 </div>
 
-                <h2 id="question"
-                    class="text-2xl md:text-3xl font-extrabold text-gray-800">
-                    Buah apakah ini?
+                <div class="h-3 overflow-hidden rounded-full bg-gray-100">
+                    <div
+                        id="progressBar"
+                        class="h-full rounded-full bg-pink-400 transition-all duration-500"
+                        style="width: 20%">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question -->
+            <div id="quizContent" class="p-8">
+
+                <div class="mb-6 text-center">
+
+                    <div
+                        id="questionIcon"
+                        class="mx-auto mb-5 flex h-32 w-32 items-center justify-center rounded-full bg-yellow-100 text-7xl">
+                        🍎
+                    </div>
+
+                    <h2
+                        id="question"
+                        class="text-2xl font-bold leading-relaxed text-gray-800">
+                        Buah apakah yang berwarna merah?
+                    </h2>
+
+                    <p class="mt-2 text-sm text-gray-400">
+                        Pilih jawaban yang benar
+                    </p>
+                </div>
+
+                <!-- Options -->
+                <div id="options" class="grid gap-4 md:grid-cols-2">
+
+                </div>
+
+                <!-- Feedback -->
+                <div
+                    id="feedback"
+                    class="mt-6 hidden rounded-2xl p-4 text-center font-semibold">
+                </div>
+
+                <!-- Next -->
+                <div class="mt-6 text-center">
+                    <button
+                        id="nextButton"
+                        onclick="nextQuestion()"
+                        class="hidden rounded-2xl bg-pink-500 px-8 py-3 font-bold text-white shadow-md transition hover:bg-pink-600">
+                        Pertanyaan Berikutnya →
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Result -->
+            <div
+                id="result"
+                class="hidden p-10 text-center">
+
+                <div class="mb-5 text-7xl">
+                    🎉
+                </div>
+
+                <h2 class="text-3xl font-bold text-gray-800">
+                    Kuis Selesai!
                 </h2>
 
-                <p class="text-gray-500 mt-2">
-                    Pilih jawaban yang benar 😊
+                <p class="mt-3 text-gray-500">
+                    Hebat! Kamu sudah menyelesaikan kuis Buba.
                 </p>
 
-            </div>
+                <div class="mx-auto my-8 max-w-sm rounded-3xl bg-yellow-50 p-6">
+                    <p class="text-sm font-semibold text-gray-500">
+                        Skor Kamu
+                    </p>
 
+                    <p
+                        id="finalScore"
+                        class="mt-2 text-5xl font-bold text-yellow-500">
+                        0
+                    </p>
 
-            {{-- Options --}}
-            <div id="options"
-                 class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
+                    <p
+                        id="resultMessage"
+                        class="mt-3 font-semibold text-gray-700">
+                    </p>
+                </div>
 
-                {{-- Akan diisi menggunakan JavaScript --}}
-
-            </div>
-
-
-            {{-- Feedback --}}
-            <div id="feedback"
-                 class="hidden mt-6 rounded-2xl p-4 text-center font-bold">
-            </div>
-
-
-            {{-- Next --}}
-            <div class="flex justify-end mt-7">
-
-                <button id="nextButton"
-                        type="button"
-                        disabled
-                        class="px-7 py-3 rounded-full bg-gray-300 text-gray-500 font-bold cursor-not-allowed">
-
-                    Lanjut →
-
+                <button
+                    onclick="restartQuiz()"
+                    class="rounded-2xl bg-pink-500 px-8 py-3 font-bold text-white shadow-md transition hover:bg-pink-600">
+                    🔄 Ulangi Kuis
                 </button>
 
             </div>
@@ -133,343 +150,305 @@
 const questions = [
 
     {
-        question: "Buah apakah ini?",
-        image: "🍎",
-        answers: [
-            ["🍎", "Apel"],
-            ["🍌", "Pisang"],
-            ["🍉", "Semangka"],
-            ["🍊", "Jeruk"]
+        icon: "🍎",
+        question: "Buah apakah yang berwarna merah?",
+        options: [
+            "Apel",
+            "Pisang",
+            "Jeruk",
+            "Anggur"
         ],
-        correct: "Apel"
+        answer: "Apel"
     },
 
     {
-        question: "Hewan apakah ini?",
-        image: "🐱",
-        answers: [
-            ["🐶", "Anjing"],
-            ["🐱", "Kucing"],
-            ["🐰", "Kelinci"],
-            ["🐮", "Sapi"]
+        icon: "🐱",
+        question: "Hewan apakah yang berbunyi 'Meong'?",
+        options: [
+            "Ayam",
+            "Kucing",
+            "Sapi",
+            "Kambing"
         ],
-        correct: "Kucing"
+        answer: "Kucing"
     },
 
     {
+        icon: "🔴",
         question: "Warna apakah ini?",
-        image: "🔴",
-        answers: [
-            ["🔴", "Merah"],
-            ["🔵", "Biru"],
-            ["🟢", "Hijau"],
-            ["🟡", "Kuning"]
+        options: [
+            "Biru",
+            "Hijau",
+            "Merah",
+            "Kuning"
         ],
-        correct: "Merah"
+        answer: "Merah"
     },
 
     {
-        question: "Bentuk apakah ini?",
-        image: "⚪",
-        answers: [
-            ["🔺", "Segitiga"],
-            ["🟦", "Persegi"],
-            ["⚪", "Lingkaran"],
-            ["⭐", "Bintang"]
+        icon: "⭐",
+        question: "Bentuk apakah yang memiliki lima sudut?",
+        options: [
+            "Lingkaran",
+            "Segitiga",
+            "Persegi",
+            "Bintang"
         ],
-        correct: "Lingkaran"
+        answer: "Bintang"
     },
 
     {
-        question: "Manakah angka tiga?",
-        image: "3️⃣",
-        answers: [
-            ["1️⃣", "Satu"],
-            ["2️⃣", "Dua"],
-            ["3️⃣", "Tiga"],
-            ["4️⃣", "Empat"]
+        icon: "🔢",
+        question: "Berapakah hasil dari 2 + 3?",
+        options: [
+            "3",
+            "4",
+            "5",
+            "6"
         ],
-        correct: "Tiga"
+        answer: "5"
     }
 
 ];
 
-
 let currentQuestion = 0;
 let score = 0;
-let selectedAnswer = null;
+let answered = false;
 
 
-const questionNumber =
-    document.getElementById('questionNumber');
+// Menampilkan pertanyaan
+function showQuestion() {
 
-const progressText =
-    document.getElementById('progressText');
-
-const progressBar =
-    document.getElementById('progressBar');
-
-const question =
-    document.getElementById('question');
-
-const questionImage =
-    document.getElementById('questionImage');
-
-const options =
-    document.getElementById('options');
-
-const feedback =
-    document.getElementById('feedback');
-
-const nextButton =
-    document.getElementById('nextButton');
-
-const scoreElement =
-    document.getElementById('score');
-
-
-function loadQuestion() {
+    answered = false;
 
     const data = questions[currentQuestion];
 
-    selectedAnswer = null;
-
-    questionNumber.textContent =
+    document.getElementById("questionNumber").innerText =
         currentQuestion + 1;
 
-    question.textContent =
+    document.getElementById("questionIcon").innerText =
+        data.icon;
+
+    document.getElementById("question").innerText =
         data.question;
 
-    questionImage.textContent =
-        data.image;
-
+    document.getElementById("score").innerText =
+        score;
 
     const progress =
         ((currentQuestion + 1) / questions.length) * 100;
 
-    progressBar.style.width =
-        progress + '%';
+    document.getElementById("progressBar").style.width =
+        progress + "%";
 
-    progressText.textContent =
-        progress + '%';
-
-
-    feedback.classList.add('hidden');
-
-    feedback.textContent = '';
+    document.getElementById("progressText").innerText =
+        progress + "%";
 
 
-    nextButton.disabled = true;
+    const optionsContainer =
+        document.getElementById("options");
 
-    nextButton.className =
-        'px-7 py-3 rounded-full bg-gray-300 text-gray-500 font-bold cursor-not-allowed';
-
-
-    options.innerHTML = '';
+    optionsContainer.innerHTML = "";
 
 
-    data.answers.forEach((answer) => {
+    data.options.forEach((option, index) => {
 
-        const button =
-            document.createElement('button');
+        const button = document.createElement("button");
 
-        button.type = 'button';
+        button.innerText = option;
 
         button.className =
-            'option-card bg-gray-50 border-2 border-gray-100 rounded-2xl p-5 text-left hover:border-yellow-300 hover:bg-yellow-50 transition';
+            "rounded-2xl border-2 border-gray-100 bg-gray-50 p-5 text-lg font-bold text-gray-700 transition hover:border-pink-300 hover:bg-pink-50";
 
+        button.onclick = function () {
 
-        button.innerHTML = `
+            selectAnswer(option, button);
 
-            <div class="flex items-center gap-4">
+        };
 
-                <div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center text-3xl shadow-sm">
-                    ${answer[0]}
-                </div>
-
-                <span class="text-lg font-bold text-gray-700">
-                    ${answer[1]}
-                </span>
-
-            </div>
-
-        `;
-
-
-        button.addEventListener('click', () => {
-
-            selectAnswer(
-                button,
-                answer[1]
-            );
-
-        });
-
-
-        options.appendChild(button);
+        optionsContainer.appendChild(button);
 
     });
+
+
+    document.getElementById("feedback").classList.add("hidden");
+
+    document.getElementById("nextButton").classList.add("hidden");
 
 }
 
 
-function selectAnswer(button, answer) {
+// Ketika jawaban dipilih
+function selectAnswer(selected, button) {
 
-    if (selectedAnswer !== null) {
+    if (answered) {
         return;
     }
 
-
-    selectedAnswer = answer;
+    answered = true;
 
     const correct =
-        questions[currentQuestion].correct;
+        questions[currentQuestion].answer;
+
+    const allButtons =
+        document.querySelectorAll("#options button");
 
 
-    const allOptions =
-        document.querySelectorAll('.option-card');
+    allButtons.forEach(btn => {
 
+        btn.disabled = true;
 
-    allOptions.forEach(option => {
+        if (btn.innerText === correct) {
 
-        option.disabled = true;
+            btn.classList.remove(
+                "bg-gray-50",
+                "border-gray-100"
+            );
+
+            btn.classList.add(
+                "bg-green-100",
+                "border-green-400",
+                "text-green-700"
+            );
+
+        }
 
     });
 
 
-    if (answer === correct) {
+    const feedback =
+        document.getElementById("feedback");
 
-        score += 20;
 
-        scoreElement.textContent =
-            score;
+    if (selected === correct) {
 
+        score++;
 
         button.classList.remove(
-            'bg-gray-50',
-            'border-gray-100'
+            "bg-gray-50",
+            "border-gray-100"
         );
 
         button.classList.add(
-            'bg-green-100',
-            'border-green-400'
+            "bg-green-100",
+            "border-green-400",
+            "text-green-700"
         );
 
-
-        feedback.textContent =
-            '🎉 Benar! Hebat sekali!';
+        feedback.innerText =
+            "🎉 Hebat! Jawaban kamu benar!";
 
         feedback.className =
-            'mt-6 rounded-2xl p-4 text-center font-bold bg-green-100 text-green-700';
+            "mt-6 rounded-2xl bg-green-100 p-4 text-center font-semibold text-green-700";
 
-    }
-
-    else {
+    } else {
 
         button.classList.remove(
-            'bg-gray-50',
-            'border-gray-100'
+            "bg-gray-50",
+            "border-gray-100"
         );
 
         button.classList.add(
-            'bg-red-100',
-            'border-red-400'
+            "bg-red-100",
+            "border-red-400",
+            "text-red-700"
         );
 
-
-        feedback.textContent =
-            '😊 Belum tepat. Yuk coba soal berikutnya!';
+        feedback.innerText =
+            "😊 Tidak apa-apa! Coba lagi di pertanyaan berikutnya.";
 
         feedback.className =
-            'mt-6 rounded-2xl p-4 text-center font-bold bg-red-100 text-red-700';
+            "mt-6 rounded-2xl bg-red-100 p-4 text-center font-semibold text-red-700";
 
     }
 
 
-    nextButton.disabled = false;
+    document.getElementById("score").innerText =
+        score;
 
-    nextButton.className =
-        'px-7 py-3 rounded-full bg-yellow-400 text-gray-800 font-bold hover:bg-yellow-500 transition cursor-pointer';
+    document.getElementById("nextButton").classList.remove("hidden");
 
 }
 
 
-nextButton.addEventListener('click', () => {
+// Pertanyaan berikutnya
+function nextQuestion() {
 
-    if (currentQuestion < questions.length - 1) {
+    currentQuestion++;
 
-        currentQuestion++;
+    if (currentQuestion < questions.length) {
 
-        loadQuestion();
+        showQuestion();
 
-    }
-
-    else {
+    } else {
 
         showResult();
 
     }
 
-});
+}
 
 
+// Menampilkan hasil
 function showResult() {
 
-    document.querySelector('.max-w-6xl').innerHTML = `
+    document.getElementById("quizContent")
+        .classList.add("hidden");
 
-        <div class="max-w-2xl mx-auto">
+    document.getElementById("result")
+        .classList.remove("hidden");
 
-            <div class="bg-white rounded-3xl shadow-md p-10 text-center">
-
-                <div class="text-7xl mb-5">
-                    🏆
-                </div>
-
-                <h2 class="text-4xl font-extrabold text-gray-800">
-                    Quiz Selesai!
-                </h2>
-
-                <p class="text-gray-500 mt-3">
-                    Wah, kamu sudah menyelesaikan semua soal!
-                </p>
+    document.getElementById("finalScore")
+        .innerText =
+        score + " / " + questions.length;
 
 
-                <div class="my-8 bg-yellow-50 rounded-3xl p-7">
+    let message = "";
 
-                    <p class="text-gray-500 font-semibold">
-                        Skor Kamu
-                    </p>
+    if (score === 5) {
 
-                    <p class="text-6xl font-extrabold text-yellow-500 mt-2">
-                        ${score}
-                    </p>
+        message =
+            "🌟 Sempurna! Kamu hebat sekali!";
 
-                    <p class="text-gray-500 mt-2">
-                        dari 100
-                    </p>
+    } else if (score >= 3) {
 
-                </div>
+        message =
+            "👏 Bagus! Terus belajar bersama Buba!";
+
+    } else {
+
+        message =
+            "💪 Tetap semangat! Coba kuis lagi ya!";
+
+    }
 
 
-                <button
-                    type="button"
-                    onclick="location.reload()"
-                    class="px-8 py-3 rounded-full bg-yellow-400 text-gray-800 font-bold hover:bg-yellow-500 transition">
-
-                    🔄 Coba Lagi
-
-                </button>
-
-            </div>
-
-        </div>
-
-    `;
+    document.getElementById("resultMessage")
+        .innerText = message;
 
 }
 
 
-loadQuestion();
+// Mengulang kuis
+function restartQuiz() {
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    document.getElementById("quizContent")
+        .classList.remove("hidden");
+
+    document.getElementById("result")
+        .classList.add("hidden");
+
+    showQuestion();
+
+}
+
+
+// Jalankan pertama kali
+showQuestion();
 
 </script>
 
