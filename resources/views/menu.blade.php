@@ -49,9 +49,20 @@
                 border border-white/70 shadow-md shadow-slate-300/40
                 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-200/60
                 active:translate-y-0 active:scale-95
-                transition-all duration-300 ease-out">
+                transition-all duration-300 ease-out">Belum ada data materi.
                 <i class="fas fa-home text-xl sm:text-2xl text-blue-600 group-hover:scale-110 transition-transform"></i>
                 HOME
+            </a>
+
+            <a href="{{ route('admin.dashboard') }}"
+                class="menu-link group flex flex-col items-center justify-center gap-2 rounded-2xl px-4 py-5
+                bg-white text-slate-800 font-semibold text-sm sm:text-base
+                border border-white/70 shadow-md shadow-slate-300/40
+                hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-200/60
+                active:translate-y-0 active:scale-95
+                transition-all duration-300 ease-out">
+                <i class="fas fa-dashboard text-xl sm:text-2xl text-blue-600 group-hover:scale-110 transition-transform"></i>
+                DASHB0ARD
             </a>
 
             <a href="{{ route('kelas.index') }}"

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MateriController;
+use App\Http\Controllers\QuisController;
 use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
@@ -21,7 +22,7 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
-    });
+    })->name('admin.dashboard');
 
     // RUTE HALAMAN KELAS
     Route::resource('kelas', KelasController::class)->except(['show']);
@@ -44,9 +45,7 @@ Route::prefix('admin')->group(function (){
     // =================================================
 
     // RUTE KUIS
-    Route::get('/kuis', function () {
-        return view('kuis.index');
-    })->name('kuis.index');
+    Route::get('/kuis', [QuisController::class, 'index'])->name('kuis.index');
     // =================================================
 
     // RUTE SISWA
