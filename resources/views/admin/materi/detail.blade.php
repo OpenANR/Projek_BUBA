@@ -1,16 +1,8 @@
-{{-- @extends('layouts.development.development') --}}
+@extends('layouts.admin.app')
 @section('title', 'Detail Materi - BUBA')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail Materi</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen py-8 px-4">
+@section('content')
+
     <div class="max-w-3xl mx-auto">
         <div class="bg-white rounded-xl shadow-md overflow-hidden">
             {{-- Header --}}
@@ -89,5 +81,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+@endsection

@@ -1,10 +1,10 @@
 <!-- Sidebar -->
-<aside class="w-64 bg-[#0b1120] flex flex-col justify-between border-r border-slate-800/60 shadow-xl z-20 transition-all duration-300">
+<aside class="w-64 bg-[white] flex flex-col justify-between  shadow-xl z-20 transition-all duration-300">
     
     <!-- Bagian Atas: Logo & Menu -->
     <div>
         <!-- Logo Buba -->
-        <div class="h-20 flex items-center px-6 gap-3 border-b border-slate-800/60">
+        <div class="h-20 flex items-center px-6 gap-3 border-b border-gray-200/60">
             <!-- Ikon Beruang (SVG sederhana) -->
             <img src="{{ asset('images/logoAdmin.png') }}" alt="">
         </div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\QuisController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('menu');
@@ -19,9 +20,7 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function (){
 
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // RUTE HALAMAN KELAS
     Route::get('/kelas', function () {
@@ -54,4 +53,10 @@ Route::prefix('admin')->group(function (){
         return view('admin.siswa.index');
     })->name('siswa.index');
     // =================================================
+});
+
+Route::prefix('siswa')->group(function () {
+    Route::get('/welcome', function() {
+        return view('siswa.splash');
+    });
 });

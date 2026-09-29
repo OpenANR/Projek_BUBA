@@ -14,7 +14,7 @@
 
 <body class="h-full font-sans text-slate-200 overflow-hidden">
 
-    <div class="flex h-screen w-full bg-[#0f172a]">
+    <div class="flex h-screen w-full bg-[white]">
 
         <!-- SIDEBAR -->
         @include('layouts.admin.sidebar')
@@ -26,7 +26,7 @@
             @include('layouts.admin.navbar')
 
             <!-- KONTEN UTAMA (Nanti diisi oleh halaman lain) -->
-            <main class="flex-1 overflow-y-auto p-6 bg-[#0f172a]">
+            <main class="flex-1 overflow-y-auto p-6 bg-[white]">
                 @yield('content')
             </main>
 
