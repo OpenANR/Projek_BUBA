@@ -10,10 +10,14 @@ use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
 
 class MateriController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $materi = Materi::all();
-        
         $kategori = Kategori::get();
+        
+        if($request->wantsJson()){
+            return response()->json(compact('materi', 'kategori'));
+        }
+
         return view('admin.materi.index', compact(['materi', 'kategori']));
     }
 
