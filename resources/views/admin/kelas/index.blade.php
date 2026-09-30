@@ -5,7 +5,7 @@
 	<div class="max-w-6xl mx-auto">
 		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
 			<div>
-				<h1 class="text-3xl font-bold text-white">Kelola Kelas</h1>
+				<h1 class="text-3xl font-bold text-black">🏷️Kelola Kelas</h1>
 				<p class="text-slate-400 text-sm mt-1">Kelola daftar kelas pembelajaran BUBA</p>
 			</div>
 			<a href="{{ route('kelas.create') }}"
