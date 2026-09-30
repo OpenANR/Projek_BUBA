@@ -27,9 +27,9 @@
 						<label for="nama_kelas" class="block text-sm font-semibold text-gray-700 mb-1">
 							Nama Kelas <span class="text-red-500">*</span>
 						</label>
-						<input type="text" name="nama_kelas" id="nama_kelas" value="{{ old('nama_kelas') }}" required maxlength="255"
-							placeholder="Contoh: Kelas 1A"
-							class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+						<input type="text" name="nama_kelas" id="nama_kelas" value="{{ old('nama_kelas') }}" required maxlength="10"
+							placeholder="Contoh: Kelas-1A"
+							class="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
 					</div>
 
 					<div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
@@ -48,3 +48,37 @@
 		</div>
 	</div>
 @endsection
+
+@push('scripts')
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const input = document.getElementById('nama_kelas');
+			const button = input.form.querySelector('button[type="submit"]');
+
+			function updateButtonState() {
+				const cursorPosition = input.selectionStart;
+				const sanitizedValue = input.value.replace(/[^A-Za-z0-9-]/g, '');
+
+				if (sanitizedValue !== input.value) {
+					const sanitizedCursorPosition = input.value.slice(0, cursorPosition).replace(/[^A-Za-z0-9-]/g, '').length;
+					input.value = sanitizedValue;
+					input.setSelectionRange(sanitizedCursorPosition, sanitizedCursorPosition);
+				}
+
+				const isValid = input.value.length > 0
+					&& input.value.length <= 10
+					&& /^[A-Za-z0-9-]+$/.test(input.value);
+
+				button.disabled = !isValid;
+				button.classList.toggle('bg-blue-600', isValid);
+				button.classList.toggle('hover:bg-blue-700', isValid);
+				button.classList.toggle('bg-gray-400', !isValid);
+				button.classList.toggle('hover:bg-gray-400', !isValid);
+				button.classList.toggle('cursor-not-allowed', !isValid);
+			}
+
+			input.addEventListener('input', updateButtonState);
+			updateButtonState();
+		});
+	</script>
+@endpush
