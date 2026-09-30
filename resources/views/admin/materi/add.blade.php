@@ -1,101 +1,807 @@
-@extends('layouts.admin.app')
-@section('title', 'Tambah Materi - BUBA')
+<!DOCTYPE html>
+<html lang="id">
 
-@section('content')
+<head>
 
-    <div class="max-w-3xl mx-auto">
-        {{-- Card --}}
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            {{-- Header --}}
-            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-5">
-                <h1 class="text-2xl font-bold text-white">➕ Tambah Materi</h1>
-                <p class="text-blue-100 text-sm mt-1">Isi form di bawah untuk menambahkan materi baru</p>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Tambah Materi - BUBA</title>
+
+    <link rel="stylesheet" href="{{ asset('css/materi.css') }}">
+
+    <style>
+
+        /* Pesan validasi */
+
+        .field-error {
+            color: #ef3340;
+            font-size: 13px;
+            margin-top: 7px;
+            display: block;
+        }
+
+        .field-hint {
+            color: #718096;
+            font-size: 13px;
+            margin-top: 7px;
+            display: block;
+        }
+
+        .character-counter {
+            text-align: right;
+            color: #718096;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .character-counter.error {
+            color: #ef3340;
+            font-weight: bold;
+        }
+
+        .form-control.input-error,
+        .form-select.input-error {
+            border-color: #ef3340 !important;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Navigation Bar -->
+
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+
+            <a
+                href="{{ route('materi.index') }}"
+                class="navbar-brand"
+            >
+
+                BUBA <span>&bull; Materi</span>
+
+            </a>
+
+
+            <ul class="navbar-nav">
+
+                <li>
+
+                    <a href="{{ route('materi.index') }}">
+
+                        Data Materi
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a
+                        href="{{ route('materi.tambah') }}"
+                        class="active"
+                    >
+
+                        + Tambah Materi
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- Main Content Container -->
+
+    <div class="container">
+
+
+        <!-- Page Header -->
+
+        <div class="page-header">
+
+            <div>
+
+                <h1 class="page-title">
+
+                    📝 Tambah Materi Baru
+
+                </h1>
+
+
+                <p class="page-subtitle">
+
+                    Isi formulir di bawah ini untuk menambahkan materi pembelajaran baru ke sistem
+
+                </p>
+
             </div>
 
-            <div class="p-6">
-                {{-- Error Alert --}}
-                @if ($errors->any())
-                    <div class="mb-5 bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded">
-                        <p class="font-semibold mb-1">Terjadi kesalahan:</p>
-                        <ul class="list-disc list-inside text-sm space-y-1">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
 
-                <form action="{{ route('materi.kirim') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+            <div>
+
+                <a
+                    href="{{ route('materi.index') }}"
+                    class="btn btn-secondary"
+                >
+
+                    &larr; Kembali ke Daftar
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Validation Errors -->
+
+        @if ($errors->any())
+
+            <div class="alert alert-danger">
+
+                <div>
+
+                    <strong>Terjadi Kesalahan:</strong>
+
+                    <ul>
+
+                        @foreach ($errors->all() as $error)
+
+                            <li>
+                                {{ $error }}
+                            </li>
+
+                        @endforeach
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        @endif
+
+
+
+        <!-- Form Card -->
+
+        <div class="card">
+
+
+            <div class="card-header">
+
+                <h2 class="card-title">
+
+                    Formulir Materi Pembelajaran
+
+                </h2>
+
+            </div>
+
+
+
+            <div class="card-body">
+
+
+                <form
+                    action="{{ route('materi.kirim') }}"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    class="crud-form"
+                    id="formMateri"
+                >
+
                     @csrf
 
-                    {{-- Nama Materi --}}
-                    <div>
-                        <label for="nama_materi" class="block text-sm font-semibold text-gray-700 mb-1">
-                            Nama Materi <span class="text-red-500">*</span>
+
+
+                    <!-- =====================================================
+                         NAMA MATERI
+                    ====================================================== -->
+
+                    <div class="form-group">
+
+
+                        <label
+                            for="nama_materi"
+                            class="form-label"
+                        >
+
+                            Nama Materi
+
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
-                        <input type="text" name="nama_materi" id="nama_materi" value="{{ old('nama_materi') }}" required
-                            placeholder="Masukkan nama materi"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+
+
+                        <input
+                            type="text"
+                            name="nama_materi"
+                            id="nama_materi"
+                            class="form-control @error('nama_materi') input-error @enderror"
+                            placeholder="Masukkan judul atau nama materi..."
+                            value="{{ old('nama_materi') }}"
+                            maxlength="25"
+                            autocomplete="off"
+                            required
+                        >
+
+
+                        <span class="field-hint">
+
+                            Hanya boleh menggunakan huruf, angka, dan spasi.
+
+                        </span>
+
+
+                        <div
+                            id="namaMateriCounter"
+                            class="character-counter"
+                        >
+
+                            0/25 karakter
+
+                        </div>
+
+
+                        @error('nama_materi')
+
+                            <span class="field-error">
+
+                                {{ $message }}
+
+                            </span>
+
+                        @enderror
+
+
                     </div>
 
-                    {{-- Kategori --}}
-                    <div>
-                        <label for="kategori_id" class="block text-sm font-semibold text-gray-700 mb-1">
-                            Kategori <span class="text-red-500">*</span>
+
+
+                    <!-- =====================================================
+                         KATEGORI
+                    ====================================================== -->
+
+                    <div class="form-group">
+
+
+                        <label
+                            for="kategori_id"
+                            class="form-label"
+                        >
+
+                            Kategori Materi
+
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
-                        <select name="kategori_id" id="kategori_id" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white">
-                            <option value="" disabled {{ old('kategori_id') ? '' : 'selected' }}>--- Pilih Kategori
-                                ---</option>
+
+
+                        <select
+                            name="kategori_id"
+                            id="kategori_id"
+                            class="form-select @error('kategori_id') input-error @enderror"
+                            required
+                        >
+
+                            <option
+                                value=""
+                                disabled
+                                {{ old('kategori_id') ? '' : 'selected' }}
+                            >
+
+                                -- Pilih Kategori --
+
+                            </option>
+
+
                             @foreach ($kategori as $item)
-                                <option value="{{ $item->id }}" {{ old('kategori_id') == $item->id ? 'selected' : '' }}>
+
+                                <option
+                                    value="{{ $item->id }}"
+                                    {{ old('kategori_id') == $item->id ? 'selected' : '' }}
+                                >
+
                                     {{ $item->nama_kategori }}
+
                                 </option>
+
                             @endforeach
+
+
                         </select>
+
+
+                        @error('kategori_id')
+
+                            <span class="field-error">
+
+                                {{ $message }}
+
+                            </span>
+
+                        @enderror
+
+
                     </div>
 
-                    {{-- Isi Materi --}}
-                    <div>
-                        <label for="isi_materi" class="block text-sm font-semibold text-gray-700 mb-1">
-                            Isi Materi <span class="text-red-500">*</span>
+
+
+                    <!-- =====================================================
+                         KELAS
+                    ====================================================== -->
+
+                    <div class="form-group">
+
+
+                        <label
+                            for="kelas_id"
+                            class="form-label"
+                        >
+
+                            Kelas
+
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
-                        <textarea name="isi_materi" id="isi_materi" cols="30" rows="8" required
-                            placeholder="Tulis isi materi di sini..."
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition resize-y">{{ old('isi_materi') }}</textarea>
+
+
+                        <select
+                            name="kelas_id"
+                            id="kelas_id"
+                            class="form-select @error('kelas_id') input-error @enderror"
+                            required
+                        >
+
+                            <option
+                                value=""
+                                disabled
+                                {{ old('kelas_id') ? '' : 'selected' }}
+                            >
+
+                                -- Pilih Kelas --
+
+                            </option>
+
+
+                            @foreach ($kelas as $item)
+
+                                <option
+                                    value="{{ $item->id }}"
+                                    {{ old('kelas_id') == $item->id ? 'selected' : '' }}
+                                >
+
+                                    {{ $item->nama_kelas }}
+
+                                </option>
+
+                            @endforeach
+
+
+                        </select>
+
+
+                        @error('kelas_id')
+
+                            <span class="field-error">
+
+                                {{ $message }}
+
+                            </span>
+
+                        @enderror
+
+
                     </div>
 
-                    {{-- Upload Grid --}}
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div>
-                            <label for="gambar" class="block text-sm font-semibold text-gray-700 mb-1">Gambar</label>
-                            <input type="file" name="gambar" id="gambar"
-                                class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300 rounded-lg cursor-pointer">
-                        </div>
-                        <div>
-                            <label for="audio" class="block text-sm font-semibold text-gray-700 mb-1">Audio</label>
-                            <input type="file" name="audio" id="audio"
-                                class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300 rounded-lg cursor-pointer">
-                        </div>
+
+
+                    <!-- =====================================================
+                         UPLOAD GAMBAR
+                    ====================================================== -->
+
+                    <div class="form-group">
+
+
+                        <label
+                            for="gambar"
+                            class="form-label"
+                        >
+
+                            Gambar Pendukung (Opsional)
+
+                        </label>
+
+
+                        <input
+                            type="file"
+                            name="gambar"
+                            id="gambar"
+                            class="form-control form-file-input"
+                            accept="image/png, image/jpeg, image/jpg"
+                        >
+
+
+                        <span class="form-hint">
+
+                            Format yang didukung: JPG, JPEG, PNG (Maks. 2MB)
+
+                        </span>
+
+
+                        @error('gambar')
+
+                            <span class="field-error">
+
+                                {{ $message }}
+
+                            </span>
+
+                        @enderror
+
+
                     </div>
 
-                    {{-- Buttons --}}
-                    <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
-                        <a href="{{ route('materi.index') }}"
-                            class="px-4 py-2 text-sm font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
-                            Batal
-                        </a>
-                        <button type="submit"
-                            class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg shadow transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            Kirim
+
+
+                    <!-- =====================================================
+                         AUDIO
+                    ====================================================== -->
+
+                    <div class="form-group">
+
+
+                        <label
+                            for="audio"
+                            class="form-label"
+                        >
+
+                            Audio (Opsional)
+
+                        </label>
+
+
+                        <input
+                            type="file"
+                            name="audio"
+                            id="audio"
+                            class="form-control form-file-input"
+                            accept=".mp3,.aac,.wav,.ogg"
+                        >
+
+
+                        <span class="form-hint">
+
+                            Format yang didukung: MP3, AAC, WAV, OGG
+
+                        </span>
+
+
+                        @error('audio')
+
+                            <span class="field-error">
+
+                                {{ $message }}
+
+                            </span>
+
+                        @enderror
+
+
+                    </div>
+
+
+
+                    <!-- =====================================================
+                         ISI MATERI
+                    ====================================================== -->
+
+                    <div class="form-group">
+
+
+                        <label
+                            for="isi_materi"
+                            class="form-label"
+                        >
+
+                            Isi Materi
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <textarea
+                            name="isi_materi"
+                            id="isi_materi"
+                            class="form-textarea @error('isi_materi') input-error @enderror"
+                            rows="8"
+                            placeholder="Tuliskan penjelasan materi lengkap di sini..."
+                            required
+                        >{{ old('isi_materi') }}</textarea>
+
+
+                        @error('isi_materi')
+
+                            <span class="field-error">
+
+                                {{ $message }}
+
+                            </span>
+
+                        @enderror
+
+
+                    </div>
+
+
+
+                    <!-- =====================================================
+                         BUTTONS
+                    ====================================================== -->
+
+                    <div class="form-actions">
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+
+                            💾 Simpan Materi
+
                         </button>
+
+
+                        <a
+                            href="{{ route('materi.index') }}"
+                            class="btn btn-secondary"
+                        >
+
+                            Batal
+
+                        </a>
+
+
                     </div>
+
+
                 </form>
+
+
             </div>
+
+
         </div>
+
+
     </div>
-@endsection
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT VALIDASI
+    ========================================================== -->
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+
+            const form = document.getElementById('formMateri');
+
+            const namaMateri = document.getElementById('nama_materi');
+
+            const counter = document.getElementById('namaMateriCounter');
+
+            const kategori = document.getElementById('kategori_id');
+
+            const kelas = document.getElementById('kelas_id');
+
+
+
+            /*
+             * =====================================================
+             * VALIDASI NAMA MATERI SAAT MENGETIK
+             * =====================================================
+             *
+             * Hanya:
+             *
+             * A-Z
+             * a-z
+             * 0-9
+             * spasi
+             *
+             * Maksimal 25 karakter.
+             */
+
+
+            function validasiNamaMateri() {
+
+
+                // Hapus karakter selain huruf, angka dan spasi
+
+                namaMateri.value = namaMateri.value.replace(
+                    /[^A-Za-z0-9 ]/g,
+                    ''
+                );
+
+
+                // Batasi maksimal 25 karakter
+
+                if (namaMateri.value.length > 25) {
+
+                    namaMateri.value =
+                        namaMateri.value.substring(0, 25);
+
+                }
+
+
+                // Update counter
+
+                counter.textContent =
+                    namaMateri.value.length + '/25 karakter';
+
+
+                // Jika mencapai 25 karakter
+
+                if (namaMateri.value.length >= 25) {
+
+                    counter.classList.add('error');
+
+                } else {
+
+                    counter.classList.remove('error');
+
+                }
+
+            }
+
+
+
+            /*
+             * Jalankan ketika user mengetik
+             */
+
+            namaMateri.addEventListener(
+                'input',
+                validasiNamaMateri
+            );
+
+
+            /*
+             * Jalankan saat halaman pertama kali dibuka
+             */
+
+            validasiNamaMateri();
+
+
+
+            /*
+             * =====================================================
+             * VALIDASI FORM SEBELUM SUBMIT
+             * =====================================================
+             */
+
+            form.addEventListener('submit', function (event) {
+
+
+                let valid = true;
+
+
+
+                /*
+                 * VALIDASI NAMA MATERI
+                 */
+
+                const nama = namaMateri.value;
+
+
+                const regexNama =
+                    /^[A-Za-z0-9 ]+$/;
+
+
+                if (
+                    nama.length === 0 ||
+                    nama.length > 25 ||
+                    !regexNama.test(nama)
+                ) {
+
+                    valid = false;
+
+                    namaMateri.focus();
+
+                    alert(
+                        'Nama materi wajib diisi, maksimal 25 karakter, dan hanya boleh menggunakan huruf, angka, serta spasi.'
+                    );
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+
+
+                /*
+                 * VALIDASI KATEGORI
+                 */
+
+                if (kategori.value === '') {
+
+                    valid = false;
+
+                    kategori.focus();
+
+                    alert(
+                        'Kategori harus diisi.'
+                    );
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+
+
+                /*
+                 * VALIDASI KELAS
+                 */
+
+                if (kelas.value === '') {
+
+                    valid = false;
+
+                    kelas.focus();
+
+                    alert(
+                        'Kelas harus diisi.'
+                    );
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+
+            });
+
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

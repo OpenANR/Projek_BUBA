@@ -18,7 +18,17 @@ return new class extends Migration
             $table->text('isi_materi');
             $table->string('gambar')->nullable();
             $table->string('audio')->nullable();
-            $table->foreignId('kategori_id')->constrained('kategoris')->cascadeOnDelete();
+
+            // Relasi dengan kategori
+            $table->foreignId('kategori_id')
+                ->constrained('kategoris')
+                ->cascadeOnDelete();
+
+            // Relasi dengan kelas
+            $table->foreignId('kelas_id')
+                ->constrained('kelas')
+                ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

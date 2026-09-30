@@ -19,4 +19,9 @@ class Kelas extends Model
     {
         return $this->hasMany(Kategori::class);
     }
+
+    public function materis()
+    {
+        return $this->hasMany(Materi::class);
+    }
 }

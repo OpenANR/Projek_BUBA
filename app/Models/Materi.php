@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Override;
+use App\Models\Kelas;
 
 class Materi extends Model
 {
@@ -14,7 +15,8 @@ class Materi extends Model
         'isi_materi',
         'gambar',
         'audio',
-        'kategori_id'
+        'kategori_id',
+        'kelas_id'
     ];
 
     #[Override]
@@ -35,7 +37,13 @@ class Materi extends Model
         return 'kode_materi';
     }
 
-    public function kategori(){
+    public function kategori()
+    {
         return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 }
