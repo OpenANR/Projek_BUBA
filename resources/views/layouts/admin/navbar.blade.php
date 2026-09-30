@@ -1,5 +1,5 @@
 <!-- Navbar Atas -->
-<header class="h-20 bg-[#0f172a] flex items-center justify-between px-6 border-b border-slate-800/60 z-10">
+<header class="h-20 bg-[white] flex items-center justify-between px-6 shadow z-10">
     
     <!-- Kiri: Hamburger & Bintang -->
     <div class="flex items-center gap-4">

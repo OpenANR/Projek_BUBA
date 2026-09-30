@@ -11,7 +11,7 @@ class QuisController extends Controller
      */
     public function index()
     {
-        
+        return view('admin.kuis.index');
     }
 
     /**
