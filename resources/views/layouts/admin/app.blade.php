@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
 </head>
 
-<body class="h-full font-sans text-slate-200 overflow-hidden">
+<body class="h-full font-sans text-black overflow-hidden">
 
     <div class="flex h-screen w-full bg-[white]">
 

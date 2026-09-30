@@ -1,0 +1,23 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('quis', function (Blueprint $table) {
+            $table->enum('kelas', ['A', 'B'])->after('pertanyaan');
+            $table->string('kategori')->after('kelas');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('quis', function (Blueprint $table) {
+            $table->dropColumn(['kelas', 'kategori']);
+        });
+    }
+};

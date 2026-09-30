@@ -2,63 +2,121 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class QuisController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('admin.kuis.index');
+        $quis = Quis::latest()->get();
+
+        return view('admin.kuis.index', compact('quis'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.kuis.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'pertanyaan' => 'required|string',
+            'kelas' => 'required|in:A,B',
+            'kategori' => 'required|string',
+            'pilihan_a' => 'required|string',
+            'pilihan_b' => 'required|string',
+            'pilihan_c' => 'required|string',
+            'pilihan_d' => 'required|string',
+            'jawaban' => 'required|in:A,B,C,D',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        $data = [
+            'pertanyaan' => $request->pertanyaan,
+            'kelas' => $request->kelas,
+            'kategori' => $request->kategori,
+            'pilihan_a' => $request->pilihan_a,
+            'pilihan_b' => $request->pilihan_b,
+            'pilihan_c' => $request->pilihan_c,
+            'pilihan_d' => $request->pilihan_d,
+            'jawaban' => $request->jawaban,
+        ];
+
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('quis', 'public');
+        }
+
+        Quis::create($data);
+
+        return redirect()
+            ->route('kuis.index')
+            ->with('success', 'Soal kuis berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Quis $quis)
     {
-        //
+        return view('admin.kuis.detail', compact('quis'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Quis $quis)
     {
-        //
+        return view('admin.kuis.edit', compact('quis'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Quis $quis)
     {
-        //
+        $request->validate([
+            'pertanyaan' => 'required|string',
+            'kelas' => 'required|in:A,B',
+            'kategori' => 'required|string',
+            'pilihan_a' => 'required|string',
+            'pilihan_b' => 'required|string',
+            'pilihan_c' => 'required|string',
+            'pilihan_d' => 'required|string',
+            'jawaban' => 'required|in:A,B,C,D',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        $data = [
+            'pertanyaan' => $request->pertanyaan,
+            'kelas' => $request->kelas,
+            'kategori' => $request->kategori,
+            'pilihan_a' => $request->pilihan_a,
+            'pilihan_b' => $request->pilihan_b,
+            'pilihan_c' => $request->pilihan_c,
+            'pilihan_d' => $request->pilihan_d,
+            'jawaban' => $request->jawaban,
+        ];
+
+        if ($request->hasFile('gambar')) {
+
+            if ($quis->gambar) {
+                Storage::disk('public')->delete($quis->gambar);
+            }
+
+            $data['gambar'] = $request->file('gambar')->store('quis', 'public');
+        }
+
+        $quis->update($data);
+
+        return redirect()
+            ->route('kuis.index')
+            ->with('success', 'Soal kuis berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Quis $quis)
     {
-        //
+        if ($quis->gambar) {
+            Storage::disk('public')->delete($quis->gambar);
+        }
+
+        $quis->delete();
+
+        return redirect()
+            ->route('kuis.index')
+            ->with('success', 'Soal kuis berhasil dihapus.');
     }
 }
