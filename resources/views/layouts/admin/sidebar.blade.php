@@ -13,7 +13,7 @@
         <!-- Menu Navigasi -->
         <nav class="mt-6 px-3 space-y-1">
             <!-- Dashboard (Aktif) -->
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600 text-white shadow-lg shadow-blue-600/30 transition-all">
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600 text-white shadow-lg shadow-blue-600/30 transition-all">
                 <i class="fas fa-home w-5 text-center"></i>
                 <span class="font-medium text-sm">Dashboard</span>
             </a>
@@ -43,27 +43,15 @@
             </a>
 
             <!-- Kelola Reward -->
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all">
+            <a href="{{ route('reward.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all">
                 <i class="fas fa-star w-5 text-center"></i>
                 <span class="font-medium text-sm">Kelola Reward</span>
-            </a>
-
-            <!-- Kelola Pengaturan -->
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all">
-                <i class="fas fa-cog w-5 text-center"></i>
-                <span class="font-medium text-sm">Kelola Pengaturan</span>
             </a>
 
             <!-- Kelola Pengguna -->
             <a href="{{ route('siswa.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all">
                 <i class="fas fa-users w-5 text-center"></i>
                 <span class="font-medium text-sm">Kelola Pengguna</span>
-            </a>
-
-            <!-- Evaluasi -->
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all">
-                <i class="fas fa-chart-bar w-5 text-center"></i>
-                <span class="font-medium text-sm">Evaluasi</span>
             </a>
         </nav>
     </div>

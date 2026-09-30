@@ -53,6 +53,11 @@ Route::prefix('admin')->group(function (){
         return view('admin.siswa.index');
     })->name('siswa.index');
     // =================================================
+
+    // RUTE REWARD
+    Route::get('/reward', function(){
+        return view('admin.reward.index');
+    })->name('reward.index');
 });
 
 Route::prefix('siswa')->group(function () {
