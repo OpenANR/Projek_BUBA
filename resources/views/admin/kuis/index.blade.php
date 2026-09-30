@@ -1,142 +1,394 @@
 @extends('layouts.admin.app')
 
+@section('title', 'Kelola Kuis - BUBA')
+
 @section('content')
 
-<div class="min-h-screen bg-gradient-to-br from-pink-50 via-yellow-50 to-blue-50 p-6">
+<div class="max-w-6xl mx-auto px-5 py-5">
 
-    <!-- Header -->
-    <div class="mb-6 flex items-center justify-between">
+    {{-- ================= HEADER ================= --}}
+    <div class="flex items-center justify-between mb-6">
+
         <div>
-            <h1 class="text-3xl font-bold text-gray-800">
-                Kuis Buba
+            <h1 class="text-2xl font-bold !text-black">
+                📝 Kelola Kuis
             </h1>
-            <p class="mt-1 text-gray-500">
-                Latihan pengetahuan dasar untuk anak usia dini
+
+            <p class="mt-1 text-sm !text-black">
+                Kelola soal kuis berdasarkan kelas dan kategori pembelajaran.
             </p>
         </div>
 
-        <div class="rounded-2xl bg-white px-5 py-3 shadow-sm">
-            <span class="text-sm text-gray-500">Skor</span>
-            <div id="score" class="text-2xl font-bold text-pink-500">
-                0
-            </div>
-        </div>
+        <a href="{{ route('kuis.tambah') }}"
+           class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 !text-white font-semibold px-4 py-2.5 rounded-lg shadow-sm transition">
+
+            <span class="text-lg font-bold">+</span>
+            <span>Tambah Soal</span>
+
+        </a>
+
     </div>
 
-    <!-- Quiz Card -->
-    <div class="mx-auto max-w-4xl">
 
-        <div class="overflow-hidden rounded-3xl bg-white shadow-lg">
+    {{-- ================= NOTIFIKASI ================= --}}
 
-            <!-- Progress -->
-            <div class="border-b border-gray-100 p-5">
-                <div class="mb-2 flex justify-between text-sm">
-                    <span class="font-semibold text-gray-600">
-                        Pertanyaan
-                        <span id="questionNumber">1</span>
-                        dari 5
-                    </span>
+    @if (session('success'))
 
-                    <span id="progressText" class="font-semibold text-pink-500">
-                        20%
-                    </span>
-                </div>
+        <div class="mb-5 px-4 py-3 rounded-lg bg-green-100 border border-green-300">
 
-                <div class="h-3 overflow-hidden rounded-full bg-gray-100">
-                    <div
-                        id="progressBar"
-                        class="h-full rounded-full bg-pink-400 transition-all duration-500"
-                        style="width: 20%">
-                    </div>
-                </div>
-            </div>
+            <p class="font-bold !text-green-900 text-sm">
+                Berhasil
+            </p>
 
-            <!-- Question -->
-            <div id="quizContent" class="p-8">
+            <p class="text-xs !text-green-900 mt-1">
+                {{ session('success') }}
+            </p>
 
-                <div class="mb-6 text-center">
+        </div>
 
-                    <div
-                        id="questionIcon"
-                        class="mx-auto mb-5 flex h-32 w-32 items-center justify-center rounded-full bg-yellow-100 text-7xl">
-                        🍎
-                    </div>
+    @endif
 
-                    <h2
-                        id="question"
-                        class="text-2xl font-bold leading-relaxed text-gray-800">
-                        Buah apakah yang berwarna merah?
-                    </h2>
 
-                    <p class="mt-2 text-sm text-gray-400">
-                        Pilih jawaban yang benar
-                    </p>
-                </div>
+    @if ($errors->any())
 
-                <!-- Options -->
-                <div id="options" class="grid gap-4 md:grid-cols-2">
+        <div class="mb-5 px-4 py-3 rounded-lg bg-red-100 border border-red-300">
 
-                </div>
+            <p class="font-bold !text-red-900 text-sm mb-1">
+                Terdapat kesalahan:
+            </p>
 
-                <!-- Feedback -->
-                <div
-                    id="feedback"
-                    class="mt-6 hidden rounded-2xl p-4 text-center font-semibold">
-                </div>
+            <ul class="list-disc list-inside text-xs !text-red-900">
 
-                <!-- Next -->
-                <div class="mt-6 text-center">
-                    <button
-                        id="nextButton"
-                        onclick="nextQuestion()"
-                        class="hidden rounded-2xl bg-pink-500 px-8 py-3 font-bold text-white shadow-md transition hover:bg-pink-600">
-                        Pertanyaan Berikutnya →
-                    </button>
-                </div>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
 
-            </div>
+            </ul>
 
-            <!-- Result -->
-            <div
-                id="result"
-                class="hidden p-10 text-center">
+        </div>
 
-                <div class="mb-5 text-7xl">
-                    🎉
-                </div>
+    @endif
 
-                <h2 class="text-3xl font-bold text-gray-800">
-                    Kuis Selesai!
-                </h2>
 
-                <p class="mt-3 text-gray-500">
-                    Hebat! Kamu sudah menyelesaikan kuis Buba.
-                </p>
+    {{-- ================= CARD TABEL ================= --}}
 
-                <div class="mx-auto my-8 max-w-sm rounded-3xl bg-yellow-50 p-6">
-                    <p class="text-sm font-semibold text-gray-500">
-                        Skor Kamu
-                    </p>
+    <div class="bg-white border border-gray-300 rounded-xl shadow-md overflow-hidden">
 
-                    <p
-                        id="finalScore"
-                        class="mt-2 text-5xl font-bold text-yellow-500">
-                        0
-                    </p>
+        {{-- HEADER CARD --}}
 
-                    <p
-                        id="resultMessage"
-                        class="mt-3 font-semibold text-gray-700">
-                    </p>
-                </div>
+        <div class="px-5 py-4 bg-white border-b border-gray-300">
 
-                <button
-                    onclick="restartQuiz()"
-                    class="rounded-2xl bg-pink-500 px-8 py-3 font-bold text-white shadow-md transition hover:bg-pink-600">
-                    🔄 Ulangi Kuis
-                </button>
+            <h2 class="text-lg font-bold !text-black">
+                Daftar Soal Kuis
+            </h2>
 
-            </div>
+            <p class="text-xs !text-black mt-1">
+                Soal kuis yang telah ditambahkan akan tampil di bawah.
+            </p>
+
+        </div>
+
+
+        {{-- ================= TABEL ================= --}}
+
+        <div class="overflow-x-auto">
+
+            <table id="quisTable" class="min-w-full">
+
+                {{-- HEADER TABEL --}}
+
+                <thead class="bg-gray-100">
+
+                    <tr>
+
+                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
+                            No
+                        </th>
+
+                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
+                            Pertanyaan
+                        </th>
+
+                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
+                            Kelas
+                        </th>
+
+                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
+                            Kategori
+                        </th>
+
+                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
+                            Gambar
+                        </th>
+
+                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
+                            Jawaban
+                        </th>
+
+                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
+                            Aksi
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                {{-- ISI TABEL --}}
+
+                <tbody class="bg-white">
+
+                    @forelse ($quis as $item)
+
+                        <tr class="border-b border-gray-200 hover:bg-indigo-50 transition">
+
+                            {{-- NO --}}
+
+                            <td class="px-3 py-4 align-top">
+
+                                <span class="text-xs font-bold !text-black">
+                                    {{ $loop->iteration }}
+                                </span>
+
+                            </td>
+
+
+                            {{-- PERTANYAAN --}}
+
+                            <td class="px-3 py-4 align-top">
+
+                                <div class="w-64">
+
+                                    <p class="text-xs font-bold !text-black leading-5">
+                                        {{ $item->pertanyaan }}
+                                    </p>
+
+
+                                    {{-- PILIHAN --}}
+
+                                    <div class="mt-2.5 space-y-1">
+
+                                        <div class="flex gap-1.5 text-xs !text-black">
+
+                                            <span class="font-bold text-indigo-700 w-4">
+                                                A.
+                                            </span>
+
+                                            <span class="!text-black">
+                                                {{ $item->pilihan_a }}
+                                            </span>
+
+                                        </div>
+
+
+                                        <div class="flex gap-1.5 text-xs !text-black">
+
+                                            <span class="font-bold text-indigo-700 w-4">
+                                                B.
+                                            </span>
+
+                                            <span class="!text-black">
+                                                {{ $item->pilihan_b }}
+                                            </span>
+
+                                        </div>
+
+
+                                        <div class="flex gap-1.5 text-xs !text-black">
+
+                                            <span class="font-bold text-indigo-700 w-4">
+                                                C.
+                                            </span>
+
+                                            <span class="!text-black">
+                                                {{ $item->pilihan_c }}
+                                            </span>
+
+                                        </div>
+
+
+                                        <div class="flex gap-1.5 text-xs !text-black">
+
+                                            <span class="font-bold text-indigo-700 w-4">
+                                                D.
+                                            </span>
+
+                                            <span class="!text-black">
+                                                {{ $item->pilihan_d }}
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            {{-- KELAS --}}
+
+                            <td class="px-3 py-4 align-top">
+
+                                @if ($item->kelas === 'A')
+
+                                    <span class="inline-flex px-2.5 py-1 rounded-full bg-blue-100 border border-blue-300 !text-blue-900 text-[10px] font-bold">
+                                        Kelas A
+                                    </span>
+
+                                @else
+
+                                    <span class="inline-flex px-2.5 py-1 rounded-full bg-purple-100 border border-purple-300 !text-purple-900 text-[10px] font-bold">
+                                        Kelas B
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+
+                            {{-- KATEGORI --}}
+
+                            <td class="px-3 py-4 align-top">
+
+                                <span class="inline-flex px-2.5 py-1 rounded-full bg-yellow-100 border border-yellow-300 !text-yellow-900 text-[10px] font-bold">
+                                    {{ $item->kategori }}
+                                </span>
+
+                            </td>
+
+
+                            {{-- GAMBAR --}}
+
+                            <td class="px-3 py-4 align-top">
+
+                                @if ($item->gambar)
+
+                                    <img
+                                        src="{{ asset('storage/' . $item->gambar) }}"
+                                        alt="Gambar soal"
+                                        class="w-12 h-12 object-cover rounded-lg border border-gray-300"
+                                    >
+
+                                @else
+
+                                    <span class="text-xs font-medium !text-black">
+                                        Tidak ada gambar
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+
+                            {{-- JAWABAN --}}
+
+                            <td class="px-3 py-4 align-top">
+
+                                <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-green-100 border border-green-300 !text-green-900 text-xs font-bold">
+                                    {{ $item->jawaban }}
+                                </span>
+
+                            </td>
+
+
+                            {{-- AKSI --}}
+
+                            <td class="px-3 py-4 align-top">
+
+                                <div class="flex flex-col gap-1.5 w-20">
+
+                                    <a href="{{ route('kuis.edit', $item) }}"
+                                       class="text-center bg-yellow-500 hover:bg-yellow-600 !text-white text-[11px] font-bold px-2 py-1.5 rounded-md transition">
+
+                                        Edit
+
+                                    </a>
+
+
+                                    <a href="{{ route('kuis.detail', $item) }}"
+                                       class="text-center bg-indigo-600 hover:bg-indigo-700 !text-white text-[11px] font-bold px-2 py-1.5 rounded-md transition">
+
+                                        Detail
+
+                                    </a>
+
+
+                                    <form action="{{ route('kuis.hapus', $item) }}"
+                                          method="POST">
+
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button
+                                            type="submit"
+                                            onclick="return confirm('Yakin ingin menghapus soal ini?')"
+                                            class="w-full bg-red-600 hover:bg-red-700 !text-white text-[11px] font-bold px-2 py-1.5 rounded-md transition">
+
+                                            Hapus
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                    @empty
+
+                        {{-- ================= BELUM ADA DATA ================= --}}
+
+                        <tr>
+
+                            <td colspan="7">
+
+                                <div class="flex flex-col items-center justify-center py-14">
+
+                                    <div class="w-16 h-16 flex items-center justify-center rounded-full bg-indigo-100 mb-4">
+
+                                        <span class="text-3xl">
+                                            📝
+                                        </span>
+
+                                    </div>
+
+
+                                    <h3 class="text-lg font-bold !text-black">
+                                        Belum Ada Soal Kuis
+                                    </h3>
+
+
+                                    <p class="text-xs !text-black mt-1">
+                                        Belum ada data quiz yang ditambahkan.
+                                    </p>
+
+
+                                    <a href="{{ route('kuis.tambah') }}"
+                                       class="mt-4 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 !text-white font-semibold text-sm px-4 py-2 rounded-lg shadow-sm transition">
+
+                                        <span class="font-bold">
+                                            +
+                                        </span>
+
+                                        Tambah Soal
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
 
         </div>
 
@@ -144,312 +396,58 @@
 
 </div>
 
+@endsection
+
+
+{{-- ================= DATATABLES ================= --}}
+
+@push('scripts')
 
 <script>
 
-const questions = [
-
-    {
-        icon: "🍎",
-        question: "Buah apakah yang berwarna merah?",
-        options: [
-            "Apel",
-            "Pisang",
-            "Jeruk",
-            "Anggur"
-        ],
-        answer: "Apel"
-    },
-
-    {
-        icon: "🐱",
-        question: "Hewan apakah yang berbunyi 'Meong'?",
-        options: [
-            "Ayam",
-            "Kucing",
-            "Sapi",
-            "Kambing"
-        ],
-        answer: "Kucing"
-    },
+$(document).ready(function () {
 
-    {
-        icon: "🔴",
-        question: "Warna apakah ini?",
-        options: [
-            "Biru",
-            "Hijau",
-            "Merah",
-            "Kuning"
-        ],
-        answer: "Merah"
-    },
+    @if ($quis->count() > 0)
 
-    {
-        icon: "⭐",
-        question: "Bentuk apakah yang memiliki lima sudut?",
-        options: [
-            "Lingkaran",
-            "Segitiga",
-            "Persegi",
-            "Bintang"
-        ],
-        answer: "Bintang"
-    },
+        new DataTable('#quisTable', {
 
-    {
-        icon: "🔢",
-        question: "Berapakah hasil dari 2 + 3?",
-        options: [
-            "3",
-            "4",
-            "5",
-            "6"
-        ],
-        answer: "5"
-    }
+            pageLength: 10,
 
-];
+            columnDefs: [
 
-let currentQuestion = 0;
-let score = 0;
-let answered = false;
+                {
+                    orderable: false,
+                    searchable: false,
+                    targets: [4, 6]
+                }
 
+            ],
 
-// Menampilkan pertanyaan
-function showQuestion() {
+            language: {
 
-    answered = false;
+                search: "Cari soal:",
 
-    const data = questions[currentQuestion];
+                lengthMenu: "Tampilkan _MENU_ data",
 
-    document.getElementById("questionNumber").innerText =
-        currentQuestion + 1;
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
 
-    document.getElementById("questionIcon").innerText =
-        data.icon;
+                paginate: {
+                    next: "Berikutnya",
+                    previous: "Sebelumnya"
+                },
 
-    document.getElementById("question").innerText =
-        data.question;
+                zeroRecords: "Data tidak ditemukan",
 
-    document.getElementById("score").innerText =
-        score;
+                emptyTable: "Belum ada soal kuis."
 
-    const progress =
-        ((currentQuestion + 1) / questions.length) * 100;
+            }
 
-    document.getElementById("progressBar").style.width =
-        progress + "%";
+        });
 
-    document.getElementById("progressText").innerText =
-        progress + "%";
+    @endif
 
-
-    const optionsContainer =
-        document.getElementById("options");
-
-    optionsContainer.innerHTML = "";
-
-
-    data.options.forEach((option, index) => {
-
-        const button = document.createElement("button");
-
-        button.innerText = option;
-
-        button.className =
-            "rounded-2xl border-2 border-gray-100 bg-gray-50 p-5 text-lg font-bold text-gray-700 transition hover:border-pink-300 hover:bg-pink-50";
-
-        button.onclick = function () {
-
-            selectAnswer(option, button);
-
-        };
-
-        optionsContainer.appendChild(button);
-
-    });
-
-
-    document.getElementById("feedback").classList.add("hidden");
-
-    document.getElementById("nextButton").classList.add("hidden");
-
-}
-
-
-// Ketika jawaban dipilih
-function selectAnswer(selected, button) {
-
-    if (answered) {
-        return;
-    }
-
-    answered = true;
-
-    const correct =
-        questions[currentQuestion].answer;
-
-    const allButtons =
-        document.querySelectorAll("#options button");
-
-
-    allButtons.forEach(btn => {
-
-        btn.disabled = true;
-
-        if (btn.innerText === correct) {
-
-            btn.classList.remove(
-                "bg-gray-50",
-                "border-gray-100"
-            );
-
-            btn.classList.add(
-                "bg-green-100",
-                "border-green-400",
-                "text-green-700"
-            );
-
-        }
-
-    });
-
-
-    const feedback =
-        document.getElementById("feedback");
-
-
-    if (selected === correct) {
-
-        score++;
-
-        button.classList.remove(
-            "bg-gray-50",
-            "border-gray-100"
-        );
-
-        button.classList.add(
-            "bg-green-100",
-            "border-green-400",
-            "text-green-700"
-        );
-
-        feedback.innerText =
-            "🎉 Hebat! Jawaban kamu benar!";
-
-        feedback.className =
-            "mt-6 rounded-2xl bg-green-100 p-4 text-center font-semibold text-green-700";
-
-    } else {
-
-        button.classList.remove(
-            "bg-gray-50",
-            "border-gray-100"
-        );
-
-        button.classList.add(
-            "bg-red-100",
-            "border-red-400",
-            "text-red-700"
-        );
-
-        feedback.innerText =
-            "😊 Tidak apa-apa! Coba lagi di pertanyaan berikutnya.";
-
-        feedback.className =
-            "mt-6 rounded-2xl bg-red-100 p-4 text-center font-semibold text-red-700";
-
-    }
-
-
-    document.getElementById("score").innerText =
-        score;
-
-    document.getElementById("nextButton").classList.remove("hidden");
-
-}
-
-
-// Pertanyaan berikutnya
-function nextQuestion() {
-
-    currentQuestion++;
-
-    if (currentQuestion < questions.length) {
-
-        showQuestion();
-
-    } else {
-
-        showResult();
-
-    }
-
-}
-
-
-// Menampilkan hasil
-function showResult() {
-
-    document.getElementById("quizContent")
-        .classList.add("hidden");
-
-    document.getElementById("result")
-        .classList.remove("hidden");
-
-    document.getElementById("finalScore")
-        .innerText =
-        score + " / " + questions.length;
-
-
-    let message = "";
-
-    if (score === 5) {
-
-        message =
-            "🌟 Sempurna! Kamu hebat sekali!";
-
-    } else if (score >= 3) {
-
-        message =
-            "👏 Bagus! Terus belajar bersama Buba!";
-
-    } else {
-
-        message =
-            "💪 Tetap semangat! Coba kuis lagi ya!";
-
-    }
-
-
-    document.getElementById("resultMessage")
-        .innerText = message;
-
-}
-
-
-// Mengulang kuis
-function restartQuiz() {
-
-    currentQuestion = 0;
-
-    score = 0;
-
-    document.getElementById("quizContent")
-        .classList.remove("hidden");
-
-    document.getElementById("result")
-        .classList.add("hidden");
-
-    showQuestion();
-
-}
-
-
-// Jalankan pertama kali
-showQuestion();
+});
 
 </script>
 
-@endsection
+@endpush

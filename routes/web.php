@@ -46,6 +46,12 @@ Route::prefix('admin')->group(function (){
 
     // RUTE KUIS
     Route::get('/kuis', [QuisController::class, 'index'])->name('kuis.index');
+    Route::get('/kuis/tambah', [QuisController::class, 'create'])->name('kuis.tambah');
+    Route::post('/kuis/kirim', [QuisController::class, 'store'])->name('kuis.kirim');
+    Route::get('/kuis/detail/{quis}', [QuisController::class, 'show'])->name('kuis.detail');
+    Route::get('/kuis/edit/{quis}', [QuisController::class, 'edit'])->name('kuis.edit');
+    Route::put('/kuis/update/{quis}', [QuisController::class, 'update'])->name('kuis.update');
+    Route::delete('/kuis/hapus/{quis}', [QuisController::class, 'destroy'])->name('kuis.hapus');
     // =================================================
 
     // RUTE SISWA
