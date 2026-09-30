@@ -1,43 +1,50 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Tambah Kelas</title>
-	@vite('resources/css/app.css')
-</head>
-<body class="min-h-screen bg-gray-50 text-gray-900 antialiased">
-	<main class="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6">
-		<a href="{{ route('kelas.index') }}" class="text-sm font-medium text-emerald-700 hover:text-emerald-900">&larr; Kembali ke daftar kelas</a>
-		<header class="mb-6 mt-5">
-			<h1 class="text-2xl font-bold tracking-tight text-gray-900">Tambah Kelas</h1>
-			<p class="mt-2 text-sm text-gray-600">Masukkan nama kelas yang akan ditambahkan.</p>
-		</header>
+@extends('layouts.admin.app')
+@section('title', 'Tambah Kelas - BUBA')
 
-		<section class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm sm:p-6">
-			@if ($errors->any())
-				<div class="mb-5 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
-					<ul class="list-inside list-disc space-y-1">
-						@foreach ($errors->all() as $error)
-							<li>{{ $error }}</li>
-						@endforeach
-					</ul>
-				</div>
-			@endif
+@section('content')
+	<div class="max-w-3xl mx-auto">
+		<div class="bg-white rounded-xl shadow-md overflow-hidden">
+			<div class="bg-linear-to-r from-blue-600 to-indigo-600 px-6 py-5">
+				<h1 class="text-2xl font-bold text-white">Tambah Kelas</h1>
+				<p class="text-blue-100 text-sm mt-1">Isi form untuk menambahkan kelas baru</p>
+			</div>
 
-			<form action="{{ route('kelas.store') }}" method="POST">
-				@csrf
-				<div>
-					<label for="nama_kelas" class="mb-2 block text-sm font-medium text-gray-700">Nama Kelas</label>
-					<input id="nama_kelas" name="nama_kelas" type="text" value="{{ old('nama_kelas') }}" required maxlength="255" placeholder="Contoh: Kelas 1A"
-						class="block w-full rounded-md border border-gray-300 px-3 py-2.5 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600/20">
-				</div>
-				<div class="mt-6 flex justify-end gap-3 border-t border-gray-200 pt-5">
-					<a href="{{ route('kelas.index') }}" class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50">Batal</a>
-					<button type="submit" class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2">Simpan</button>
-				</div>
-			</form>
-		</section>
-	</main>
-</body>
-</html>
+			<div class="p-6">
+				@if ($errors->any())
+					<div class="mb-5 bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded" role="alert">
+						<p class="font-semibold mb-1">Terjadi kesalahan:</p>
+						<ul class="list-disc list-inside text-sm space-y-1">
+							@foreach ($errors->all() as $error)
+								<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+				@endif
+
+				<form action="{{ route('kelas.store') }}" method="POST" class="space-y-5">
+					@csrf
+					<div>
+						<label for="nama_kelas" class="block text-sm font-semibold text-gray-700 mb-1">
+							Nama Kelas <span class="text-red-500">*</span>
+						</label>
+						<input type="text" name="nama_kelas" id="nama_kelas" value="{{ old('nama_kelas') }}" required maxlength="255"
+							placeholder="Contoh: Kelas 1A"
+							class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+					</div>
+
+					<div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+						<a href="{{ route('kelas.index') }}"
+							class="px-4 py-2 text-sm font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
+							Batal
+						</a>
+						<button type="submit"
+							class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg shadow transition">
+							<i class="fas fa-check" aria-hidden="true"></i>
+							Simpan Kelas
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+@endsection
