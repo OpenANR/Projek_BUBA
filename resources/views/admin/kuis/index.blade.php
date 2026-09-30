@@ -4,393 +4,453 @@
 
 @section('content')
 
-<div class="max-w-6xl mx-auto px-5 py-5">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
     {{-- ================= HEADER ================= --}}
-    <div class="flex items-center justify-between mb-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-7">
 
-        <div>
-            <h1 class="text-2xl font-bold !text-black">
-                📝 Kelola Kuis
-            </h1>
+        <div class="flex items-center gap-3">
 
-            <p class="mt-1 text-sm !text-black">
-                Kelola soal kuis berdasarkan kelas dan kategori pembelajaran.
-            </p>
+            <div class="w-11 h-11 flex items-center justify-center rounded-xl bg-blue-100 border border-blue-200">
+                <span class="text-xl">📝</span>
+            </div>
+
+            <div>
+                <h1 class="text-2xl font-bold !text-gray-900">
+                    Kelola Kuis
+                </h1>
+
+                <p class="text-sm !text-gray-500 mt-0.5">
+                    Kelola soal berdasarkan kelas dan kategori pembelajaran.
+                </p>
+            </div>
+
         </div>
 
+        {{-- TOMBOL TAMBAH SOAL --}}
         <a href="{{ route('kuis.tambah') }}"
-           class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 !text-white font-semibold px-4 py-2.5 rounded-lg shadow-sm transition">
+           style="background-color: #2563eb !important; color: #ffffff !important;"
+           class="inline-flex items-center justify-center gap-2 font-semibold text-sm px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition duration-200">
 
-            <span class="text-lg font-bold">+</span>
-            <span>Tambah Soal</span>
+            <span style="color: #ffffff !important;" class="text-lg leading-none">
+                +
+            </span>
+
+            <span style="color: #ffffff !important;">
+                Tambah Soal
+            </span>
 
         </a>
 
     </div>
 
 
-    {{-- ================= NOTIFIKASI ================= --}}
-
+    {{-- ================= ALERT SUCCESS ================= --}}
     @if (session('success'))
 
-        <div class="mb-5 px-4 py-3 rounded-lg bg-green-100 border border-green-300">
+        <div class="mb-6 flex items-start gap-3 px-4 py-3.5 rounded-xl bg-green-50 border border-green-200">
 
-            <p class="font-bold !text-green-900 text-sm">
-                Berhasil
-            </p>
+            <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-green-100 flex-shrink-0">
+                <span class="text-green-700 font-bold">
+                    ✓
+                </span>
+            </div>
 
-            <p class="text-xs !text-green-900 mt-1">
-                {{ session('success') }}
-            </p>
+            <div>
+                <p class="font-semibold text-sm text-green-800">
+                    Berhasil
+                </p>
+
+                <p class="text-xs text-green-700 mt-0.5">
+                    {{ session('success') }}
+                </p>
+            </div>
 
         </div>
 
     @endif
 
 
+    {{-- ================= ALERT ERROR ================= --}}
     @if ($errors->any())
 
-        <div class="mb-5 px-4 py-3 rounded-lg bg-red-100 border border-red-300">
+        <div class="mb-6 px-4 py-3.5 rounded-xl bg-red-50 border border-red-200">
 
-            <p class="font-bold !text-red-900 text-sm mb-1">
-                Terdapat kesalahan:
-            </p>
+            <div class="flex items-start gap-3">
 
-            <ul class="list-disc list-inside text-xs !text-red-900">
+                <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 flex-shrink-0">
+                    <span class="text-red-700 font-bold">
+                        !
+                    </span>
+                </div>
 
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                <div>
 
-            </ul>
+                    <p class="font-semibold text-sm text-red-800">
+                        Terdapat kesalahan
+                    </p>
+
+                    <ul class="mt-1.5 space-y-1 text-xs text-red-700">
+
+                        @foreach ($errors->all() as $error)
+                            <li>• {{ $error }}</li>
+                        @endforeach
+
+                    </ul>
+
+                </div>
+
+            </div>
 
         </div>
 
     @endif
 
 
-    {{-- ================= CARD TABEL ================= --}}
+    {{-- ================= CARD DAFTAR SOAL ================= --}}
+    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
 
-    <div class="bg-white border border-gray-300 rounded-xl shadow-md overflow-hidden">
+        {{-- CARD HEADER --}}
+        <div class="px-6 py-5 border-b border-gray-200">
 
-        {{-- HEADER CARD --}}
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
-        <div class="px-5 py-4 bg-white border-b border-gray-300">
+                <div>
 
-            <h2 class="text-lg font-bold !text-black">
-                Daftar Soal Kuis
-            </h2>
+                    <h2 class="text-lg font-bold !text-gray-900">
+                        Daftar Soal Kuis
+                    </h2>
 
-            <p class="text-xs !text-black mt-1">
-                Soal kuis yang telah ditambahkan akan tampil di bawah.
-            </p>
+                    <p class="text-sm !text-gray-500 mt-1">
+                        Soal yang telah ditambahkan akan ditampilkan di sini.
+                    </p>
+
+                </div>
+
+                {{-- TOTAL SOAL --}}
+                <div class="inline-flex items-center gap-2 self-start sm:self-auto px-3 py-2 rounded-lg bg-blue-50 border border-blue-100">
+
+                    <span class="text-xs !text-blue-600">
+                        Total soal
+                    </span>
+
+                    <span class="text-sm font-bold !text-blue-700">
+                        {{ $quis->count() }}
+                    </span>
+
+                </div>
+
+            </div>
 
         </div>
 
 
-        {{-- ================= TABEL ================= --}}
+        {{-- ================= ADA DATA ================= --}}
+        @if ($quis->count() > 0)
 
-        <div class="overflow-x-auto">
+            <div class="overflow-x-auto">
 
-            <table id="quisTable" class="min-w-full">
+                <table id="quisTable" class="min-w-full">
 
-                {{-- HEADER TABEL --}}
-
-                <thead class="bg-gray-100">
-
-                    <tr>
-
-                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
-                            No
-                        </th>
-
-                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
-                            Pertanyaan
-                        </th>
-
-                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
-                            Kelas
-                        </th>
-
-                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
-                            Kategori
-                        </th>
-
-                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
-                            Gambar
-                        </th>
-
-                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
-                            Jawaban
-                        </th>
-
-                        <th class="px-3 py-3 text-left text-[11px] font-bold !text-black uppercase">
-                            Aksi
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                {{-- ISI TABEL --}}
-
-                <tbody class="bg-white">
-
-                    @forelse ($quis as $item)
-
-                        <tr class="border-b border-gray-200 hover:bg-indigo-50 transition">
-
-                            {{-- NO --}}
-
-                            <td class="px-3 py-4 align-top">
-
-                                <span class="text-xs font-bold !text-black">
-                                    {{ $loop->iteration }}
-                                </span>
-
-                            </td>
-
-
-                            {{-- PERTANYAAN --}}
-
-                            <td class="px-3 py-4 align-top">
-
-                                <div class="w-64">
-
-                                    <p class="text-xs font-bold !text-black leading-5">
-                                        {{ $item->pertanyaan }}
-                                    </p>
-
-
-                                    {{-- PILIHAN --}}
-
-                                    <div class="mt-2.5 space-y-1">
-
-                                        <div class="flex gap-1.5 text-xs !text-black">
-
-                                            <span class="font-bold text-indigo-700 w-4">
-                                                A.
-                                            </span>
-
-                                            <span class="!text-black">
-                                                {{ $item->pilihan_a }}
-                                            </span>
-
-                                        </div>
-
-
-                                        <div class="flex gap-1.5 text-xs !text-black">
-
-                                            <span class="font-bold text-indigo-700 w-4">
-                                                B.
-                                            </span>
-
-                                            <span class="!text-black">
-                                                {{ $item->pilihan_b }}
-                                            </span>
-
-                                        </div>
-
-
-                                        <div class="flex gap-1.5 text-xs !text-black">
-
-                                            <span class="font-bold text-indigo-700 w-4">
-                                                C.
-                                            </span>
-
-                                            <span class="!text-black">
-                                                {{ $item->pilihan_c }}
-                                            </span>
-
-                                        </div>
-
-
-                                        <div class="flex gap-1.5 text-xs !text-black">
-
-                                            <span class="font-bold text-indigo-700 w-4">
-                                                D.
-                                            </span>
-
-                                            <span class="!text-black">
-                                                {{ $item->pilihan_d }}
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            {{-- KELAS --}}
-
-                            <td class="px-3 py-4 align-top">
-
-                                @if ($item->kelas === 'A')
-
-                                    <span class="inline-flex px-2.5 py-1 rounded-full bg-blue-100 border border-blue-300 !text-blue-900 text-[10px] font-bold">
-                                        Kelas A
-                                    </span>
-
-                                @else
-
-                                    <span class="inline-flex px-2.5 py-1 rounded-full bg-purple-100 border border-purple-300 !text-purple-900 text-[10px] font-bold">
-                                        Kelas B
-                                    </span>
-
-                                @endif
-
-                            </td>
-
-
-                            {{-- KATEGORI --}}
-
-                            <td class="px-3 py-4 align-top">
-
-                                <span class="inline-flex px-2.5 py-1 rounded-full bg-yellow-100 border border-yellow-300 !text-yellow-900 text-[10px] font-bold">
-                                    {{ $item->kategori }}
-                                </span>
-
-                            </td>
-
-
-                            {{-- GAMBAR --}}
-
-                            <td class="px-3 py-4 align-top">
-
-                                @if ($item->gambar)
-
-                                    <img
-                                        src="{{ asset('storage/' . $item->gambar) }}"
-                                        alt="Gambar soal"
-                                        class="w-12 h-12 object-cover rounded-lg border border-gray-300"
-                                    >
-
-                                @else
-
-                                    <span class="text-xs font-medium !text-black">
-                                        Tidak ada gambar
-                                    </span>
-
-                                @endif
-
-                            </td>
-
-
-                            {{-- JAWABAN --}}
-
-                            <td class="px-3 py-4 align-top">
-
-                                <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-green-100 border border-green-300 !text-green-900 text-xs font-bold">
-                                    {{ $item->jawaban }}
-                                </span>
-
-                            </td>
-
-
-                            {{-- AKSI --}}
-
-                            <td class="px-3 py-4 align-top">
-
-                                <div class="flex flex-col gap-1.5 w-20">
-
-                                    <a href="{{ route('kuis.edit', $item) }}"
-                                       class="text-center bg-yellow-500 hover:bg-yellow-600 !text-white text-[11px] font-bold px-2 py-1.5 rounded-md transition">
-
-                                        Edit
-
-                                    </a>
-
-
-                                    <a href="{{ route('kuis.detail', $item) }}"
-                                       class="text-center bg-indigo-600 hover:bg-indigo-700 !text-white text-[11px] font-bold px-2 py-1.5 rounded-md transition">
-
-                                        Detail
-
-                                    </a>
-
-
-                                    <form action="{{ route('kuis.hapus', $item) }}"
-                                          method="POST">
-
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button
-                                            type="submit"
-                                            onclick="return confirm('Yakin ingin menghapus soal ini?')"
-                                            class="w-full bg-red-600 hover:bg-red-700 !text-white text-[11px] font-bold px-2 py-1.5 rounded-md transition">
-
-                                            Hapus
-
-                                        </button>
-
-                                    </form>
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-
-
-                    @empty
-
-                        {{-- ================= BELUM ADA DATA ================= --}}
+                    <thead class="bg-gray-50 border-b border-gray-200">
 
                         <tr>
 
-                            <td colspan="7">
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                No
+                            </th>
 
-                                <div class="flex flex-col items-center justify-center py-14">
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Pertanyaan
+                            </th>
 
-                                    <div class="w-16 h-16 flex items-center justify-center rounded-full bg-indigo-100 mb-4">
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Kelas
+                            </th>
 
-                                        <span class="text-3xl">
-                                            📝
-                                        </span>
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Kategori
+                            </th>
 
-                                    </div>
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Gambar
+                            </th>
 
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Jawaban
+                            </th>
 
-                                    <h3 class="text-lg font-bold !text-black">
-                                        Belum Ada Soal Kuis
-                                    </h3>
-
-
-                                    <p class="text-xs !text-black mt-1">
-                                        Belum ada data quiz yang ditambahkan.
-                                    </p>
-
-
-                                    <a href="{{ route('kuis.tambah') }}"
-                                       class="mt-4 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 !text-white font-semibold text-sm px-4 py-2 rounded-lg shadow-sm transition">
-
-                                        <span class="font-bold">
-                                            +
-                                        </span>
-
-                                        Tambah Soal
-
-                                    </a>
-
-                                </div>
-
-                            </td>
+                            <th class="px-5 py-4 text-center text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Aksi
+                            </th>
 
                         </tr>
 
-                    @endforelse
+                    </thead>
 
-                </tbody>
 
-            </table>
+                    <tbody class="divide-y divide-gray-100">
 
-        </div>
+                        @foreach ($quis as $item)
+
+                            <tr class="hover:bg-blue-50/40 transition duration-150">
+
+                                {{-- NO --}}
+                                <td class="px-5 py-5 align-top">
+
+                                    <span class="text-sm font-semibold !text-gray-700">
+                                        {{ $loop->iteration }}
+                                    </span>
+
+                                </td>
+
+
+                                {{-- PERTANYAAN --}}
+                                <td class="px-5 py-5 align-top">
+
+                                    <div class="min-w-[280px] max-w-md">
+
+                                        <p class="text-sm font-semibold !text-gray-900 leading-5">
+                                            {{ $item->pertanyaan }}
+                                        </p>
+
+                                        <div class="mt-3 space-y-1.5">
+
+                                            <div class="flex gap-2 text-xs !text-gray-600">
+                                                <span class="font-bold !text-blue-600 w-4">
+                                                    A.
+                                                </span>
+
+                                                <span>
+                                                    {{ $item->pilihan_a }}
+                                                </span>
+                                            </div>
+
+                                            <div class="flex gap-2 text-xs !text-gray-600">
+                                                <span class="font-bold !text-blue-600 w-4">
+                                                    B.
+                                                </span>
+
+                                                <span>
+                                                    {{ $item->pilihan_b }}
+                                                </span>
+                                            </div>
+
+                                            <div class="flex gap-2 text-xs !text-gray-600">
+                                                <span class="font-bold !text-blue-600 w-4">
+                                                    C.
+                                                </span>
+
+                                                <span>
+                                                    {{ $item->pilihan_c }}
+                                                </span>
+                                            </div>
+
+                                            <div class="flex gap-2 text-xs !text-gray-600">
+                                                <span class="font-bold !text-blue-600 w-4">
+                                                    D.
+                                                </span>
+
+                                                <span>
+                                                    {{ $item->pilihan_d }}
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                {{-- KELAS --}}
+                                <td class="px-5 py-5 align-top">
+
+                                    @if ($item->kategori && $item->kategori->kelas)
+
+                                        <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
+                                            {{ $item->kategori->kelas->nama_kelas }}
+                                        </span>
+
+                                    @else
+
+                                        <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-500 text-xs font-semibold">
+                                            -
+                                        </span>
+
+                                    @endif
+
+                                </td>
+
+
+                                {{-- KATEGORI --}}
+                                <td class="px-5 py-5 align-top">
+
+                                    @if ($item->kategori)
+
+                                        <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 text-xs font-semibold">
+                                            {{ $item->kategori->nama_kategori }}
+                                        </span>
+
+                                    @else
+
+                                        <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-500 text-xs font-semibold">
+                                            -
+                                        </span>
+
+                                    @endif
+
+                                </td>
+
+
+                                {{-- GAMBAR --}}
+                                <td class="px-5 py-5 align-top">
+
+                                    @if ($item->gambar)
+
+                                        <img
+                                            src="{{ asset('storage/' . $item->gambar) }}"
+                                            alt="Gambar soal"
+                                            class="w-14 h-14 object-cover rounded-xl border border-gray-200 shadow-sm"
+                                        >
+
+                                    @else
+
+                                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-gray-50 border border-gray-200">
+
+                                            <span class="text-lg !text-gray-400">
+                                                —
+                                            </span>
+
+                                        </div>
+
+                                    @endif
+
+                                </td>
+
+
+                                {{-- JAWABAN --}}
+                                <td class="px-5 py-5 align-top">
+
+                                    <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm font-bold">
+                                        {{ $item->jawaban }}
+                                    </span>
+
+                                </td>
+
+
+                                {{-- AKSI --}}
+                                <td class="px-5 py-5 align-top">
+
+                                    <div class="flex items-center justify-center gap-2">
+
+                                        {{-- DETAIL --}}
+                                        <a href="{{ route('kuis.detail', $item) }}"
+                                           title="Detail"
+                                           style="background-color: #eff6ff !important; color: #2563eb !important;"
+                                           class="w-9 h-9 flex items-center justify-center rounded-lg border border-blue-200 transition">
+
+                                            <i class="fa-solid fa-eye text-xs"
+                                               style="color: #2563eb !important;"></i>
+
+                                        </a>
+
+
+                                        {{-- EDIT --}}
+                                        <a href="{{ route('kuis.edit', $item) }}"
+                                           title="Edit"
+                                           style="background-color: #fffbeb !important; color: #d97706 !important;"
+                                           class="w-9 h-9 flex items-center justify-center rounded-lg border border-amber-200 transition">
+
+                                            <i class="fa-solid fa-pen text-xs"
+                                               style="color: #d97706 !important;"></i>
+
+                                        </a>
+
+
+                                        {{-- HAPUS --}}
+                                        <form action="{{ route('kuis.hapus', $item) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Yakin ingin menghapus soal ini?')">
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button
+                                                type="submit"
+                                                title="Hapus"
+                                                style="background-color: #fef2f2 !important; color: #dc2626 !important;"
+                                                class="w-9 h-9 flex items-center justify-center rounded-lg border border-red-200 transition">
+
+                                                <i class="fa-solid fa-trash text-xs"
+                                                   style="color: #dc2626 !important;"></i>
+
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        @endforeach
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        {{-- ================= BELUM ADA DATA ================= --}}
+        @else
+
+            <div class="px-6 py-16">
+
+                <div class="max-w-md mx-auto text-center">
+
+                    <div class="mx-auto w-20 h-20 flex items-center justify-center rounded-2xl bg-blue-50 border border-blue-100">
+
+                        <span class="text-4xl">
+                            📝
+                        </span>
+
+                    </div>
+
+
+                    <h3 class="mt-5 text-xl font-bold !text-gray-900">
+                        Belum Ada Soal Kuis
+                    </h3>
+
+
+                    <p class="mt-2 text-sm !text-gray-500 leading-6">
+                        Belum ada soal kuis yang ditambahkan.
+                        Silakan tambahkan soal pertama untuk mulai mengisi kuis BUBA.
+                    </p>
+
+
+                    {{-- TOMBOL TAMBAH SOAL PERTAMA --}}
+                    <a href="{{ route('kuis.tambah') }}"
+                       style="background-color: #2563eb !important; color: #ffffff !important;"
+                       class="mt-6 inline-flex items-center gap-2 font-semibold text-sm px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition">
+
+                        <span style="color: #ffffff !important;" class="text-lg leading-none">
+                            +
+                        </span>
+
+                        <span style="color: #ffffff !important;">
+                            Tambah Soal Pertama
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        @endif
 
     </div>
 
@@ -400,11 +460,9 @@
 
 
 {{-- ================= DATATABLES ================= --}}
-
 @push('scripts')
 
 <script>
-
 $(document).ready(function () {
 
     @if ($quis->count() > 0)
@@ -414,21 +472,16 @@ $(document).ready(function () {
             pageLength: 10,
 
             columnDefs: [
-
                 {
                     orderable: false,
                     searchable: false,
                     targets: [4, 6]
                 }
-
             ],
 
             language: {
-
                 search: "Cari soal:",
-
                 lengthMenu: "Tampilkan _MENU_ data",
-
                 info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
 
                 paginate: {
@@ -437,9 +490,7 @@ $(document).ready(function () {
                 },
 
                 zeroRecords: "Data tidak ditemukan",
-
                 emptyTable: "Belum ada soal kuis."
-
             }
 
         });
@@ -447,7 +498,6 @@ $(document).ready(function () {
     @endif
 
 });
-
 </script>
 
 @endpush

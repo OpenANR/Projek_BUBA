@@ -6,6 +6,7 @@
 
 <div class="max-w-4xl mx-auto">
 
+    {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
 
         <div>
@@ -29,6 +30,48 @@
 
 
     <div class="bg-white rounded-xl shadow-md p-6">
+
+        {{-- Kode Kuis --}}
+        <div class="mb-5">
+
+            <p class="text-sm font-semibold text-gray-500 mb-2">
+                Kode Kuis
+            </p>
+
+            <div class="bg-gray-50 rounded-lg p-4 text-gray-800 font-semibold">
+                {{ $quis->kode_kuis }}
+            </div>
+
+        </div>
+
+
+        {{-- Kelas --}}
+        <div class="mb-5">
+
+            <p class="text-sm font-semibold text-gray-500 mb-2">
+                Kelas
+            </p>
+
+            <div class="bg-gray-50 rounded-lg p-4 text-gray-800 font-semibold">
+                {{ $quis->kategori->kelas->nama_kelas ?? '-' }}
+            </div>
+
+        </div>
+
+
+        {{-- Kategori --}}
+        <div class="mb-6">
+
+            <p class="text-sm font-semibold text-gray-500 mb-2">
+                Kategori
+            </p>
+
+            <div class="bg-gray-50 rounded-lg p-4 text-gray-800 font-semibold">
+                {{ $quis->kategori->nama_kategori ?? '-' }}
+            </div>
+
+        </div>
+
 
         {{-- Pertanyaan --}}
         <div class="mb-6">
@@ -64,38 +107,77 @@
         @endif
 
 
-        {{-- Pilihan --}}
-        <div class="grid md:grid-cols-2 gap-4 mb-6">
+        {{-- Pilihan Jawaban --}}
+        <div class="mb-6">
 
-            <div class="border border-gray-200 rounded-lg p-4">
+            <p class="text-sm font-semibold text-gray-500 mb-3">
+                Pilihan Jawaban
+            </p>
 
-                <p class="text-sm text-gray-500 mb-1">
-                    Pilihan A
-                </p>
-
-                <p class="font-semibold text-gray-800">
-                    {{ $quis->pilihan_a }}
-                </p>
-
-            </div>
+            <div class="grid md:grid-cols-2 gap-4">
 
 
-            <div class="border border-gray-200 rounded-lg p-4">
+                {{-- A --}}
+                <div class="border border-gray-200 rounded-lg p-4">
 
-                <p class="text-sm text-gray-500 mb-1">
-                    Pilihan B
-                </p>
+                    <p class="text-sm text-gray-500 mb-1">
+                        Pilihan A
+                    </p>
 
-                <p class="font-semibold text-gray-800">
-                    {{ $quis->pilihan_b }}
-                </p>
+                    <p class="font-semibold text-gray-800">
+                        {{ $quis->pilihan_a }}
+                    </p>
+
+                </div>
+
+
+                {{-- B --}}
+                <div class="border border-gray-200 rounded-lg p-4">
+
+                    <p class="text-sm text-gray-500 mb-1">
+                        Pilihan B
+                    </p>
+
+                    <p class="font-semibold text-gray-800">
+                        {{ $quis->pilihan_b }}
+                    </p>
+
+                </div>
+
+
+                {{-- C --}}
+                <div class="border border-gray-200 rounded-lg p-4">
+
+                    <p class="text-sm text-gray-500 mb-1">
+                        Pilihan C
+                    </p>
+
+                    <p class="font-semibold text-gray-800">
+                        {{ $quis->pilihan_c }}
+                    </p>
+
+                </div>
+
+
+                {{-- D --}}
+                <div class="border border-gray-200 rounded-lg p-4">
+
+                    <p class="text-sm text-gray-500 mb-1">
+                        Pilihan D
+                    </p>
+
+                    <p class="font-semibold text-gray-800">
+                        {{ $quis->pilihan_d }}
+                    </p>
+
+                </div>
 
             </div>
 
         </div>
 
 
-        {{-- Jawaban --}}
+        {{-- Jawaban Benar --}}
         <div class="mb-6">
 
             <p class="text-sm font-semibold text-gray-500 mb-2">
@@ -110,7 +192,14 @@
 
 
         {{-- Tombol --}}
-        <div class="flex justify-end">
+        <div class="flex justify-end gap-3">
+
+            <a
+                href="{{ route('kuis.index') }}"
+                class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg"
+            >
+                Kembali
+            </a>
 
             <a
                 href="{{ route('kuis.edit', $quis) }}"
