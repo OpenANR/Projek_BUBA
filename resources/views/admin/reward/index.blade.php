@@ -4,6 +4,6 @@
 
 @section('content')
 
-
+<h1>TESTING HALAMAN INDEX</h1>
 
 @endsection
