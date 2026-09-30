@@ -13,7 +13,7 @@ class MateriController extends Controller
     public function index(Request $request){
         $materi = Materi::all();
         $kategori = Kategori::get();
-        
+
         if($request->wantsJson()){
             return response()->json(compact('materi', 'kategori'));
         }
@@ -52,6 +52,8 @@ class MateriController extends Controller
         }
 
         Materi::create($data);
+
+        return response()->json($data);
 
         return redirect()->route('materi.index')->with('succes', 'Data berhasil ditambahkan');
     }
