@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Override;
 
 class Quis extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'kode_kuis',
         'kelas_id',
@@ -22,13 +20,29 @@ class Quis extends Model
         'jawaban',
     ];
 
-    // Relasi Quis ke Kelas
+    #[Override]
+    protected static function booted()
+    {
+        static::creating(function ($quis) {
+
+            $nomorKuis = (self::max('id') ?? 0) + 1;
+
+            $quis->kode_kuis = 'KUIS-' .
+                str_pad($nomorKuis, 4, '0', STR_PAD_LEFT);
+        });
+    }
+
+    #[Override]
+    public function getRouteKeyName(): string
+    {
+        return 'kode_kuis';
+    }
+
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
-    // Relasi Quis ke Kategori
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');

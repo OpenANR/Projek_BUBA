@@ -24,7 +24,6 @@
         </a>
     </div>
 
-
     {{-- Error Validasi --}}
     @if ($errors->any())
         <div class="mb-5 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700">
@@ -36,7 +35,6 @@
         </div>
     @endif
 
-
     {{-- Form --}}
     <div class="bg-white rounded-xl shadow-md p-6">
 
@@ -45,29 +43,6 @@
               enctype="multipart/form-data">
 
             @csrf
-
-
-            {{-- Kode Kuis --}}
-            <div class="mb-5">
-
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Kode Kuis
-                </label>
-
-                <input
-                    type="text"
-                    name="kode_kuis"
-                    value="{{ old('kode_kuis') }}"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
-                    placeholder="Contoh: KUIS001"
-                    required>
-
-                <p class="text-xs text-gray-500 mt-2">
-                    Masukkan kode kuis yang berbeda untuk setiap soal.
-                </p>
-
-            </div>
-
 
             {{-- Pertanyaan --}}
             <div class="mb-5">
@@ -83,8 +58,13 @@
                     placeholder="Masukkan pertanyaan kuis..."
                     required>{{ old('pertanyaan') }}</textarea>
 
-            </div>
+                @error('pertanyaan')
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+                @enderror
 
+            </div>
 
             {{-- Kelas --}}
             <div class="mb-5">
@@ -117,8 +97,13 @@
 
                 </select>
 
-            </div>
+                @error('kelas_id')
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+                @enderror
 
+            </div>
 
             {{-- Kategori --}}
             <div class="mb-5">
@@ -164,7 +149,6 @@
 
             </div>
 
-
             {{-- Pilihan Jawaban --}}
             <div class="mb-5">
 
@@ -172,8 +156,7 @@
                     Pilihan Jawaban
                 </label>
 
-
-                {{-- A --}}
+                {{-- Pilihan A --}}
                 <div class="mb-3">
 
                     <label class="block text-sm font-medium text-gray-700 mb-1">
@@ -190,8 +173,7 @@
 
                 </div>
 
-
-                {{-- B --}}
+                {{-- Pilihan B --}}
                 <div class="mb-3">
 
                     <label class="block text-sm font-medium text-gray-700 mb-1">
@@ -208,8 +190,7 @@
 
                 </div>
 
-
-                {{-- C --}}
+                {{-- Pilihan C --}}
                 <div class="mb-3">
 
                     <label class="block text-sm font-medium text-gray-700 mb-1">
@@ -226,8 +207,7 @@
 
                 </div>
 
-
-                {{-- D --}}
+                {{-- Pilihan D --}}
                 <div>
 
                     <label class="block text-sm font-medium text-gray-700 mb-1">
@@ -245,7 +225,6 @@
                 </div>
 
             </div>
-
 
             {{-- Jawaban Benar --}}
             <div class="mb-5">
@@ -281,8 +260,13 @@
 
                 </select>
 
-            </div>
+                @error('jawaban')
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+                @enderror
 
+            </div>
 
             {{-- Gambar --}}
             <div class="mb-6">
@@ -307,8 +291,13 @@
                     Format: JPG, JPEG, PNG, WEBP. Maksimal 2 MB.
                 </p>
 
-            </div>
+                @error('gambar')
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+                @enderror
 
+            </div>
 
             {{-- Tombol --}}
             <div class="flex justify-end gap-3">
@@ -336,7 +325,6 @@
 
 </div>
 
-
 {{-- Filter Kategori Berdasarkan Kelas --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -352,21 +340,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const kelasId = kelasSelect.value;
 
-        // Sembunyikan/tampilkan kategori sesuai kelas
         semuaKategori.forEach(function (option) {
 
             if (option.dataset.kelas === kelasId) {
-
                 option.hidden = false;
-
             } else {
-
                 option.hidden = true;
-
             }
 
         });
-
 
         // Jika kelas belum dipilih
         if (!kelasId) {
@@ -379,13 +361,11 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-
         // Jika kelas sudah dipilih
         kategoriSelect.querySelector('option[value=""]').textContent =
             '-- Pilih Kategori --';
 
-
-        // Pastikan kategori yang sedang dipilih memang milik kelas tersebut
+        // Pastikan kategori sesuai dengan kelas
         const kategoriTerpilih = kategoriSelect.value;
 
         const masihValid = semuaKategori.some(function (option) {
@@ -395,28 +375,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
-
         if (!masihValid) {
-
             kategoriSelect.value = '';
-
         }
 
     }
 
-
+    // Jika kelas berubah
     kelasSelect.addEventListener('change', function () {
 
-        // Setiap kali kelas berubah,
-        // kategori harus dipilih ulang
         kategoriSelect.value = '';
 
         filterKategori();
 
     });
 
-
-    // Jalankan saat halaman pertama kali dibuka
+    // Jalankan saat halaman pertama dibuka
     filterKategori();
 
 });

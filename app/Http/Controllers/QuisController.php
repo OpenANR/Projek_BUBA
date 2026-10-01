@@ -22,7 +22,6 @@ class QuisController extends Controller
         return view('admin.kuis.index', compact('quis'));
     }
 
-
     /**
      * Menampilkan halaman tambah soal
      */
@@ -44,24 +43,16 @@ class QuisController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_kuis' => 'required|string|max:50|unique:quis,kode_kuis',
-
             'kelas_id' => 'required|exists:kelas,id',
-
             'kategori_id' => 'required|exists:kategoris,id',
-
             'pertanyaan' => 'required|string',
-
             'pilihan_a' => 'required|string',
             'pilihan_b' => 'required|string',
             'pilihan_c' => 'required|string',
             'pilihan_d' => 'required|string',
-
             'jawaban' => 'required|in:A,B,C,D',
-
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
-
 
         /*
         |--------------------------------------------------------------------------
@@ -82,24 +73,18 @@ class QuisController extends Controller
                 ]);
         }
 
-
         /*
         |--------------------------------------------------------------------------
         | Cek pertanyaan duplikat berdasarkan kelas
         |--------------------------------------------------------------------------
-        |
-        | Pertanyaan sama + kelas sama    = ditolak
-        | Pertanyaan sama + kelas berbeda = diperbolehkan
-        |
         */
 
         $sudahAda = Quis::whereRaw(
             'LOWER(TRIM(pertanyaan)) = ?',
             [strtolower(trim($request->pertanyaan))]
         )
-        ->where('kelas_id', $request->kelas_id)
-        ->exists();
-
+            ->where('kelas_id', $request->kelas_id)
+            ->exists();
 
         if ($sudahAda) {
             return back()
@@ -110,32 +95,26 @@ class QuisController extends Controller
                 ]);
         }
 
-
         /*
         |--------------------------------------------------------------------------
         | Data yang disimpan
         |--------------------------------------------------------------------------
+        |
+        | kode_kuis TIDAK dibuat di controller.
+        | Kode otomatis dibuat oleh Quis.php.
+        |
         */
 
         $data = [
-            'kode_kuis' => $request->kode_kuis,
-
-            // Relasi langsung ke kelas
             'kelas_id' => $request->kelas_id,
-
-            // Relasi langsung ke kategori
             'kategori_id' => $request->kategori_id,
-
             'pertanyaan' => $request->pertanyaan,
-
             'pilihan_a' => $request->pilihan_a,
             'pilihan_b' => $request->pilihan_b,
             'pilihan_c' => $request->pilihan_c,
             'pilihan_d' => $request->pilihan_d,
-
             'jawaban' => $request->jawaban,
         ];
-
 
         /*
         |--------------------------------------------------------------------------
@@ -149,7 +128,6 @@ class QuisController extends Controller
                 ->store('quis', 'public');
         }
 
-
         /*
         |--------------------------------------------------------------------------
         | Simpan soal
@@ -158,7 +136,6 @@ class QuisController extends Controller
 
         Quis::create($data);
 
-
         return redirect()
             ->route('kuis.index')
             ->with(
@@ -166,7 +143,6 @@ class QuisController extends Controller
                 'Soal kuis berhasil ditambahkan.'
             );
     }
-
 
     /**
      * Menampilkan detail soal
@@ -180,7 +156,6 @@ class QuisController extends Controller
             compact('quis')
         );
     }
-
 
     /**
      * Menampilkan halaman edit
@@ -203,44 +178,22 @@ class QuisController extends Controller
         );
     }
 
-
     /**
      * Memperbarui soal
      */
     public function update(Request $request, Quis $quis)
     {
         $request->validate([
-            'kode_kuis' =>
-                'required|string|max:50|unique:quis,kode_kuis,' . $quis->id,
-
-            'kelas_id' =>
-                'required|exists:kelas,id',
-
-            'kategori_id' =>
-                'required|exists:kategoris,id',
-
-            'pertanyaan' =>
-                'required|string',
-
-            'pilihan_a' =>
-                'required|string',
-
-            'pilihan_b' =>
-                'required|string',
-
-            'pilihan_c' =>
-                'required|string',
-
-            'pilihan_d' =>
-                'required|string',
-
-            'jawaban' =>
-                'required|in:A,B,C,D',
-
-            'gambar' =>
-                'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'kelas_id' => 'required|exists:kelas,id',
+            'kategori_id' => 'required|exists:kategoris,id',
+            'pertanyaan' => 'required|string',
+            'pilihan_a' => 'required|string',
+            'pilihan_b' => 'required|string',
+            'pilihan_c' => 'required|string',
+            'pilihan_d' => 'required|string',
+            'jawaban' => 'required|in:A,B,C,D',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
-
 
         /*
         |--------------------------------------------------------------------------
@@ -261,7 +214,6 @@ class QuisController extends Controller
                 ]);
         }
 
-
         /*
         |--------------------------------------------------------------------------
         | Cek pertanyaan duplikat berdasarkan kelas
@@ -272,10 +224,9 @@ class QuisController extends Controller
             'LOWER(TRIM(pertanyaan)) = ?',
             [strtolower(trim($request->pertanyaan))]
         )
-        ->where('kelas_id', $request->kelas_id)
-        ->where('id', '!=', $quis->id)
-        ->exists();
-
+            ->where('kelas_id', $request->kelas_id)
+            ->where('id', '!=', $quis->id)
+            ->exists();
 
         if ($sudahAda) {
             return back()
@@ -286,44 +237,25 @@ class QuisController extends Controller
                 ]);
         }
 
-
         /*
         |--------------------------------------------------------------------------
         | Data yang diperbarui
         |--------------------------------------------------------------------------
+        |
+        | Kode kuis tidak diubah saat edit.
+        |
         */
 
         $data = [
-            'kode_kuis' =>
-                $request->kode_kuis,
-
-            // Update kelas secara langsung
-            'kelas_id' =>
-                $request->kelas_id,
-
-            // Update kategori secara langsung
-            'kategori_id' =>
-                $request->kategori_id,
-
-            'pertanyaan' =>
-                $request->pertanyaan,
-
-            'pilihan_a' =>
-                $request->pilihan_a,
-
-            'pilihan_b' =>
-                $request->pilihan_b,
-
-            'pilihan_c' =>
-                $request->pilihan_c,
-
-            'pilihan_d' =>
-                $request->pilihan_d,
-
-            'jawaban' =>
-                $request->jawaban,
+            'kelas_id' => $request->kelas_id,
+            'kategori_id' => $request->kategori_id,
+            'pertanyaan' => $request->pertanyaan,
+            'pilihan_a' => $request->pilihan_a,
+            'pilihan_b' => $request->pilihan_b,
+            'pilihan_c' => $request->pilihan_c,
+            'pilihan_d' => $request->pilihan_d,
+            'jawaban' => $request->jawaban,
         ];
-
 
         /*
         |--------------------------------------------------------------------------
@@ -332,7 +264,6 @@ class QuisController extends Controller
         */
 
         if ($request->hasFile('gambar')) {
-
             if ($quis->gambar) {
                 Storage::disk('public')
                     ->delete($quis->gambar);
@@ -343,7 +274,6 @@ class QuisController extends Controller
                 ->store('quis', 'public');
         }
 
-
         /*
         |--------------------------------------------------------------------------
         | Update soal
@@ -352,7 +282,6 @@ class QuisController extends Controller
 
         $quis->update($data);
 
-
         return redirect()
             ->route('kuis.index')
             ->with(
@@ -360,7 +289,6 @@ class QuisController extends Controller
                 'Soal kuis berhasil diperbarui.'
             );
     }
-
 
     /**
      * Menghapus soal
