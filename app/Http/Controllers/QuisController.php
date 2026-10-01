@@ -15,11 +15,11 @@ class QuisController extends Controller
      */
     public function index()
     {
-    $quis = Quis::with(['kelas', 'kategori'])
-        ->orderBy('id', 'asc')
-        ->get();
+        $quis = Quis::with(['kelas', 'kategori'])
+            ->orderBy('id', 'asc')
+            ->get();
 
-    return view('admin.kuis.index', compact('quis'));
+        return view('admin.kuis.index', compact('quis'));
     }
 
     /**
@@ -45,13 +45,28 @@ class QuisController extends Controller
         $request->validate([
             'kelas_id' => 'required|exists:kelas,id',
             'kategori_id' => 'required|exists:kategoris,id',
-            'pertanyaan' => 'required|string',
+
+            'pertanyaan' => [
+                'required',
+                'string',
+                'regex:/^[A-Za-z0-9\s?=+\-]+$/',
+            ],
+
             'pilihan_a' => 'required|string',
             'pilihan_b' => 'required|string',
             'pilihan_c' => 'required|string',
             'pilihan_d' => 'required|string',
+
             'jawaban' => 'required|in:A,B,C,D',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'gambar' =>
+                'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ], [
+            'pertanyaan.required' =>
+                'Pertanyaan harus diisi.',
+
+            'pertanyaan.regex' =>
+                'Pertanyaan hanya boleh menggunakan huruf, angka, spasi, dan simbol ?, =, +, -.',
         ]);
 
         /*
@@ -100,7 +115,7 @@ class QuisController extends Controller
         | Data yang disimpan
         |--------------------------------------------------------------------------
         |
-        | kode_kuis TIDAK dibuat di controller.
+        | kode_kuis tidak dibuat di controller.
         | Kode otomatis dibuat oleh Quis.php.
         |
         */
@@ -186,13 +201,28 @@ class QuisController extends Controller
         $request->validate([
             'kelas_id' => 'required|exists:kelas,id',
             'kategori_id' => 'required|exists:kategoris,id',
-            'pertanyaan' => 'required|string',
+
+            'pertanyaan' => [
+                'required',
+                'string',
+                'regex:/^[A-Za-z0-9\s?=+\-]+$/',
+            ],
+
             'pilihan_a' => 'required|string',
             'pilihan_b' => 'required|string',
             'pilihan_c' => 'required|string',
             'pilihan_d' => 'required|string',
+
             'jawaban' => 'required|in:A,B,C,D',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'gambar' =>
+                'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ], [
+            'pertanyaan.required' =>
+                'Pertanyaan harus diisi.',
+
+            'pertanyaan.regex' =>
+                'Pertanyaan hanya boleh menggunakan huruf, angka, spasi, dan simbol ?, =, +, -.',
         ]);
 
         /*
