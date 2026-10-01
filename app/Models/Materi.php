@@ -2,13 +2,22 @@
 
 namespace App\Models;
 
+// Model dasar dari Laravel Eloquent
 use Illuminate\Database\Eloquent\Model;
+
+// Digunakan untuk membuat kode materi secara acak
 use Illuminate\Support\Str;
+
 use Override;
+
+// Model Kelas
 use App\Models\Kelas;
 
 class Materi extends Model
 {
+    // =====================================================
+    // FIELD YANG BOLEH DIISI MENGGUNAKAN Materi::create()
+    // =====================================================
     protected $fillable = [
         'kode_materi',
         'nama_materi',
@@ -19,31 +28,69 @@ class Materi extends Model
         'kelas_id'
     ];
 
+
+    // =====================================================
+    // MEMBUAT KODE MATERI OTOMATIS
+    // =====================================================
     #[Override]
     protected static function booted()
     {
+        // Berjalan otomatis ketika data materi akan dibuat
         static::creating(function($materi) {
+
             do {
+                // Membuat kode seperti:
+                // MTR-AB12
                 $code = 'MTR-' . Str::upper(Str::random(4));
+
+            // Memastikan kode yang dibuat belum digunakan
             } while (self::where('kode_materi', $code)->exists());
 
+            // Menyimpan kode yang sudah dibuat
+            // ke field kode_materi
             $materi->kode_materi = $code;
         });
     }
 
+
+    // =====================================================
+    // MENGGUNAKAN kode_materi SEBAGAI ROUTE KEY
+    // =====================================================
     #[Override]
     public function getRouteKeyName(): string
     {
+        // Secara default Laravel menggunakan "id".
+        // Di sini Laravel menggunakan "kode_materi".
         return 'kode_materi';
     }
 
+
+    // =====================================================
+    // RELASI MATERI DENGAN KATEGORI
+    // =====================================================
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class, 'kategori_id');
+        // Satu materi dimiliki oleh satu kategori
+        // kategori_id pada tabel materi
+        // berhubungan dengan id pada tabel kategoris
+        return $this->belongsTo(
+            Kategori::class,
+            'kategori_id'
+        );
     }
 
+
+    // =====================================================
+    // RELASI MATERI DENGAN KELAS
+    // =====================================================
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
+        // Satu materi dimiliki oleh satu kelas
+        // kelas_id pada tabel materi
+        // berhubungan dengan id pada tabel kelas
+        return $this->belongsTo(
+            Kelas::class,
+            'kelas_id'
+        );
     }
 }
