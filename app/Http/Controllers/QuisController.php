@@ -15,11 +15,11 @@ class QuisController extends Controller
      */
     public function index()
     {
-        $quis = Quis::with(['kelas', 'kategori'])
-            ->latest()
-            ->get();
+    $quis = Quis::with(['kelas', 'kategori'])
+        ->orderBy('id', 'asc')
+        ->get();
 
-        return view('admin.kuis.index', compact('quis'));
+    return view('admin.kuis.index', compact('quis'));
     }
 
     /**
