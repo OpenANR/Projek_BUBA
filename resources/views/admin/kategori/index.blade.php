@@ -2,35 +2,6 @@
 @section('title', 'Kelola Kategori - BUBA')
 
 @section('content')
-<<<<<<< HEAD
-<body>
-    <h1>KELOLA KATEGORI</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nama Kategori</th>
-                <th>Deskripsi</th>
-                <th>Kelas</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach ($categories as $item)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->nama_kategori }}</td>
-                    <td>{{ $item->deskripsi }}</td>
-                    <td>{{ $item->kelas->nama_kelas }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</body>
-@endsection
-=======
 	<div class="max-w-6xl mx-auto">
 		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
 			<div>
@@ -116,4 +87,3 @@
 		</div>
 	</div>
 @endsection
->>>>>>> 62312ce (Perbaikan kategori)

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-@extends('layouts.development.development')
-@section('title', 'Tambah Kategori - BUBA');
-=======
 @extends('layouts.admin.app')
 @section('title', 'Tambah Kategori - BUBA')
 
@@ -120,4 +116,3 @@
         });
     </script>
 @endpush
->>>>>>> 62312ce (Perbaikan kategori)
