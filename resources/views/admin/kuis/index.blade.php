@@ -4,7 +4,11 @@
 
 @section('content')
 
+<<<<<<< HEAD
 <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+=======
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+>>>>>>> 62312ce (Perbaikan kategori)
 
     {{-- ================= HEADER ================= --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-7">
@@ -27,6 +31,7 @@
 
         </div>
 
+<<<<<<< HEAD
 
         {{-- TOMBOL TAMBAH SOAL --}}
         <a href="{{ route('kuis.tambah') }}"
@@ -34,6 +39,12 @@
            class="inline-flex items-center justify-center gap-2
                   font-semibold text-sm px-5 py-3 rounded-xl
                   shadow-sm hover:shadow-md transition duration-200">
+=======
+        {{-- TOMBOL TAMBAH SOAL --}}
+        <a href="{{ route('kuis.tambah') }}"
+           style="background-color: #2563eb !important; color: #ffffff !important;"
+           class="inline-flex items-center justify-center gap-2 font-semibold text-sm px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition duration-200">
+>>>>>>> 62312ce (Perbaikan kategori)
 
             <span style="color: #ffffff !important;" class="text-lg leading-none">
                 +
@@ -51,6 +62,7 @@
     {{-- ================= ALERT SUCCESS ================= --}}
     @if (session('success'))
 
+<<<<<<< HEAD
         <div class="mb-6 flex items-start gap-3 px-4 py-3.5
                     rounded-xl bg-green-50 border border-green-200">
 
@@ -61,6 +73,14 @@
                     ✓
                 </span>
 
+=======
+        <div class="mb-6 flex items-start gap-3 px-4 py-3.5 rounded-xl bg-green-50 border border-green-200">
+
+            <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-green-100 flex-shrink-0">
+                <span class="text-green-700 font-bold">
+                    ✓
+                </span>
+>>>>>>> 62312ce (Perbaikan kategori)
             </div>
 
             <div>
@@ -81,6 +101,7 @@
     {{-- ================= ALERT ERROR ================= --}}
     @if ($errors->any())
 
+<<<<<<< HEAD
         <div class="mb-6 px-4 py-3.5
                     rounded-xl bg-red-50 border border-red-200">
 
@@ -93,6 +114,16 @@
                         !
                     </span>
 
+=======
+        <div class="mb-6 px-4 py-3.5 rounded-xl bg-red-50 border border-red-200">
+
+            <div class="flex items-start gap-3">
+
+                <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 flex-shrink-0">
+                    <span class="text-red-700 font-bold">
+                        !
+                    </span>
+>>>>>>> 62312ce (Perbaikan kategori)
                 </div>
 
                 <div>
@@ -138,11 +169,16 @@
 
                 </div>
 
+<<<<<<< HEAD
 
                 {{-- TOTAL SOAL --}}
                 <div class="inline-flex items-center gap-2 self-start sm:self-auto
                             px-3 py-2 rounded-lg
                             bg-blue-50 border border-blue-100">
+=======
+                {{-- TOTAL SOAL --}}
+                <div class="inline-flex items-center gap-2 self-start sm:self-auto px-3 py-2 rounded-lg bg-blue-50 border border-blue-100">
+>>>>>>> 62312ce (Perbaikan kategori)
 
                     <span class="text-xs !text-blue-600">
                         Total soal
@@ -164,12 +200,17 @@
 
             <div class="overflow-x-auto">
 
+<<<<<<< HEAD
                 <table id="quisTable" class="w-full">
+=======
+                <table id="quisTable" class="min-w-full">
+>>>>>>> 62312ce (Perbaikan kategori)
 
                     <thead class="bg-gray-50 border-b border-gray-200">
 
                         <tr>
 
+<<<<<<< HEAD
                             {{-- NO --}}
                             <th class="px-4 py-4 w-14 text-center
                                        text-[11px] font-bold !text-gray-600
@@ -230,6 +271,33 @@
                             <th class="px-4 py-4 w-[150px]
                                        text-center text-[11px] font-bold
                                        !text-gray-600 uppercase tracking-wide">
+=======
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                No
+                            </th>
+
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Pertanyaan
+                            </th>
+
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Kelas
+                            </th>
+
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Kategori
+                            </th>
+
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Gambar
+                            </th>
+
+                            <th class="px-5 py-4 text-left text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+                                Jawaban
+                            </th>
+
+                            <th class="px-5 py-4 text-center text-[11px] font-bold !text-gray-600 uppercase tracking-wide">
+>>>>>>> 62312ce (Perbaikan kategori)
                                 Aksi
                             </th>
 
@@ -242,6 +310,7 @@
 
                         @foreach ($quis as $item)
 
+<<<<<<< HEAD
                             <tr class="hover:bg-blue-50/30 transition duration-150">
 
                                 {{-- NO --}}
@@ -271,6 +340,15 @@
 
                                         {{ $item->kode_kuis }}
 
+=======
+                            <tr class="hover:bg-blue-50/40 transition duration-150">
+
+                                {{-- NO --}}
+                                <td class="px-5 py-5 align-top">
+
+                                    <span class="text-sm font-semibold !text-gray-700">
+                                        {{ $loop->iteration }}
+>>>>>>> 62312ce (Perbaikan kategori)
                                     </span>
 
                                 </td>
@@ -279,6 +357,7 @@
                                 {{-- PERTANYAAN --}}
                                 <td class="px-5 py-5 align-top">
 
+<<<<<<< HEAD
                                     <div class="max-w-[450px]">
 
                                         <p class="text-sm font-semibold
@@ -295,6 +374,17 @@
 
                                             <div class="flex gap-2 text-xs !text-gray-600">
 
+=======
+                                    <div class="min-w-[280px] max-w-md">
+
+                                        <p class="text-sm font-semibold !text-gray-900 leading-5">
+                                            {{ $item->pertanyaan }}
+                                        </p>
+
+                                        <div class="mt-3 space-y-1.5">
+
+                                            <div class="flex gap-2 text-xs !text-gray-600">
+>>>>>>> 62312ce (Perbaikan kategori)
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     A.
                                                 </span>
@@ -302,12 +392,18 @@
                                                 <span>
                                                     {{ $item->pilihan_a }}
                                                 </span>
+<<<<<<< HEAD
 
                                             </div>
 
 
                                             <div class="flex gap-2 text-xs !text-gray-600">
 
+=======
+                                            </div>
+
+                                            <div class="flex gap-2 text-xs !text-gray-600">
+>>>>>>> 62312ce (Perbaikan kategori)
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     B.
                                                 </span>
@@ -315,12 +411,18 @@
                                                 <span>
                                                     {{ $item->pilihan_b }}
                                                 </span>
+<<<<<<< HEAD
 
                                             </div>
 
 
                                             <div class="flex gap-2 text-xs !text-gray-600">
 
+=======
+                                            </div>
+
+                                            <div class="flex gap-2 text-xs !text-gray-600">
+>>>>>>> 62312ce (Perbaikan kategori)
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     C.
                                                 </span>
@@ -328,12 +430,18 @@
                                                 <span>
                                                     {{ $item->pilihan_c }}
                                                 </span>
+<<<<<<< HEAD
 
                                             </div>
 
 
                                             <div class="flex gap-2 text-xs !text-gray-600">
 
+=======
+                                            </div>
+
+                                            <div class="flex gap-2 text-xs !text-gray-600">
+>>>>>>> 62312ce (Perbaikan kategori)
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     D.
                                                 </span>
@@ -341,7 +449,10 @@
                                                 <span>
                                                     {{ $item->pilihan_d }}
                                                 </span>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 62312ce (Perbaikan kategori)
                                             </div>
 
                                         </div>
@@ -352,6 +463,7 @@
 
 
                                 {{-- KELAS --}}
+<<<<<<< HEAD
                                 <td class="px-4 py-5 align-top text-center">
 
                                     @if ($item->kategori && $item->kategori->kelas)
@@ -364,10 +476,19 @@
 
                                             {{ $item->kategori->kelas->nama_kelas }}
 
+=======
+                                <td class="px-5 py-5 align-top">
+
+                                    @if ($item->kategori && $item->kategori->kelas)
+
+                                        <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
+                                            {{ $item->kategori->kelas->nama_kelas }}
+>>>>>>> 62312ce (Perbaikan kategori)
                                         </span>
 
                                     @else
 
+<<<<<<< HEAD
                                         <span class="inline-flex items-center justify-center
                                                      px-3 py-1.5 rounded-lg
                                                      bg-gray-50 border border-gray-200
@@ -375,6 +496,10 @@
 
                                             -
 
+=======
+                                        <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-500 text-xs font-semibold">
+                                            -
+>>>>>>> 62312ce (Perbaikan kategori)
                                         </span>
 
                                     @endif
@@ -383,6 +508,7 @@
 
 
                                 {{-- KATEGORI --}}
+<<<<<<< HEAD
                                 <td class="px-4 py-5 align-top text-center">
 
                                     @if ($item->kategori)
@@ -395,10 +521,19 @@
 
                                             {{ $item->kategori->nama_kategori }}
 
+=======
+                                <td class="px-5 py-5 align-top">
+
+                                    @if ($item->kategori)
+
+                                        <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 text-xs font-semibold">
+                                            {{ $item->kategori->nama_kategori }}
+>>>>>>> 62312ce (Perbaikan kategori)
                                         </span>
 
                                     @else
 
+<<<<<<< HEAD
                                         <span class="inline-flex items-center justify-center
                                                      px-3 py-1.5 rounded-lg
                                                      bg-gray-50 border border-gray-200
@@ -406,6 +541,10 @@
 
                                             -
 
+=======
+                                        <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-500 text-xs font-semibold">
+                                            -
+>>>>>>> 62312ce (Perbaikan kategori)
                                         </span>
 
                                     @endif
@@ -414,6 +553,7 @@
 
 
                                 {{-- GAMBAR --}}
+<<<<<<< HEAD
                                 <td class="px-4 py-5 align-top text-center">
 
                                     @if ($item->gambar)
@@ -453,6 +593,24 @@
 
                                             <span class="text-xs !text-gray-400">
                                                 Tidak ada
+=======
+                                <td class="px-5 py-5 align-top">
+
+                                    @if ($item->gambar)
+
+                                        <img
+                                            src="{{ asset('storage/' . $item->gambar) }}"
+                                            alt="Gambar soal"
+                                            class="w-14 h-14 object-cover rounded-xl border border-gray-200 shadow-sm"
+                                        >
+
+                                    @else
+
+                                        <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-gray-50 border border-gray-200">
+
+                                            <span class="text-lg !text-gray-400">
+                                                —
+>>>>>>> 62312ce (Perbaikan kategori)
                                             </span>
 
                                         </div>
@@ -463,6 +621,7 @@
 
 
                                 {{-- JAWABAN --}}
+<<<<<<< HEAD
                                 <td class="px-4 py-5 align-top text-center">
 
                                     <span class="inline-flex items-center justify-center
@@ -472,19 +631,30 @@
 
                                         {{ $item->jawaban }}
 
+=======
+                                <td class="px-5 py-5 align-top">
+
+                                    <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm font-bold">
+                                        {{ $item->jawaban }}
+>>>>>>> 62312ce (Perbaikan kategori)
                                     </span>
 
                                 </td>
 
 
                                 {{-- AKSI --}}
+<<<<<<< HEAD
                                 <td class="px-4 py-5 align-top">
+=======
+                                <td class="px-5 py-5 align-top">
+>>>>>>> 62312ce (Perbaikan kategori)
 
                                     <div class="flex items-center justify-center gap-2">
 
                                         {{-- DETAIL --}}
                                         <a href="{{ route('kuis.detail', $item) }}"
                                            title="Detail"
+<<<<<<< HEAD
                                            style="background-color: #eff6ff !important;
                                                   color: #2563eb !important;"
                                            class="w-9 h-9 flex items-center justify-center
@@ -494,6 +664,13 @@
                                             <i class="fa-solid fa-eye text-xs"
                                                style="color: #2563eb !important;">
                                             </i>
+=======
+                                           style="background-color: #eff6ff !important; color: #2563eb !important;"
+                                           class="w-9 h-9 flex items-center justify-center rounded-lg border border-blue-200 transition">
+
+                                            <i class="fa-solid fa-eye text-xs"
+                                               style="color: #2563eb !important;"></i>
+>>>>>>> 62312ce (Perbaikan kategori)
 
                                         </a>
 
@@ -501,6 +678,7 @@
                                         {{-- EDIT --}}
                                         <a href="{{ route('kuis.edit', $item) }}"
                                            title="Edit"
+<<<<<<< HEAD
                                            style="background-color: #fffbeb !important;
                                                   color: #d97706 !important;"
                                            class="w-9 h-9 flex items-center justify-center
@@ -510,6 +688,13 @@
                                             <i class="fa-solid fa-pen text-xs"
                                                style="color: #d97706 !important;">
                                             </i>
+=======
+                                           style="background-color: #fffbeb !important; color: #d97706 !important;"
+                                           class="w-9 h-9 flex items-center justify-center rounded-lg border border-amber-200 transition">
+
+                                            <i class="fa-solid fa-pen text-xs"
+                                               style="color: #d97706 !important;"></i>
+>>>>>>> 62312ce (Perbaikan kategori)
 
                                         </a>
 
@@ -525,6 +710,7 @@
                                             <button
                                                 type="submit"
                                                 title="Hapus"
+<<<<<<< HEAD
                                                 style="background-color: #fef2f2 !important;
                                                        color: #dc2626 !important;"
                                                 class="w-9 h-9 flex items-center justify-center
@@ -534,6 +720,13 @@
                                                 <i class="fa-solid fa-trash text-xs"
                                                    style="color: #dc2626 !important;">
                                                 </i>
+=======
+                                                style="background-color: #fef2f2 !important; color: #dc2626 !important;"
+                                                class="w-9 h-9 flex items-center justify-center rounded-lg border border-red-200 transition">
+
+                                                <i class="fa-solid fa-trash text-xs"
+                                                   style="color: #dc2626 !important;"></i>
+>>>>>>> 62312ce (Perbaikan kategori)
 
                                             </button>
 
@@ -561,8 +754,12 @@
 
                 <div class="max-w-md mx-auto text-center">
 
+<<<<<<< HEAD
                     <div class="mx-auto w-20 h-20 flex items-center justify-center
                                 rounded-2xl bg-blue-50 border border-blue-100">
+=======
+                    <div class="mx-auto w-20 h-20 flex items-center justify-center rounded-2xl bg-blue-50 border border-blue-100">
+>>>>>>> 62312ce (Perbaikan kategori)
 
                         <span class="text-4xl">
                             📝
@@ -582,6 +779,7 @@
                     </p>
 
 
+<<<<<<< HEAD
                     <a href="{{ route('kuis.tambah') }}"
                        style="background-color: #2563eb !important;
                               color: #ffffff !important;"
@@ -591,6 +789,14 @@
 
                         <span style="color: #ffffff !important;"
                               class="text-lg leading-none">
+=======
+                    {{-- TOMBOL TAMBAH SOAL PERTAMA --}}
+                    <a href="{{ route('kuis.tambah') }}"
+                       style="background-color: #2563eb !important; color: #ffffff !important;"
+                       class="mt-6 inline-flex items-center gap-2 font-semibold text-sm px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition">
+
+                        <span style="color: #ffffff !important;" class="text-lg leading-none">
+>>>>>>> 62312ce (Perbaikan kategori)
                             +
                         </span>
 
@@ -617,7 +823,10 @@
 @push('scripts')
 
 <script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 62312ce (Perbaikan kategori)
 $(document).ready(function () {
 
     @if ($quis->count() > 0)
@@ -626,6 +835,7 @@ $(document).ready(function () {
 
             pageLength: 10,
 
+<<<<<<< HEAD
             lengthMenu: [10, 25, 50],
 
             order: [[0, 'asc']],
@@ -652,15 +862,34 @@ $(document).ready(function () {
 
                 infoFiltered: "(difilter dari _MAX_ total data)",
 
+=======
+            columnDefs: [
+                {
+                    orderable: false,
+                    searchable: false,
+                    targets: [4, 6]
+                }
+            ],
+
+            language: {
+                search: "Cari soal:",
+                lengthMenu: "Tampilkan _MENU_ data",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+
+>>>>>>> 62312ce (Perbaikan kategori)
                 paginate: {
                     next: "Berikutnya",
                     previous: "Sebelumnya"
                 },
 
                 zeroRecords: "Data tidak ditemukan",
+<<<<<<< HEAD
 
                 emptyTable: "Belum ada soal kuis."
 
+=======
+                emptyTable: "Belum ada soal kuis."
+>>>>>>> 62312ce (Perbaikan kategori)
             }
 
         });
@@ -668,6 +897,7 @@ $(document).ready(function () {
     @endif
 
 });
+<<<<<<< HEAD
 
 </script>
 
@@ -893,4 +1123,8 @@ $(document).ready(function () {
 
 </style>
 
+=======
+</script>
+
+>>>>>>> 62312ce (Perbaikan kategori)
 @endpush

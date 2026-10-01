@@ -26,8 +26,13 @@
                 <i class="fas fa-book text-xl"></i>
             </div>
             <div>
+<<<<<<< HEAD
                 <p class="text-sm text-slate-400">Total Kuis</p>
                 <p class="text-2xl font-bold text-white">{{ $total_kuis }}</p>
+=======
+                <p class="text-sm text-slate-400">Total Materi</p>
+                <p class="text-2xl font-bold text-white">20</p>
+>>>>>>> 62312ce (Perbaikan kategori)
             </div>
         </div>
 
@@ -36,8 +41,13 @@
                 <i class="fas fa-book text-xl"></i>
             </div>
             <div>
+<<<<<<< HEAD
                 <p class="text-sm text-slate-400">Total Katgori</p>
                 <p class="text-2xl font-bold text-white">{{ $total_kategori }}</p>
+=======
+                <p class="text-sm text-slate-400">Total Materi</p>
+                <p class="text-2xl font-bold text-white">20</p>
+>>>>>>> 62312ce (Perbaikan kategori)
             </div>
         </div>
         <!-- Tambahkan kartu lain sesuai gambar -->

@@ -14,8 +14,13 @@ class CategoryController extends Controller
     public function index()
     {
         $kelas = Kelas::get();
+<<<<<<< HEAD
         $categories = Kategori::all();
         return view('admin.kategori.index', compact('categories', 'kelas'));
+=======
+        $kategori = Kategori::all();
+        return view('admin.kategori.index', compact('kategori', 'kelas'));
+>>>>>>> 62312ce (Perbaikan kategori)
     }
 
     /**
@@ -23,7 +28,12 @@ class CategoryController extends Controller
      */
     public function add()
     {
+<<<<<<< HEAD
         return view('admin.kategori.add');
+=======
+        $kelas = Kelas::get();
+        return view('admin.kategori.add', compact('kelas'));
+>>>>>>> 62312ce (Perbaikan kategori)
     }
 
     /**
@@ -62,8 +72,13 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $kelas = Kelas::get();
+<<<<<<< HEAD
         $categories = Kategori::findOrFail($id);
         return view('admin.kategori.edit', compact('categories', 'kelas'));
+=======
+        $kategori = Kategori::findOrFail($id);
+        return view('admin.kategori.edit', compact('kategori', 'kelas'));
+>>>>>>> 62312ce (Perbaikan kategori)
     }
 
     /**
@@ -85,7 +100,11 @@ class CategoryController extends Controller
 
         $categories = Kategori::findOrFail($id);
         $categories->update($data);
+<<<<<<< HEAD
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambah');   
+=======
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambah');
+>>>>>>> 62312ce (Perbaikan kategori)
     }
 
     /**
@@ -93,6 +112,12 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
+<<<<<<< HEAD
         //
+=======
+        $categories = Kategori::findOrFail($id);
+        $categories->delete();
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus');
+>>>>>>> 62312ce (Perbaikan kategori)
     }
 }

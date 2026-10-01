@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 62312ce (Perbaikan kategori)
 <!DOCTYPE html>
 <html lang="id">
 
