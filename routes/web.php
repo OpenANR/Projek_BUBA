@@ -71,5 +71,17 @@ Route::prefix('admin')->group(function (){
 Route::prefix('siswa')->group(function () {
     Route::get('/welcome', function() {
         return view('siswa.splash');
-    });
+    })->name('splash');
+
+    Route::get('/pengaturan', function() {
+        return view('siswa.splash');
+    })->name('splash');
+
+    Route::get('/materi', function() {
+        return view('siswa.splash');
+    })->name('splash');
+
+    Route::get('/kuis', function() {
+        return view('siswa.splash');
+    })->name('splash');
 });
