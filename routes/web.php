@@ -31,12 +31,9 @@ Route::prefix('admin')->group(function (){
     Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
     Route::get('/kategori/tambah', [CategoryController::class, 'add'])->name('kategori.tambah');
     Route::post('/kategori/kirim', [CategoryController::class, 'store'])->name('kategori.kirim');
-<<<<<<< HEAD
-=======
     Route::get('/kategori/edit/{kategori}', [CategoryController::class, 'edit'])->name('kategori.edit');
     Route::put('/kategori/edit/{kategori}', [CategoryController::class, 'update'])->name('kategori.update');
     Route::delete('/kategori/hapus/{kategori}', [CategoryController::class, 'destroy'])->name('kategori.hapus');
->>>>>>> 62312ce (Perbaikan kategori)
     // =================================================
 
     // RUTE MATERI

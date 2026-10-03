@@ -24,10 +24,6 @@
         </a>
     </div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 62312ce (Perbaikan kategori)
     {{-- Error Validasi --}}
     @if ($errors->any())
         <div class="mb-5 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700">
@@ -39,10 +35,6 @@
         </div>
     @endif
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 62312ce (Perbaikan kategori)
     {{-- Form --}}
     <div class="bg-white rounded-xl shadow-md p-6">
 
@@ -52,8 +44,6 @@
 
             @csrf
 
-<<<<<<< HEAD
-=======
 
             {{-- Kode Kuis --}}
             <div class="mb-5">
@@ -77,7 +67,6 @@
             </div>
 
 
->>>>>>> 62312ce (Perbaikan kategori)
             {{-- Pertanyaan --}}
             <div class="mb-5">
 
@@ -92,20 +81,9 @@
                     placeholder="Masukkan pertanyaan kuis..."
                     required>{{ old('pertanyaan') }}</textarea>
 
-<<<<<<< HEAD
-                @error('pertanyaan')
-                    <p class="text-sm text-red-600 mt-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-
-            </div>
-
-=======
             </div>
 
 
->>>>>>> 62312ce (Perbaikan kategori)
             {{-- Kelas --}}
             <div class="mb-5">
 
@@ -137,20 +115,9 @@
 
                 </select>
 
-<<<<<<< HEAD
-                @error('kelas_id')
-                    <p class="text-sm text-red-600 mt-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-
-            </div>
-
-=======
             </div>
 
 
->>>>>>> 62312ce (Perbaikan kategori)
             {{-- Kategori --}}
             <div class="mb-5">
 
@@ -195,10 +162,6 @@
 
             </div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 62312ce (Perbaikan kategori)
             {{-- Pilihan Jawaban --}}
             <div class="mb-5">
 
@@ -206,12 +169,8 @@
                     Pilihan Jawaban
                 </label>
 
-<<<<<<< HEAD
-                {{-- Pilihan A --}}
-=======
 
                 {{-- A --}}
->>>>>>> 62312ce (Perbaikan kategori)
                 <div class="mb-3">
 
                     <label class="block text-sm font-medium text-gray-700 mb-1">
@@ -228,12 +187,8 @@
 
                 </div>
 
-<<<<<<< HEAD
-                {{-- Pilihan B --}}
-=======
 
                 {{-- B --}}
->>>>>>> 62312ce (Perbaikan kategori)
                 <div class="mb-3">
 
                     <label class="block text-sm font-medium text-gray-700 mb-1">
@@ -250,12 +205,8 @@
 
                 </div>
 
-<<<<<<< HEAD
-                {{-- Pilihan C --}}
-=======
 
                 {{-- C --}}
->>>>>>> 62312ce (Perbaikan kategori)
                 <div class="mb-3">
 
                     <label class="block text-sm font-medium text-gray-700 mb-1">
@@ -272,12 +223,8 @@
 
                 </div>
 
-<<<<<<< HEAD
-                {{-- Pilihan D --}}
-=======
 
                 {{-- D --}}
->>>>>>> 62312ce (Perbaikan kategori)
                 <div>
 
                     <label class="block text-sm font-medium text-gray-700 mb-1">
@@ -296,10 +243,6 @@
 
             </div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 62312ce (Perbaikan kategori)
             {{-- Jawaban Benar --}}
             <div class="mb-5">
 
@@ -334,20 +277,9 @@
 
                 </select>
 
-<<<<<<< HEAD
-                @error('jawaban')
-                    <p class="text-sm text-red-600 mt-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-
-            </div>
-
-=======
             </div>
 
 
->>>>>>> 62312ce (Perbaikan kategori)
             {{-- Gambar --}}
             <div class="mb-6">
 
@@ -371,20 +303,9 @@
                     Format: JPG, JPEG, PNG, WEBP. Maksimal 2 MB.
                 </p>
 
-<<<<<<< HEAD
-                @error('gambar')
-                    <p class="text-sm text-red-600 mt-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-
-            </div>
-
-=======
             </div>
 
 
->>>>>>> 62312ce (Perbaikan kategori)
             {{-- Tombol --}}
             <div class="flex justify-end gap-3">
 
@@ -411,10 +332,6 @@
 
 </div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 62312ce (Perbaikan kategori)
 {{-- Filter Kategori Berdasarkan Kelas --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -430,14 +347,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const kelasId = kelasSelect.value;
 
-<<<<<<< HEAD
-        semuaKategori.forEach(function (option) {
-
-            if (option.dataset.kelas === kelasId) {
-                option.hidden = false;
-            } else {
-                option.hidden = true;
-=======
         // Sembunyikan/tampilkan kategori sesuai kelas
         semuaKategori.forEach(function (option) {
 
@@ -449,15 +358,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 option.hidden = true;
 
->>>>>>> 62312ce (Perbaikan kategori)
             }
 
         });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 62312ce (Perbaikan kategori)
         // Jika kelas belum dipilih
         if (!kelasId) {
 
@@ -469,20 +373,12 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 62312ce (Perbaikan kategori)
         // Jika kelas sudah dipilih
         kategoriSelect.querySelector('option[value=""]').textContent =
             '-- Pilih Kategori --';
 
-<<<<<<< HEAD
-        // Pastikan kategori sesuai dengan kelas
-=======
 
         // Pastikan kategori yang sedang dipilih memang milik kelas tersebut
->>>>>>> 62312ce (Perbaikan kategori)
         const kategoriTerpilih = kategoriSelect.value;
 
         const masihValid = semuaKategori.some(function (option) {
@@ -492,43 +388,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
-<<<<<<< HEAD
-        if (!masihValid) {
-            kategoriSelect.value = '';
-=======
 
         if (!masihValid) {
 
             kategoriSelect.value = '';
 
->>>>>>> 62312ce (Perbaikan kategori)
         }
 
     }
 
-<<<<<<< HEAD
-    // Jika kelas berubah
-    kelasSelect.addEventListener('change', function () {
-
-=======
 
     kelasSelect.addEventListener('change', function () {
 
         // Setiap kali kelas berubah,
         // kategori harus dipilih ulang
->>>>>>> 62312ce (Perbaikan kategori)
         kategoriSelect.value = '';
 
         filterKategori();
 
     });
 
-<<<<<<< HEAD
-    // Jalankan saat halaman pertama dibuka
-=======
 
     // Jalankan saat halaman pertama kali dibuka
->>>>>>> 62312ce (Perbaikan kategori)
     filterKategori();
 
 });
