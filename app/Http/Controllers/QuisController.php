@@ -16,7 +16,7 @@ class QuisController extends Controller
     public function index()
     {
         $quis = Quis::with(['kelas', 'kategori'])
-            ->latest()
+            ->orderBy('id', 'asc')
             ->get();
 
         return view('admin.kuis.index', compact('quis'));
@@ -43,13 +43,14 @@ class QuisController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_kuis' => 'required|string|max:50|unique:quis,kode_kuis',
-
             'kelas_id' => 'required|exists:kelas,id',
-
             'kategori_id' => 'required|exists:kategoris,id',
 
-            'pertanyaan' => 'required|string',
+            'pertanyaan' => [
+                'required',
+                'string',
+                'regex:/^[A-Za-z0-9\s?=+\-]+$/',
+            ],
 
             'pilihan_a' => 'required|string',
             'pilihan_b' => 'required|string',
@@ -58,9 +59,15 @@ class QuisController extends Controller
 
             'jawaban' => 'required|in:A,B,C,D',
 
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
+            'gambar' =>
+                'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ], [
+            'pertanyaan.required' =>
+                'Pertanyaan harus diisi.',
 
+            'pertanyaan.regex' =>
+                'Pertanyaan hanya boleh menggunakan huruf, angka, spasi, dan simbol ?, =, +, -.',
+        ]);
 
         /*
         |--------------------------------------------------------------------------
@@ -85,19 +92,14 @@ class QuisController extends Controller
         |--------------------------------------------------------------------------
         | Cek pertanyaan duplikat berdasarkan kelas
         |--------------------------------------------------------------------------
-        |
-        | Pertanyaan sama + kelas sama    = ditolak
-        | Pertanyaan sama + kelas berbeda = diperbolehkan
-        |
         */
 
         $sudahAda = Quis::whereRaw(
             'LOWER(TRIM(pertanyaan)) = ?',
             [strtolower(trim($request->pertanyaan))]
         )
-        ->where('kelas_id', $request->kelas_id)
-        ->exists();
-
+            ->where('kelas_id', $request->kelas_id)
+            ->exists();
 
         if ($sudahAda) {
             return back()
@@ -112,27 +114,22 @@ class QuisController extends Controller
         |--------------------------------------------------------------------------
         | Data yang disimpan
         |--------------------------------------------------------------------------
+        |
+        | kode_kuis tidak dibuat di controller.
+        | Kode otomatis dibuat oleh Quis.php.
+        |
         */
 
         $data = [
-            'kode_kuis' => $request->kode_kuis,
-
-            // Relasi langsung ke kelas
             'kelas_id' => $request->kelas_id,
-
-            // Relasi langsung ke kategori
             'kategori_id' => $request->kategori_id,
-
             'pertanyaan' => $request->pertanyaan,
-
             'pilihan_a' => $request->pilihan_a,
             'pilihan_b' => $request->pilihan_b,
             'pilihan_c' => $request->pilihan_c,
             'pilihan_d' => $request->pilihan_d,
-
             'jawaban' => $request->jawaban,
         ];
-
 
         /*
         |--------------------------------------------------------------------------
@@ -202,37 +199,31 @@ class QuisController extends Controller
     public function update(Request $request, Quis $quis)
     {
         $request->validate([
-            'kode_kuis' =>
-                'required|string|max:50|unique:quis,kode_kuis,' . $quis->id,
+            'kelas_id' => 'required|exists:kelas,id',
+            'kategori_id' => 'required|exists:kategoris,id',
 
-            'kelas_id' =>
-                'required|exists:kelas,id',
+            'pertanyaan' => [
+                'required',
+                'string',
+                'regex:/^[A-Za-z0-9\s?=+\-]+$/',
+            ],
 
-            'kategori_id' =>
-                'required|exists:kategoris,id',
+            'pilihan_a' => 'required|string',
+            'pilihan_b' => 'required|string',
+            'pilihan_c' => 'required|string',
+            'pilihan_d' => 'required|string',
 
-            'pertanyaan' =>
-                'required|string',
-
-            'pilihan_a' =>
-                'required|string',
-
-            'pilihan_b' =>
-                'required|string',
-
-            'pilihan_c' =>
-                'required|string',
-
-            'pilihan_d' =>
-                'required|string',
-
-            'jawaban' =>
-                'required|in:A,B,C,D',
+            'jawaban' => 'required|in:A,B,C,D',
 
             'gambar' =>
                 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
+        ], [
+            'pertanyaan.required' =>
+                'Pertanyaan harus diisi.',
 
+            'pertanyaan.regex' =>
+                'Pertanyaan hanya boleh menggunakan huruf, angka, spasi, dan simbol ?, =, +, -.',
+        ]);
 
         /*
         |--------------------------------------------------------------------------
@@ -263,10 +254,9 @@ class QuisController extends Controller
             'LOWER(TRIM(pertanyaan)) = ?',
             [strtolower(trim($request->pertanyaan))]
         )
-        ->where('kelas_id', $request->kelas_id)
-        ->where('id', '!=', $quis->id)
-        ->exists();
-
+            ->where('kelas_id', $request->kelas_id)
+            ->where('id', '!=', $quis->id)
+            ->exists();
 
         if ($sudahAda) {
             return back()
@@ -281,39 +271,21 @@ class QuisController extends Controller
         |--------------------------------------------------------------------------
         | Data yang diperbarui
         |--------------------------------------------------------------------------
+        |
+        | Kode kuis tidak diubah saat edit.
+        |
         */
 
         $data = [
-            'kode_kuis' =>
-                $request->kode_kuis,
-
-            // Update kelas secara langsung
-            'kelas_id' =>
-                $request->kelas_id,
-
-            // Update kategori secara langsung
-            'kategori_id' =>
-                $request->kategori_id,
-
-            'pertanyaan' =>
-                $request->pertanyaan,
-
-            'pilihan_a' =>
-                $request->pilihan_a,
-
-            'pilihan_b' =>
-                $request->pilihan_b,
-
-            'pilihan_c' =>
-                $request->pilihan_c,
-
-            'pilihan_d' =>
-                $request->pilihan_d,
-
-            'jawaban' =>
-                $request->jawaban,
+            'kelas_id' => $request->kelas_id,
+            'kategori_id' => $request->kategori_id,
+            'pertanyaan' => $request->pertanyaan,
+            'pilihan_a' => $request->pilihan_a,
+            'pilihan_b' => $request->pilihan_b,
+            'pilihan_c' => $request->pilihan_c,
+            'pilihan_d' => $request->pilihan_d,
+            'jawaban' => $request->jawaban,
         ];
-
 
         /*
         |--------------------------------------------------------------------------

@@ -28,7 +28,7 @@
                             Nama Kategori <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="nama_kategori" id="nama_kategori" value="{{ old('nama_kategori') }}"
-                            required maxlength="10" placeholder="Contoh: Kategori-1"
+                            required maxlength="30" placeholder="Contoh: Kategori-1"
                             class="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                     </div>
 
@@ -61,7 +61,7 @@
                             Deskripsi <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="deskripsi" id="deskripsi" value="{{ old('deskripsi') }}"
-                            required maxlength="10" placeholder="Contoh: Deskripsi kategori"
+                            required maxlength="30" placeholder="Contoh: Deskripsi kategori"
                             class="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                     </div>
 

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-<<<<<<< HEAD
 // Model dasar dari Laravel Eloquent
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,21 +11,13 @@ use Illuminate\Support\Str;
 use Override;
 
 // Model Kelas
-=======
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
-use Override;
->>>>>>> 62312ce (Perbaikan kategori)
 use App\Models\Kelas;
 
 class Materi extends Model
 {
-<<<<<<< HEAD
     // =====================================================
     // FIELD YANG BOLEH DIISI MENGGUNAKAN Materi::create()
     // =====================================================
-=======
->>>>>>> 62312ce (Perbaikan kategori)
     protected $fillable = [
         'kode_materi',
         'nama_materi',
@@ -37,7 +28,6 @@ class Materi extends Model
         'kelas_id'
     ];
 
-<<<<<<< HEAD
 
     // =====================================================
     // MEMBUAT KODE MATERI OTOMATIS
@@ -58,21 +48,10 @@ class Materi extends Model
 
             // Menyimpan kode yang sudah dibuat
             // ke field kode_materi
-=======
-    #[Override]
-    protected static function booted()
-    {
-        static::creating(function($materi) {
-            do {
-                $code = 'MTR-' . Str::upper(Str::random(4));
-            } while (self::where('kode_materi', $code)->exists());
-
->>>>>>> 62312ce (Perbaikan kategori)
             $materi->kode_materi = $code;
         });
     }
 
-<<<<<<< HEAD
 
     // =====================================================
     // MENGGUNAKAN kode_materi SEBAGAI ROUTE KEY
@@ -113,21 +92,5 @@ class Materi extends Model
             Kelas::class,
             'kelas_id'
         );
-=======
-    #[Override]
-    public function getRouteKeyName(): string
-    {
-        return 'kode_materi';
-    }
-
-    public function kategori()
-    {
-        return $this->belongsTo(Kategori::class, 'kategori_id');
-    }
-
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
->>>>>>> 62312ce (Perbaikan kategori)
     }
 }

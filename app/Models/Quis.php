@@ -2,21 +2,11 @@
 
 namespace App\Models;
 
-<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Model;
 use Override;
 
 class Quis extends Model
 {
-=======
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Quis extends Model
-{
-    use HasFactory;
-
->>>>>>> 62312ce (Perbaikan kategori)
     protected $fillable = [
         'kode_kuis',
         'kelas_id',
@@ -30,7 +20,6 @@ class Quis extends Model
         'jawaban',
     ];
 
-<<<<<<< HEAD
     #[Override]
     protected static function booted()
     {
@@ -49,18 +38,11 @@ class Quis extends Model
         return 'kode_kuis';
     }
 
-=======
-    // Relasi Quis ke Kelas
->>>>>>> 62312ce (Perbaikan kategori)
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
-<<<<<<< HEAD
-=======
-    // Relasi Quis ke Kategori
->>>>>>> 62312ce (Perbaikan kategori)
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
