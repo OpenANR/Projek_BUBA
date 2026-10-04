@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -17,6 +18,8 @@ class KelasController extends Controller
 
         return view('admin.kelas.index', compact('kelas'));
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -98,4 +101,21 @@ class KelasController extends Controller
 
         return redirect()->route('kelas.index')->with('success', 'Kelas berhasil dihapus.');
     }
+
+    /**
+     * Controller Untuk Siswa
+     */
+
+    public function pilihKelas($konten) {
+        
+        if(!in_array($konten, ['materi', 'kuis'])) {
+            abort(404, 'Halaman tidak ditemukan');
+        }
+
+        $kelas = Kelas::get();
+        // dd([$kelas, $konten]);
+        return view('siswa.kelas', compact(['kelas', 'konten']));
+    }
+
+    
 }

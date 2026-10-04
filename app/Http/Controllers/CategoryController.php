@@ -41,7 +41,7 @@ class CategoryController extends Controller
         $data = [
             'nama_kategori' => $request->nama_kategori,
             'deskripsi'     => $request->deskripsi,
-            'kelas_id'      => $request->kelas_id
+            'kelas_id'      => $request->kelas_id,
         ];
 
         Kategori::create($data);
@@ -75,13 +75,13 @@ class CategoryController extends Controller
         $request->validate([
             'nama_kategori' => 'required|string',
             'deskripsi'     => 'required|string',
-            'kelas_id'      => 'required|exists:kelas,id'
+            'kelas_id'      => 'required|exists:kelas,id',
         ]);
 
         $data = [
             'nama_kategori' => $request->nama_kategori,
             'deskripsi'     => $request->deskripsi,
-            'kelas_id'      => $request->kelas_id
+            'kelas_id'      => $request->kelas_id,
         ];
 
         $categories = Kategori::findOrFail($id);
@@ -97,5 +97,19 @@ class CategoryController extends Controller
         $categories = Kategori::findOrFail($id);
         $categories->delete();
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus');
+    }
+
+    public function pilihKategori($konten, $kelas) {
+
+        
+        $dataKelas = Kelas::where('nama_kelas', $kelas)->first();
+
+        if (!$dataKelas) {
+            abort(404, 'Data kelas tidak ditemukan');
+        }
+
+        $kategori = Kategori::where('kelas_id', $dataKelas->id)->get();
+
+        return view('siswa.kategori', compact('konten', 'dataKelas', 'kategori'));
     }
 }

@@ -19,7 +19,7 @@ Route::get('/', function () {
 // Route::put('/materi/edit/{id}', [MateriController::class, 'update'])->name('materi.update');
 // Route::delete('/materi/delete/{id}', [MateriController::class, 'destroy'])->name('materi.delete');
 
-Route::prefix('admin')->group(function (){
+Route::prefix('admin')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -57,31 +57,39 @@ Route::prefix('admin')->group(function (){
     // =================================================
 
     // RUTE SISWA
-    Route::get('/siswa', function() {
+    Route::get('/siswa', function () {
         return view('admin.siswa.index');
     })->name('siswa.index');
     // =================================================
 
     // RUTE REWARD
-    Route::get('/reward', function(){
+    Route::get('/reward', function () {
         return view('admin.reward.index');
     })->name('reward.index');
 });
 
 Route::prefix('siswa')->group(function () {
-    Route::get('/welcome', function() {
+
+    Route::get('/welcome', function () {
         return view('siswa.splash');
     })->name('splash');
 
-    Route::get('/pengaturan', function() {
+    Route::get('/pengaturan', function () {
         return view('siswa.splash');
     })->name('splash');
+    
+    Route::get('/konten', function () {
+        return view('siswa.konten');
+    })->name('siswa.konten');
 
-    Route::get('/materi', function() {
-        return view('siswa.splash');
-    })->name('splash');
+    Route::prefix('{konten}')->group(function () {
+        Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])->name('siswa.kelas');
+        Route::get('/kelas/{kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
 
-    Route::get('/kuis', function() {
+        Route::get('/kelas/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
+    });
+
+    Route::get('/kuis', function () {
         return view('siswa.splash');
     })->name('splash');
 });
