@@ -1,1001 +1,728 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('layouts.admin.app')
 
-<head>
+@section('title', 'Tambah Materi - BUBA')
 
-    <meta charset="UTF-8">
+@section('content')
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="max-w-4xl mx-auto">
 
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- Header --}}
+    <div class="flex items-center justify-between mb-6">
 
-    <title>Tambah Materi - BUBA</title>
+        <div>
 
-    <link rel="stylesheet" href="{{ asset('css/materi.css') }}">
+            <h1 class="text-2xl font-bold text-gray-800">
+                Tambah Materi
+            </h1>
 
-    <style>
-
-        /* ==============================
-           PESAN VALIDASI
-        ============================== */
-
-        .field-error {
-            color: #ef3340;
-            font-size: 13px;
-            margin-top: 7px;
-            display: block;
-        }
-
-        .field-hint {
-            color: #718096;
-            font-size: 13px;
-            margin-top: 7px;
-            display: block;
-        }
-
-        .character-counter {
-            text-align: right;
-            color: #718096;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        .character-counter.error {
-            color: #ef3340;
-            font-weight: bold;
-        }
-
-        .form-control.input-error,
-        .form-select.input-error,
-        .form-textarea.input-error {
-            border-color: #ef3340 !important;
-        }
-
-        /*
-         * Kategori yang tidak sesuai kelas
-         * akan disembunyikan oleh JavaScript.
-         */
-        #kategori_id option[data-kelas] {
-            padding: 8px;
-        }
-
-    </style>
-
-</head>
-
-
-<body>
-
-
-    <!-- ==========================================
-         NAVIGATION BAR
-    =========================================== -->
-
-    <nav class="navbar">
-
-        <div class="navbar-container">
-
-
-            <a
-                href="{{ route('materi.index') }}"
-                class="navbar-brand"
-            >
-
-                BUBA <span>&bull; Materi</span>
-
-            </a>
-
-
-            <ul class="navbar-nav">
-
-                <li>
-
-                    <a href="{{ route('materi.index') }}">
-
-                        Data Materi
-
-                    </a>
-
-                </li>
-
-
-                <li>
-
-                    <a
-                        href="{{ route('materi.tambah') }}"
-                        class="active"
-                    >
-
-                        + Tambah Materi
-
-                    </a>
-
-                </li>
-
-            </ul>
-
+            <p class="text-gray-500 mt-1">
+                Isi form untuk menambahkan materi pembelajaran baru.
+            </p>
 
         </div>
 
-    </nav>
+
+        <a
+            href="{{ route('materi.index') }}"
+            class="px-4 py-2 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition"
+        >
+            ← Kembali
+        </a>
+
+    </div>
+
+
+    {{-- Error Validasi --}}
+    @if ($errors->any())
+
+        <div class="mb-5 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700">
+
+            <ul class="list-disc list-inside">
+
+                @foreach ($errors->all() as $error)
+
+                    <li>
+                        {{ $error }}
+                    </li>
+
+                @endforeach
+
+            </ul>
+
+        </div>
+
+    @endif
+
+
+    {{-- Form Materi --}}
+    <div class="bg-white rounded-xl shadow-md p-6">
+
+        <form
+            action="{{ route('materi.kirim') }}"
+            method="POST"
+            enctype="multipart/form-data"
+            id="formMateri"
+        >
+
+            @csrf
+
+
+            {{-- =====================================================
+                 NAMA MATERI
+            ====================================================== --}}
+
+            <div class="mb-5">
+
+                <label
+                    for="nama_materi"
+                    class="block text-sm font-semibold text-gray-700 mb-2"
+                >
+
+                    Nama Materi
+
+                    <span class="text-red-500">
+                        *
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="text"
+                    name="nama_materi"
+                    id="nama_materi"
+                    value="{{ old('nama_materi') }}"
+                    maxlength="25"
+                    autocomplete="off"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
+                    placeholder="Masukkan judul atau nama materi..."
+                    required
+                >
+
+
+                <p class="text-xs text-gray-500 mt-2">
+
+                    Hanya boleh menggunakan huruf, angka, dan spasi.
+
+                </p>
+
+
+                <div
+                    id="namaMateriCounter"
+                    class="text-xs text-gray-500 text-right mt-1"
+                >
+                    0/25 karakter
+                </div>
+
+
+                @error('nama_materi')
+
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+
+                @enderror
+
+            </div>
 
 
 
-    <!-- ==========================================
-         MAIN CONTENT
-    =========================================== -->
+            {{-- =====================================================
+                 KELAS
+            ====================================================== --}}
 
-    <div class="container">
+            <div class="mb-5">
 
+                <label
+                    for="kelas_id"
+                    class="block text-sm font-semibold text-gray-700 mb-2"
+                >
 
-        <!-- ======================================
-             PAGE HEADER
-        ======================================= -->
+                    Kelas
 
-        <div class="page-header">
+                    <span class="text-red-500">
+                        *
+                    </span>
 
-            <div>
-
-                <h1 class="page-title">
-
-                    📝 Tambah Materi Baru
-
-                </h1>
+                </label>
 
 
-                <p class="page-subtitle">
+                <select
+                    name="kelas_id"
+                    id="kelas_id"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
+                    required
+                >
 
-                    Isi formulir di bawah ini untuk menambahkan
-                    materi pembelajaran baru ke sistem
+                    <option value="">
+
+                        -- Pilih Kelas --
+
+                    </option>
+
+
+                    @foreach ($kelas as $item)
+
+                        <option
+                            value="{{ $item->id }}"
+                            {{ old('kelas_id') == $item->id ? 'selected' : '' }}
+                        >
+
+                            {{ $item->nama_kelas }}
+
+                        </option>
+
+                    @endforeach
+
+                </select>
+
+
+                @error('kelas_id')
+
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+
+                @enderror
+
+            </div>
+
+
+
+            {{-- =====================================================
+                 KATEGORI
+            ====================================================== --}}
+
+            <div class="mb-5">
+
+                <label
+                    for="kategori_id"
+                    class="block text-sm font-semibold text-gray-700 mb-2"
+                >
+
+                    Kategori Materi
+
+                    <span class="text-red-500">
+                        *
+                    </span>
+
+                </label>
+
+
+                <select
+                    name="kategori_id"
+                    id="kategori_id"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
+                    required
+                    disabled
+                >
+
+                    <option value="">
+
+                        -- Pilih Kelas Terlebih Dahulu --
+
+                    </option>
+
+
+                    @foreach ($kategori as $item)
+
+                        <option
+                            value="{{ $item->id }}"
+                            data-kelas="{{ $item->kelas_id }}"
+                            {{ old('kategori_id') == $item->id ? 'selected' : '' }}
+                        >
+
+                            {{ $item->nama_kategori }}
+
+                        </option>
+
+                    @endforeach
+
+                </select>
+
+
+                @error('kategori_id')
+
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+
+                @enderror
+
+
+                <p class="text-xs text-gray-500 mt-2">
+
+                    Kategori akan menyesuaikan dengan kelas yang dipilih.
 
                 </p>
 
             </div>
 
 
-            <div>
+
+            {{-- =====================================================
+                 GAMBAR
+            ====================================================== --}}
+
+            <div class="mb-5">
+
+                <label
+                    for="gambar"
+                    class="block text-sm font-semibold text-gray-700 mb-2"
+                >
+
+                    Gambar Pendukung
+
+                    <span class="font-normal text-gray-500">
+                        (Opsional)
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="file"
+                    name="gambar"
+                    id="gambar"
+                    accept=".jpg,.jpeg,.png,.webp"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 bg-white"
+                >
+
+
+                <p class="text-xs text-gray-500 mt-2">
+
+                    Format: JPG, JPEG, PNG, WEBP. Maksimal 2 MB.
+
+                </p>
+
+
+                @error('gambar')
+
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+
+                @enderror
+
+            </div>
+
+
+
+            {{-- =====================================================
+                 AUDIO
+            ====================================================== --}}
+
+            <div class="mb-5">
+
+                <label
+                    for="audio"
+                    class="block text-sm font-semibold text-gray-700 mb-2"
+                >
+
+                    Audio
+
+                    <span class="font-normal text-gray-500">
+                        (Opsional)
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="file"
+                    name="audio"
+                    id="audio"
+                    accept=".mp3,.aac,.wav,.ogg"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 bg-white"
+                >
+
+
+                <p class="text-xs text-gray-500 mt-2">
+
+                    Format: MP3, AAC, WAV, OGG.
+
+                </p>
+
+
+                @error('audio')
+
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+
+                @enderror
+
+            </div>
+
+
+
+            {{-- =====================================================
+                 ISI MATERI
+            ====================================================== --}}
+
+            <div class="mb-6">
+
+                <label
+                    for="isi_materi"
+                    class="block text-sm font-semibold text-gray-700 mb-2"
+                >
+
+                    Isi Materi
+
+                    <span class="text-red-500">
+                        *
+                    </span>
+
+                </label>
+
+
+                <textarea
+                    name="isi_materi"
+                    id="isi_materi"
+                    rows="8"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
+                    placeholder="Tuliskan penjelasan materi lengkap di sini..."
+                    required
+                >{{ old('isi_materi') }}</textarea>
+
+
+                @error('isi_materi')
+
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+
+                @enderror
+
+            </div>
+
+
+
+            {{-- =====================================================
+                 TOMBOL
+            ====================================================== --}}
+
+            <div class="flex justify-end gap-3">
 
                 <a
                     href="{{ route('materi.index') }}"
-                    class="btn btn-secondary"
+                    class="px-5 py-2.5 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition"
                 >
 
-                    &larr; Kembali ke Daftar
+                    Batal
 
                 </a>
 
-            </div>
 
-        </div>
-
-
-
-        <!-- ======================================
-             VALIDATION ERRORS
-        ======================================= -->
-
-        @if ($errors->any())
-
-            <div class="alert alert-danger">
-
-                <div>
-
-                    <strong>Terjadi Kesalahan:</strong>
-
-                    <ul>
-
-                        @foreach ($errors->all() as $error)
-
-                            <li>
-                                {{ $error }}
-                            </li>
-
-                        @endforeach
-
-                    </ul>
-
-                </div>
-
-            </div>
-
-        @endif
-
-
-
-        <!-- ======================================
-             FORM CARD
-        ======================================= -->
-
-        <div class="card">
-
-
-            <div class="card-header">
-
-                <h2 class="card-title">
-
-                    Formulir Materi Pembelajaran
-
-                </h2>
-
-            </div>
-
-
-
-            <div class="card-body">
-
-
-                <form
-                    action="{{ route('materi.kirim') }}"
-                    method="POST"
-                    enctype="multipart/form-data"
-                    class="crud-form"
-                    id="formMateri"
+                <button
+                    type="submit"
+                    class="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
                 >
 
-                    @csrf
+                    ✓ Simpan Materi
 
-
-
-                    <!-- ==================================
-                         NAMA MATERI
-                    =================================== -->
-
-                    <div class="form-group">
-
-
-                        <label
-                            for="nama_materi"
-                            class="form-label"
-                        >
-
-                            Nama Materi
-
-                            <span class="required">
-                                *
-                            </span>
-
-                        </label>
-
-
-                        <input
-                            type="text"
-                            name="nama_materi"
-                            id="nama_materi"
-                            class="form-control @error('nama_materi') input-error @enderror"
-                            placeholder="Masukkan judul atau nama materi..."
-                            value="{{ old('nama_materi') }}"
-                            maxlength="25"
-                            autocomplete="off"
-                            required
-                        >
-
-
-                        <span class="field-hint">
-
-                            Hanya boleh menggunakan huruf, angka, dan spasi.
-
-                        </span>
-
-
-                        <div
-                            id="namaMateriCounter"
-                            class="character-counter"
-                        >
-
-                            0/25 karakter
-
-                        </div>
-
-
-                        @error('nama_materi')
-
-                            <span class="field-error">
-
-                                {{ $message }}
-
-                            </span>
-
-                        @enderror
-
-
-                    </div>
-
-
-
-                    <!-- ==================================
-                         KELAS
-                    =================================== -->
-
-                    <div class="form-group">
-
-
-                        <label
-                            for="kelas_id"
-                            class="form-label"
-                        >
-
-                            Kelas
-
-                            <span class="required">
-                                *
-                            </span>
-
-                        </label>
-
-
-                        <select
-                            name="kelas_id"
-                            id="kelas_id"
-                            class="form-select @error('kelas_id') input-error @enderror"
-                            required
-                        >
-
-                            <option
-                                value=""
-                                disabled
-                                {{ old('kelas_id') ? '' : 'selected' }}
-                            >
-
-                                -- Pilih Kelas --
-
-                            </option>
-
-
-                            @foreach ($kelas as $item)
-
-                                <option
-                                    value="{{ $item->id }}"
-                                    {{ old('kelas_id') == $item->id ? 'selected' : '' }}
-                                >
-
-                                    {{ $item->nama_kelas }}
-
-                                </option>
-
-                            @endforeach
-
-
-                        </select>
-
-
-                        @error('kelas_id')
-
-                            <span class="field-error">
-
-                                {{ $message }}
-
-                            </span>
-
-                        @enderror
-
-
-                    </div>
-
-
-
-                    <!-- ==================================
-                         KATEGORI
-                    =================================== -->
-
-                    <div class="form-group">
-
-
-                        <label
-                            for="kategori_id"
-                            class="form-label"
-                        >
-
-                            Kategori Materi
-
-                            <span class="required">
-                                *
-                            </span>
-
-                        </label>
-
-
-                        <select
-                            name="kategori_id"
-                            id="kategori_id"
-                            class="form-select @error('kategori_id') input-error @enderror"
-                            required
-                            disabled
-                        >
-
-                            <option
-                                value=""
-                                selected
-                            >
-
-                                -- Pilih Kelas Terlebih Dahulu --
-
-                            </option>
-
-
-                            @foreach ($kategori as $item)
-
-                                <option
-                                    value="{{ $item->id }}"
-                                    data-kelas="{{ $item->kelas_id }}"
-                                    {{ old('kategori_id') == $item->id ? 'selected' : '' }}
-                                >
-
-                                    {{ $item->nama_kategori }}
-
-                                </option>
-
-                            @endforeach
-
-
-                        </select>
-
-
-                        @error('kategori_id')
-
-                            <span class="field-error">
-
-                                {{ $message }}
-
-                            </span>
-
-                        @enderror
-
-
-                        <span class="field-hint">
-
-                            Kategori akan menyesuaikan dengan kelas yang dipilih.
-
-                        </span>
-
-
-                    </div>
-
-
-
-                    <!-- ==================================
-                         GAMBAR
-                    =================================== -->
-
-                    <div class="form-group">
-
-
-                        <label
-                            for="gambar"
-                            class="form-label"
-                        >
-
-                            Gambar Pendukung (Opsional)
-
-                        </label>
-
-
-                        <input
-                            type="file"
-                            name="gambar"
-                            id="gambar"
-                            class="form-control form-file-input"
-                            accept="image/png, image/jpeg, image/jpg"
-                        >
-
-
-                        <span class="form-hint">
-
-                            Format yang didukung: JPG, JPEG, PNG (Maks. 2MB)
-
-                        </span>
-
-
-                        @error('gambar')
-
-                            <span class="field-error">
-
-                                {{ $message }}
-
-                            </span>
-
-                        @enderror
-
-
-                    </div>
-
-
-
-                    <!-- ==================================
-                         AUDIO
-                    =================================== -->
-
-                    <div class="form-group">
-
-
-                        <label
-                            for="audio"
-                            class="form-label"
-                        >
-
-                            Audio (Opsional)
-
-                        </label>
-
-
-                        <input
-                            type="file"
-                            name="audio"
-                            id="audio"
-                            class="form-control form-file-input"
-                            accept=".mp3,.aac,.wav,.ogg"
-                        >
-
-
-                        <span class="form-hint">
-
-                            Format yang didukung: MP3, AAC, WAV, OGG
-
-                        </span>
-
-
-                        @error('audio')
-
-                            <span class="field-error">
-
-                                {{ $message }}
-
-                            </span>
-
-                        @enderror
-
-
-                    </div>
-
-
-
-                    <!-- ==================================
-                         ISI MATERI
-                    =================================== -->
-
-                    <div class="form-group">
-
-
-                        <label
-                            for="isi_materi"
-                            class="form-label"
-                        >
-
-                            Isi Materi
-
-                            <span class="required">
-                                *
-                            </span>
-
-                        </label>
-
-
-                        <textarea
-                            name="isi_materi"
-                            id="isi_materi"
-                            class="form-textarea @error('isi_materi') input-error @enderror"
-                            rows="8"
-                            placeholder="Tuliskan penjelasan materi lengkap di sini..."
-                            required
-                        >{{ old('isi_materi') }}</textarea>
-
-
-                        @error('isi_materi')
-
-                            <span class="field-error">
-
-                                {{ $message }}
-
-                            </span>
-
-                        @enderror
-
-
-                    </div>
-
-
-
-                    <!-- ==================================
-                         BUTTONS
-                    =================================== -->
-
-                    <div class="form-actions">
-
-
-                        <button
-                            type="submit"
-                            class="btn btn-primary"
-                        >
-
-                            💾 Simpan Materi
-
-                        </button>
-
-
-                        <a
-                            href="{{ route('materi.index') }}"
-                            class="btn btn-secondary"
-                        >
-
-                            Batal
-
-                        </a>
-
-
-                    </div>
-
-
-                </form>
-
+                </button>
 
             </div>
 
 
-        </div>
-
+        </form>
 
     </div>
 
-
-
-    <!-- ==========================================
-         JAVASCRIPT
-    =========================================== -->
-
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
-
-
-            /*
-             * ==========================================
-             * AMBIL ELEMENT
-             * ==========================================
-             */
-
-            const form =
-                document.getElementById('formMateri');
-
-            const namaMateri =
-                document.getElementById('nama_materi');
-
-            const counter =
-                document.getElementById('namaMateriCounter');
-
-            const kategori =
-                document.getElementById('kategori_id');
-
-            const kelas =
-                document.getElementById('kelas_id');
+</div>
 
 
 
-            /*
-             * ==========================================
-             * VALIDASI NAMA MATERI
-             * ==========================================
-             */
+{{-- =====================================================
+     JAVASCRIPT
+====================================================== --}}
 
-            function validasiNamaMateri() {
+<script>
 
-
-                /*
-                 * Hapus karakter selain:
-                 * - huruf
-                 * - angka
-                 * - spasi
-                 */
-
-                namaMateri.value =
-                    namaMateri.value.replace(
-                        /[^A-Za-z0-9 ]/g,
-                        ''
-                    );
+document.addEventListener('DOMContentLoaded', function () {
 
 
-                /*
-                 * Maksimal 25 karakter
-                 */
+    const form =
+        document.getElementById('formMateri');
 
-                if (
-                    namaMateri.value.length > 25
-                ) {
 
-                    namaMateri.value =
-                        namaMateri.value.substring(
-                            0,
-                            25
-                        );
+    const namaMateri =
+        document.getElementById('nama_materi');
+
+
+    const counter =
+        document.getElementById('namaMateriCounter');
+
+
+    const kelasSelect =
+        document.getElementById('kelas_id');
+
+
+    const kategoriSelect =
+        document.getElementById('kategori_id');
+
+
+    const semuaKategori =
+        Array.from(
+            kategoriSelect.querySelectorAll(
+                'option[data-kelas]'
+            )
+        );
+
+
+
+    /* =====================================================
+       NAMA MATERI
+    ====================================================== */
+
+    function validasiNamaMateri() {
+
+        namaMateri.value =
+            namaMateri.value.replace(
+                /[^A-Za-z0-9 ]/g,
+                ''
+            );
+
+
+        if (
+            namaMateri.value.length > 25
+        ) {
+
+            namaMateri.value =
+                namaMateri.value.substring(
+                    0,
+                    25
+                );
+
+        }
+
+
+        counter.textContent =
+            namaMateri.value.length +
+            '/25 karakter';
+
+
+        if (
+            namaMateri.value.length >= 25
+        ) {
+
+            counter.classList.remove(
+                'text-gray-500'
+            );
+
+            counter.classList.add(
+                'text-red-600',
+                'font-semibold'
+            );
+
+        } else {
+
+            counter.classList.remove(
+                'text-red-600',
+                'font-semibold'
+            );
+
+            counter.classList.add(
+                'text-gray-500'
+            );
+
+        }
+
+    }
+
+
+    namaMateri.addEventListener(
+        'input',
+        validasiNamaMateri
+    );
+
+
+    validasiNamaMateri();
+
+
+
+    /* =====================================================
+       FILTER KATEGORI BERDASARKAN KELAS
+    ====================================================== */
+
+    function filterKategori() {
+
+
+        const kelasId =
+            kelasSelect.value;
+
+
+        if (!kelasId) {
+
+            kategoriSelect.disabled = true;
+
+            kategoriSelect.value = '';
+
+            kategoriSelect.querySelector(
+                'option[value=""]'
+            ).textContent =
+                '-- Pilih Kelas Terlebih Dahulu --';
+
+
+            semuaKategori.forEach(
+                function (option) {
+
+                    option.hidden = true;
 
                 }
+            );
+
+            return;
+        }
 
 
-                /*
-                 * Update counter
-                 */
-
-                counter.textContent =
-                    namaMateri.value.length +
-                    '/25 karakter';
+        kategoriSelect.disabled = false;
 
 
-                /*
-                 * Jika mencapai batas
-                 */
+        kategoriSelect.querySelector(
+            'option[value=""]'
+        ).textContent =
+            '-- Pilih Kategori --';
+
+
+        semuaKategori.forEach(
+            function (option) {
+
 
                 if (
-                    namaMateri.value.length >= 25
+                    option.dataset.kelas ===
+                    kelasId
                 ) {
 
-                    counter.classList.add('error');
+                    option.hidden = false;
 
                 } else {
 
-                    counter.classList.remove('error');
+                    option.hidden = true;
 
                 }
 
             }
+        );
 
 
-            /*
-             * Jalankan ketika mengetik
-             */
-
-            namaMateri.addEventListener(
-                'input',
-                validasiNamaMateri
-            );
+        const kategoriTerpilih =
+            kategoriSelect.value;
 
 
-            /*
-             * Jalankan saat halaman dibuka
-             */
+        const masihValid =
+            semuaKategori.some(
+                function (option) {
 
-            validasiNamaMateri();
-
-
-
-            /*
-             * ==========================================
-             * SIMPAN SEMUA DATA KATEGORI
-             * ==========================================
-             */
-
-            const semuaKategori =
-                Array.from(
-                    kategori.querySelectorAll(
-                        'option[data-kelas]'
-                    )
-                );
-
-
-
-            /*
-             * ==========================================
-             * FILTER KATEGORI BERDASARKAN KELAS
-             * ==========================================
-             */
-
-            function filterKategori() {
-
-
-                const kelasId =
-                    kelas.value;
-
-
-                /*
-                 * Reset pilihan kategori
-                 */
-
-                kategori.value = '';
-
-
-
-                /*
-                 * ==================================
-                 * BELUM MEMILIH KELAS
-                 * ==================================
-                 */
-
-                if (!kelasId) {
-
-
-                    kategori.disabled = true;
-
-
-                    kategori.options[0].textContent =
-                        '-- Pilih Kelas Terlebih Dahulu --';
-
-
-                    semuaKategori.forEach(
-                        function (option) {
-
-                            option.hidden = true;
-
-                        }
+                    return (
+                        option.dataset.kelas === kelasId &&
+                        option.value === kategoriTerpilih
                     );
 
-
-                    return;
-
                 }
-
-
-
-                /*
-                 * ==================================
-                 * SUDAH MEMILIH KELAS
-                 * ==================================
-                 */
-
-                kategori.disabled = false;
-
-
-                kategori.options[0].textContent =
-                    '-- Pilih Kategori --';
-
-
-
-                /*
-                 * Tampilkan hanya kategori
-                 * yang mempunyai kelas_id
-                 * sama dengan kelas yang dipilih
-                 */
-
-                semuaKategori.forEach(
-                    function (option) {
-
-
-                        if (
-                            option.dataset.kelas === kelasId
-                        ) {
-
-                            option.hidden = false;
-
-                        } else {
-
-                            option.hidden = true;
-
-                        }
-
-                    }
-                );
-
-            }
-
-
-
-            /*
-             * ==========================================
-             * JALANKAN FILTER KETIKA KELAS DIPILIH
-             * ==========================================
-             */
-
-            kelas.addEventListener(
-                'change',
-                filterKategori
             );
 
 
+        if (!masihValid) {
 
-            /*
-             * ==========================================
-             * JALANKAN SAAT HALAMAN DIBUKA
-             * ==========================================
-             */
+            kategoriSelect.value = '';
+
+        }
+
+    }
+
+
+    kelasSelect.addEventListener(
+        'change',
+        function () {
+
+            kategoriSelect.value = '';
 
             filterKategori();
 
+        }
+    );
 
 
-            /*
-             * ==========================================
-             * VALIDASI FORM SEBELUM SUBMIT
-             * ==========================================
-             */
-
-            form.addEventListener(
-                'submit',
-                function (event) {
-
-
-                    /*
-                     * ==============================
-                     * VALIDASI NAMA
-                     * ==============================
-                     */
-
-                    const nama =
-                        namaMateri.value;
-
-
-                    const regexNama =
-                        /^[A-Za-z0-9 ]+$/;
-
-
-                    if (
-                        nama.length === 0 ||
-                        nama.length > 25 ||
-                        !regexNama.test(nama)
-                    ) {
-
-
-                        namaMateri.focus();
-
-
-                        alert(
-                            'Nama materi wajib diisi, maksimal 25 karakter, dan hanya boleh menggunakan huruf, angka, serta spasi.'
-                        );
-
-
-                        event.preventDefault();
-
-                        return;
-
-                    }
+    filterKategori();
 
 
 
-                    /*
-                     * ==============================
-                     * VALIDASI KELAS
-                     * ==============================
-                     */
+    /* =====================================================
+       VALIDASI SUBMIT
+    ====================================================== */
 
-                    if (
-                        kelas.value === ''
-                    ) {
+    form.addEventListener(
+        'submit',
+        function (event) {
 
 
-                        kelas.focus();
+            const nama =
+                namaMateri.value.trim();
 
 
-                        alert(
-                            'Kelas harus diisi.'
-                        );
+            const regexNama =
+                /^[A-Za-z0-9 ]+$/;
 
 
-                        event.preventDefault();
+            if (
+                nama.length === 0 ||
+                nama.length > 25 ||
+                !regexNama.test(nama)
+            ) {
 
-                        return;
+                event.preventDefault();
 
-                    }
+                namaMateri.focus();
 
+                alert(
+                    'Nama materi wajib diisi, maksimal 25 karakter, dan hanya boleh menggunakan huruf, angka, serta spasi.'
+                );
 
+                return;
 
-                    /*
-                     * ==============================
-                     * VALIDASI KATEGORI
-                     * ==============================
-                     */
-
-                    if (
-                        kategori.value === ''
-                    ) {
-
-
-                        kategori.focus();
+            }
 
 
-                        alert(
-                            'Kategori harus diisi.'
-                        );
+            if (
+                kelasSelect.value === ''
+            ) {
+
+                event.preventDefault();
+
+                kelasSelect.focus();
+
+                alert(
+                    'Kelas harus diisi.'
+                );
+
+                return;
+
+            }
 
 
-                        event.preventDefault();
+            if (
+                kategoriSelect.value === ''
+            ) {
 
-                        return;
+                event.preventDefault();
 
-                    }
+                kategoriSelect.focus();
 
-                }
-            );
+                alert(
+                    'Kategori harus diisi.'
+                );
 
-        });
+                return;
 
-    </script>
+            }
 
+        }
+    );
 
-</body>
+});
 
-</html>
+</script>
+
+@endsection
