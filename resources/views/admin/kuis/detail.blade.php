@@ -89,7 +89,10 @@
         </div>
 
 
-        {{-- Gambar --}}
+        {{-- ========================= --}}
+        {{-- GAMBAR --}}
+        {{-- ========================= --}}
+
         @php
 
             $gambar = $quis->gambar ?? [];
@@ -98,13 +101,17 @@
                 $gambar = [$gambar];
             }
 
+            $gambar = array_filter($gambar);
+
         @endphp
+
 
         <div class="mb-6">
 
             <p class="text-sm font-semibold text-gray-500 mb-3">
                 Gambar
             </p>
+
 
             @if (count($gambar) > 0)
 
@@ -141,19 +148,72 @@
         </div>
 
 
-        {{-- Audio --}}
+        {{-- ========================= --}}
+        {{-- AUDIO --}}
+        {{-- ========================= --}}
+
         <div class="mb-6">
 
-            <p class="text-sm font-semibold text-gray-500 mb-2">
+            <p class="text-sm font-semibold text-gray-500 mb-3">
                 Audio
             </p>
 
+
             @if ($quis->audio)
 
-                <audio controls class="w-full">
-                    <source src="{{ asset('storage/' . $quis->audio) }}">
-                    Browser tidak mendukung audio.
-                </audio>
+                @php
+                    $extension = strtolower(
+                        pathinfo($quis->audio, PATHINFO_EXTENSION)
+                    );
+
+                    $audioType = match ($extension) {
+                        'mp3' => 'audio/mpeg',
+                        'wav' => 'audio/wav',
+                        'ogg' => 'audio/ogg',
+                        default => 'audio/mpeg',
+                    };
+                @endphp
+
+
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+
+                    <div class="flex items-center gap-3 mb-3">
+
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            🔊
+                        </div>
+
+                        <div>
+
+                            <p class="font-semibold text-gray-800">
+                                Audio Soal
+                            </p>
+
+                            <p class="text-xs text-gray-500">
+                                {{ strtoupper($extension) }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <audio
+                        controls
+                        preload="metadata"
+                        class="w-full"
+                    >
+
+                        <source
+                            src="{{ asset('storage/' . $quis->audio) }}"
+                            type="{{ $audioType }}"
+                        >
+
+                        Browser kamu tidak mendukung pemutar audio.
+
+                    </audio>
+
+                </div>
 
             @else
 
@@ -166,52 +226,73 @@
         </div>
 
 
-        {{-- Pilihan --}}
+        {{-- ========================= --}}
+        {{-- PILIHAN JAWABAN --}}
+        {{-- ========================= --}}
+
         <div class="mb-6">
 
             <p class="text-sm font-semibold text-gray-500 mb-3">
                 Pilihan Jawaban
             </p>
 
+
             <div class="grid md:grid-cols-2 gap-4">
 
+
+                {{-- Pilihan A --}}
                 <div class="border border-gray-200 rounded-lg p-4">
+
                     <p class="text-sm text-gray-500 mb-1">
                         Pilihan A
                     </p>
+
                     <p class="font-semibold text-gray-800">
                         {{ $quis->pilihan_a }}
                     </p>
+
                 </div>
 
 
+                {{-- Pilihan B --}}
                 <div class="border border-gray-200 rounded-lg p-4">
+
                     <p class="text-sm text-gray-500 mb-1">
                         Pilihan B
                     </p>
+
                     <p class="font-semibold text-gray-800">
                         {{ $quis->pilihan_b }}
                     </p>
+
                 </div>
 
 
+                {{-- Pilihan C --}}
                 <div class="border border-gray-200 rounded-lg p-4">
+
                     <p class="text-sm text-gray-500 mb-1">
                         Pilihan C
                     </p>
+
                     <p class="font-semibold text-gray-800">
                         {{ $quis->pilihan_c }}
                     </p>
+
                 </div>
 
 
+                {{-- Pilihan D --}}
                 <div class="border border-gray-200 rounded-lg p-4">
+
                     <p class="text-sm text-gray-500 mb-1">
                         Pilihan D
                     </p>
+
                     <p class="font-semibold text-gray-800">
                         {{ $quis->pilihan_d }}
                     </p>
+
                 </div>
 
             </div>
@@ -219,7 +300,10 @@
         </div>
 
 
-        {{-- Jawaban --}}
+        {{-- ========================= --}}
+        {{-- JAWABAN BENAR --}}
+        {{-- ========================= --}}
+
         <div class="mb-6">
 
             <p class="text-sm font-semibold text-gray-500 mb-2">
@@ -233,7 +317,10 @@
         </div>
 
 
-        {{-- Tombol --}}
+        {{-- ========================= --}}
+        {{-- TOMBOL --}}
+        {{-- ========================= --}}
+
         <div class="flex justify-end gap-3">
 
             <a

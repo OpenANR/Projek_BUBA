@@ -19,8 +19,10 @@
             </p>
         </div>
 
-        <a href="{{ route('kuis.index') }}"
-           class="px-4 py-2 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition">
+        <a
+            href="{{ route('kuis.index') }}"
+            class="px-4 py-2 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition"
+        >
             ← Kembali
         </a>
 
@@ -45,16 +47,21 @@
     @endif
 
 
+    {{-- Form --}}
     <div class="bg-white rounded-xl shadow-md p-6">
 
-        <form action="{{ route('kuis.kirim') }}"
-              method="POST"
-              enctype="multipart/form-data">
+        <form
+            action="{{ route('kuis.kirim') }}"
+            method="POST"
+            enctype="multipart/form-data"
+        >
 
             @csrf
 
 
-            {{-- Pertanyaan --}}
+            {{-- ========================= --}}
+            {{-- PERTANYAAN --}}
+            {{-- ========================= --}}
             <div class="mb-5">
 
                 <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -67,7 +74,8 @@
                     class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
                     placeholder="Masukkan pertanyaan kuis..."
                     oninput="this.value = this.value.replace(/[^A-Za-z0-9 ?=+\-]/g, '')"
-                    required>{{ old('pertanyaan') }}</textarea>
+                    required
+                >{{ old('pertanyaan') }}</textarea>
 
                 <p class="text-xs text-gray-500 mt-2">
                     Hanya boleh menggunakan huruf, angka, spasi, dan simbol
@@ -83,10 +91,15 @@
             </div>
 
 
-            {{-- Kelas --}}
+            {{-- ========================= --}}
+            {{-- KELAS --}}
+            {{-- ========================= --}}
             <div class="mb-5">
 
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <label
+                    for="kelas_id"
+                    class="block text-sm font-semibold text-gray-700 mb-2"
+                >
                     Kelas
                 </label>
 
@@ -123,10 +136,15 @@
             </div>
 
 
-            {{-- Kategori --}}
+            {{-- ========================= --}}
+            {{-- KATEGORI --}}
+            {{-- ========================= --}}
             <div class="mb-5">
 
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <label
+                    for="kategori_id"
+                    class="block text-sm font-semibold text-gray-700 mb-2"
+                >
                     Kategori
                 </label>
 
@@ -168,7 +186,9 @@
             </div>
 
 
-            {{-- Pilihan Jawaban --}}
+            {{-- ========================= --}}
+            {{-- PILIHAN JAWABAN --}}
+            {{-- ========================= --}}
             <div class="mb-5">
 
                 <label class="block text-sm font-semibold text-gray-700 mb-3">
@@ -176,93 +196,139 @@
                 </label>
 
 
-                {{-- A --}}
+                {{-- Pilihan A --}}
                 <div class="mb-3">
 
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                        for="pilihan_a"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                    >
                         Pilihan A
                     </label>
 
                     <input
                         type="text"
                         name="pilihan_a"
+                        id="pilihan_a"
                         value="{{ old('pilihan_a') }}"
                         class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
                         placeholder="Masukkan pilihan A"
                         required
                     >
 
+                    @error('pilihan_a')
+                        <p class="text-sm text-red-600 mt-1">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
                 </div>
 
 
-                {{-- B --}}
+                {{-- Pilihan B --}}
                 <div class="mb-3">
 
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                        for="pilihan_b"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                    >
                         Pilihan B
                     </label>
 
                     <input
                         type="text"
                         name="pilihan_b"
+                        id="pilihan_b"
                         value="{{ old('pilihan_b') }}"
                         class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
                         placeholder="Masukkan pilihan B"
                         required
                     >
 
+                    @error('pilihan_b')
+                        <p class="text-sm text-red-600 mt-1">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
                 </div>
 
 
-                {{-- C --}}
+                {{-- Pilihan C --}}
                 <div class="mb-3">
 
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                        for="pilihan_c"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                    >
                         Pilihan C
                     </label>
 
                     <input
                         type="text"
                         name="pilihan_c"
+                        id="pilihan_c"
                         value="{{ old('pilihan_c') }}"
                         class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
                         placeholder="Masukkan pilihan C"
                         required
                     >
 
+                    @error('pilihan_c')
+                        <p class="text-sm text-red-600 mt-1">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
                 </div>
 
 
-                {{-- D --}}
+                {{-- Pilihan D --}}
                 <div>
 
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                        for="pilihan_d"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                    >
                         Pilihan D
                     </label>
 
                     <input
                         type="text"
                         name="pilihan_d"
+                        id="pilihan_d"
                         value="{{ old('pilihan_d') }}"
                         class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
                         placeholder="Masukkan pilihan D"
                         required
                     >
 
+                    @error('pilihan_d')
+                        <p class="text-sm text-red-600 mt-1">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
                 </div>
 
             </div>
 
 
-            {{-- Jawaban Benar --}}
+            {{-- ========================= --}}
+            {{-- JAWABAN BENAR --}}
+            {{-- ========================= --}}
             <div class="mb-5">
 
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <label
+                    for="jawaban"
+                    class="block text-sm font-semibold text-gray-700 mb-2"
+                >
                     Jawaban Benar
                 </label>
 
                 <select
                     name="jawaban"
+                    id="jawaban"
                     class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-green-400 focus:border-green-400 outline-none"
                     required
                 >
@@ -271,13 +337,13 @@
                         -- Pilih Jawaban Benar --
                     </option>
 
-                    @foreach (['A', 'B', 'C', 'D'] as $jawaban)
+                    @foreach (['A', 'B', 'C', 'D'] as $pilihan)
 
                         <option
-                            value="{{ $jawaban }}"
-                            {{ old('jawaban') == $jawaban ? 'selected' : '' }}
+                            value="{{ $pilihan }}"
+                            {{ old('jawaban') == $pilihan ? 'selected' : '' }}
                         >
-                            {{ $jawaban }}
+                            {{ $pilihan }}
                         </option>
 
                     @endforeach
@@ -293,28 +359,64 @@
             </div>
 
 
-            {{-- Gambar --}}
+            {{-- ========================= --}}
+            {{-- GAMBAR --}}
+            {{-- ========================= --}}
             <div class="mb-5">
 
                 <label class="block text-sm font-semibold text-gray-700 mb-2">
                     Gambar
+
                     <span class="font-normal text-gray-500">
                         (Opsional, bisa lebih dari satu)
                     </span>
                 </label>
 
-                <input
-                    type="file"
-                    name="gambar[]"
-                    multiple
-                    accept=".jpg,.jpeg,.png,.webp"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 bg-white"
+
+                {{-- Container semua input gambar --}}
+                <div id="gambarContainer">
+
+                    {{-- Input gambar pertama --}}
+                    <div class="flex gap-2 mb-3 gambar-item">
+
+                        <input
+                            type="file"
+                            name="gambar[]"
+                            accept=".jpg,.jpeg,.png,.webp"
+                            class="flex-1 border border-gray-300 rounded-lg px-4 py-3 text-gray-700 bg-white"
+                        >
+
+                        <button
+                            type="button"
+                            onclick="hapusGambar(this)"
+                            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                        >
+                            Hapus
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                {{-- Tombol tambah gambar --}}
+                <button
+                    type="button"
+                    onclick="tambahGambar()"
+                    class="mt-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
                 >
+                    + Tambah Gambar
+                </button>
+
 
                 <p class="text-xs text-gray-500 mt-2">
-                    Bisa memilih beberapa gambar sekaligus.
-                    Format JPG, JPEG, PNG, WEBP. Maksimal 2 MB per gambar.
+                    Pilih gambar satu per satu. Klik "Tambah Gambar"
+                    untuk menambahkan gambar berikutnya.
+                    Tidak ada batas jumlah gambar.
+                    Format JPG, JPEG, PNG, WEBP.
+                    Maksimal 2 MB per gambar.
                 </p>
+
 
                 @error('gambar')
                     <p class="text-sm text-red-600 mt-2">
@@ -331,11 +433,17 @@
             </div>
 
 
-            {{-- Audio --}}
+            {{-- ========================= --}}
+            {{-- AUDIO --}}
+            {{-- ========================= --}}
             <div class="mb-6">
 
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                <label
+                    for="audio"
+                    class="block text-sm font-semibold text-gray-700 mb-2"
+                >
                     Audio
+
                     <span class="font-normal text-gray-500">
                         (Opsional)
                     </span>
@@ -344,12 +452,14 @@
                 <input
                     type="file"
                     name="audio"
+                    id="audio"
                     accept=".mp3,.wav,.ogg"
                     class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 bg-white"
                 >
 
                 <p class="text-xs text-gray-500 mt-2">
-                    Format MP3, WAV, atau OGG. Maksimal 10 MB.
+                    Format MP3, WAV, atau OGG.
+                    Maksimal 10 MB.
                 </p>
 
                 @error('audio')
@@ -361,7 +471,9 @@
             </div>
 
 
-            {{-- Tombol --}}
+            {{-- ========================= --}}
+            {{-- TOMBOL --}}
+            {{-- ========================= --}}
             <div class="flex justify-end gap-3">
 
                 <a
@@ -387,10 +499,16 @@
 </div>
 
 
-{{-- Filter Kategori Berdasarkan Kelas --}}
+{{-- ========================= --}}
+{{-- JAVASCRIPT --}}
+{{-- ========================= --}}
 <script>
 
 document.addEventListener('DOMContentLoaded', function () {
+
+    // =========================================
+    // FILTER KATEGORI BERDASARKAN KELAS
+    // =========================================
 
     const kelasSelect = document.getElementById('kelas_id');
     const kategoriSelect = document.getElementById('kategori_id');
@@ -399,11 +517,12 @@ document.addEventListener('DOMContentLoaded', function () {
         kategoriSelect.querySelectorAll('option[data-kelas]')
     );
 
+
     function filterKategori() {
 
         const kelasId = kelasSelect.value;
 
-        // Sembunyikan/tampilkan kategori sesuai kelas
+
         semuaKategori.forEach(function (option) {
 
             if (option.dataset.kelas === kelasId) {
@@ -418,6 +537,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
+
         if (!kelasId) {
 
             kategoriSelect.value = '';
@@ -429,18 +549,21 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+
         kategoriSelect.querySelector(
             'option[value=""]'
         ).textContent = '-- Pilih Kategori --';
 
 
-        // Pastikan kategori yang dipilih memang milik kelas tersebut
         const kategoriTerpilih = kategoriSelect.value;
+
 
         const masihValid = semuaKategori.some(function (option) {
 
-            return option.dataset.kelas === kelasId &&
-                   option.value === kategoriTerpilih;
+            return (
+                option.dataset.kelas === kelasId &&
+                option.value === kategoriTerpilih
+            );
 
         });
 
@@ -456,8 +579,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     kelasSelect.addEventListener('change', function () {
 
-        // Setiap kali kelas berubah,
-        // kategori harus dipilih ulang
         kategoriSelect.value = '';
 
         filterKategori();
@@ -465,10 +586,70 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    // Jalankan saat halaman pertama kali dibuka
     filterKategori();
 
 });
+
+
+// =========================================
+// TAMBAH INPUT GAMBAR
+// =========================================
+
+function tambahGambar() {
+
+    const container = document.getElementById('gambarContainer');
+
+    const div = document.createElement('div');
+
+    div.className = 'flex gap-2 mb-3 gambar-item';
+
+    div.innerHTML = `
+        <input
+            type="file"
+            name="gambar[]"
+            accept=".jpg,.jpeg,.png,.webp"
+            class="flex-1 border border-gray-300 rounded-lg px-4 py-3 text-gray-700 bg-white"
+        >
+
+        <button
+            type="button"
+            onclick="hapusGambar(this)"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+        >
+            Hapus
+        </button>
+    `;
+
+    container.appendChild(div);
+}
+
+
+// =========================================
+// HAPUS INPUT GAMBAR
+// =========================================
+
+function hapusGambar(button) {
+
+    const container = document.getElementById('gambarContainer');
+
+    const semuaInput = container.querySelectorAll('.gambar-item');
+
+
+    // Kalau masih ada lebih dari satu input,
+    // hapus input yang dipilih.
+    if (semuaInput.length > 1) {
+
+        button.parentElement.remove();
+
+    } else {
+
+        // Kalau tinggal satu, jangan hapus inputnya.
+        // Cukup kosongkan file yang dipilih.
+        button.parentElement.querySelector('input').value = '';
+
+    }
+
+}
 
 </script>
 

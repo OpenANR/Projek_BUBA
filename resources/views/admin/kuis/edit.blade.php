@@ -205,6 +205,12 @@
                     class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
 
+                @error('pilihan_a')
+                    <p class="text-red-500 text-sm mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
+
             </div>
 
 
@@ -222,6 +228,12 @@
                     required
                     class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
+
+                @error('pilihan_b')
+                    <p class="text-red-500 text-sm mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
 
             </div>
 
@@ -241,6 +253,12 @@
                     class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
 
+                @error('pilihan_c')
+                    <p class="text-red-500 text-sm mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
+
             </div>
 
 
@@ -258,6 +276,12 @@
                     required
                     class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
+
+                @error('pilihan_d')
+                    <p class="text-red-500 text-sm mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
 
             </div>
 
@@ -292,10 +316,16 @@
 
                 </select>
 
+                @error('jawaban')
+                    <p class="text-red-500 text-sm mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
+
             </div>
 
 
-            {{-- Gambar Lama --}}
+            {{-- Gambar Saat Ini --}}
             <div class="mb-6">
 
                 <p class="text-sm font-semibold text-gray-700 mb-3">
@@ -303,18 +333,20 @@
                 </p>
 
                 @php
+
                     $gambarLama = $quis->gambar ?? [];
 
                     if (!is_array($gambarLama)) {
                         $gambarLama = [$gambarLama];
                     }
+
                 @endphp
 
                 @if (count($gambarLama) > 0)
 
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
 
-                        @foreach ($gambarLama as $index => $gambar)
+                        @foreach ($gambarLama as $gambar)
 
                             <div class="border border-gray-200 rounded-lg p-2">
 
@@ -323,25 +355,6 @@
                                     alt="Gambar soal"
                                     class="w-full h-32 object-contain rounded-lg bg-gray-50"
                                 >
-
-                                <form
-                                    action="{{ route('kuis.gambar.hapus', [$quis, $index]) }}"
-                                    method="POST"
-                                    class="mt-2"
-                                    onsubmit="return confirm('Yakin ingin menghapus gambar ini?')"
-                                >
-
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button
-                                        type="submit"
-                                        class="w-full px-3 py-2 text-xs font-semibold text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100"
-                                    >
-                                        Hapus Gambar
-                                    </button>
-
-                                </form>
 
                             </div>
 
@@ -360,25 +373,39 @@
             </div>
 
 
-            {{-- Tambah Gambar --}}
+            {{-- Ganti Gambar --}}
             <div class="mb-6">
 
                 <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Tambah Gambar
+                    Ganti Gambar
                 </label>
 
                 <input
                     type="file"
                     name="gambar[]"
+                    id="gambar"
                     multiple
                     accept=".jpg,.jpeg,.png,.webp"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white"
                 >
 
                 <p class="text-xs text-gray-400 mt-1">
-                    Gambar baru akan ditambahkan ke gambar yang sudah ada.
+                    Pilih gambar baru sebanyak yang diperlukan.
+                    Jika dipilih, semua gambar lama akan diganti.
+                    Tidak ada batas jumlah gambar.
                     Maksimal 2 MB per gambar.
                 </p>
+
+                <p
+                    id="gambarInfo"
+                    class="text-xs text-blue-600 mt-2"
+                ></p>
+
+                @error('gambar')
+                    <p class="text-red-500 text-sm mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
 
                 @error('gambar.*')
                     <p class="text-red-500 text-sm mt-1">
@@ -400,6 +427,7 @@
 
                     <audio controls class="w-full">
                         <source src="{{ asset('storage/' . $quis->audio) }}">
+                        Browser tidak mendukung pemutar audio.
                     </audio>
 
                 @else
@@ -417,20 +445,26 @@
             <div class="mb-6">
 
                 <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Ganti / Tambah Audio
+                    Ganti Audio
                 </label>
 
                 <input
                     type="file"
                     name="audio"
                     accept=".mp3,.wav,.ogg"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white"
                 >
 
                 <p class="text-xs text-gray-400 mt-1">
                     Jika dipilih, audio lama akan diganti.
                     Maksimal 10 MB.
                 </p>
+
+                @error('audio')
+                    <p class="text-red-500 text-sm mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
 
             </div>
 
@@ -468,10 +502,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const kelasSelect = document.getElementById('kelas_id');
     const kategoriSelect = document.getElementById('kategori_id');
+    const gambarInput = document.getElementById('gambar');
+    const gambarInfo = document.getElementById('gambarInfo');
 
     const semuaKategori = Array.from(
         kategoriSelect.querySelectorAll('option[data-kelas]')
     );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Filter kategori berdasarkan kelas
+    |--------------------------------------------------------------------------
+    */
 
     function filterKategori() {
 
@@ -489,6 +532,7 @@ document.addEventListener('DOMContentLoaded', function () {
             kategoriSelect.value = '';
 
             return;
+
         }
 
         const masihValid = semuaKategori.some(function (option) {
@@ -499,10 +543,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         if (!masihValid) {
+
             kategoriSelect.value = '';
+
         }
 
     }
+
 
     kelasSelect.addEventListener('change', function () {
 
@@ -511,6 +558,30 @@ document.addEventListener('DOMContentLoaded', function () {
         filterKategori();
 
     });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tampilkan jumlah gambar baru yang dipilih
+    |--------------------------------------------------------------------------
+    */
+
+    gambarInput.addEventListener('change', function () {
+
+        if (this.files.length === 0) {
+
+            gambarInfo.textContent = '';
+
+        } else {
+
+            gambarInfo.textContent =
+                this.files.length +
+                ' gambar dipilih. Semua gambar lama akan diganti.';
+
+        }
+
+    });
+
 
     filterKategori();
 

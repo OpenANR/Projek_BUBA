@@ -22,6 +22,7 @@ class QuisController extends Controller
         return view('admin.kuis.index', compact('quis'));
     }
 
+
     /**
      * Menampilkan halaman tambah soal
      */
@@ -37,6 +38,7 @@ class QuisController extends Controller
         );
     }
 
+
     /**
      * Menyimpan soal baru
      */
@@ -44,6 +46,7 @@ class QuisController extends Controller
     {
         $request->validate([
             'kelas_id' => 'required|exists:kelas,id',
+
             'kategori_id' => 'required|exists:kategoris,id',
 
             'pertanyaan' => [
@@ -59,11 +62,16 @@ class QuisController extends Controller
 
             'jawaban' => 'required|in:A,B,C,D',
 
+            // Bisa memilih banyak gambar
             'gambar' => 'nullable|array',
+
+            // Maksimal 2 MB setiap gambar
             'gambar.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
 
             'audio' => 'nullable|mimes:mp3,wav,ogg|max:10240',
+
         ], [
+
             'pertanyaan.required' =>
                 'Pertanyaan harus diisi.',
 
@@ -84,7 +92,9 @@ class QuisController extends Controller
 
             'audio.max' =>
                 'Ukuran audio maksimal 10 MB.',
+
         ]);
+
 
         /*
         |--------------------------------------------------------------------------
@@ -97,6 +107,7 @@ class QuisController extends Controller
             ->first();
 
         if (!$kategori) {
+
             return back()
                 ->withInput()
                 ->withErrors([
@@ -104,6 +115,7 @@ class QuisController extends Controller
                         'Kategori yang dipilih tidak sesuai dengan kelas.'
                 ]);
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -119,6 +131,7 @@ class QuisController extends Controller
             ->exists();
 
         if ($sudahAda) {
+
             return back()
                 ->withInput()
                 ->withErrors([
@@ -127,6 +140,7 @@ class QuisController extends Controller
                 ]);
         }
 
+
         /*
         |--------------------------------------------------------------------------
         | Data soal
@@ -134,34 +148,49 @@ class QuisController extends Controller
         */
 
         $data = [
+
             'kelas_id' => $request->kelas_id,
+
             'kategori_id' => $request->kategori_id,
+
             'pertanyaan' => $request->pertanyaan,
+
             'pilihan_a' => $request->pilihan_a,
+
             'pilihan_b' => $request->pilihan_b,
+
             'pilihan_c' => $request->pilihan_c,
+
             'pilihan_d' => $request->pilihan_d,
+
             'jawaban' => $request->jawaban,
+
         ];
+
 
         /*
         |--------------------------------------------------------------------------
-        | Upload beberapa gambar
+        | Upload banyak gambar
         |--------------------------------------------------------------------------
         */
 
         $gambarPaths = [];
 
         if ($request->hasFile('gambar')) {
+
             foreach ($request->file('gambar') as $gambar) {
+
                 $gambarPaths[] = $gambar->store(
                     'quis/gambar',
                     'public'
                 );
+
             }
+
         }
 
         $data['gambar'] = $gambarPaths;
+
 
         /*
         |--------------------------------------------------------------------------
@@ -170,10 +199,13 @@ class QuisController extends Controller
         */
 
         if ($request->hasFile('audio')) {
+
             $data['audio'] = $request
                 ->file('audio')
                 ->store('quis/audio', 'public');
+
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -183,6 +215,7 @@ class QuisController extends Controller
 
         Quis::create($data);
 
+
         return redirect()
             ->route('kuis.index')
             ->with(
@@ -190,6 +223,7 @@ class QuisController extends Controller
                 'Soal kuis berhasil ditambahkan.'
             );
     }
+
 
     /**
      * Menampilkan detail soal
@@ -203,6 +237,7 @@ class QuisController extends Controller
             compact('quis')
         );
     }
+
 
     /**
      * Menampilkan halaman edit
@@ -225,13 +260,16 @@ class QuisController extends Controller
         );
     }
 
+
     /**
      * Memperbarui soal
      */
     public function update(Request $request, Quis $quis)
     {
         $request->validate([
+
             'kelas_id' => 'required|exists:kelas,id',
+
             'kategori_id' => 'required|exists:kategoris,id',
 
             'pertanyaan' => [
@@ -247,11 +285,16 @@ class QuisController extends Controller
 
             'jawaban' => 'required|in:A,B,C,D',
 
+            // Bisa mengganti dengan banyak gambar
             'gambar' => 'nullable|array',
+
+            // Maksimal 2 MB setiap gambar
             'gambar.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
 
             'audio' => 'nullable|mimes:mp3,wav,ogg|max:10240',
+
         ], [
+
             'pertanyaan.required' =>
                 'Pertanyaan harus diisi.',
 
@@ -272,7 +315,9 @@ class QuisController extends Controller
 
             'audio.max' =>
                 'Ukuran audio maksimal 10 MB.',
+
         ]);
+
 
         /*
         |--------------------------------------------------------------------------
@@ -285,6 +330,7 @@ class QuisController extends Controller
             ->first();
 
         if (!$kategori) {
+
             return back()
                 ->withInput()
                 ->withErrors([
@@ -292,6 +338,7 @@ class QuisController extends Controller
                         'Kategori yang dipilih tidak sesuai dengan kelas.'
                 ]);
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -308,6 +355,7 @@ class QuisController extends Controller
             ->exists();
 
         if ($sudahAda) {
+
             return back()
                 ->withInput()
                 ->withErrors([
@@ -316,6 +364,7 @@ class QuisController extends Controller
                 ]);
         }
 
+
         /*
         |--------------------------------------------------------------------------
         | Data yang diperbarui
@@ -323,56 +372,119 @@ class QuisController extends Controller
         */
 
         $data = [
+
             'kelas_id' => $request->kelas_id,
+
             'kategori_id' => $request->kategori_id,
+
             'pertanyaan' => $request->pertanyaan,
+
             'pilihan_a' => $request->pilihan_a,
+
             'pilihan_b' => $request->pilihan_b,
+
             'pilihan_c' => $request->pilihan_c,
+
             'pilihan_d' => $request->pilihan_d,
+
             'jawaban' => $request->jawaban,
+
         ];
+
 
         /*
         |--------------------------------------------------------------------------
-        | Tambahkan gambar baru
+        | Ganti gambar lama dengan gambar baru
+        |--------------------------------------------------------------------------
+        |
+        | Jika user memilih gambar baru:
+        | 1. Semua gambar lama dihapus dari storage.
+        | 2. Gambar baru disimpan.
+        | 3. Path gambar baru disimpan ke database.
+        |
+        | Jika user tidak memilih gambar baru:
+        | gambar lama tetap dipertahankan.
+        |
         |--------------------------------------------------------------------------
         */
 
-        $gambarPaths = $quis->gambar ?? [];
-
-        if (!is_array($gambarPaths)) {
-            $gambarPaths = [$gambarPaths];
-        }
-
         if ($request->hasFile('gambar')) {
+
+            /*
+            | Ambil gambar lama
+            */
+
+            $gambarLama = $quis->gambar ?? [];
+
+            if (!is_array($gambarLama)) {
+
+                $gambarLama = [$gambarLama];
+
+            }
+
+
+            /*
+            | Hapus semua file gambar lama
+            */
+
+            foreach ($gambarLama as $file) {
+
+                if ($file) {
+
+                    Storage::disk('public')
+                        ->delete($file);
+
+                }
+
+            }
+
+
+            /*
+            | Upload gambar baru
+            */
+
+            $gambarPaths = [];
+
             foreach ($request->file('gambar') as $gambar) {
+
                 $gambarPaths[] = $gambar->store(
                     'quis/gambar',
                     'public'
                 );
+
             }
+
+
+            /*
+            | Simpan path gambar baru
+            */
+
+            $data['gambar'] = $gambarPaths;
+
         }
 
-        $data['gambar'] = array_values($gambarPaths);
 
         /*
         |--------------------------------------------------------------------------
-        | Jika ada audio baru
+        | Ganti audio jika ada audio baru
         |--------------------------------------------------------------------------
         */
 
         if ($request->hasFile('audio')) {
 
             if ($quis->audio) {
+
                 Storage::disk('public')
                     ->delete($quis->audio);
+
             }
 
             $data['audio'] = $request
                 ->file('audio')
                 ->store('quis/audio', 'public');
+
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -382,6 +494,7 @@ class QuisController extends Controller
 
         $quis->update($data);
 
+
         return redirect()
             ->route('kuis.index')
             ->with(
@@ -390,35 +503,6 @@ class QuisController extends Controller
             );
     }
 
-    /**
-     * Menghapus satu gambar dari soal
-     */
-    public function hapusGambar(Quis $quis, $index)
-    {
-        $gambar = $quis->gambar ?? [];
-
-        if (!is_array($gambar)) {
-            $gambar = [$gambar];
-        }
-
-        if (!isset($gambar[$index])) {
-            return back()->withErrors([
-                'gambar' => 'Gambar tidak ditemukan.'
-            ]);
-        }
-
-        Storage::disk('public')
-            ->delete($gambar[$index]);
-
-        array_splice($gambar, $index, 1);
-
-        $quis->update([
-            'gambar' => array_values($gambar)
-        ]);
-
-        return back()
-            ->with('success', 'Gambar berhasil dihapus.');
-    }
 
     /**
      * Menghapus soal
@@ -434,14 +518,22 @@ class QuisController extends Controller
         $gambar = $quis->gambar ?? [];
 
         if (!is_array($gambar)) {
+
             $gambar = [$gambar];
+
         }
 
         foreach ($gambar as $file) {
+
             if ($file) {
-                Storage::disk('public')->delete($file);
+
+                Storage::disk('public')
+                    ->delete($file);
+
             }
+
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -450,9 +542,12 @@ class QuisController extends Controller
         */
 
         if ($quis->audio) {
+
             Storage::disk('public')
                 ->delete($quis->audio);
+
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -461,6 +556,7 @@ class QuisController extends Controller
         */
 
         $quis->delete();
+
 
         return redirect()
             ->route('kuis.index')
