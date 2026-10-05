@@ -6,147 +6,180 @@
 
 <div class="max-w-6xl mx-auto">
 
-    {{-- =====================================================
-         HEADER
-    ====================================================== --}}
-
+    {{-- HEADER --}}
     <div class="flex items-center justify-between mb-6">
-
         <div>
-
             <h1 class="text-2xl font-bold text-gray-800">
                 📚 Tabel Materi
             </h1>
 
             <p class="text-gray-500 mt-1">
-                Kelola daftar materi pembelajaran BUBA
+                Kelola data materi pembelajaran BUBA.
             </p>
-
         </div>
 
-
-        <a
-            href="{{ route('materi.tambah') }}"
-            class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-        >
+        <a href="{{ route('materi.tambah') }}"
+           class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">
             + Tambah Materi
         </a>
+    </div>
+
+
+    {{-- PESAN SUKSES --}}
+    @if (session('success'))
+        <div class="mb-5 p-4 rounded-lg bg-green-100 border border-green-300 text-green-700">
+            {{ session('success') }}
+        </div>
+    @endif
+
+
+    {{-- PENCARIAN CUSTOM --}}
+    <div class="bg-white rounded-xl shadow-md p-5 mb-6">
+
+        <div class="flex flex-col md:flex-row gap-3">
+
+            {{-- PILIH JENIS PENCARIAN --}}
+            <div class="w-full md:w-64">
+                <select
+                    id="searchField"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                    <option value="all">
+                        Semua
+                    </option>
+
+                    <option value="kode">
+                        Kode
+                    </option>
+
+                    <option value="judul">
+                        Judul
+                    </option>
+
+                    <option value="kelas">
+                        Kelas
+                    </option>
+
+                    <option value="kategori">
+                        Kategori
+                    </option>
+
+                </select>
+            </div>
+
+
+            {{-- INPUT PENCARIAN --}}
+            <div class="flex-1">
+                <input
+                    type="text"
+                    id="searchMateri"
+                    placeholder="Ketik yang ingin dicari..."
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+
+            {{-- TOMBOL RESET --}}
+            <button
+                type="button"
+                id="resetSearch"
+                class="px-5 py-2.5 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition">
+
+                Reset
+
+            </button>
+
+        </div>
 
     </div>
 
 
-
-    {{-- =====================================================
-         ALERT SUCCESS
-    ====================================================== --}}
-
-    @if (session('success') || session('succes'))
-
-        <div class="mb-5 p-4 rounded-lg bg-green-100 border border-green-300 text-green-700">
-
-            {{ session('success') ?? session('succes') }}
-
-        </div>
-
-    @endif
-
-
-
-    {{-- =====================================================
-         TABLE CARD
-    ====================================================== --}}
-
+    {{-- TABEL --}}
     <div class="bg-white rounded-xl shadow-md p-6">
 
         <div class="overflow-x-auto">
 
             <table
                 id="materiTable"
-                class="min-w-full divide-y divide-gray-200"
-            >
+                class="display w-full">
 
-                <thead class="bg-gray-50">
-
+                <thead>
                     <tr>
 
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            No
-                        </th>
+                        <th>No</th>
 
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Kode
-                        </th>
+                        <th>Kode</th>
 
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Judul
-                        </th>
+                        <th>Judul</th>
 
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Kategori
-                        </th>
+                        <th>Kelas</th>
 
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Gambar
-                        </th>
+                        <th>Kategori</th>
 
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Aksi
-                        </th>
+                        <th>Gambar</th>
+
+                        <th>Aksi</th>
 
                     </tr>
-
                 </thead>
 
 
-                <tbody class="bg-white divide-y divide-gray-100">
+                <tbody>
 
                     @forelse ($materi as $item)
 
-                        <tr class="hover:bg-gray-50 transition">
+                        <tr>
 
                             {{-- NO --}}
-
-                            <td class="px-4 py-3 text-sm text-gray-700">
+                            <td>
                                 {{ $loop->iteration }}
                             </td>
 
 
                             {{-- KODE --}}
-
-                            <td class="px-4 py-3 text-sm font-mono text-gray-800">
-
+                            <td>
                                 {{ $item->kode_materi }}
-
                             </td>
 
 
                             {{-- JUDUL --}}
-
-                            <td class="px-4 py-3 text-sm font-medium text-gray-800">
-
+                            <td>
                                 {{ $item->nama_materi }}
+                            </td>
+
+
+                            {{-- KELAS --}}
+                            <td>
+
+                                @if ($item->kelas)
+
+                                    <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm">
+                                        {{ $item->kelas->nama_kelas }}
+                                    </span>
+
+                                @else
+
+                                    <span class="text-gray-400">
+                                        Tidak ada Kelas
+                                    </span>
+
+                                @endif
 
                             </td>
 
 
                             {{-- KATEGORI --}}
-
-                            <td class="px-4 py-3 text-sm">
+                            <td>
 
                                 @if ($item->kategori)
 
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-
+                                    <span class="inline-block px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm">
                                         {{ $item->kategori->nama_kategori }}
-
                                     </span>
 
                                 @else
 
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-gray-600">
-
+                                    <span class="text-gray-400">
                                         Tidak ada Kategori
-
                                     </span>
 
                                 @endif
@@ -155,20 +188,18 @@
 
 
                             {{-- GAMBAR --}}
-
-                            <td class="px-4 py-3 text-sm">
+                            <td>
 
                                 @if ($item->gambar)
 
                                     <img
                                         src="{{ asset('storage/' . $item->gambar) }}"
                                         alt="{{ $item->nama_materi }}"
-                                        class="w-20 h-20 object-cover rounded-lg border border-gray-200 shadow-sm"
-                                    >
+                                        class="w-16 h-16 object-cover rounded-lg">
 
                                 @else
 
-                                    <span class="text-xs text-gray-400 italic">
+                                    <span class="text-gray-400">
                                         Tidak ada gambar
                                     </span>
 
@@ -178,113 +209,42 @@
 
 
                             {{-- AKSI --}}
+                            <td>
 
-                            <td class="px-4 py-3 text-sm">
-
-                                <div class="flex flex-wrap items-center gap-2">
-
+                                <div class="flex items-center gap-2">
 
                                     {{-- EDIT --}}
-
                                     <a
                                         href="{{ route('materi.edit', $item) }}"
-                                        class="inline-flex items-center gap-1 bg-yellow-500 hover:bg-yellow-600 text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-sm transition"
-                                    >
-
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-4 w-4"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                                            />
-
-                                        </svg>
+                                        class="px-3 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-600 transition">
 
                                         Edit
 
                                     </a>
 
 
-
                                     {{-- DETAIL --}}
-
                                     <a
                                         href="{{ route('materi.detail', $item) }}"
-                                        class="inline-flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-sm transition"
-                                    >
+                                        class="px-3 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition">
 
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-4 w-4"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                            />
-
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                            />
-
-                                        </svg>
-
-                                        Selengkapnya
+                                        Detail
 
                                     </a>
 
 
-
                                     {{-- HAPUS --}}
-
                                     <form
                                         action="{{ route('materi.hapus', $item) }}"
                                         method="POST"
-                                        class="inline"
-                                    >
+                                        onsubmit="return confirm('Yakin ingin menghapus materi ini?')">
 
                                         @csrf
-
                                         @method('DELETE')
 
                                         <button
                                             type="submit"
-                                            onclick="return confirm('Yakin ingin menghapus materi ini?')"
-                                            class="cursor-pointer inline-flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-sm transition"
-                                        >
-
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="h-4 w-4"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                            >
-
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                                />
-
-                                            </svg>
+                                            class="px-3 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition">
 
                                             Hapus
 
@@ -302,10 +262,7 @@
 
                         <tr>
 
-                            <td
-                                colspan="6"
-                                class="px-6 py-10 text-center text-gray-500"
-                            >
+                            <td colspan="7" class="text-center py-8 text-gray-500">
 
                                 Belum ada data materi.
 
@@ -326,15 +283,10 @@
 </div>
 
 
-
-{{-- =====================================================
-     DATATABLES
-====================================================== --}}
-
+{{-- DATATABLES --}}
 <link
     rel="stylesheet"
-    href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css"
->
+    href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
 
 
 <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
@@ -344,31 +296,74 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    new DataTable('#materiTable', {
+    /*
+    |--------------------------------------------------------------------------
+    | DATATABLES
+    |--------------------------------------------------------------------------
+    */
+
+    const table = new DataTable('#materiTable', {
 
         pageLength: 10,
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | HAPUS SEARCH BAWAAN DATATABLES
+        |--------------------------------------------------------------------------
+        |
+        | Tampilkan 10 data tetap ada.
+        | Yang dihilangkan hanya:
+        |
+        | Cari materi: [____________]
+        |
+        */
+
+        layout: {
+            topStart: 'pageLength',
+            topEnd: null
+        },
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | KOLOM
+        |--------------------------------------------------------------------------
+        */
 
         columnDefs: [
 
             {
                 orderable: false,
                 searchable: false,
-                targets: [4, 5]
+                targets: [5, 6]
             }
 
         ],
 
-        language: {
 
-            search: "Cari materi:",
+        /*
+        |--------------------------------------------------------------------------
+        | BAHASA
+        |--------------------------------------------------------------------------
+        */
+
+        language: {
 
             lengthMenu: "Tampilkan _MENU_ data",
 
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
 
+            infoEmpty: "Tidak ada data materi",
+
+            infoFiltered: "(difilter dari _MAX_ total data)",
+
             paginate: {
+
                 next: "Berikutnya",
+
                 previous: "Sebelumnya"
+
             },
 
             zeroRecords: "Data tidak ditemukan",
@@ -376,6 +371,174 @@ document.addEventListener('DOMContentLoaded', function () {
             emptyTable: "Belum ada data materi."
 
         }
+
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | PENCARIAN CUSTOM
+    |--------------------------------------------------------------------------
+    */
+
+    const searchField = document.getElementById('searchField');
+
+    const searchMateri = document.getElementById('searchMateri');
+
+    const resetSearch = document.getElementById('resetSearch');
+
+
+    function doSearch() {
+
+        const field = searchField.value;
+
+        const keyword = searchMateri.value;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BERSIHKAN PENCARIAN KOLOM
+        |--------------------------------------------------------------------------
+        */
+
+        table.columns().search('');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SEMUA
+        |--------------------------------------------------------------------------
+        */
+
+        if (field === 'all') {
+
+            table
+                .search(keyword)
+                .draw();
+
+            return;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | KODE
+        |--------------------------------------------------------------------------
+        */
+
+        if (field === 'kode') {
+
+            table
+                .column(1)
+                .search(keyword)
+                .draw();
+
+            return;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | JUDUL
+        |--------------------------------------------------------------------------
+        */
+
+        if (field === 'judul') {
+
+            table
+                .column(2)
+                .search(keyword)
+                .draw();
+
+            return;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | KELAS
+        |--------------------------------------------------------------------------
+        */
+
+        if (field === 'kelas') {
+
+            table
+                .column(3)
+                .search(keyword)
+                .draw();
+
+            return;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | KATEGORI
+        |--------------------------------------------------------------------------
+        */
+
+        if (field === 'kategori') {
+
+            table
+                .column(4)
+                .search(keyword)
+                .draw();
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | KETIKA MENGETIK
+    |--------------------------------------------------------------------------
+    */
+
+    searchMateri.addEventListener('input', function () {
+
+        doSearch();
+
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | KETIKA DROPDOWN BERUBAH
+    |--------------------------------------------------------------------------
+    */
+
+    searchField.addEventListener('change', function () {
+
+        doSearch();
+
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | RESET
+    |--------------------------------------------------------------------------
+    */
+
+    resetSearch.addEventListener('click', function () {
+
+        searchField.value = 'all';
+
+        searchMateri.value = '';
+
+
+        table
+            .search('')
+            .columns()
+            .search('')
+            .draw();
 
     });
 
