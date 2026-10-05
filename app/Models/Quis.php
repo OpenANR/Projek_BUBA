@@ -13,11 +13,16 @@ class Quis extends Model
         'kategori_id',
         'pertanyaan',
         'gambar',
+        'audio',
         'pilihan_a',
         'pilihan_b',
         'pilihan_c',
         'pilihan_d',
         'jawaban',
+    ];
+
+    protected $casts = [
+        'gambar' => 'array',
     ];
 
     #[Override]

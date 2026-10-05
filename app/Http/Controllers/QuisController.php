@@ -59,14 +59,31 @@ class QuisController extends Controller
 
             'jawaban' => 'required|in:A,B,C,D',
 
-            'gambar' =>
-                'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|array',
+            'gambar.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'audio' => 'nullable|mimes:mp3,wav,ogg|max:10240',
         ], [
             'pertanyaan.required' =>
                 'Pertanyaan harus diisi.',
 
             'pertanyaan.regex' =>
                 'Pertanyaan hanya boleh menggunakan huruf, angka, spasi, dan simbol ?, =, +, -.',
+
+            'gambar.*.image' =>
+                'File gambar harus berupa gambar.',
+
+            'gambar.*.mimes' =>
+                'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
+
+            'gambar.*.max' =>
+                'Ukuran setiap gambar maksimal 2 MB.',
+
+            'audio.mimes' =>
+                'Format audio harus MP3, WAV, atau OGG.',
+
+            'audio.max' =>
+                'Ukuran audio maksimal 10 MB.',
         ]);
 
         /*
@@ -112,12 +129,8 @@ class QuisController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Data yang disimpan
+        | Data soal
         |--------------------------------------------------------------------------
-        |
-        | kode_kuis tidak dibuat di controller.
-        | Kode otomatis dibuat oleh Quis.php.
-        |
         */
 
         $data = [
@@ -133,14 +146,33 @@ class QuisController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Upload gambar
+        | Upload beberapa gambar
         |--------------------------------------------------------------------------
         */
 
+        $gambarPaths = [];
+
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request
-                ->file('gambar')
-                ->store('quis', 'public');
+            foreach ($request->file('gambar') as $gambar) {
+                $gambarPaths[] = $gambar->store(
+                    'quis/gambar',
+                    'public'
+                );
+            }
+        }
+
+        $data['gambar'] = $gambarPaths;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Upload audio
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->hasFile('audio')) {
+            $data['audio'] = $request
+                ->file('audio')
+                ->store('quis/audio', 'public');
         }
 
         /*
@@ -215,14 +247,31 @@ class QuisController extends Controller
 
             'jawaban' => 'required|in:A,B,C,D',
 
-            'gambar' =>
-                'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|array',
+            'gambar.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'audio' => 'nullable|mimes:mp3,wav,ogg|max:10240',
         ], [
             'pertanyaan.required' =>
                 'Pertanyaan harus diisi.',
 
             'pertanyaan.regex' =>
                 'Pertanyaan hanya boleh menggunakan huruf, angka, spasi, dan simbol ?, =, +, -.',
+
+            'gambar.*.image' =>
+                'File gambar harus berupa gambar.',
+
+            'gambar.*.mimes' =>
+                'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
+
+            'gambar.*.max' =>
+                'Ukuran setiap gambar maksimal 2 MB.',
+
+            'audio.mimes' =>
+                'Format audio harus MP3, WAV, atau OGG.',
+
+            'audio.max' =>
+                'Ukuran audio maksimal 10 MB.',
         ]);
 
         /*
@@ -271,9 +320,6 @@ class QuisController extends Controller
         |--------------------------------------------------------------------------
         | Data yang diperbarui
         |--------------------------------------------------------------------------
-        |
-        | Kode kuis tidak diubah saat edit.
-        |
         */
 
         $data = [
@@ -289,19 +335,43 @@ class QuisController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Jika mengganti gambar
+        | Tambahkan gambar baru
         |--------------------------------------------------------------------------
         */
 
+        $gambarPaths = $quis->gambar ?? [];
+
+        if (!is_array($gambarPaths)) {
+            $gambarPaths = [$gambarPaths];
+        }
+
         if ($request->hasFile('gambar')) {
-            if ($quis->gambar) {
+            foreach ($request->file('gambar') as $gambar) {
+                $gambarPaths[] = $gambar->store(
+                    'quis/gambar',
+                    'public'
+                );
+            }
+        }
+
+        $data['gambar'] = array_values($gambarPaths);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Jika ada audio baru
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->hasFile('audio')) {
+
+            if ($quis->audio) {
                 Storage::disk('public')
-                    ->delete($quis->gambar);
+                    ->delete($quis->audio);
             }
 
-            $data['gambar'] = $request
-                ->file('gambar')
-                ->store('quis', 'public');
+            $data['audio'] = $request
+                ->file('audio')
+                ->store('quis/audio', 'public');
         }
 
         /*
@@ -321,14 +391,74 @@ class QuisController extends Controller
     }
 
     /**
+     * Menghapus satu gambar dari soal
+     */
+    public function hapusGambar(Quis $quis, $index)
+    {
+        $gambar = $quis->gambar ?? [];
+
+        if (!is_array($gambar)) {
+            $gambar = [$gambar];
+        }
+
+        if (!isset($gambar[$index])) {
+            return back()->withErrors([
+                'gambar' => 'Gambar tidak ditemukan.'
+            ]);
+        }
+
+        Storage::disk('public')
+            ->delete($gambar[$index]);
+
+        array_splice($gambar, $index, 1);
+
+        $quis->update([
+            'gambar' => array_values($gambar)
+        ]);
+
+        return back()
+            ->with('success', 'Gambar berhasil dihapus.');
+    }
+
+    /**
      * Menghapus soal
      */
     public function destroy(Quis $quis)
     {
-        if ($quis->gambar) {
-            Storage::disk('public')
-                ->delete($quis->gambar);
+        /*
+        |--------------------------------------------------------------------------
+        | Hapus semua gambar
+        |--------------------------------------------------------------------------
+        */
+
+        $gambar = $quis->gambar ?? [];
+
+        if (!is_array($gambar)) {
+            $gambar = [$gambar];
         }
+
+        foreach ($gambar as $file) {
+            if ($file) {
+                Storage::disk('public')->delete($file);
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Hapus audio
+        |--------------------------------------------------------------------------
+        */
+
+        if ($quis->audio) {
+            Storage::disk('public')
+                ->delete($quis->audio);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Hapus data soal
+        |--------------------------------------------------------------------------
+        */
 
         $quis->delete();
 

@@ -51,6 +51,7 @@ Route::prefix('admin')->group(function (){
     Route::get('/kuis/edit/{quis}', [QuisController::class, 'edit'])->name('kuis.edit');
     Route::put('/kuis/update/{quis}', [QuisController::class, 'update'])->name('kuis.update');
     Route::delete('/kuis/hapus/{quis}', [QuisController::class, 'destroy'])->name('kuis.hapus');
+    Route::delete('/kuis/{quis}/gambar/{index}', [QuisController::class, 'hapusGambar'])->name('kuis.gambar.hapus');
     // =================================================
 
     // RUTE SISWA

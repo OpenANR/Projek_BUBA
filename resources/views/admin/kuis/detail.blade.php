@@ -10,6 +10,7 @@
     <div class="flex items-center justify-between mb-6">
 
         <div>
+
             <h1 class="text-3xl font-bold text-gray-800">
                 Detail Soal Kuis
             </h1>
@@ -17,6 +18,7 @@
             <p class="text-gray-500 text-sm mt-1">
                 Informasi lengkap soal kuis.
             </p>
+
         </div>
 
         <a
@@ -31,7 +33,7 @@
 
     <div class="bg-white rounded-xl shadow-md p-6">
 
-        {{-- Kode Kuis --}}
+        {{-- Kode --}}
         <div class="mb-5">
 
             <p class="text-sm font-semibold text-gray-500 mb-2">
@@ -53,7 +55,7 @@
             </p>
 
             <div class="bg-gray-50 rounded-lg p-4 text-gray-800 font-semibold">
-                {{ $quis->kategori->kelas->nama_kelas ?? '-' }}
+                {{ $quis->kelas->nama_kelas ?? '-' }}
             </div>
 
         </div>
@@ -88,26 +90,83 @@
 
 
         {{-- Gambar --}}
-        @if ($quis->gambar)
+        @php
 
-            <div class="mb-6">
+            $gambar = $quis->gambar ?? [];
 
-                <p class="text-sm font-semibold text-gray-500 mb-2">
-                    Gambar
-                </p>
+            if (!is_array($gambar)) {
+                $gambar = [$gambar];
+            }
 
-                <img
-                    src="{{ asset('storage/' . $quis->gambar) }}"
-                    alt="Gambar soal"
-                    class="max-w-sm max-h-64 object-contain rounded-lg border border-gray-200"
-                >
+        @endphp
 
-            </div>
+        <div class="mb-6">
 
-        @endif
+            <p class="text-sm font-semibold text-gray-500 mb-3">
+                Gambar
+            </p>
+
+            @if (count($gambar) > 0)
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                    @foreach ($gambar as $file)
+
+                        <a
+                            href="{{ asset('storage/' . $file) }}"
+                            target="_blank"
+                            class="block"
+                        >
+
+                            <img
+                                src="{{ asset('storage/' . $file) }}"
+                                alt="Gambar soal"
+                                class="w-full h-40 object-contain rounded-lg border border-gray-200 bg-gray-50 hover:shadow-md transition"
+                            >
+
+                        </a>
+
+                    @endforeach
+
+                </div>
+
+            @else
+
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-500">
+                    Tidak ada gambar.
+                </div>
+
+            @endif
+
+        </div>
 
 
-        {{-- Pilihan Jawaban --}}
+        {{-- Audio --}}
+        <div class="mb-6">
+
+            <p class="text-sm font-semibold text-gray-500 mb-2">
+                Audio
+            </p>
+
+            @if ($quis->audio)
+
+                <audio controls class="w-full">
+                    <source src="{{ asset('storage/' . $quis->audio) }}">
+                    Browser tidak mendukung audio.
+                </audio>
+
+            @else
+
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-500">
+                    Tidak ada audio.
+                </div>
+
+            @endif
+
+        </div>
+
+
+        {{-- Pilihan --}}
         <div class="mb-6">
 
             <p class="text-sm font-semibold text-gray-500 mb-3">
@@ -116,60 +175,43 @@
 
             <div class="grid md:grid-cols-2 gap-4">
 
-
-                {{-- A --}}
                 <div class="border border-gray-200 rounded-lg p-4">
-
                     <p class="text-sm text-gray-500 mb-1">
                         Pilihan A
                     </p>
-
                     <p class="font-semibold text-gray-800">
                         {{ $quis->pilihan_a }}
                     </p>
-
                 </div>
 
 
-                {{-- B --}}
                 <div class="border border-gray-200 rounded-lg p-4">
-
                     <p class="text-sm text-gray-500 mb-1">
                         Pilihan B
                     </p>
-
                     <p class="font-semibold text-gray-800">
                         {{ $quis->pilihan_b }}
                     </p>
-
                 </div>
 
 
-                {{-- C --}}
                 <div class="border border-gray-200 rounded-lg p-4">
-
                     <p class="text-sm text-gray-500 mb-1">
                         Pilihan C
                     </p>
-
                     <p class="font-semibold text-gray-800">
                         {{ $quis->pilihan_c }}
                     </p>
-
                 </div>
 
 
-                {{-- D --}}
                 <div class="border border-gray-200 rounded-lg p-4">
-
                     <p class="text-sm text-gray-500 mb-1">
                         Pilihan D
                     </p>
-
                     <p class="font-semibold text-gray-800">
                         {{ $quis->pilihan_d }}
                     </p>
-
                 </div>
 
             </div>
@@ -177,7 +219,7 @@
         </div>
 
 
-        {{-- Jawaban Benar --}}
+        {{-- Jawaban --}}
         <div class="mb-6">
 
             <p class="text-sm font-semibold text-gray-500 mb-2">
