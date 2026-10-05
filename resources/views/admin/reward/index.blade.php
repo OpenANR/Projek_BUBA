@@ -7,6 +7,3 @@
 <h1>TESTING HALAMAN INDEX</h1>
 
 @endsection
-ayu
-
-Ahmad Nuzulur Rozaq hd

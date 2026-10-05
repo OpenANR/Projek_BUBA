@@ -394,4 +394,12 @@ class MateriController extends Controller
             ->route('materi.index')
             ->with('success', 'Data berhasil dihapus');
     }
+
+    public function listMateri($konten, $kelas, $kategori_id) {
+
+        $kategori = Kategori::findOrFail($kategori_id);
+
+        $materis = $kategori->materi;
+        dd($konten, $kelas, $kategori, $materis);
+    }
 }

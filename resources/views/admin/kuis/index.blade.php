@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
     {{-- HEADER --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-7">
@@ -30,10 +30,11 @@
         </div>
 
 
+        {{-- TOMBOL TAMBAH SOAL --}}
         <a
             href="{{ route('kuis.tambah') }}"
             style="background-color: #2563eb !important; color: #ffffff !important;"
-            class="inline-flex items-center justify-center gap-2 font-semibold text-sm px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition"
+            class="inline-flex items-center justify-center gap-2 font-semibold text-sm px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition duration-200"
         >
 
             <span style="color: #ffffff !important;" class="text-lg leading-none">
@@ -133,6 +134,7 @@
                 </div>
 
 
+                {{-- TOTAL SOAL --}}
                 <div class="inline-flex items-center gap-2 self-start sm:self-auto px-3 py-2 rounded-lg bg-blue-50 border border-blue-100">
 
                     <span class="text-xs !text-blue-600">
@@ -203,7 +205,7 @@
 
             <div class="overflow-x-auto mt-4">
 
-                <table id="quisTable" class="w-full">
+                <table id="quisTable" class="min-w-full">
 
                     <thead class="bg-gray-50 border-b border-gray-200">
 
@@ -250,7 +252,7 @@
 
                         @foreach ($quis as $item)
 
-                            <tr class="hover:bg-blue-50/30 transition duration-150">
+                            <tr class="hover:bg-blue-50/40 transition duration-150">
 
                                 {{-- NO --}}
                                 <td class="px-4 py-5 align-top text-center">
@@ -262,7 +264,7 @@
                                 </td>
 
 
-                                {{-- KODE --}}
+                                {{-- KODE KUIS --}}
                                 <td class="px-4 py-5 align-top text-center">
 
                                     <span class="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-purple-50 border border-purple-200 text-purple-700 text-xs font-bold whitespace-nowrap">
@@ -290,33 +292,40 @@
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     A.
                                                 </span>
+
                                                 <span>
                                                     {{ $item->pilihan_a }}
                                                 </span>
                                             </div>
 
+
                                             <div class="flex gap-2 text-xs !text-gray-600">
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     B.
                                                 </span>
+
                                                 <span>
                                                     {{ $item->pilihan_b }}
                                                 </span>
                                             </div>
 
+
                                             <div class="flex gap-2 text-xs !text-gray-600">
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     C.
                                                 </span>
+
                                                 <span>
                                                     {{ $item->pilihan_c }}
                                                 </span>
                                             </div>
 
+
                                             <div class="flex gap-2 text-xs !text-gray-600">
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     D.
                                                 </span>
+
                                                 <span>
                                                     {{ $item->pilihan_d }}
                                                 </span>
@@ -330,7 +339,7 @@
 
 
                                 {{-- KELAS --}}
-                                <td class="px-4 py-5 align-top text-center">
+                                <td class="px-5 py-5 align-top">
 
                                     @if ($item->kelas)
 
@@ -340,7 +349,7 @@
 
                                     @else
 
-                                        <span class="text-gray-500">
+                                        <span class="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-500 text-xs font-semibold">
                                             -
                                         </span>
 
@@ -350,7 +359,7 @@
 
 
                                 {{-- KATEGORI --}}
-                                <td class="px-4 py-5 align-top text-center">
+                                <td class="px-5 py-5 align-top">
 
                                     @if ($item->kategori)
 
@@ -360,7 +369,7 @@
 
                                     @else
 
-                                        <span class="text-gray-500">
+                                        <span class="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-500 text-xs font-semibold">
                                             -
                                         </span>
 
@@ -370,7 +379,7 @@
 
 
                                 {{-- GAMBAR --}}
-                                <td class="px-4 py-5 align-top text-center">
+                                <td class="px-5 py-5 align-top">
 
                                     @php
 
@@ -420,8 +429,8 @@
 
                                         <div class="mx-auto flex items-center justify-center rounded-xl bg-gray-50 border border-gray-200 w-[90px] h-[70px]">
 
-                                            <span class="text-xs !text-gray-400">
-                                                Tidak ada
+                                            <span class="text-lg !text-gray-400">
+                                                —
                                             </span>
 
                                         </div>
@@ -442,30 +451,44 @@
 
 
                                 {{-- AKSI --}}
-                                <td class="px-4 py-5 align-top">
+                                <td class="px-5 py-5 align-top">
 
                                     <div class="flex items-center justify-center gap-2">
 
+
+                                        {{-- DETAIL --}}
                                         <a
                                             href="{{ route('kuis.detail', $item) }}"
                                             title="Detail"
                                             style="background-color: #eff6ff !important; color: #2563eb !important;"
                                             class="w-9 h-9 flex items-center justify-center rounded-lg border border-blue-200 transition hover:bg-blue-100"
                                         >
-                                            <i class="fa-solid fa-eye text-xs" style="color: #2563eb !important;"></i>
+
+                                            <i
+                                                class="fa-solid fa-eye text-xs"
+                                                style="color: #2563eb !important;"
+                                            ></i>
+
                                         </a>
 
 
+                                        {{-- EDIT --}}
                                         <a
                                             href="{{ route('kuis.edit', $item) }}"
                                             title="Edit"
                                             style="background-color: #fffbeb !important; color: #d97706 !important;"
                                             class="w-9 h-9 flex items-center justify-center rounded-lg border border-amber-200 transition hover:bg-amber-100"
                                         >
-                                            <i class="fa-solid fa-pen text-xs" style="color: #d97706 !important;"></i>
+
+                                            <i
+                                                class="fa-solid fa-pen text-xs"
+                                                style="color: #d97706 !important;"
+                                            ></i>
+
                                         </a>
 
 
+                                        {{-- HAPUS --}}
                                         <form
                                             action="{{ route('kuis.hapus', $item) }}"
                                             method="POST"
@@ -481,7 +504,12 @@
                                                 style="background-color: #fef2f2 !important; color: #dc2626 !important;"
                                                 class="w-9 h-9 flex items-center justify-center rounded-lg border border-red-200 transition hover:bg-red-100"
                                             >
-                                                <i class="fa-solid fa-trash text-xs" style="color: #dc2626 !important;"></i>
+
+                                                <i
+                                                    class="fa-solid fa-trash text-xs"
+                                                    style="color: #dc2626 !important;"
+                                                ></i>
+
                                             </button>
 
                                         </form>
@@ -516,22 +544,29 @@
 
                     </div>
 
+
                     <h3 class="mt-5 text-xl font-bold !text-gray-900">
                         Belum Ada Soal Kuis
                     </h3>
+
 
                     <p class="mt-2 text-sm !text-gray-500 leading-6">
                         Belum ada soal kuis yang ditambahkan.
                         Silakan tambahkan soal pertama untuk mulai mengisi kuis BUBA.
                     </p>
 
+
+                    {{-- TOMBOL TAMBAH SOAL PERTAMA --}}
                     <a
                         href="{{ route('kuis.tambah') }}"
                         style="background-color: #2563eb !important; color: #ffffff !important;"
                         class="mt-6 inline-flex items-center gap-2 font-semibold text-sm px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition"
                     >
 
-                        <span style="color: #ffffff !important;" class="text-lg leading-none">
+                        <span
+                            style="color: #ffffff !important;"
+                            class="text-lg leading-none"
+                        >
                             +
                         </span>
 
@@ -557,7 +592,6 @@
 @push('scripts')
 
 <script>
-
 $(document).ready(function () {
 
     @if ($quis->count() > 0)
@@ -571,13 +605,11 @@ $(document).ready(function () {
             order: [[0, 'asc']],
 
             columnDefs: [
-
                 {
                     orderable: false,
                     searchable: false,
                     targets: [5, 7]
                 }
-
             ],
 
             language: {
@@ -658,7 +690,6 @@ $(document).ready(function () {
     @endif
 
 });
-
 </script>
 
 

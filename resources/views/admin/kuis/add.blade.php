@@ -403,12 +403,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const kelasId = kelasSelect.value;
 
+        // Sembunyikan/tampilkan kategori sesuai kelas
         semuaKategori.forEach(function (option) {
 
             if (option.dataset.kelas === kelasId) {
+
                 option.hidden = false;
+
             } else {
+
                 option.hidden = true;
+
             }
 
         });
@@ -428,6 +433,8 @@ document.addEventListener('DOMContentLoaded', function () {
             'option[value=""]'
         ).textContent = '-- Pilih Kategori --';
 
+
+        // Pastikan kategori yang dipilih memang milik kelas tersebut
         const kategoriTerpilih = kategoriSelect.value;
 
         const masihValid = semuaKategori.some(function (option) {
@@ -437,20 +444,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
+
         if (!masihValid) {
+
             kategoriSelect.value = '';
+
         }
 
     }
 
+
     kelasSelect.addEventListener('change', function () {
 
+        // Setiap kali kelas berubah,
+        // kategori harus dipilih ulang
         kategoriSelect.value = '';
 
         filterKategori();
 
     });
 
+
+    // Jalankan saat halaman pertama kali dibuka
     filterKategori();
 
 });

@@ -40,7 +40,7 @@
         </h1>
 
         <!-- Grid Tombol (Link) -->
-        <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+        <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-10">
 
             <!-- HOME → home.html -->
             <a href="{{ route('home') }}"
@@ -88,6 +88,79 @@
                     class="fas fa-layer-group text-xl sm:text-2xl text-emerald-600 group-hover:scale-110 transition-transform"></i>
                 KATEGORI
             </a>
+
+            <!-- MATERI → materi.html -->
+            <a href="{{ route('materi.index') }}"
+                class="menu-link group flex flex-col items-center justify-center gap-2 rounded-2xl px-4 py-5
+                bg-white text-slate-800 font-semibold text-sm sm:text-base
+                border border-white/70 shadow-md shadow-slate-300/40
+                hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-200/60
+                active:translate-y-0 active:scale-95
+                transition-all duration-300 ease-out">
+                <i
+                    class="fas fa-book-open text-xl sm:text-2xl text-amber-600 group-hover:scale-110 transition-transform"></i>
+                MATERI
+            </a>
+
+            <!-- KUIS → kuis.html -->
+            <a href="{{ route('kuis.index') }}"
+                class="menu-link group flex flex-col items-center justify-center gap-2 rounded-2xl px-4 py-5
+                bg-white text-slate-800 font-semibold text-sm sm:text-base
+                border border-white/70 shadow-md shadow-slate-300/40
+                hover:-translate-y-1 hover:shadow-xl hover:shadow-pink-200/60
+                active:translate-y-0 active:scale-95
+                transition-all duration-300 ease-out">
+                <i
+                    class="fas fa-question-circle text-xl sm:text-2xl text-pink-600 group-hover:scale-110 transition-transform"></i>
+                KUIS
+            </a>
+
+            <!-- SISWA → siswa.html -->
+            <a href="{{ route('siswa.index') }}"
+                class="menu-link group flex flex-col items-center justify-center gap-2 rounded-2xl px-4 py-5
+                bg-white text-slate-800 font-semibold text-sm sm:text-base
+                border border-white/70 shadow-md shadow-slate-300/40
+                hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-200/60
+                active:translate-y-0 active:scale-95
+                transition-all duration-300 ease-out
+                col-span-2 sm:col-span-1">
+                <i
+                    class="fas fa-users text-xl sm:text-2xl text-violet-600 group-hover:scale-110 transition-transform"></i>
+                SISWA
+            </a>
+
+        </nav>
+
+        <h1
+            class="flex items-center justify-center gap-3 text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight mb-8">
+            <i class="fas fa-compass text-blue-700"></i>
+            MENU SISWA | BUBA DEVELOPMENT
+        </h1>
+
+        <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+
+
+            <a href="{{ route('splash') }}"
+                class="menu-link group flex flex-col items-center justify-center gap-2 rounded-2xl px-4 py-5
+                bg-white text-slate-800 font-semibold text-sm sm:text-base
+                border border-white/70 shadow-md shadow-slate-300/40
+                hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-200/60
+                active:translate-y-0 active:scale-95
+                transition-all duration-300 ease-out">
+                <i class="fas fa-dashboard text-xl sm:text-2xl text-blue-600 group-hover:scale-110 transition-transform"></i>
+                SPLASH
+            </a>
+
+            <a href="{{ route('kelas.index') }}"
+                class="menu-link group flex flex-col items-center justify-center gap-2 rounded-2xl px-4 py-5
+                bg-white text-slate-800 font-semibold text-sm sm:text-base
+                border border-white/70 shadow-md shadow-slate-300/40
+                hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-200/60
+                active:translate-y-0 active:scale-95
+                transition-all duration-300 ease-out">
+                <i class="fas fa-school text-xl sm:text-2xl text-blue-600 group-hover:scale-110 transition-transform"></i>
+                KELAS
+            </a>   
 
             <!-- MATERI → materi.html -->
             <a href="{{ route('materi.index') }}"
