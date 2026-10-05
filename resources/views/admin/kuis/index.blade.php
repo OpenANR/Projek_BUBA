@@ -16,7 +16,6 @@
             </div>
 
             <div>
-
                 <h1 class="text-2xl font-bold !text-gray-900">
                     Kelola Kuis
                 </h1>
@@ -24,7 +23,6 @@
                 <p class="text-sm !text-gray-500 mt-0.5">
                     Kelola soal berdasarkan kelas dan kategori pembelajaran.
                 </p>
-
             </div>
 
         </div>
@@ -36,15 +34,16 @@
             style="background-color: #2563eb !important; color: #ffffff !important;"
             class="inline-flex items-center justify-center gap-2 font-semibold text-sm px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition duration-200"
         >
-
-            <span style="color: #ffffff !important;" class="text-lg leading-none">
+            <span
+                style="color: #ffffff !important;"
+                class="text-lg leading-none"
+            >
                 +
             </span>
 
             <span style="color: #ffffff !important;">
                 Tambah Soal
             </span>
-
         </a>
 
     </div>
@@ -62,7 +61,6 @@
             </div>
 
             <div>
-
                 <p class="font-semibold text-sm text-green-800">
                     Berhasil
                 </p>
@@ -70,7 +68,6 @@
                 <p class="text-xs text-green-700 mt-0.5">
                     {{ session('success') }}
                 </p>
-
             </div>
 
         </div>
@@ -117,6 +114,7 @@
     {{-- CARD --}}
     <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
 
+        {{-- CARD HEADER --}}
         <div class="px-6 py-5 border-b border-gray-200">
 
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -154,11 +152,14 @@
 
         @if ($quis->count() > 0)
 
-            {{-- SEARCH FILTER --}}
+            {{-- =========================================
+                 SEARCH CUSTOM
+                 ========================================= --}}
             <div class="px-6 pt-5">
 
                 <div class="flex flex-col sm:flex-row gap-3">
 
+                    {{-- PILIH KOLOM --}}
                     <select
                         id="filterKuis"
                         class="sm:w-48 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white outline-none focus:ring-2 focus:ring-blue-400"
@@ -191,10 +192,12 @@
                     </select>
 
 
+                    {{-- INPUT SEARCH --}}
                     <input
                         type="text"
                         id="inputCariKuis"
                         placeholder="Masukkan pencarian..."
+                        autocomplete="off"
                         class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-blue-400"
                     >
 
@@ -203,6 +206,9 @@
             </div>
 
 
+            {{-- =========================================
+                 TABEL
+                 ========================================= --}}
             <div class="overflow-x-auto mt-4">
 
                 <table id="quisTable" class="min-w-full">
@@ -268,9 +274,7 @@
                                 <td class="px-4 py-5 align-top text-center">
 
                                     <span class="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-purple-50 border border-purple-200 text-purple-700 text-xs font-bold whitespace-nowrap">
-
                                         {{ $item->kode_kuis }}
-
                                     </span>
 
                                 </td>
@@ -289,6 +293,7 @@
                                         <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
 
                                             <div class="flex gap-2 text-xs !text-gray-600">
+
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     A.
                                                 </span>
@@ -296,10 +301,12 @@
                                                 <span>
                                                     {{ $item->pilihan_a }}
                                                 </span>
+
                                             </div>
 
 
                                             <div class="flex gap-2 text-xs !text-gray-600">
+
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     B.
                                                 </span>
@@ -307,10 +314,12 @@
                                                 <span>
                                                     {{ $item->pilihan_b }}
                                                 </span>
+
                                             </div>
 
 
                                             <div class="flex gap-2 text-xs !text-gray-600">
+
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     C.
                                                 </span>
@@ -318,10 +327,12 @@
                                                 <span>
                                                     {{ $item->pilihan_c }}
                                                 </span>
+
                                             </div>
 
 
                                             <div class="flex gap-2 text-xs !text-gray-600">
+
                                                 <span class="font-bold !text-blue-600 w-4">
                                                     D.
                                                 </span>
@@ -329,6 +340,7 @@
                                                 <span>
                                                     {{ $item->pilihan_d }}
                                                 </span>
+
                                             </div>
 
                                         </div>
@@ -388,6 +400,8 @@
                                         if (!is_array($gambar)) {
                                             $gambar = [$gambar];
                                         }
+
+                                        $gambar = array_filter($gambar);
 
                                     @endphp
 
@@ -454,7 +468,6 @@
                                 <td class="px-5 py-5 align-top">
 
                                     <div class="flex items-center justify-center gap-2">
-
 
                                         {{-- DETAIL --}}
                                         <a
@@ -592,6 +605,7 @@
 @push('scripts')
 
 <script>
+
 $(document).ready(function () {
 
     @if ($quis->count() > 0)
@@ -604,17 +618,29 @@ $(document).ready(function () {
 
             order: [[0, 'asc']],
 
+            searching: true,
+
+            /*
+             * Hanya tampilkan jumlah data di bagian atas.
+             * Search bawaan DataTables tidak ditampilkan.
+             */
+            layout: {
+                topStart: 'pageLength',
+                topEnd: null,
+                bottomStart: 'info',
+                bottomEnd: 'paging'
+            },
+
             columnDefs: [
+
                 {
                     orderable: false,
-                    searchable: false,
                     targets: [5, 7]
                 }
+
             ],
 
             language: {
-
-                search: "",
 
                 lengthMenu: "Tampilkan _MENU_ data",
 
@@ -622,7 +648,7 @@ $(document).ready(function () {
 
                 infoEmpty: "Tidak ada data",
 
-                infoFiltered: "(difilter dari _MAX_ total data)",
+                infoFiltered: "(difilter dari _MAX_ data)",
 
                 paginate: {
                     next: "Berikutnya",
@@ -638,6 +664,10 @@ $(document).ready(function () {
         });
 
 
+        // =========================================
+        // SEARCH CUSTOM
+        // =========================================
+
         const filter = document.getElementById('filterKuis');
 
         const input = document.getElementById('inputCariKuis');
@@ -645,33 +675,51 @@ $(document).ready(function () {
 
         input.addEventListener('keyup', function () {
 
-            const nilai = this.value;
+            const nilai = this.value.trim();
 
             const kolom = filter.value;
 
 
+            // Semua kolom
             if (kolom === 'all') {
 
                 table
                     .search(nilai)
+                    .columns()
+                    .search('')
                     .draw();
 
-            } else {
+                return;
 
-                table
-                    .search('')
-                    .columns()
-                    .search('');
+            }
+
+
+            // Kolom tertentu
+            table
+                .search('')
+                .columns()
+                .search('');
+
+
+            if (nilai !== '') {
 
                 table
                     .column(parseInt(kolom))
                     .search(nilai)
                     .draw();
 
+            } else {
+
+                table.draw();
+
             }
 
         });
 
+
+        // =========================================
+        // GANTI FILTER
+        // =========================================
 
         filter.addEventListener('change', function () {
 
@@ -687,13 +735,19 @@ $(document).ready(function () {
 
         });
 
+
     @endif
 
 });
+
 </script>
 
 
 <style>
+
+/* =========================================
+   DATATABLES
+   ========================================= */
 
 .dataTables_wrapper {
 
@@ -702,6 +756,17 @@ $(document).ready(function () {
 
 }
 
+
+/* Hilangkan search bawaan DataTables */
+.dataTables_wrapper .dt-search,
+.dataTables_wrapper div.dt-search {
+
+    display: none !important;
+
+}
+
+
+/* Baris atas DataTables */
 .dataTables_wrapper .dt-layout-row:first-child {
 
     width: 100%;
@@ -710,12 +775,21 @@ $(document).ready(function () {
 
 }
 
+
+.dataTables_wrapper .dt-layout-row:first-child .dt-layout-cell {
+
+    width: auto !important;
+
+}
+
+
 .dataTables_wrapper .dt-length {
 
     margin-left: 0 !important;
     padding-left: 0 !important;
 
 }
+
 
 .dataTables_wrapper .dt-length label {
 
@@ -724,8 +798,8 @@ $(document).ready(function () {
 
 }
 
-.dataTables_wrapper select,
-.dataTables_wrapper input {
+
+.dataTables_wrapper select {
 
     border: 1px solid #d1d5db !important;
     border-radius: 8px !important;
@@ -736,13 +810,18 @@ $(document).ready(function () {
 
 }
 
-.dataTables_wrapper select:focus,
-.dataTables_wrapper input:focus {
+
+.dataTables_wrapper select:focus {
 
     border-color: #60a5fa !important;
     box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15) !important;
 
 }
+
+
+/* =========================================
+   TABEL
+   ========================================= */
 
 #quisTable {
 
@@ -752,6 +831,7 @@ $(document).ready(function () {
 
 }
 
+
 #quisTable thead th {
 
     white-space: nowrap;
@@ -759,17 +839,20 @@ $(document).ready(function () {
 
 }
 
+
 #quisTable tbody tr {
 
     background-color: #ffffff;
 
 }
 
+
 #quisTable tbody tr:hover {
 
     background-color: #f8fbff;
 
 }
+
 
 #quisTable td,
 #quisTable th {
@@ -778,6 +861,11 @@ $(document).ready(function () {
 
 }
 
+
+/* =========================================
+   INFO & PAGINATION
+   ========================================= */
+
 .dataTables_wrapper .dt-layout-row:last-child {
 
     width: 100%;
@@ -785,6 +873,7 @@ $(document).ready(function () {
     padding: 0;
 
 }
+
 
 .dataTables_wrapper .dt-info {
 
@@ -795,11 +884,13 @@ $(document).ready(function () {
 
 }
 
+
 .dataTables_wrapper .dt-paging {
 
     margin-right: 0 !important;
 
 }
+
 
 .dataTables_wrapper .dt-paging-button {
 
@@ -811,6 +902,7 @@ $(document).ready(function () {
 
 }
 
+
 .dataTables_wrapper .dt-paging-button:hover {
 
     background: #eff6ff !important;
@@ -819,6 +911,7 @@ $(document).ready(function () {
 
 }
 
+
 .dataTables_wrapper .dt-paging-button.current {
 
     background: #2563eb !important;
@@ -826,6 +919,11 @@ $(document).ready(function () {
     color: #ffffff !important;
 
 }
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 
 @media (max-width: 768px) {
 
