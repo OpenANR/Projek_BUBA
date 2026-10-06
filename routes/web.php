@@ -87,6 +87,7 @@ Route::prefix('siswa')->group(function () {
         Route::get('/kelas/{kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
 
         Route::get('/kelas/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
+        Route::get('/kelas/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
     });
 
     Route::get('/kuis', function () {

@@ -215,6 +215,8 @@ class QuisController extends Controller
 
         Quis::create($data);
 
+        dd($data);
+
 
         return redirect()
             ->route('kuis.index')
