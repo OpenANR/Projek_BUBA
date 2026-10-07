@@ -215,7 +215,7 @@ class QuisController extends Controller
 
         Quis::create($data);
 
-        dd($data);
+        // dd($data);
 
 
         return redirect()
