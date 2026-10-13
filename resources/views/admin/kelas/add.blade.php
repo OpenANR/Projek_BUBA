@@ -57,10 +57,10 @@
 
 			function updateButtonState() {
 				const cursorPosition = input.selectionStart;
-				const sanitizedValue = input.value.replace(/[^a-z0-9-]/g, '');
+				const sanitizedValue = input.value.replace(/[^a-zA-Z0-9-]/g, '');
 
 				if (sanitizedValue !== input.value) {
-					const sanitizedCursorPosition = input.value.slice(0, cursorPosition).replace(/[^a-z0-9-]/g, '').length;
+					const sanitizedCursorPosition = input.value.slice(0, cursorPosition).replace(/[^a-zA-Z0-9-]/g, '').length;
 					input.value = sanitizedValue;
 					input.setSelectionRange(sanitizedCursorPosition, sanitizedCursorPosition);
 				}

@@ -43,7 +43,7 @@
         <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-10">
 
             <!-- HOME → home.html -->
-            <a href="{{ route('home') }}"
+            <a href="{{ route('menu') }}"
                 class="menu-link group flex flex-col items-center justify-center gap-2 rounded-2xl px-4 py-5
                 bg-white text-slate-800 font-semibold text-sm sm:text-base
                 border border-white/70 shadow-md shadow-slate-300/40

@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_guru')->unique();
+            $table->string('kode_user')->unique();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['admin', 'guru']);
+            $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
+            $table->enum('role', ['guru', 'siswa'])->default('siswa');
+
+            $table->foreignId('kelas_id')->nullable()->constrained('kelas')->nullOnDelete();
+
             $table->rememberToken();
             $table->timestamps();
         });

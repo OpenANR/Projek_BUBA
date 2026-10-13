@@ -12,7 +12,7 @@ class Kelas extends Model
 
     public function siswas()
     {
-        return $this->hasMany(Siswa::class);
+        return $this->hasMany(User::class, 'kelas_id')->where('role', 'siswa');
     }
 
     public function kategoris()

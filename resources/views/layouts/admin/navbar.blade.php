@@ -26,7 +26,7 @@
             </div>
             <!-- Nama & Dropdown -->
             <div class="flex items-center gap-2 text-sm">
-                <span class="font-medium text-white">Admin</span>
+                <span class="font-medium text-black">{{ Auth::user()->name }}</span>
                 <i class="fas fa-chevron-down text-xs text-slate-400 group-hover:text-white transition-colors"></i>
             </div>
         </div>
