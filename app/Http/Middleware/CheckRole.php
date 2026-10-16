@@ -14,17 +14,27 @@ class CheckRole
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string ...$roles): Response
     {
-        if (Auth::check()) {
-            if(Auth::user()->role == 'guru') {
-                return $next($request);
-            } else {
-                abort(403, 'Akses ditolak !');
-            }
-        } else {
+        if (!Auth::check()){
             return redirect()->route('login');
         }
+
+        $user = Auth::user();
+
+        if (in_array($user->role, $roles)) {
+            return $next($request);
+        }
+
+        if ($user->role === 'guru') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        if ($user->role === 'siswa') {
+            return redirect()->route('splash');
+        }
+
+        abort(403, 'Unauthorized action.');
         
     }
 }

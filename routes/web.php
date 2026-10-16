@@ -89,7 +89,7 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
     })->name('reward.index');
 });
 
-Route::prefix('siswa')->group(function () {
+Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
 
     Route::get('/welcome', function () {
         return view('siswa.splash');
@@ -105,7 +105,7 @@ Route::prefix('siswa')->group(function () {
 
     Route::prefix('{konten}')->group(function () {
         Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])->name('siswa.kelas');
-        Route::get('/kelas/{kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
+        Route::get('/{kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
 
         Route::get('/kelas/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
         Route::get('/kelas/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');

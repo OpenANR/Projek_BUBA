@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kelas;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Models\Kelas;
 
 class KelasController extends Controller
 {
@@ -14,11 +13,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::withCount('siswas')->orderBy('nama_kelas')->get();
-        return response()->json([
-            'status' => 'Data berhasil tampil !',
-            'data' => $kelas
-        ], 200);
+        //
     }
 
     /**
@@ -26,16 +21,7 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama_kelas' => ['required', 'string', 'max:5', 'regex:/^[a-zA-Z0-9-]+$/', 'unique:kelas,nama_kelas'],
-        ]);
-
-        $data = Kelas::create($validated);
-
-        return response()->json([
-            'status' => 'Data kelas berhasil ditambahkan',
-            'data' => $data
-        ], 201);
+        //
     }
 
     /**
@@ -51,24 +37,7 @@ class KelasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $kelas = Kelas::findOrFail($id);
-
-        $validated = $request->validate([
-            'nama_kelas' => [
-                'required',
-                'string',
-                'max:10',
-                'regex:/\A[A-Za-z0-9-]+\z/',
-                Rule::unique('kelas', 'nama_kelas')->ignore($kelas->id),
-            ],
-        ]);
-
-        $kelas->update($validated);
-
-        return response()->json([
-            'status' => 'Data kelas berhasil diperbarui',
-            'data' => $kelas
-        ], 200);
+        //
     }
 
     /**
@@ -76,20 +45,19 @@ class KelasController extends Controller
      */
     public function destroy(string $id)
     {
-        $kelas = Kelas::findOrFail($id);
+        //
+    }
 
-        if ($kelas->siswas()->exists() || $kelas->kategoris()->exists()) {
-            return redirect()->route('kelas.index')->with(
-                'error',
-                'Kelas tidak dapat dihapus karena masih digunakan oleh siswa atau kategori.'
-            );
+    public function pilihKelas($konten) {
+        
+        if(!in_array($konten, ['materi', 'kuis'])) {
+            abort(404, 'Halaman tidak ditemukan');
         }
 
-        $kelas->delete();
-
+        $kelas = Kelas::get();
+        // dd([$kelas, $konten]);
         return response()->json([
-            'status' => 'Kelas berhasil dihapus',
-            'data' => $kelas
-        ], 200);
+            'kelas' => $kelas
+        ]);
     }
 }
