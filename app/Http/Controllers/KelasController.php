@@ -24,7 +24,7 @@ class KelasController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function add()
     {
         return view('admin.kelas.add');
     }

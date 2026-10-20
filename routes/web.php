@@ -41,7 +41,13 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // RUTE HALAMAN KELAS
-    Route::resource('kelas', KelasController::class)->except(['show']);
+    // Route::resource('kelas', KelasController::class)->except(['show']);
+    Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
+    Route::get('/kelas/tambah', [KelasController::class, 'add'])->name('kelas.tambah');
+    Route::post('/kelas/kirim', [KelasController::class, 'store'])->name('kelas.kirim');
+    Route::get('/kelas/edit/{kelas}', [KelasController::class, 'edit'])->name('kelas.edit');
+    Route::put('/kelas/edit/{kelas}', [KelasController::class, 'update'])->name('kelas.update');
+    Route::delete('/kelas/hapus/{kelas}', [KelasController::class, 'destroy'])->name('kelas.hapus');
     // =================================================
 
     // RUTE HALAMAN KATEGORI
@@ -107,8 +113,8 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
         Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])->name('siswa.kelas');
         Route::get('/{kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
 
-        Route::get('/kelas/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
-        Route::get('/kelas/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
+        Route::get('/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
+        Route::get('/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
     });
 
     Route::get('/kuis', function () {

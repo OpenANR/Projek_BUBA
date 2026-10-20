@@ -21,7 +21,7 @@
 					</div>
 				@endif
 
-				<form action="{{ route('kelas.store') }}" method="POST" class="space-y-5">
+				<form action="{{ route('kelas.kirim') }}" method="POST" class="space-y-5">
 					@csrf
 					<div>
 						<label for="nama_kelas" class="block text-sm font-semibold text-gray-700 mb-1">

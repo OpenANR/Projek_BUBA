@@ -49,12 +49,10 @@ class MateriController extends Controller
     }
 
     public function listMateri($konten, $kelas, $kategori) {
-        // $konten = $request->input('konten');
-        // $kelas = $request->input('kelas');
-        // $kategori = $request->input('materi');
 
         $materi = Materi::where('kelas_id', $kelas)
                         ->where('kategori_id', $kategori)
+                        ->select('id', 'kode_materi', 'nama_materi')
                         ->get();
         
         return response()->json([
@@ -67,8 +65,7 @@ class MateriController extends Controller
 
     public function showMateri($konten, $kelas, $kategori, $kode_materi) {
 
-        $dataMateri = Materi::where('kode_materi', $kode_materi)->get();
-        // dd($konten, $kelas, $kategori, $dataMateri);
+        $dataMateri = Materi::where('kode_materi', $kode_materi)->firstOrFail();
         return response()->json([
             'konten' => $konten,
             'kelas' => $kelas,
