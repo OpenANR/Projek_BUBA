@@ -207,55 +207,73 @@
 
                             </td>
 
+                              {{-- AKSI --}}
+                                <td class="px-5 py-5 align-top">
 
-                            {{-- AKSI --}}
-                            <td>
-
-                                <div class="flex items-center gap-2">
-
-                                    {{-- EDIT --}}
-                                    <a
-                                        href="{{ route('materi.edit', $item) }}"
-                                        class="px-3 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-600 transition">
-
-                                        Edit
-
-                                    </a>
+                                    <div class="flex items-center justify-center gap-2">
 
 
-                                    {{-- DETAIL --}}
-                                    <a
-                                        href="{{ route('materi.detail', $item) }}"
-                                        class="px-3 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition">
+                                        {{-- DETAIL --}}
+                                        <a
+                                            href="{{ route('materi.detail', $item) }}"
+                                            title="Detail"
+                                            style="background-color: #eff6ff !important; color: #2563eb !important;"
+                                            class="w-9 h-9 flex items-center justify-center rounded-lg border border-blue-200 transition hover:bg-blue-100"
+                                        >
 
-                                        Detail
+                                            <i
+                                                class="fa-solid fa-eye text-xs"
+                                                style="color: #2563eb !important;"
+                                            ></i>
 
-                                    </a>
+                                        </a>
 
 
-                                    {{-- HAPUS --}}
-                                    <form
-                                        action="{{ route('materi.hapus', $item) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus materi ini?')">
+                                        {{-- EDIT --}}
+                                        <a
+                                            href="{{ route('materi.edit', $item) }}"
+                                            title="Edit"
+                                            style="background-color: #fffbeb !important; color: #d97706 !important;"
+                                            class="w-9 h-9 flex items-center justify-center rounded-lg border border-amber-200 transition hover:bg-amber-100"
+                                        >
 
-                                        @csrf
-                                        @method('DELETE')
+                                            <i
+                                                class="fa-solid fa-pen text-xs"
+                                                style="color: #d97706 !important;"
+                                            ></i>
 
-                                        <button
-                                            type="submit"
-                                            class="px-3 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition">
+                                        </a>
 
-                                            Hapus
 
-                                        </button>
+                                        {{-- HAPUS --}}
+                                        <form
+                                            action="{{ route('materi.hapus', $item) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Yakin ingin menghapus soal ini?')"
+                                        >
 
-                                    </form>
+                                            @csrf
+                                            @method('DELETE')
 
-                                </div>
+                                            <button
+                                                type="submit"
+                                                title="Hapus"
+                                                style="background-color: #fef2f2 !important; color: #dc2626 !important;"
+                                                class="w-9 h-9 flex items-center justify-center rounded-lg border border-red-200 transition hover:bg-red-100"
+                                            >
 
-                            </td>
+                                                <i
+                                                    class="fa-solid fa-trash text-xs"
+                                                    style="color: #dc2626 !important;"
+                                                ></i>
 
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
                         </tr>
 
                     @empty
