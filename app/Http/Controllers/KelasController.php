@@ -32,7 +32,7 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_kelas' => ['required', 'string', 'max:10', 'regex:/\A(?=.*[A-Za-z0-9-])[A-Za-z0-9 -]+\z/', 'unique:kelas,nama_kelas'],
+            'nama_kelas' => ['required', 'string', 'max:10', 'regex:/\A[A-Za-z0-9-]+\z/', 'unique:kelas,nama_kelas'],
         ]);
 
         Kelas::create($validated);
@@ -70,7 +70,7 @@ class KelasController extends Controller
                 'required',
                 'string',
                 'max:10',
-                'regex:/\A(?=.*[A-Za-z0-9-])[A-Za-z0-9 -]+\z/',
+                'regex:/\A[A-Za-z0-9-]+\z/',
                 Rule::unique('kelas', 'nama_kelas')->ignore($kelas->id),
             ],
         ]);

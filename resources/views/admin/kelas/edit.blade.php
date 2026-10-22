@@ -29,7 +29,7 @@
 							Nama Kelas <span class="text-red-500">*</span>
 						</label>
 						<input type="text" name="nama_kelas" id="nama_kelas"
-							value="{{ old('nama_kelas', $kelas->nama_kelas) }}" required maxlength="10"
+							value="{{ old('nama_kelas', $kelas->nama_kelas) }}" required maxlength="10" pattern="[A-Za-z0-9-]+"
 							class="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition">
 					</div>
 
@@ -57,18 +57,9 @@
 			const button = input.form.querySelector('button[type="submit"]');
 
 			function updateButtonState() {
-				const cursorPosition = input.selectionStart;
-				const sanitizedValue = input.value.replace(/[^A-Za-z0-9 -]/g, '');
-
-				if (sanitizedValue !== input.value) {
-					const sanitizedCursorPosition = input.value.slice(0, cursorPosition).replace(/[^A-Za-z0-9 -]/g, '').length;
-					input.value = sanitizedValue;
-					input.setSelectionRange(sanitizedCursorPosition, sanitizedCursorPosition);
-				}
-
-				const isValid = input.value.trim().length > 0
+				const isValid = input.value.length > 0
 					&& input.value.length <= 10
-					&& /^[A-Za-z0-9 -]+$/.test(input.value);
+					&& /^[A-Za-z0-9-]+$/.test(input.value);
 
 				button.disabled = !isValid;
 				button.classList.toggle('bg-yellow-500', isValid);
@@ -78,7 +69,18 @@
 				button.classList.toggle('cursor-not-allowed', !isValid);
 			}
 
-			input.addEventListener('input', updateButtonState);
+			input.addEventListener('input', function () {
+				const cursorPosition = input.selectionStart;
+				const sanitizedValue = input.value.replace(/[^A-Za-z0-9-]/g, '');
+
+				if (sanitizedValue !== input.value) {
+					const sanitizedCursorPosition = input.value.slice(0, cursorPosition).replace(/[^A-Za-z0-9-]/g, '').length;
+					input.value = sanitizedValue;
+					input.setSelectionRange(sanitizedCursorPosition, sanitizedCursorPosition);
+				}
+
+				updateButtonState();
+			});
 			updateButtonState();
 		});
 	</script>
