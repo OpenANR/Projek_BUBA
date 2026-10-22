@@ -568,7 +568,7 @@ class QuisController extends Controller
             );
     }
 
-    public function indexKuisSiswa($kelas, $kategori)
+    public function listKuis($konten, $kelas, $kategori)
     {
         // Mengambil data kelas yang dipilih
         $dataKelas = Kelas::findOrFail($kelas);
@@ -588,8 +588,10 @@ class QuisController extends Controller
             ->inRandomOrder()
             ->get();
 
+        // dd($konten, $dataKelas, $dataKategori, $quis);
         // Mengirim data soal ke halaman kuis siswa
         return view('siswa.quis', [
+            'konten' => $konten,
             'quis' => $quis,
             'dataKelas' => $dataKelas,
             'dataKategori' => $dataKategori,
