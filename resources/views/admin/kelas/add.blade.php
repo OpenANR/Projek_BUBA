@@ -57,17 +57,17 @@
 
 			function updateButtonState() {
 				const cursorPosition = input.selectionStart;
-				const sanitizedValue = input.value.replace(/[^A-Za-z0-9-]/g, '');
+				const sanitizedValue = input.value.replace(/[^A-Za-z0-9 -]/g, '');
 
 				if (sanitizedValue !== input.value) {
-					const sanitizedCursorPosition = input.value.slice(0, cursorPosition).replace(/[^A-Za-z0-9-]/g, '').length;
+					const sanitizedCursorPosition = input.value.slice(0, cursorPosition).replace(/[^A-Za-z0-9 -]/g, '').length;
 					input.value = sanitizedValue;
 					input.setSelectionRange(sanitizedCursorPosition, sanitizedCursorPosition);
 				}
 
-				const isValid = input.value.length > 0
+				const isValid = input.value.trim().length > 0
 					&& input.value.length <= 10
-					&& /^[A-Za-z0-9-]+$/.test(input.value);
+					&& /^[A-Za-z0-9 -]+$/.test(input.value);
 
 				button.disabled = !isValid;
 				button.classList.toggle('bg-blue-600', isValid);
