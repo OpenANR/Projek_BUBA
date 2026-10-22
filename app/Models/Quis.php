@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Override;
 
 class Quis extends Model
@@ -29,11 +30,11 @@ class Quis extends Model
     protected static function booted()
     {
         static::creating(function ($quis) {
+            do {
+                $kode = 'KUIS-' . Str::upper(Str::random(4));
+            } while (self::where('kode_kuis', $kode)->exists());
 
-            $nomorKuis = (self::max('id') ?? 0) + 1;
-
-            $quis->kode_kuis = 'KUIS-' .
-                str_pad($nomorKuis, 4, '0', STR_PAD_LEFT);
+            $quis->kode_kuis = $kode;
         });
     }
 

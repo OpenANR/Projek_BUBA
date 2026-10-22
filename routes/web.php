@@ -8,6 +8,7 @@ use App\Http\Controllers\QuisController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\SiswaQuisController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -95,6 +96,7 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
     })->name('reward.index');
 });
 
+
 Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
 
     Route::get('/welcome', function () {
@@ -103,21 +105,24 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
 
     Route::get('/pengaturan', function () {
         return view('siswa.splash');
-    })->name('splash');
-    
+    })->name('siswa.pengaturan');
+
     Route::get('/konten', function () {
-        return view('siswa.konten');
-    })->name('siswa.konten');
+    return view('siswa.konten');
+})->name('siswa.konten');
 
-    Route::prefix('{konten}')->group(function () {
-        Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])->name('siswa.kelas');
-        Route::get('/{kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
+Route::prefix('{konten}')->group(function () {
+    Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])
+        ->name('siswa.kelas');
 
-        Route::get('/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
-        Route::get('/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
+    Route::get('/{kelas}', [CategoryController::class, 'pilihKategori'])
+        ->name('siswa.kategori');
+
+        Route::get('/kelas/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
+        Route::get('/kelas/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
     });
 
-    Route::get('/kuis', function () {
-        return view('siswa.splash');
-    })->name('splash');
+    Route::get('/kelas/{kelas}/{kategori}',[SiswaQuisController::class, 'index'])->name('siswa.quis.index');
+
+
 });
