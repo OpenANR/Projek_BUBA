@@ -1,466 +1,75 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuis BUBA</title>
+@extends('layouts.siswa.app')
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+@section('title', 'Kuis - BUBA')
 
-        body {
-            margin: 0;
-            font-family: "Trebuchet MS", Arial, sans-serif;
-            color: white;
-            min-height: 100vh;
-            overflow-x: hidden;
-            background: linear-gradient(
-                to bottom,
-                #0785c5 0%,
-                #42c5ee 48%,
-                #b7e88b 49%,
-                #5eaf43 75%,
-                #39852e 100%
-            );
-        }
+@section('content')
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden px-4 py-5 select-none sm:px-6 md:px-8">
 
-        button {
-            font-family: inherit;
-            cursor: pointer;
-        }
+    {{-- Background BUBA --}}
+    <img src="{{ asset('images/backgroundSplash.png') }}"
+        alt="BUBA Background"
+        class="pointer-events-none fixed inset-0 z-0 h-full w-full object-cover object-bottom">
 
-        .game-world {
-            position: relative;
-            min-height: 100vh;
-            padding: 18px 14px 45px;
-            overflow: hidden;
-        }
+    {{-- Tombol Kembali --}}
+    <div class="absolute left-4 top-4 z-30 sm:left-6 sm:top-6 md:left-8 md:top-8">
+        <a href="{{ route('siswa.konten') }}"
+            class="group flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-[#5ebef3] text-white shadow-[0_6px_14px_rgba(0,0,0,0.18)] transition duration-200 hover:scale-110 hover:bg-[#47ade7] active:scale-90 sm:h-14 sm:w-14 md:h-16 md:w-16"
+            aria-label="Kembali ke pilihan konten">
 
-        /* Matahari dan awan */
-        .sun {
-            position: absolute;
-            top: 18px;
-            right: 6%;
-            font-size: 36px;
-            filter: drop-shadow(0 2px 3px #866b00);
-        }
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="h-6 w-6 transition-transform group-hover:-translate-x-1 sm:h-7 sm:w-7 md:h-8 md:w-8">
+                <path d="M16 5.5a1 1 0 0 0-1.6-.8l-9 7a1 1 0 0 0 0 1.6l9 7A1 1 0 0 0 16 19.5V5.5z"/>
+            </svg>
+        </a>
+    </div>
 
-        .cloud {
-            position: absolute;
-            top: 25px;
-            left: 25%;
-            font-size: 29px;
-            opacity: .9;
-        }
+    {{-- Header Kelas --}}
+    <header class="relative z-10 mb-7 flex items-center justify-center pt-2 sm:pt-4 md:pt-6">
+        <div class="rounded-2xl border-4 border-white bg-[#1e60be] px-7 py-3 shadow-[0_8px_20px_rgba(0,0,0,0.2)] sm:rounded-[2rem] sm:border-[5px] sm:px-10 md:rounded-[2.2rem] md:border-[6px] md:px-14">
 
-        .hill {
-            position: absolute;
-            z-index: 0;
-            bottom: -85px;
-            width: 75vw;
-            height: 230px;
-            border-radius: 50% 50% 0 0;
-            background: #69bd48;
-        }
-
-        .hill.left {
-            left: -25%;
-        }
-
-        .hill.right {
-            right: -30%;
-            bottom: -110px;
-            background: #438e37;
-        }
-
-        .tree {
-            position: absolute;
-            z-index: 1;
-            bottom: 65px;
-            font-size: 43px;
-        }
-
-        .tree.left {
-            left: 2%;
-        }
-
-        .tree.right {
-            right: 2%;
-        }
-
-        .topbar,
-        .quiz-wrapper {
-            position: relative;
-            z-index: 2;
-        }
-
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 900px;
-            margin: 0 auto 24px;
-        }
-
-        .back-button {
-            width: 38px;
-            height: 38px;
-            border: 2px solid white;
-            border-radius: 50%;
-            color: white;
-            background: #42b7ed;
-            box-shadow: 0 3px 0 #1768a1;
-            font-size: 21px;
-            font-weight: bold;
-        }
-
-        .class-label {
-            padding: 7px 22px;
-            border: 2px solid white;
-            border-radius: 9px;
-            background: #1769d3;
-            box-shadow: 0 3px 0 #124a94;
-            font-size: 13px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .quiz-wrapper {
-            max-width: 760px;
-            margin: 0 auto;
-        }
-
-        .quiz-heading {
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 2px #39713b;
-        }
-
-        .quiz-heading h1 {
-            margin: 0 0 7px;
-            font-size: clamp(22px, 4vw, 32px);
-        }
-
-        .quiz-heading p {
-            margin: 0;
-            font-size: 14px;
-        }
-
-        .progress-area {
-            max-width: 480px;
-            margin: 0 auto 18px;
-        }
-
-        .progress-text {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 6px;
-            text-shadow: 0 1px 2px #39713b;
-        }
-
-        .progress-track {
-            height: 12px;
-            background: #ffffffa8;
-            border: 2px solid white;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: #ffd629;
-            border-radius: 20px;
-            transition: width .25s;
-        }
-
-        .question-card {
-            display: none;
-            width: 100%;
-            min-height: 285px;
-            padding: 24px 20px;
-            border: 3px solid white;
-            border-radius: 17px;
-            box-shadow: 0 6px 0 #00000020;
-            text-align: center;
-            animation: appear .25s ease;
-        }
-
-        .question-card.active {
-            display: block;
-        }
-
-        @keyframes appear {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .question-number {
-            display: inline-block;
-            padding: 5px 12px;
-            margin-bottom: 12px;
-            border-radius: 20px;
-            background: #ffffff38;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .question-text {
-            margin: 0 auto 16px;
-            max-width: 550px;
-            font-size: clamp(16px, 3vw, 21px);
-            line-height: 1.5;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .question-images {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 12px 0 20px;
-        }
-
-        .question-images img {
-            width: 95px;
-            height: 95px;
-            object-fit: contain;
-            border-radius: 10px;
-            background: #ffffffec;
-            padding: 5px;
-        }
-
-        .options {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
-            max-width: 520px;
-            margin: 18px auto 0;
-        }
-
-        .option {
-            min-height: 58px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border: 2px solid #ffffffde;
-            border-radius: 13px;
-            color: #263238;
-            background: #ffffffed;
-            text-align: left;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 3px 0 #00000018;
-            transition: transform .15s, background .15s;
-        }
-
-        .option:hover {
-            transform: translateY(-2px);
-            background: #fff6bc;
-        }
-
-        .option-letter {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 27px;
-            height: 27px;
-            border-radius: 50%;
-            color: white;
-            background: #3d8de0;
-        }
-
-        .option.selected {
-            background: #fff0a1;
-            border-color: #ffca28;
-        }
-
-        .option.correct {
-            background: #b7f5a8;
-            border-color: #239b36;
-        }
-
-        .option.wrong {
-            background: #ffc3c3;
-            border-color: #e53935;
-        }
-
-        .feedback {
-            min-height: 24px;
-            margin-top: 14px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .quiz-actions {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .action-button {
-            border: 2px solid white;
-            border-radius: 12px;
-            padding: 12px 22px;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 4px 0 #00000024;
-        }
-
-        .next-button {
-            background: #ffd52e;
-            color: #493b00;
-        }
-
-        .finish-button {
-            background: #138b48;
-            color: white;
-        }
-
-        .action-button:disabled {
-            opacity: .55;
-            cursor: not-allowed;
-        }
-
-        .result-card,
-        .empty-card {
-            display: none;
-            padding: 30px 20px;
-            text-align: center;
-            background: white;
-            color: #263238;
-            border: 3px solid white;
-            border-radius: 18px;
-            box-shadow: 0 6px 0 #00000020;
-        }
-
-        .result-card h2,
-        .empty-card h2 {
-            color: #258a43;
-        }
-
-        .result-score {
-            color: #1769d3;
-            font-size: 42px;
-            font-weight: bold;
-        }
-
-        .small-note {
-            font-size: 12px;
-            opacity: .9;
-            margin-top: 18px;
-        }
-
-        @media (max-width: 480px) {
-            .game-world {
-                padding: 14px 10px 35px;
-            }
-
-            .topbar {
-                margin-bottom: 18px;
-            }
-
-            .question-card {
-                padding: 20px 12px;
-            }
-
-            .options {
-                gap: 8px;
-            }
-
-            .option {
-                padding: 9px 7px;
-                font-size: 12px;
-                gap: 6px;
-            }
-
-            .option-letter {
-                width: 24px;
-                height: 24px;
-            }
-
-            .question-images img {
-                width: 75px;
-                height: 75px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-<div class="game-world">
-
-    <div class="sun">☀️</div>
-    <div class="cloud">☁️</div>
-    <div class="hill left"></div>
-    <div class="hill right"></div>
-    <div class="tree left">🌳</div>
-    <div class="tree right">🌳</div>
-
-    <header class="topbar">
-        <button class="back-button"
-            onclick="window.location.href='{{ url('/siswa/konten') }}'"
-            aria-label="Kembali">‹</button>
-
-        <div class="class-label">
-            KUIS {{ strtoupper($dataKelas->nama_kelas ?? 'ANAK') }}
+            <h1 class="text-center font-sans text-xl font-black tracking-wider text-white drop-shadow sm:text-2xl md:text-3xl">
+                KUIS {{ strtoupper($dataKelas->nama_kelas ?? 'ANAK') }}
+            </h1>
         </div>
-
-        <div style="width:38px"></div>
     </header>
 
-    <main class="quiz-wrapper">
+    <main class="relative z-10 mx-auto w-full max-w-3xl">
 
-        <div class="quiz-heading">
-            <h1>🎮 Ayo Bermain Kuis!</h1>
-            <p>
+        {{-- Judul Kuis --}}
+        <div class="mb-6 text-center">
+            <h2 class="mb-2 text-2xl font-black text-white drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] sm:text-3xl">
+                Ayo Bermain Kuis!
+            </h2>
+
+            <p class="inline-block rounded-full border-2 border-white bg-white/90 px-5 py-2 text-sm font-bold text-[#1e60be] shadow-md sm:text-base">
                 Kategori:
-                <strong>{{ $dataKategori->nama_kategori ?? 'Pembelajaran' }}</strong>
+                {{ $dataKategori->nama_kategori ?? 'Pembelajaran' }}
             </p>
         </div>
 
         @if($quis->count() > 0)
 
-            <div class="progress-area" id="progressArea">
-                <div class="progress-text">
-                    <span id="progressLabel">Soal 1</span>
+            {{-- Progress Bar --}}
+            <div id="progressArea" class="mx-auto mb-5 max-w-xl rounded-2xl border-2 border-white bg-white/80 p-4 shadow-md">
+
+                <div class="mb-2 flex justify-between gap-3 text-sm font-black text-[#1e60be]">
+                    <span id="progressLabel">Soal 1 dari {{ $quis->count() }}</span>
                     <span id="progressCount">0/{{ $quis->count() }} dijawab</span>
                 </div>
-                <div class="progress-track">
-                    <div class="progress-fill" id="progressFill"></div>
+
+                <div class="h-3 overflow-hidden rounded-full border-2 border-white bg-slate-200">
+                    <div id="progressFill"
+                        class="h-full rounded-full bg-[#ffd629] transition-all duration-300"
+                        style="width: 0%">
+                    </div>
                 </div>
             </div>
 
-            @php
-                $warnaKartu = [
-                    '#78c95a',
-                    '#f4cf18',
-                    '#c95ac5',
-                    '#56c3ce',
-                    '#6048c7',
-                    '#079447',
-                    '#477f13',
-                    '#f28b36',
-                ];
-            @endphp
-
+            {{-- Daftar Soal --}}
             @foreach($quis as $index => $item)
+
                 @php
                     $gambar = $item->gambar ?? [];
 
@@ -491,108 +100,199 @@
                 @endphp
 
                 <section
-                    class="question-card {{ $index === 0 ? 'active' : '' }}"
+                    class="question-card {{ $index === 0 ? 'active' : 'hidden' }} mb-5 rounded-[1.7rem] border-4 border-white bg-white/95 p-5 text-center shadow-[0_10px_25px_rgba(0,0,0,0.18)] sm:rounded-[2rem] sm:p-7"
                     data-index="{{ $index }}"
-                    data-answer="{{ strtoupper($item->jawaban ?? '') }}"
-                    style="background: {{ $warnaKartu[$index % count($warnaKartu)] }}">
+                    data-answer="{{ strtoupper($item->jawaban ?? '') }}">
 
-                    <div class="question-number">
+                    {{-- Nomor Soal --}}
+                    <div class="mb-4 inline-block rounded-full border-2 border-white bg-[#1e60be] px-5 py-2 text-sm font-black tracking-wide text-white shadow-md">
                         SOAL {{ $index + 1 }}
                     </div>
 
-                    <h2 class="question-text">
+                    {{-- Pertanyaan --}}
+                    <h3 class="mx-auto mb-5 max-w-xl text-lg font-black leading-relaxed text-slate-800 sm:text-xl">
                         {{ $item->pertanyaan }}
-                    </h2>
+                    </h3>
 
+                    {{-- Gambar Soal --}}
                     @if(count($gambar) > 0)
-                        <div class="question-images">
+                        <div class="mb-5 flex flex-wrap items-center justify-center gap-3">
                             @foreach($gambar as $file)
                                 <img
                                     src="{{ asset('storage/' . $file) }}"
                                     alt="Gambar soal {{ $index + 1 }}"
+                                    class="h-24 w-24 rounded-2xl border-4 border-white bg-sky-50 object-contain p-1 shadow-md sm:h-32 sm:w-32"
                                     onerror="this.style.display='none'">
                             @endforeach
                         </div>
                     @endif
 
-                    <div class="options">
+                    {{-- Pilihan Jawaban --}}
+                    <div class="options mx-auto mt-5 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+
                         @foreach($pilihan as $huruf => $teks)
                             @if($teks !== null && $teks !== '')
                                 <button
                                     type="button"
-                                    class="option"
+                                    class="option group flex min-h-[62px] items-center gap-3 rounded-2xl border-4 border-white bg-[#d8759c] p-3 text-left text-white shadow-[0_5px_10px_rgba(0,0,0,0.12)] transition duration-200 hover:-translate-y-1 hover:bg-[#ca5e88] hover:shadow-lg"
                                     data-letter="{{ $huruf }}"
                                     onclick="pilihJawaban({{ $index }}, '{{ $huruf }}', this)">
 
-                                    <span class="option-letter">{{ $huruf }}</span>
-                                    <span>{{ $teks }}</span>
+                                    <span class="option-letter flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-white bg-white text-base font-black text-[#d8759c]">
+                                        {{ $huruf }}
+                                    </span>
+
+                                    <span class="text-sm font-extrabold leading-snug sm:text-base">
+                                        {{ $teks }}
+                                    </span>
                                 </button>
                             @endif
                         @endforeach
+
                     </div>
 
-                    <div class="feedback" aria-live="polite"></div>
+                    {{-- Feedback --}}
+                    <div class="feedback mt-4 min-h-6 text-sm font-extrabold text-[#1e60be]" aria-live="polite"></div>
+
                 </section>
             @endforeach
 
-            <div class="quiz-actions" id="quizActions">
-                <button class="action-button next-button"
+            {{-- Tombol Navigasi --}}
+            <div id="quizActions" class="my-6 flex flex-wrap justify-center gap-3 sm:gap-4">
+
+                <button
+                    type="button"
                     id="nextButton"
-                    onclick="soalBerikutnya()">
+                    onclick="soalBerikutnya()"
+                    class="rounded-2xl border-4 border-white bg-[#ffd629] px-6 py-3 font-black text-[#493b00] shadow-lg transition hover:-translate-y-1 hover:scale-105 active:scale-95 sm:px-8">
                     Soal Berikutnya ➜
                 </button>
 
-                <button class="action-button finish-button"
+                <button
+                    type="button"
                     id="finishButton"
-                    onclick="selesaiKuis()">
+                    onclick="selesaiKuis()"
+                    class="rounded-2xl border-4 border-white bg-[#1e60be] px-6 py-3 font-black text-white shadow-lg transition hover:-translate-y-1 hover:scale-105 hover:bg-blue-700 active:scale-95 sm:px-8">
                     Lihat Nilai ⭐
                 </button>
+
             </div>
 
-            <section class="result-card" id="resultCard">
-                <div style="font-size:48px">🏆</div>
-                <h2>Kuis Selesai!</h2>
-                <p>Hebat! Kamu sudah menyelesaikan kuis ini.</p>
-                <div class="result-score" id="resultScore">0</div>
-                <p id="resultDetail"></p>
+            {{-- Hasil Kuis --}}
+            <section id="resultCard"
+                class="hidden rounded-[2rem] border-4 border-white bg-white/95 px-5 py-8 text-center shadow-xl sm:px-8">
 
-                <button class="action-button next-button"
-                    onclick="location.reload()">
-                    Main Lagi 🔄
-                </button>
+                <div class="mb-3 text-5xl">🏆</div>
 
-                <button class="action-button finish-button"
-                    onclick="window.location.href='{{ url('/siswa/konten') }}'">
-                    Kembali
-                </button>
+                <h2 class="mb-3 text-2xl font-black text-[#1e60be] sm:text-3xl">
+                    Kuis Selesai!
+                </h2>
+
+                <p class="mb-4 font-bold text-slate-700">
+                    Hebat! Kamu sudah menyelesaikan kuis ini.
+                </p>
+
+                <div id="resultScore" class="my-4 text-5xl font-black text-[#d8759c]">
+                    0
+                </div>
+
+                <p id="resultDetail" class="mb-6 font-bold text-slate-700"></p>
+
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button
+                        type="button"
+                        onclick="location.reload()"
+                        class="rounded-2xl border-4 border-white bg-[#ffd629] px-6 py-3 font-black text-[#493b00] shadow-md transition hover:scale-105">
+                        Main Lagi 🔄
+                    </button>
+
+                    <a href="{{ route('siswa.konten') }}"
+                        class="rounded-2xl border-4 border-white bg-[#1e60be] px-6 py-3 font-black text-white shadow-md transition hover:scale-105">
+                        Kembali
+                    </a>
+                </div>
             </section>
 
         @else
-            <section class="empty-card" style="display:block">
-                <div style="font-size:55px">📚</div>
-                <h2>Belum Ada Soal</h2>
-                <p>Soal untuk kelas dan kategori ini belum tersedia.</p>
-                <p>Yuk, coba kategori pembelajaran lainnya!</p>
 
-                <button class="action-button next-button"
-                    onclick="window.location.href='{{ url('/siswa/konten') }}'">
+            {{-- Jika Belum Ada Soal --}}
+            <section class="rounded-[2rem] border-4 border-white bg-white/90 px-5 py-8 text-center shadow-xl sm:px-8">
+
+                <div class="mb-3 text-5xl">📚</div>
+
+                <h2 class="mb-3 text-2xl font-black text-[#1e60be]">
+                    Belum Ada Soal
+                </h2>
+
+                <p class="mb-6 font-semibold text-slate-700">
+                    Soal untuk kelas dan kategori ini belum tersedia.
+                    Yuk, coba kategori pembelajaran lainnya!
+                </p>
+
+                <a href="{{ route('siswa.konten') }}"
+                    class="inline-block rounded-2xl border-4 border-white bg-[#d8759c] px-8 py-3 font-black text-white shadow-lg transition hover:scale-105 hover:bg-[#ca5e88]">
                     Kembali
-                </button>
+                </a>
             </section>
+
         @endif
 
-        <p class="small-note" style="text-align:center">
+        {{-- Footer --}}
+        <p class="my-6 text-center text-sm font-black text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)]">
             BUBA • Belajar sambil bermain 🌈
         </p>
 
     </main>
 </div>
 
+{{-- CSS Tambahan --}}
+<style>
+    .question-card.active {
+        display: block;
+        animation: bubaAppear .25s ease;
+    }
+
+    .option.selected {
+        background: #1e60be !important;
+        border-color: #ffffff !important;
+        box-shadow: 0 0 0 3px #93c5fd;
+    }
+
+    .option.selected .option-letter {
+        color: #1e60be;
+    }
+
+    .option.correct {
+        background: #239b55 !important;
+    }
+
+    .option.wrong {
+        background: #dc4545 !important;
+    }
+
+    .option:disabled {
+        cursor: default;
+        transform: none;
+    }
+
+    @keyframes bubaAppear {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
 @if($quis->count() > 0)
 <script>
     const cards = [...document.querySelectorAll('.question-card')];
     const totalSoal = cards.length;
     const jawabanPengguna = {};
+
     let nomorAktif = 0;
     let sudahSelesai = false;
 
@@ -610,17 +310,23 @@
 
         document.getElementById('nextButton').textContent =
             nomorAktif === totalSoal - 1
-                ? 'Soal Terakhir ✓'
+                ? 'Periksa Jawaban ✓'
                 : 'Soal Berikutnya ➜';
     }
 
     function tampilkanSoal(index) {
         cards.forEach((card, i) => {
             card.classList.toggle('active', i === index);
+            card.classList.toggle('hidden', i !== index);
         });
 
         nomorAktif = index;
         perbaruiProgres();
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     function pilihJawaban(index, huruf, tombol) {
@@ -637,42 +343,46 @@
         tombol.classList.add('selected');
 
         card.querySelector('.feedback').textContent =
-            'Jawaban dipilih! Kamu bisa lanjut ke soal berikutnya 😊';
+            'Jawaban dipilih! Yuk, lanjut ke soal berikutnya 😊';
 
         perbaruiProgres();
     }
 
     function soalBerikutnya() {
+        if (sudahSelesai) return;
+
         if (nomorAktif < totalSoal - 1) {
             tampilkanSoal(nomorAktif + 1);
-        } else {
-            const belumDijawab = cards.findIndex(
-                (_, index) => jawabanPengguna[index] === undefined
-            );
+            return;
+        }
 
-            if (belumDijawab !== -1) {
-                tampilkanSoal(belumDijawab);
-                alert('Ayo jawab soal ini terlebih dahulu! 😊');
-            } else {
-                selesaiKuis();
-            }
+        const belumDijawab = cards.findIndex(
+            (_, index) => jawabanPengguna[index] === undefined
+        );
+
+        if (belumDijawab !== -1) {
+            tampilkanSoal(belumDijawab);
+            alert('Ayo jawab semua soal terlebih dahulu! 😊');
+        } else {
+            selesaiKuis();
         }
     }
 
     function selesaiKuis() {
-        if (Object.keys(jawabanPengguna).length < totalSoal) {
-            const belumDijawab = cards.findIndex(
-                (_, index) => jawabanPengguna[index] === undefined
-            );
+        if (sudahSelesai) return;
 
-            if (belumDijawab !== -1) {
-                tampilkanSoal(belumDijawab);
-                alert('Masih ada soal yang belum dijawab, ya! 😊');
-                return;
-            }
+        const belumDijawab = cards.findIndex(
+            (_, index) => jawabanPengguna[index] === undefined
+        );
+
+        if (belumDijawab !== -1) {
+            tampilkanSoal(belumDijawab);
+            alert('Masih ada soal yang belum dijawab, ya! 😊');
+            return;
         }
 
         sudahSelesai = true;
+
         let benar = 0;
 
         cards.forEach((card, index) => {
@@ -695,6 +405,7 @@
 
             if (jawaban === jawabanBenar) {
                 benar++;
+
                 card.querySelector('.feedback').textContent =
                     '🎉 Hebat! Jawaban kamu benar!';
             } else {
@@ -703,12 +414,16 @@
             }
         });
 
-        cards.forEach(card => card.classList.remove('active'));
+        cards.forEach(card => {
+            card.classList.remove('active');
+            card.classList.add('hidden');
+        });
 
-        document.getElementById('progressArea').style.display = 'none';
-        document.getElementById('quizActions').style.display = 'none';
+        document.getElementById('progressArea').classList.add('hidden');
+        document.getElementById('quizActions').classList.add('hidden');
 
-        document.getElementById('resultCard').style.display = 'block';
+        document.getElementById('resultCard').classList.remove('hidden');
+
         document.getElementById('resultScore').textContent =
             Math.round((benar / totalSoal) * 100);
 
@@ -724,6 +439,4 @@
     perbaruiProgres();
 </script>
 @endif
-
-</body>
-</html>
+@endsection

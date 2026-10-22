@@ -21,12 +21,6 @@
 
         </div>
 
-        <a
-            href="{{ route('kuis.index') }}"
-            class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg"
-        >
-            Kembali
-        </a>
 
     </div>
 

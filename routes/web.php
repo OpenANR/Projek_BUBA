@@ -120,9 +120,7 @@ Route::prefix('{konten}')->group(function () {
 
         Route::get('/kelas/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
         Route::get('/kelas/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
+        Route::get('/kelas/{kelas}/{kategori}',[SiswaQuisController::class, 'indexKuisSiswa'])->name('siswa.quis.index');
     });
-
-    Route::get('/kelas/{kelas}/{kategori}',[SiswaQuisController::class, 'index'])->name('siswa.quis.index');
-
 
 });
