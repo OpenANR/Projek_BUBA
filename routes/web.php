@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 /**
  * ROUTE UNTUK MENENTUKAN JALUR SEBUAH HALAMAN ADMIN DAN SISWA
@@ -108,21 +108,17 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
     })->name('siswa.pengaturan');
 
     Route::get('/konten', function () {
-    return view('siswa.konten');
-})->name('siswa.konten');
+        return view('siswa.konten');
+    })->name('siswa.konten');
 
-Route::prefix('{konten}')->group(function () {
-    Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])
-        ->name('siswa.kelas');
+    Route::prefix('{konten}')->group(function () {
+        Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])->name('siswa.kelas');
+        Route::get('/{kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
 
-    Route::get('/{kelas}', [CategoryController::class, 'pilihKategori'])
-        ->name('siswa.kategori');
+        Route::get('/materi-list/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
+        Route::get('/materi-show/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
 
-        Route::get('/kelas/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
-        Route::get('/kelas/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
+        Route::get('/kuis-list/{kelas}/{kategori}', [QuisController::class, 'listKuis'])->name('siswa.kuis');
+
     });
-
-    Route::get('/kelas/{kelas}/{kategori}',[SiswaQuisController::class, 'index'])->name('siswa.quis.index');
-
-
 });

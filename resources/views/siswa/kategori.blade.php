@@ -53,8 +53,10 @@
                             }
                         }
                         $warna = $colors[$loop->index % count($colors)];
+
+                        $routeName = ($konten === 'kuis') ? 'siswa.kuis' : 'siswa.materi';
                     @endphp
-                    <a href="{{ route('siswa.materi', ['konten' => $konten, 'kelas' => $dataKelas->id, 'kategori' => $item->id]) }}"
+                    <a href="{{ route($routeName, ['konten' => $konten, 'kelas' => $dataKelas->id, 'kategori' => $item->id]) }}"
                         class="flex min-h-[154px] flex-col items-center justify-between rounded-[1.4rem] border-[5px] border-white {{ $warna }} px-3 py-4 text-center text-white shadow-lg transition duration-200 hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-white/70 sm:min-h-[162px]"
                         aria-label="Buka kategori {{ $item->nama_kategori }}">
                         <span class="text-base font-bold uppercase leading-snug sm:text-lg">{{ $item->nama_kategori }}</span>
