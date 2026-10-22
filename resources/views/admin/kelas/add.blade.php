@@ -56,18 +56,6 @@
 			const button = input.form.querySelector('button[type="submit"]');
 
 			function updateButtonState() {
-<<<<<<< HEAD
-=======
-				const cursorPosition = input.selectionStart;
-				const sanitizedValue = input.value.replace(/[^a-zA-Z0-9-]/g, '');
-
-				if (sanitizedValue !== input.value) {
-					const sanitizedCursorPosition = input.value.slice(0, cursorPosition).replace(/[^a-zA-Z0-9-]/g, '').length;
-					input.value = sanitizedValue;
-					input.setSelectionRange(sanitizedCursorPosition, sanitizedCursorPosition);
-				}
-
->>>>>>> d7c07038d5185b7089c82ae3db08f130f110da2c
 				const isValid = input.value.length > 0
 					&& input.value.length <= 10
 					&& /^[A-Za-z0-9-]+$/.test(input.value);
