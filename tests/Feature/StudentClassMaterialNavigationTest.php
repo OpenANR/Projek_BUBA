@@ -44,3 +44,20 @@ it('connects newly created classes to their categories and materials', function 
     ]))->assertOk()
         ->assertSee('Materi belum tersedia');
 });
+
+it('displays the content selection page with materi and kuis options and back navigation', function () {
+    $this->withoutVite();
+
+    $siswa = User::factory()->create(['role' => 'siswa']);
+    $this->actingAs($siswa);
+
+    $response = $this->get(route('siswa.konten'));
+    $response->assertOk()
+        ->assertSee('PILIH KONTEN')
+        ->assertSee('MATERI')
+        ->assertSee('KUIS')
+        ->assertSee(route('siswa.kelas', ['konten' => 'materi']))
+        ->assertSee(route('siswa.kelas', ['konten' => 'kuis']))
+        ->assertSee(route('splash'));
+});
+
