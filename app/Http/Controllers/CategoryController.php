@@ -100,14 +100,7 @@ class CategoryController extends Controller
     }
 
     public function pilihKategori($konten, $kelas) {
-
-        
-        $dataKelas = Kelas::where('nama_kelas', $kelas)->first();
-
-        if (!$dataKelas) {
-            abort(404, 'Data kelas tidak ditemukan');
-        }
-
+        $dataKelas = Kelas::findOrFail($kelas);
         $kategori = Kategori::where('kelas_id', $dataKelas->id)->get();
 
         return view('siswa.kategori', compact('konten', 'dataKelas', 'kategori'));

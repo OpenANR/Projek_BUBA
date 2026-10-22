@@ -7,7 +7,7 @@
 <div>
     @foreach ($kelas as $item)
         <div>
-            <a href="{{ route('siswa.kategori', ['konten' => $konten, 'kelas' => $item->nama_kelas]) }}">
+            <a href="{{ route('siswa.kategori', ['konten' => $konten, 'kelas' => $item->id]) }}">
                 <button>{{ $item->nama_kelas }}</button>
             </a>
         </div>
