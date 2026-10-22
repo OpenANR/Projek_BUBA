@@ -1,567 +1,358 @@
+
 @extends('layouts.admin.app')
 
 @section('title', 'Kelola Materi - BUBA')
 
 @section('content')
-
-<div class="max-w-6xl mx-auto">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
 
     {{-- HEADER --}}
-    <div class="flex items-center justify-between mb-6">
-        <div>
-            <h1 class="text-2xl font-bold text-gray-800">
-                📚 Tabel Materi
-            </h1>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-100 border border-blue-200">
+                <span class="text-lg">📚</span>
+            </div>
 
-            <p class="text-gray-500 mt-1">
-                Kelola data materi pembelajaran BUBA.
-            </p>
+            <div>
+                <h1 class="text-xl font-bold text-gray-900">Kelola Materi</h1>
+                <p class="text-sm text-gray-500 mt-1">
+                    Kelola materi berdasarkan kelas dan kategori pembelajaran.
+                </p>
+            </div>
         </div>
 
         <a href="{{ route('materi.tambah') }}"
-           class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">
-            + Tambah Materi
+           class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-3 rounded-xl shadow-sm transition">
+            <span class="text-lg">+</span>
+            <span>Tambah Materi</span>
         </a>
     </div>
 
-
     {{-- PESAN SUKSES --}}
     @if (session('success'))
-        <div class="mb-5 p-4 rounded-lg bg-green-100 border border-green-300 text-green-700">
-            {{ session('success') }}
+        <div class="mb-5 px-4 py-3 rounded-xl bg-green-50 border border-green-200">
+            <p class="font-semibold text-sm text-green-800">Berhasil</p>
+            <p class="text-sm text-green-700 mt-1">
+                {{ session('success') }}
+            </p>
         </div>
     @endif
 
+    {{-- KARTU DAFTAR MATERI --}}
+    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
 
-    {{-- PENCARIAN CUSTOM --}}
-    <div class="bg-white rounded-xl shadow-md p-5 mb-6">
+        {{-- HEADER KARTU --}}
+        <div class="px-5 py-5 border-b border-gray-200">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div>
+                    <h2 class="text-lg font-bold text-gray-900">
+                        Daftar Materi
+                    </h2>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Materi yang telah ditambahkan akan ditampilkan di sini.
+                    </p>
+                </div>
 
-        <div class="flex flex-col md:flex-row gap-3">
-
-            {{-- PILIH JENIS PENCARIAN --}}
-            <div class="w-full md:w-64">
-                <select
-                    id="searchField"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
-
-                    <option value="all">
-                        Semua
-                    </option>
-
-                    <option value="kode">
-                        Kode
-                    </option>
-
-                    <option value="judul">
-                        Judul
-                    </option>
-
-                    <option value="kelas">
-                        Kelas
-                    </option>
-
-                    <option value="kategori">
-                        Kategori
-                    </option>
-
-                </select>
+                <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-sm">
+                    <span>Total materi</span>
+                    <span class="font-bold">{{ $materi->count() }}</span>
+                </div>
             </div>
-
-
-            {{-- INPUT PENCARIAN --}}
-            <div class="flex-1">
-                <input
-                    type="text"
-                    id="searchMateri"
-                    placeholder="Ketik yang ingin dicari..."
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-
-
-            {{-- TOMBOL RESET --}}
-            <button
-                type="button"
-                id="resetSearch"
-                class="px-5 py-2.5 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition">
-
-                Reset
-
-            </button>
-
         </div>
 
-    </div>
+        {{-- JIKA MATERI ADA --}}
+        @if ($materi->count() > 0)
 
+            {{-- PENCARIAN --}}
+            <div class="px-5 py-5">
+                <div class="flex flex-col md:flex-row gap-3">
 
-    {{-- TABEL --}}
-    <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="w-full md:w-64 flex-shrink-0">
+                        <select id="searchField"
+                                class="w-full h-11 border border-gray-300 rounded-xl px-4 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="all">Cari berdasarkan...</option>
+                            <option value="kode">Kode Materi</option>
+                            <option value="judul">Judul Materi</option>
+                            <option value="kelas">Kelas</option>
+                            <option value="kategori">Kategori</option>
+                        </select>
+                    </div>
 
-        <div class="overflow-x-auto">
+                    <div class="flex-1">
+                        <input type="text"
+                               id="searchMateri"
+                               placeholder="Masukkan pencarian..."
+                               class="w-full h-11 border border-gray-300 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
 
-            <table
-                id="materiTable"
-                class="display w-full">
+                    <button type="button"
+                            id="resetSearch"
+                            class="h-11 px-4 rounded-xl bg-gray-100 border border-gray-200 text-gray-600 text-sm hover:bg-gray-200 transition">
+                        Reset
+                    </button>
 
-                <thead>
-                    <tr>
+                </div>
+            </div>
 
-                        <th>No</th>
-
-                        <th>Kode</th>
-
-                        <th>Judul</th>
-
-                        <th>Kelas</th>
-
-                        <th>Kategori</th>
-
-                        <th>Gambar</th>
-
-                        <th>Aksi</th>
-
-                    </tr>
-                </thead>
-
-
-                <tbody>
-
-                    @forelse ($materi as $item)
-
+            {{-- TABEL --}}
+            <div class="overflow-x-auto">
+                <table id="materiTable" class="display w-full text-sm">
+                    <thead>
                         <tr>
+                            <th>No</th>
+                            <th>KODE MATERI</th>
+                            <th>JUDUL MATERI</th>
+                            <th>KELAS</th>
+                            <th>KATEGORI</th>
+                            <th>GAMBAR</th>
+                            <th>AKSI</th>
+                        </tr>
+                    </thead>
 
-                            {{-- NO --}}
-                            <td>
-                                {{ $loop->iteration }}
-                            </td>
-
-
-                            {{-- KODE --}}
-                            <td>
-                                {{ $item->kode_materi }}
-                            </td>
-
-
-                            {{-- JUDUL --}}
-                            <td>
-                                {{ $item->nama_materi }}
-                            </td>
-
-
-                            {{-- KELAS --}}
-                            <td>
-
-                                @if ($item->kelas)
-
-                                    <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm">
-                                        {{ $item->kelas->nama_kelas }}
+                    <tbody>
+                        @foreach ($materi as $item)
+                            <tr>
+                                {{-- NOMOR --}}
+                                <td>
+                                    <span class="inline-flex items-center justify-center min-w-8 h-8 rounded-lg bg-gray-100 text-gray-700 font-medium">
+                                        {{ $loop->iteration }}
                                     </span>
+                                </td>
 
-                                @else
-
-                                    <span class="text-gray-400">
-                                        Tidak ada Kelas
+                                {{-- KODE --}}
+                                <td>
+                                    <span class="inline-block px-3 py-1.5 rounded-lg bg-purple-50 border border-purple-200 text-purple-700 text-xs font-semibold whitespace-nowrap">
+                                        {{ $item->kode_materi }}
                                     </span>
+                                </td>
 
-                                @endif
-
-                            </td>
-
-
-                            {{-- KATEGORI --}}
-                            <td>
-
-                                @if ($item->kategori)
-
-                                    <span class="inline-block px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm">
-                                        {{ $item->kategori->nama_kategori }}
+                                {{-- JUDUL --}}
+                                <td>
+                                    <span class="font-medium text-gray-800">
+                                        {{ $item->nama_materi }}
                                     </span>
+                                </td>
 
-                                @else
+                                {{-- KELAS --}}
+                                <td>
+                                    @if ($item->kelas)
+                                        <span class="inline-block px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 text-xs whitespace-nowrap">
+                                            {{ $item->kelas->nama_kelas }}
+                                        </span>
+                                    @else
+                                        <span class="text-gray-400 text-xs">
+                                            Belum ada kelas
+                                        </span>
+                                    @endif
+                                </td>
 
-                                    <span class="text-gray-400">
-                                        Tidak ada Kategori
-                                    </span>
+                                {{-- KATEGORI --}}
+                                <td>
+                                    @if ($item->kategori)
+                                        <span class="inline-block px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 text-xs whitespace-nowrap">
+                                            {{ $item->kategori->nama_kategori }}
+                                        </span>
+                                    @else
+                                        <span class="text-gray-400 text-xs">
+                                            Belum ada kategori
+                                        </span>
+                                    @endif
+                                </td>
 
-                                @endif
+                                {{-- GAMBAR --}}
+                                <td>
+                                    @if ($item->gambar)
+                                        <img
+                                            src="{{ asset('storage/' . $item->gambar) }}"
+                                            alt="{{ $item->nama_materi }}"
+                                            class="w-14 h-14 object-cover rounded-lg border border-gray-200"
+                                            loading="lazy">
+                                    @else
+                                        <span class="text-gray-400 text-xs">
+                                            Tidak ada gambar
+                                        </span>
+                                    @endif
+                                </td>
 
-                            </td>
-
-
-                            {{-- GAMBAR --}}
-                            <td>
-
-                                @if ($item->gambar)
-
-                                    <img
-                                        src="{{ asset('storage/' . $item->gambar) }}"
-                                        alt="{{ $item->nama_materi }}"
-                                        class="w-16 h-16 object-cover rounded-lg">
-
-                                @else
-
-                                    <span class="text-gray-400">
-                                        Tidak ada gambar
-                                    </span>
-
-                                @endif
-
-                            </td>
-
-                              {{-- AKSI --}}
-                                <td class="px-5 py-5 align-top">
-
+                                {{-- AKSI --}}
+                                <td>
                                     <div class="flex items-center justify-center gap-2">
 
-
                                         {{-- DETAIL --}}
-                                        <a
-                                            href="{{ route('materi.detail', $item) }}"
-                                            title="Detail"
-                                            style="background-color: #eff6ff !important; color: #2563eb !important;"
-                                            class="w-9 h-9 flex items-center justify-center rounded-lg border border-blue-200 transition hover:bg-blue-100"
-                                        >
-
-                                            <i
-                                                class="fa-solid fa-eye text-xs"
-                                                style="color: #2563eb !important;"
-                                            ></i>
-
+                                        <a href="{{ route('materi.detail', $item) }}"
+                                           title="Detail materi"
+                                           class="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-200 bg-blue-50 text-blue-600 hover:bg-blue-100">
+                                            <i class="fa-solid fa-eye text-xs"></i>
                                         </a>
-
 
                                         {{-- EDIT --}}
-                                        <a
-                                            href="{{ route('materi.edit', $item) }}"
-                                            title="Edit"
-                                            style="background-color: #fffbeb !important; color: #d97706 !important;"
-                                            class="w-9 h-9 flex items-center justify-center rounded-lg border border-amber-200 transition hover:bg-amber-100"
-                                        >
-
-                                            <i
-                                                class="fa-solid fa-pen text-xs"
-                                                style="color: #d97706 !important;"
-                                            ></i>
-
+                                        <a href="{{ route('materi.edit', $item) }}"
+                                           title="Edit materi"
+                                           class="w-8 h-8 flex items-center justify-center rounded-lg border border-amber-200 bg-amber-50 text-amber-600 hover:bg-amber-100">
+                                            <i class="fa-solid fa-pen text-xs"></i>
                                         </a>
 
-
                                         {{-- HAPUS --}}
-                                        <form
-                                            action="{{ route('materi.hapus', $item) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Yakin ingin menghapus soal ini?')"
-                                        >
-
+                                        <form action="{{ route('materi.hapus', $item) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Yakin ingin menghapus materi ini?')">
                                             @csrf
                                             @method('DELETE')
 
-                                            <button
-                                                type="submit"
-                                                title="Hapus"
-                                                style="background-color: #fef2f2 !important; color: #dc2626 !important;"
-                                                class="w-9 h-9 flex items-center justify-center rounded-lg border border-red-200 transition hover:bg-red-100"
-                                            >
-
-                                                <i
-                                                    class="fa-solid fa-trash text-xs"
-                                                    style="color: #dc2626 !important;"
-                                                ></i>
-
+                                            <button type="submit"
+                                                    title="Hapus materi"
+                                                    class="w-8 h-8 flex items-center justify-center rounded-lg border border-red-200 bg-red-50 text-red-600 hover:bg-red-100">
+                                                <i class="fa-solid fa-trash text-xs"></i>
                                             </button>
-
                                         </form>
 
                                     </div>
-
                                 </td>
-                        </tr>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
 
-                    @empty
+        @else
 
-                        <tr>
+            {{-- TAMPILAN KOSONG --}}
+            <div class="px-5 py-12 text-center">
+                <div class="max-w-sm mx-auto">
 
-                            <td colspan="7" class="text-center py-8 text-gray-500">
+                    <div class="mx-auto w-16 h-16 flex items-center justify-center rounded-xl bg-blue-50 border border-blue-100">
+                        <span class="text-3xl">📚</span>
+                    </div>
 
-                                Belum ada data materi.
+                    <h3 class="mt-4 text-lg font-bold text-gray-900">
+                        Belum Ada Materi
+                    </h3>
 
-                            </td>
+                    <p class="mt-2 text-sm text-gray-500 leading-6">
+                        Belum ada materi pembelajaran yang ditambahkan.
+                        Silakan tambahkan materi pertama untuk mulai mengisi
+                        pembelajaran BUBA.
+                    </p>
 
-                        </tr>
+                    <a href="{{ route('materi.tambah') }}"
+                       class="mt-5 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm transition">
+                        <span class="text-lg">+</span>
+                        <span>Tambah Materi Pertama</span>
+                    </a>
 
-                    @endforelse
+                </div>
+            </div>
 
-                </tbody>
-
-            </table>
-
-        </div>
+        @endif
 
     </div>
-
 </div>
-
+@endsection
 
 {{-- DATATABLES --}}
-<link
-    rel="stylesheet"
-    href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
-
-
-<script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
-
-
+@push('scripts')
 <script>
-
 document.addEventListener('DOMContentLoaded', function () {
-
-    /*
-    |--------------------------------------------------------------------------
-    | DATATABLES
-    |--------------------------------------------------------------------------
-    */
-
-    const table = new DataTable('#materiTable', {
-
-        pageLength: 10,
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | HAPUS SEARCH BAWAAN DATATABLES
-        |--------------------------------------------------------------------------
-        |
-        | Tampilkan 10 data tetap ada.
-        | Yang dihilangkan hanya:
-        |
-        | Cari materi: [____________]
-        |
-        */
-
-        layout: {
-            topStart: 'pageLength',
-            topEnd: null
-        },
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | KOLOM
-        |--------------------------------------------------------------------------
-        */
-
-        columnDefs: [
-
-            {
-                orderable: false,
-                searchable: false,
-                targets: [5, 6]
-            }
-
-        ],
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | BAHASA
-        |--------------------------------------------------------------------------
-        */
-
-        language: {
-
-            lengthMenu: "Tampilkan _MENU_ data",
-
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-
-            infoEmpty: "Tidak ada data materi",
-
-            infoFiltered: "(difilter dari _MAX_ total data)",
-
-            paginate: {
-
-                next: "Berikutnya",
-
-                previous: "Sebelumnya"
-
-            },
-
-            zeroRecords: "Data tidak ditemukan",
-
-            emptyTable: "Belum ada data materi."
-
-        }
-
-    });
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | PENCARIAN CUSTOM
-    |--------------------------------------------------------------------------
-    */
-
-    const searchField = document.getElementById('searchField');
-
-    const searchMateri = document.getElementById('searchMateri');
-
-    const resetSearch = document.getElementById('resetSearch');
-
-
-    function doSearch() {
-
-        const field = searchField.value;
-
-        const keyword = searchMateri.value;
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | BERSIHKAN PENCARIAN KOLOM
-        |--------------------------------------------------------------------------
-        */
-
-        table.columns().search('');
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | SEMUA
-        |--------------------------------------------------------------------------
-        */
-
-        if (field === 'all') {
-
-            table
-                .search(keyword)
-                .draw();
-
-            return;
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | KODE
-        |--------------------------------------------------------------------------
-        */
-
-        if (field === 'kode') {
-
-            table
-                .column(1)
-                .search(keyword)
-                .draw();
-
-            return;
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | JUDUL
-        |--------------------------------------------------------------------------
-        */
-
-        if (field === 'judul') {
-
-            table
-                .column(2)
-                .search(keyword)
-                .draw();
-
-            return;
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | KELAS
-        |--------------------------------------------------------------------------
-        */
-
-        if (field === 'kelas') {
-
-            table
-                .column(3)
-                .search(keyword)
-                .draw();
-
-            return;
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | KATEGORI
-        |--------------------------------------------------------------------------
-        */
-
-        if (field === 'kategori') {
-
-            table
-                .column(4)
-                .search(keyword)
-                .draw();
-
-            return;
-
-        }
-
+    const tableElement = document.getElementById('materiTable');
+
+    // Jika materi kosong, tidak ada tabel yang perlu dijalankan
+    if (!tableElement) {
+        return;
     }
 
+    if (typeof DataTable === 'undefined') {
+        console.error('DataTables belum dimuat pada layout admin.');
+        return;
+    }
 
-    /*
-    |--------------------------------------------------------------------------
-    | KETIKA MENGETIK
-    |--------------------------------------------------------------------------
-    */
+    // Hindari inisialisasi ulang jika layout sudah membuat tabel
+    let table;
 
-    searchMateri.addEventListener('input', function () {
+    if (DataTable.isDataTable(tableElement)) {
+        table = DataTable.isDataTable(tableElement)
+            ? new DataTable(tableElement, { retrieve: true })
+            : null;
+    } else {
+        table = new DataTable(tableElement, {
+            pageLength: 10,
+            lengthMenu: [10, 25, 50],
+            autoWidth: false,
 
-        doSearch();
+            layout: {
+                topStart: 'pageLength',
+                topEnd: null,
+                bottomStart: 'info',
+                bottomEnd: 'paging'
+            },
 
-    });
+            columnDefs: [
+                {
+                    orderable: false,
+                    searchable: false,
+                    targets: [5, 6]
+                }
+            ],
 
+            language: {
+                lengthMenu: 'Tampilkan _MENU_ data',
+                info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
+                infoEmpty: 'Tidak ada data materi',
+                infoFiltered: '(difilter dari _MAX_ total data)',
+                paginate: {
+                    next: 'Berikutnya',
+                    previous: 'Sebelumnya'
+                },
+                zeroRecords: 'Data tidak ditemukan',
+                emptyTable: 'Belum ada data materi.'
+            }
+        });
+    }
 
-    /*
-    |--------------------------------------------------------------------------
-    | KETIKA DROPDOWN BERUBAH
-    |--------------------------------------------------------------------------
-    */
+    const searchField = document.getElementById('searchField');
+    const searchMateri = document.getElementById('searchMateri');
+    const resetSearch = document.getElementById('resetSearch');
 
-    searchField.addEventListener('change', function () {
+    if (!searchField || !searchMateri || !resetSearch || !table) {
+        return;
+    }
 
-        doSearch();
+    // Pencarian sesuai kolom yang dipilih
+    function cariMateri() {
+        const pilihan = searchField.value;
+        const kataKunci = searchMateri.value;
 
-    });
+        table.search('');
+        table.columns().search('');
 
+        if (pilihan === 'all') {
+            table.search(kataKunci).draw();
+            return;
+        }
 
-    /*
-    |--------------------------------------------------------------------------
-    | RESET
-    |--------------------------------------------------------------------------
-    */
+        const kolom = {
+            kode: 1,
+            judul: 2,
+            kelas: 3,
+            kategori: 4
+        };
 
+        if (kolom[pilihan] !== undefined) {
+            table.column(kolom[pilihan]).search(kataKunci).draw();
+        }
+    }
+
+    searchMateri.addEventListener('input', cariMateri);
+    searchField.addEventListener('change', cariMateri);
+
+    // Reset pencarian
     resetSearch.addEventListener('click', function () {
-
         searchField.value = 'all';
-
         searchMateri.value = '';
 
-
-        table
-            .search('')
-            .columns()
-            .search('')
-            .draw();
-
+        table.search('');
+        table.columns().search('');
+        table.draw();
     });
-
 });
-
 </script>
-
-@endsection
+@endpush
