@@ -10,6 +10,7 @@
     <div class="flex items-center justify-between mb-6">
 
         <div>
+
             <h1 class="text-3xl font-bold text-gray-800">
                 Detail Soal Kuis
             </h1>
@@ -17,6 +18,7 @@
             <p class="text-gray-500 text-sm mt-1">
                 Informasi lengkap soal kuis.
             </p>
+
         </div>
 
         <a
@@ -31,7 +33,7 @@
 
     <div class="bg-white rounded-xl shadow-md p-6">
 
-        {{-- Kode Kuis --}}
+        {{-- Kode --}}
         <div class="mb-5">
 
             <p class="text-sm font-semibold text-gray-500 mb-2">
@@ -53,7 +55,7 @@
             </p>
 
             <div class="bg-gray-50 rounded-lg p-4 text-gray-800 font-semibold">
-                {{ $quis->kategori->kelas->nama_kelas ?? '-' }}
+                {{ $quis->kelas->nama_kelas ?? '-' }}
             </div>
 
         </div>
@@ -87,37 +89,158 @@
         </div>
 
 
-        {{-- Gambar --}}
-        @if ($quis->gambar)
+        {{-- ========================= --}}
+        {{-- GAMBAR --}}
+        {{-- ========================= --}}
 
-            <div class="mb-6">
+        @php
 
-                <p class="text-sm font-semibold text-gray-500 mb-2">
-                    Gambar
-                </p>
+            $gambar = $quis->gambar ?? [];
 
-                <img
-                    src="{{ asset('storage/' . $quis->gambar) }}"
-                    alt="Gambar soal"
-                    class="max-w-sm max-h-64 object-contain rounded-lg border border-gray-200"
-                >
+            if (!is_array($gambar)) {
+                $gambar = [$gambar];
+            }
 
-            </div>
+            $gambar = array_filter($gambar);
 
-        @endif
+        @endphp
 
 
-        {{-- Pilihan Jawaban --}}
+        <div class="mb-6">
+
+            <p class="text-sm font-semibold text-gray-500 mb-3">
+                Gambar
+            </p>
+
+
+            @if (count($gambar) > 0)
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                    @foreach ($gambar as $file)
+
+                        <a
+                            href="{{ asset('storage/' . $file) }}"
+                            target="_blank"
+                            class="block"
+                        >
+
+                            <img
+                                src="{{ asset('storage/' . $file) }}"
+                                alt="Gambar soal"
+                                class="w-full h-40 object-contain rounded-lg border border-gray-200 bg-gray-50 hover:shadow-md transition"
+                            >
+
+                        </a>
+
+                    @endforeach
+
+                </div>
+
+            @else
+
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-500">
+                    Tidak ada gambar.
+                </div>
+
+            @endif
+
+        </div>
+
+
+        {{-- ========================= --}}
+        {{-- AUDIO --}}
+        {{-- ========================= --}}
+
+        <div class="mb-6">
+
+            <p class="text-sm font-semibold text-gray-500 mb-3">
+                Audio
+            </p>
+
+
+            @if ($quis->audio)
+
+                @php
+                    $extension = strtolower(
+                        pathinfo($quis->audio, PATHINFO_EXTENSION)
+                    );
+
+                    $audioType = match ($extension) {
+                        'mp3' => 'audio/mpeg',
+                        'wav' => 'audio/wav',
+                        'ogg' => 'audio/ogg',
+                        default => 'audio/mpeg',
+                    };
+                @endphp
+
+
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+
+                    <div class="flex items-center gap-3 mb-3">
+
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            🔊
+                        </div>
+
+                        <div>
+
+                            <p class="font-semibold text-gray-800">
+                                Audio Soal
+                            </p>
+
+                            <p class="text-xs text-gray-500">
+                                {{ strtoupper($extension) }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <audio
+                        controls
+                        preload="metadata"
+                        class="w-full"
+                    >
+
+                        <source
+                            src="{{ asset('storage/' . $quis->audio) }}"
+                            type="{{ $audioType }}"
+                        >
+
+                        Browser kamu tidak mendukung pemutar audio.
+
+                    </audio>
+
+                </div>
+
+            @else
+
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-500">
+                    Tidak ada audio.
+                </div>
+
+            @endif
+
+        </div>
+
+
+        {{-- ========================= --}}
+        {{-- PILIHAN JAWABAN --}}
+        {{-- ========================= --}}
+
         <div class="mb-6">
 
             <p class="text-sm font-semibold text-gray-500 mb-3">
                 Pilihan Jawaban
             </p>
 
+
             <div class="grid md:grid-cols-2 gap-4">
 
 
-                {{-- A --}}
+                {{-- Pilihan A --}}
                 <div class="border border-gray-200 rounded-lg p-4">
 
                     <p class="text-sm text-gray-500 mb-1">
@@ -131,7 +254,7 @@
                 </div>
 
 
-                {{-- B --}}
+                {{-- Pilihan B --}}
                 <div class="border border-gray-200 rounded-lg p-4">
 
                     <p class="text-sm text-gray-500 mb-1">
@@ -145,7 +268,7 @@
                 </div>
 
 
-                {{-- C --}}
+                {{-- Pilihan C --}}
                 <div class="border border-gray-200 rounded-lg p-4">
 
                     <p class="text-sm text-gray-500 mb-1">
@@ -159,7 +282,7 @@
                 </div>
 
 
-                {{-- D --}}
+                {{-- Pilihan D --}}
                 <div class="border border-gray-200 rounded-lg p-4">
 
                     <p class="text-sm text-gray-500 mb-1">
@@ -177,7 +300,10 @@
         </div>
 
 
-        {{-- Jawaban Benar --}}
+        {{-- ========================= --}}
+        {{-- JAWABAN BENAR --}}
+        {{-- ========================= --}}
+
         <div class="mb-6">
 
             <p class="text-sm font-semibold text-gray-500 mb-2">
@@ -191,7 +317,10 @@
         </div>
 
 
-        {{-- Tombol --}}
+        {{-- ========================= --}}
+        {{-- TOMBOL --}}
+        {{-- ========================= --}}
+
         <div class="flex justify-end gap-3">
 
             <a

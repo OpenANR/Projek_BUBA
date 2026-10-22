@@ -8,6 +8,7 @@
 
     {{-- Header --}}
     <div class="mb-6">
+
         <h1 class="text-3xl font-bold text-gray-800">
             Edit Soal Kuis
         </h1>
@@ -15,18 +16,35 @@
         <p class="text-gray-500 text-sm mt-1">
             Ubah data soal kuis yang sudah dibuat.
         </p>
+
     </div>
 
 
-    {{-- Error Validasi --}}
+    {{-- Error --}}
     @if ($errors->any())
+
         <div class="mb-5 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700">
+
             <ul class="list-disc list-inside">
+
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
+
             </ul>
+
         </div>
+
+    @endif
+
+
+    {{-- Success --}}
+    @if (session('success'))
+
+        <div class="mb-5 p-4 rounded-lg bg-green-100 border border-green-300 text-green-700">
+            {{ session('success') }}
+        </div>
+
     @endif
 
 
@@ -51,18 +69,14 @@
 
                 <input
                     type="text"
-                    name="kode_kuis"
-                    value="{{ old('kode_kuis', $quis->kode_kuis) }}"
-                    required
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Contoh: KUIS001"
+                    value="{{ $quis->kode_kuis }}"
+                    readonly
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-500 bg-gray-100"
                 >
 
-                @error('kode_kuis')
-                    <p class="text-red-500 text-sm mt-1">
-                        {{ $message }}
-                    </p>
-                @enderror
+                <p class="text-xs text-gray-400 mt-1">
+                    Kode kuis dibuat otomatis dan tidak dapat diubah.
+                </p>
 
             </div>
 
@@ -78,8 +92,13 @@
                     name="pertanyaan"
                     rows="4"
                     required
+                    oninput="this.value = this.value.replace(/[^A-Za-z0-9 ?=+\-]/g, '')"
                     class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >{{ old('pertanyaan', $quis->pertanyaan) }}</textarea>
+
+                <p class="text-xs text-gray-500 mt-2">
+                    Hanya huruf, angka, spasi, dan simbol ?, =, +, -.
+                </p>
 
                 @error('pertanyaan')
                     <p class="text-red-500 text-sm mt-1">
@@ -112,7 +131,7 @@
 
                         <option
                             value="{{ $item->id }}"
-                            {{ old('kelas_id', $quis->kategori->kelas_id ?? '') == $item->id ? 'selected' : '' }}
+                            {{ old('kelas_id', $quis->kelas_id) == $item->id ? 'selected' : '' }}
                         >
                             {{ $item->nama_kelas }}
                         </option>
@@ -267,7 +286,7 @@
             </div>
 
 
-            {{-- Jawaban Benar --}}
+            {{-- Jawaban --}}
             <div class="mb-5">
 
                 <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -284,33 +303,16 @@
                         -- Pilih Jawaban Benar --
                     </option>
 
-                    <option
-                        value="A"
-                        {{ old('jawaban', $quis->jawaban) == 'A' ? 'selected' : '' }}
-                    >
-                        A
-                    </option>
+                    @foreach (['A', 'B', 'C', 'D'] as $jawaban)
 
-                    <option
-                        value="B"
-                        {{ old('jawaban', $quis->jawaban) == 'B' ? 'selected' : '' }}
-                    >
-                        B
-                    </option>
+                        <option
+                            value="{{ $jawaban }}"
+                            {{ old('jawaban', $quis->jawaban) == $jawaban ? 'selected' : '' }}
+                        >
+                            {{ $jawaban }}
+                        </option>
 
-                    <option
-                        value="C"
-                        {{ old('jawaban', $quis->jawaban) == 'C' ? 'selected' : '' }}
-                    >
-                        C
-                    </option>
-
-                    <option
-                        value="D"
-                        {{ old('jawaban', $quis->jawaban) == 'D' ? 'selected' : '' }}
-                    >
-                        D
-                    </option>
+                    @endforeach
 
                 </select>
 
@@ -323,27 +325,55 @@
             </div>
 
 
-            {{-- Gambar Lama --}}
-            @if ($quis->gambar)
+            {{-- Gambar Saat Ini --}}
+            <div class="mb-6">
 
-                <div class="mb-5">
+                <p class="text-sm font-semibold text-gray-700 mb-3">
+                    Gambar Saat Ini
+                </p>
 
-                    <p class="text-sm font-semibold text-gray-700 mb-2">
-                        Gambar Saat Ini
-                    </p>
+                @php
 
-                    <img
-                        src="{{ asset('storage/' . $quis->gambar) }}"
-                        alt="Gambar soal"
-                        class="w-32 h-32 object-cover rounded-lg border border-gray-200"
-                    >
+                    $gambarLama = $quis->gambar ?? [];
 
-                </div>
+                    if (!is_array($gambarLama)) {
+                        $gambarLama = [$gambarLama];
+                    }
 
-            @endif
+                @endphp
+
+                @if (count($gambarLama) > 0)
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                        @foreach ($gambarLama as $gambar)
+
+                            <div class="border border-gray-200 rounded-lg p-2">
+
+                                <img
+                                    src="{{ asset('storage/' . $gambar) }}"
+                                    alt="Gambar soal"
+                                    class="w-full h-32 object-contain rounded-lg bg-gray-50"
+                                >
+
+                            </div>
+
+                        @endforeach
+
+                    </div>
+
+                @else
+
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-500">
+                        Belum ada gambar.
+                    </div>
+
+                @endif
+
+            </div>
 
 
-            {{-- Gambar Baru --}}
+            {{-- Ganti Gambar --}}
             <div class="mb-6">
 
                 <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -352,16 +382,85 @@
 
                 <input
                     type="file"
-                    name="gambar"
+                    name="gambar[]"
+                    id="gambar"
+                    multiple
                     accept=".jpg,.jpeg,.png,.webp"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white"
                 >
 
                 <p class="text-xs text-gray-400 mt-1">
-                    Kosongkan jika tidak ingin mengganti gambar.
+                    Pilih gambar baru sebanyak yang diperlukan.
+                    Jika dipilih, semua gambar lama akan diganti.
+                    Tidak ada batas jumlah gambar.
+                    Maksimal 2 MB per gambar.
                 </p>
 
+                <p
+                    id="gambarInfo"
+                    class="text-xs text-blue-600 mt-2"
+                ></p>
+
                 @error('gambar')
+                    <p class="text-red-500 text-sm mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
+
+                @error('gambar.*')
+                    <p class="text-red-500 text-sm mt-1">
+                        {{ $message }}
+                    </p>
+                @enderror
+
+            </div>
+
+
+            {{-- Audio Lama --}}
+            <div class="mb-5">
+
+                <p class="text-sm font-semibold text-gray-700 mb-2">
+                    Audio Saat Ini
+                </p>
+
+                @if ($quis->audio)
+
+                    <audio controls class="w-full">
+                        <source src="{{ asset('storage/' . $quis->audio) }}">
+                        Browser tidak mendukung pemutar audio.
+                    </audio>
+
+                @else
+
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-500">
+                        Belum ada audio.
+                    </div>
+
+                @endif
+
+            </div>
+
+
+            {{-- Audio Baru --}}
+            <div class="mb-6">
+
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Ganti Audio
+                </label>
+
+                <input
+                    type="file"
+                    name="audio"
+                    accept=".mp3,.wav,.ogg"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white"
+                >
+
+                <p class="text-xs text-gray-400 mt-1">
+                    Jika dipilih, audio lama akan diganti.
+                    Maksimal 10 MB.
+                </p>
+
+                @error('audio')
                     <p class="text-red-500 text-sm mt-1">
                         {{ $message }}
                     </p>
@@ -398,14 +497,24 @@
 
 {{-- Filter Kategori Berdasarkan Kelas --}}
 <script>
+
 document.addEventListener('DOMContentLoaded', function () {
 
     const kelasSelect = document.getElementById('kelas_id');
     const kategoriSelect = document.getElementById('kategori_id');
+    const gambarInput = document.getElementById('gambar');
+    const gambarInfo = document.getElementById('gambarInfo');
 
     const semuaKategori = Array.from(
         kategoriSelect.querySelectorAll('option[data-kelas]')
     );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Filter kategori berdasarkan kelas
+    |--------------------------------------------------------------------------
+    */
 
     function filterKategori() {
 
@@ -414,11 +523,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         semuaKategori.forEach(function (option) {
 
-            if (option.dataset.kelas === kelasId) {
-                option.hidden = false;
-            } else {
-                option.hidden = true;
-            }
+            option.hidden = option.dataset.kelas !== kelasId;
 
         });
 
@@ -426,28 +531,62 @@ document.addEventListener('DOMContentLoaded', function () {
 
             kategoriSelect.value = '';
 
-        } else {
+            return;
 
-            const kategoriMasihSesuai = semuaKategori.some(function (option) {
+        }
 
-                return option.dataset.kelas === kelasId &&
-                       option.value === kategoriSekarang;
+        const masihValid = semuaKategori.some(function (option) {
 
-            });
+            return option.dataset.kelas === kelasId &&
+                   option.value === kategoriSekarang;
 
-            if (!kategoriMasihSesuai) {
-                kategoriSelect.value = '';
-            }
+        });
+
+        if (!masihValid) {
+
+            kategoriSelect.value = '';
 
         }
 
     }
 
-    kelasSelect.addEventListener('change', filterKategori);
+
+    kelasSelect.addEventListener('change', function () {
+
+        kategoriSelect.value = '';
+
+        filterKategori();
+
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tampilkan jumlah gambar baru yang dipilih
+    |--------------------------------------------------------------------------
+    */
+
+    gambarInput.addEventListener('change', function () {
+
+        if (this.files.length === 0) {
+
+            gambarInfo.textContent = '';
+
+        } else {
+
+            gambarInfo.textContent =
+                this.files.length +
+                ' gambar dipilih. Semua gambar lama akan diganti.';
+
+        }
+
+    });
+
 
     filterKategori();
 
 });
+
 </script>
 
 @endsection

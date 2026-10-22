@@ -1,36 +1,62 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\QuisController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SiswaController;
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+
+/**
+ * ROUTE UNTUK MENENTUKAN JALUR SEBUAH HALAMAN ADMIN DAN SISWA
+ * HALAMAN MASIH DALAM TAHAP PENGEMBANGAN
+ * 
+ * by : Najatif_2026
+ */
+
+Route::get('/menu', function () {
     return view('menu');
-})->name('home');
+})->name('menu');
 
-// Route::get('/materi', [MateriController::class, 'index'])->name('index.materi');
-// Route::get('/materi/add', [MateriController::class, 'add'])->name('materi.add');
-// Route::post('/materi/store', [MateriController::class, 'store'])->name('materi.store');
-// Route::get('/materi/show/{id}', [MateriController::class, 'show'])->name('materi.detail_materi');
-// Route::get('/materi/edit/{id}', [MateriController::class, 'edit'])->name('materi.edit');
-// Route::put('/materi/edit/{id}', [MateriController::class, 'update'])->name('materi.update');
-// Route::delete('/materi/delete/{id}', [MateriController::class, 'destroy'])->name('materi.delete');
-
-Route::prefix('admin')->group(function (){
+Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // RUTE HALAMAN KELAS
-    Route::resource('kelas', KelasController::class)->except(['show']);
+    // Route::resource('kelas', KelasController::class)->except(['show']);
+    Route::get('/kelas', [KelasController::class, 'index'])->name('kelas.index');
+    Route::get('/kelas/tambah', [KelasController::class, 'add'])->name('kelas.tambah');
+    Route::post('/kelas/kirim', [KelasController::class, 'store'])->name('kelas.kirim');
+    Route::get('/kelas/edit/{kelas}', [KelasController::class, 'edit'])->name('kelas.edit');
+    Route::put('/kelas/edit/{kelas}', [KelasController::class, 'update'])->name('kelas.update');
+    Route::delete('/kelas/hapus/{kelas}', [KelasController::class, 'destroy'])->name('kelas.hapus');
     // =================================================
 
     // RUTE HALAMAN KATEGORI
     Route::get('/kategori', [CategoryController::class, 'index'])->name('kategori.index');
     Route::get('/kategori/tambah', [CategoryController::class, 'add'])->name('kategori.tambah');
     Route::post('/kategori/kirim', [CategoryController::class, 'store'])->name('kategori.kirim');
+    Route::get('/kategori/edit/{kategori}', [CategoryController::class, 'edit'])->name('kategori.edit');
+    Route::put('/kategori/edit/{kategori}', [CategoryController::class, 'update'])->name('kategori.update');
+    Route::delete('/kategori/hapus/{kategori}', [CategoryController::class, 'destroy'])->name('kategori.hapus');
     // =================================================
 
     // RUTE MATERI
@@ -54,19 +80,44 @@ Route::prefix('admin')->group(function (){
     // =================================================
 
     // RUTE SISWA
-    Route::get('/siswa', function() {
-        return view('admin.siswa.index');
-    })->name('siswa.index');
+    // Route::resource('/siswa', SiswaController::class);
+    Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
+    Route::get('/siswa/tambah', [SiswaController::class, 'create'])->name('siswa.tambah');
+    Route::post('/siswa/kirim', [SiswaController::class, 'store'])->name('siswa.kirim');
+    Route::get('/siswa/edit/{siswa}', [SiswaController::class, 'edit'])->name('siswa.edit');
+    Route::put('/siswa/update/{siswa}', [SiswaController::class, 'update'])->name('siswa.update');
+    Route::delete('/siswa/hapus/{siswa}', [SiswaController::class, 'destroy'])->name('siswa.hapus');
     // =================================================
 
     // RUTE REWARD
-    Route::get('/reward', function(){
+    Route::get('/reward', function () {
         return view('admin.reward.index');
     })->name('reward.index');
 });
 
-Route::prefix('siswa')->group(function () {
-    Route::get('/welcome', function() {
+Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
+
+    Route::get('/welcome', function () {
         return view('siswa.splash');
+    })->name('splash');
+
+    Route::get('/pengaturan', function () {
+        return view('siswa.splash');
+    })->name('splash');
+    
+    Route::get('/konten', function () {
+        return view('siswa.konten');
+    })->name('siswa.konten');
+
+    Route::prefix('{konten}')->group(function () {
+        Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])->name('siswa.kelas');
+        Route::get('/{kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
+
+        Route::get('/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
+        Route::get('/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
     });
+
+    Route::get('/kuis', function () {
+        return view('siswa.splash');
+    })->name('splash');
 });

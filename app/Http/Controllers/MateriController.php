@@ -394,4 +394,20 @@ class MateriController extends Controller
             ->route('materi.index')
             ->with('success', 'Data berhasil dihapus');
     }
+
+    public function listMateri($konten, $kelas, $kategori) {
+
+        $materi = Materi::where('kelas_id', $kelas)
+                        ->where('kategori_id', $kategori)
+                        ->get();
+        // dd($konten, $kelas, $kategori, $materi);
+        return view('siswa.materi', compact(['konten', 'kelas', 'kategori', 'materi']));
+    }
+
+    public function showMateri($konten, $kelas, $kategori, $kode_materi) {
+
+        $dataMateri = Materi::where('kode_materi', $kode_materi)->get();
+        // dd($konten, $kelas, $kategori, $dataMateri);
+        return view('siswa.detail-materi', compact(['konten', 'kelas', 'kategori', 'dataMateri']));
+    }
 }

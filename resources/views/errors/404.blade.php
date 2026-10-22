@@ -97,7 +97,7 @@
 
         <!-- Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="{{ route('home') }}"
+            <a href="{{ route('menu') }}"
                 class="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full shadow-lg shadow-purple-500/50 hover:shadow-pink-500/50 hover:scale-105 transition-all duration-300">
                 <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">

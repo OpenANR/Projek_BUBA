@@ -12,7 +12,7 @@
 <body>
     <div class="w-full min-h-screen overflow-x-hidden">
         <main>
-            <img src="{{ asset('images/backgroundSplash.png') }}" alt="" class="w-full h-full object-cover">
+            {{-- <img src="{{ asset('images/backgroundSplash.png') }}" alt="" class="w-full h-full object-cover"> --}}
             @yield('content')
         </main>
     </div>

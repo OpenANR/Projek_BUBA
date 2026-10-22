@@ -5,8 +5,11 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
+use Override;
 
 class User extends Authenticatable
 {
@@ -19,10 +22,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'kode_user',
         'name',
         'email',
         'password',
-        'role'
+        'jenis_kelamin',
+        'role',
+        'kelas_id'
     ];
 
     /**
@@ -47,4 +53,31 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function kelas() {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
+    }
+
+    #[Override]
+    protected static function booted()
+    {
+        static::creating(function($user) {
+
+            $prefix = ($user->role === 'guru') ? 'TCR' : 'STD';
+
+            do {
+                $code = $prefix . '-'. Str::upper(Str::random(4));
+            } while (self::where('kode_user', $code)->exists());
+
+            $user->kode_user = $code;
+        });
+    }
+
+    #[Override]
+    public function getRouteKeyName()
+    {
+        return 'kode_user';
+    }
+
+    
 }

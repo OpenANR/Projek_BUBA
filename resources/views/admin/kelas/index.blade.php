@@ -8,7 +8,7 @@
 				<h1 class="text-3xl font-bold text-black">🏷️Kelola Kelas</h1>
 				<p class="text-slate-400 text-sm mt-1">Kelola daftar kelas pembelajaran BUBA</p>
 			</div>
-			<a href="{{ route('kelas.create') }}"
+			<a href="{{ route('kelas.tambah') }}"
 				class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg shadow transition">
 				<i class="fas fa-plus" aria-hidden="true"></i>
 				Tambah Kelas
@@ -55,7 +55,7 @@
 											<i class="fas fa-pen" aria-hidden="true"></i>
 											Edit
 										</a>
-										<form action="{{ route('kelas.destroy', $item) }}" method="POST" class="inline"
+										<form action="{{ route('kelas.hapus', $item) }}" method="POST" class="inline"
 											onsubmit="return confirm('Yakin ingin menghapus kelas ini?')">
 											@csrf
 											@method('DELETE')
@@ -73,7 +73,7 @@
 								<td colspan="4" class="px-4 py-10 text-center">
 									<p class="font-medium text-gray-800">Belum ada kelas</p>
 									<p class="mt-1 text-sm text-gray-500">Tambahkan kelas untuk mulai mengelola data.</p>
-									<a href="{{ route('kelas.create') }}"
+									<a href="{{ route('kelas.tambah') }}"
 										class="mt-4 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg shadow transition">
 										<i class="fas fa-plus" aria-hidden="true"></i>
 										Tambah Kelas

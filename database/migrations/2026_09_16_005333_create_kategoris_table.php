@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kategoris', function (Blueprint $table) {
             $table->id();
-            $table->char('nama_kategori', 20);
+            $table->char('nama_kategori', 30);
             $table->text('deskripsi');
             $table->foreignId('kelas_id')->constrained('kelas');
             $table->timestamps();

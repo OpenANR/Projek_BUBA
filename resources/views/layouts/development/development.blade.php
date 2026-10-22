@@ -144,7 +144,7 @@
                 <!-- Tombol aksi -->
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
                     <!-- Tombol utama -->
-                    <a href="{{ route('home') }}"
+                    <a href="{{ route('menu') }}"
                         class="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white font-semibold text-sm shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none"
