@@ -82,7 +82,6 @@ class CategoryController extends Controller
         $data = [
             'nama_kategori' => $request->nama_kategori,
             'deskripsi'     => $request->deskripsi,
-            'slug'          => Str::slug($request->nama_kategori),
             'kelas_id'      => $request->kelas_id,
         ];
 
