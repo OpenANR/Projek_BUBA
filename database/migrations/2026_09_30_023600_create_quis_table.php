@@ -26,8 +26,14 @@ return new class extends Migration
             // Menyimpan beberapa gambar dalam bentuk JSON
             $table->json('gambar')->nullable();
 
-            // Audio soal
-            $table->string('audio')->nullable();
+            // Audio pertanyaan
+            $table->string('audio_pertanyaan')->nullable();
+
+            // Audio pilihan jawaban
+            $table->string('audio_pilihan_a')->nullable();
+            $table->string('audio_pilihan_b')->nullable();
+            $table->string('audio_pilihan_c')->nullable();
+            $table->string('audio_pilihan_d')->nullable();
 
             $table->string('pilihan_a');
             $table->string('pilihan_b');

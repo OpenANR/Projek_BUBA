@@ -14,12 +14,16 @@ class Quis extends Model
         'kategori_id',
         'pertanyaan',
         'gambar',
-        'audio',
         'pilihan_a',
         'pilihan_b',
         'pilihan_c',
         'pilihan_d',
         'jawaban',
+        'audio_pertanyaan',
+        'audio_pilihan_a',
+        'audio_pilihan_b',
+        'audio_pilihan_c',
+        'audio_pilihan_d',
     ];
 
     protected $casts = [

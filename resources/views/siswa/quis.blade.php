@@ -12,7 +12,7 @@
 
     {{-- Tombol Kembali --}}
     <div class="absolute left-4 top-4 z-30 sm:left-6 sm:top-6 md:left-8 md:top-8">
-        <a href="{{ route('siswa.konten') }}"
+        <a href="javascript:history.back()"
             class="group flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-[#5ebef3] text-white shadow-[0_6px_14px_rgba(0,0,0,0.18)] transition duration-200 hover:scale-110 hover:bg-[#47ade7] active:scale-90 sm:h-14 sm:w-14 md:h-16 md:w-16"
             aria-label="Kembali ke pilihan konten">
 
@@ -97,6 +97,17 @@
                         'C' => $item->pilihan_c,
                         'D' => $item->pilihan_d,
                     ];
+
+                    // Audio pertanyaan
+                    $audioPertanyaan = $item->audio_pertanyaan ?? null;
+
+                    // Audio setiap pilihan
+                    $audioPilihan = [
+                        'A' => $item->audio_pilihan_a ?? null,
+                        'B' => $item->audio_pilihan_b ?? null,
+                        'C' => $item->audio_pilihan_c ?? null,
+                        'D' => $item->audio_pilihan_d ?? null,
+                    ];
                 @endphp
 
                 <section
@@ -110,9 +121,24 @@
                     </div>
 
                     {{-- Pertanyaan --}}
-                    <h3 class="mx-auto mb-5 max-w-xl text-lg font-black leading-relaxed text-slate-800 sm:text-xl">
+                    <h3 class="mx-auto mb-3 max-w-xl text-lg font-black leading-relaxed text-slate-800 sm:text-xl">
                         {{ $item->pertanyaan }}
                     </h3>
+
+                    {{-- Audio Pertanyaan --}}
+                    @if($audioPertanyaan)
+                        <div class="mb-5 flex justify-center">
+                            <button
+                                type="button"
+                                onclick="putarAudio(this)"
+                                data-audio="{{ asset('storage/' . $audioPertanyaan) }}"
+                                class="flex items-center gap-2 rounded-full border-2 border-white bg-[#5ebef3] px-5 py-2 font-black text-white shadow-md transition hover:scale-105 hover:bg-[#47ade7] active:scale-95">
+
+                                <span class="text-xl">🔊</span>
+                                <span>Dengarkan Pertanyaan</span>
+                            </button>
+                        </div>
+                    @endif
 
                     {{-- Gambar Soal --}}
                     @if(count($gambar) > 0)
@@ -142,9 +168,24 @@
                                         {{ $huruf }}
                                     </span>
 
-                                    <span class="text-sm font-extrabold leading-snug sm:text-base">
+                                    <span class="flex-1 text-sm font-extrabold leading-snug sm:text-base">
                                         {{ $teks }}
                                     </span>
+
+                                    {{-- Audio Pilihan Jawaban --}}
+                                    @if(!empty($audioPilihan[$huruf]))
+                                        <span
+                                            role="button"
+                                            tabindex="0"
+                                            onclick="event.stopPropagation(); putarAudio(this)"
+                                            onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); putarAudio(this); }"
+                                            data-audio="{{ asset('storage/' . $audioPilihan[$huruf]) }}"
+                                            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-white bg-white text-lg text-[#d8759c] shadow-md transition hover:scale-110"
+                                            title="Dengarkan pilihan {{ $huruf }}">
+                                            🔊
+                                        </span>
+                                    @endif
+
                                 </button>
                             @endif
                         @endforeach
@@ -160,6 +201,17 @@
             {{-- Tombol Navigasi --}}
             <div id="quizActions" class="my-6 flex flex-wrap justify-center gap-3 sm:gap-4">
 
+                {{-- Tombol Soal Sebelumnya --}}
+                <button
+                    type="button"
+                    id="prevButton"
+                    onclick="soalSebelumnya()"
+                    disabled
+                    class="rounded-2xl border-4 border-white bg-[#5ebef3] px-6 py-3 font-black text-white shadow-lg transition hover:-translate-y-1 hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:scale-100 sm:px-8">
+                    ➜ Soal Sebelumnya
+                </button>
+
+                {{-- Tombol Soal Berikutnya --}}
                 <button
                     type="button"
                     id="nextButton"
@@ -168,6 +220,7 @@
                     Soal Berikutnya ➜
                 </button>
 
+                {{-- Tombol Selesai --}}
                 <button
                     type="button"
                     id="finishButton"
@@ -296,6 +349,37 @@
     let nomorAktif = 0;
     let sudahSelesai = false;
 
+    // Audio aktif
+    let audioAktif = null;
+
+    // Fungsi memutar audio pertanyaan dan pilihan jawaban
+    function putarAudio(tombol) {
+        const sumberAudio = tombol.dataset.audio;
+
+        if (!sumberAudio) return;
+
+        // Hentikan audio sebelumnya jika masih diputar
+        if (audioAktif) {
+            audioAktif.pause();
+            audioAktif.currentTime = 0;
+        }
+
+        audioAktif = new Audio(sumberAudio);
+
+        audioAktif.play().catch(error => {
+            console.error('Audio gagal diputar:', error);
+            alert('Audio tidak dapat diputar. Silakan coba lagi.');
+        });
+    }
+
+    function hentikanAudio() {
+        if (audioAktif) {
+            audioAktif.pause();
+            audioAktif.currentTime = 0;
+            audioAktif = null;
+        }
+    }
+
     function perbaruiProgres() {
         const dijawab = Object.keys(jawabanPengguna).length;
 
@@ -308,6 +392,11 @@
         document.getElementById('progressFill').style.width =
             `${(dijawab / totalSoal) * 100}%`;
 
+        // Atur tombol sebelumnya
+        document.getElementById('prevButton').disabled =
+            nomorAktif === 0;
+
+        // Atur tombol berikutnya
         document.getElementById('nextButton').textContent =
             nomorAktif === totalSoal - 1
                 ? 'Periksa Jawaban ✓'
@@ -315,6 +404,8 @@
     }
 
     function tampilkanSoal(index) {
+        hentikanAudio();
+
         cards.forEach((card, i) => {
             card.classList.toggle('active', i === index);
             card.classList.toggle('hidden', i !== index);
@@ -346,6 +437,15 @@
             'Jawaban dipilih! Yuk, lanjut ke soal berikutnya 😊';
 
         perbaruiProgres();
+    }
+
+    // Fungsi untuk kembali ke soal sebelumnya
+    function soalSebelumnya() {
+        if (sudahSelesai) return;
+
+        if (nomorAktif > 0) {
+            tampilkanSoal(nomorAktif - 1);
+        }
     }
 
     function soalBerikutnya() {
@@ -382,6 +482,9 @@
         }
 
         sudahSelesai = true;
+
+        // Hentikan audio ketika kuis selesai
+        hentikanAudio();
 
         let benar = 0;
 

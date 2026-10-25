@@ -8,325 +8,228 @@
 
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
-
         <div>
-
             <h1 class="text-3xl font-bold text-gray-800">
                 Detail Soal Kuis
             </h1>
-
             <p class="text-gray-500 text-sm mt-1">
                 Informasi lengkap soal kuis.
             </p>
-
         </div>
-
-
     </div>
-
 
     <div class="bg-white rounded-xl shadow-md p-6">
 
-        {{-- Kode --}}
+        {{-- Kode Kuis --}}
         <div class="mb-5">
-
             <p class="text-sm font-semibold text-gray-500 mb-2">
                 Kode Kuis
             </p>
-
             <div class="bg-gray-50 rounded-lg p-4 text-gray-800 font-semibold">
-                {{ $quis->kode_kuis }}
+                {{ $quis->kode_kuis ?? '-' }}
             </div>
-
         </div>
-
 
         {{-- Kelas --}}
         <div class="mb-5">
-
             <p class="text-sm font-semibold text-gray-500 mb-2">
                 Kelas
             </p>
-
             <div class="bg-gray-50 rounded-lg p-4 text-gray-800 font-semibold">
                 {{ $quis->kelas->nama_kelas ?? '-' }}
             </div>
-
         </div>
-
 
         {{-- Kategori --}}
         <div class="mb-6">
-
             <p class="text-sm font-semibold text-gray-500 mb-2">
                 Kategori
             </p>
-
             <div class="bg-gray-50 rounded-lg p-4 text-gray-800 font-semibold">
                 {{ $quis->kategori->nama_kategori ?? '-' }}
             </div>
-
         </div>
-
 
         {{-- Pertanyaan --}}
         <div class="mb-6">
-
             <p class="text-sm font-semibold text-gray-500 mb-2">
                 Pertanyaan
             </p>
-
             <div class="bg-gray-50 rounded-lg p-4 text-gray-800">
                 {{ $quis->pertanyaan }}
             </div>
-
         </div>
 
-
-        {{-- ========================= --}}
         {{-- GAMBAR --}}
-        {{-- ========================= --}}
-
         @php
-
             $gambar = $quis->gambar ?? [];
 
+            if (is_string($gambar)) {
+                $decoded = json_decode($gambar, true);
+                $gambar = is_array($decoded) ? $decoded : [$gambar];
+            }
+
             if (!is_array($gambar)) {
-                $gambar = [$gambar];
+                $gambar = [];
             }
 
             $gambar = array_filter($gambar);
-
         @endphp
 
-
         <div class="mb-6">
-
             <p class="text-sm font-semibold text-gray-500 mb-3">
-                Gambar
+                Gambar Soal
             </p>
 
-
             @if (count($gambar) > 0)
-
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-
                     @foreach ($gambar as $file)
-
                         <a
                             href="{{ asset('storage/' . $file) }}"
                             target="_blank"
                             class="block"
                         >
-
                             <img
                                 src="{{ asset('storage/' . $file) }}"
                                 alt="Gambar soal"
                                 class="w-full h-40 object-contain rounded-lg border border-gray-200 bg-gray-50 hover:shadow-md transition"
                             >
-
                         </a>
-
                     @endforeach
-
                 </div>
-
             @else
-
                 <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-500">
                     Tidak ada gambar.
                 </div>
-
             @endif
-
         </div>
 
-
-        {{-- ========================= --}}
-        {{-- AUDIO --}}
-        {{-- ========================= --}}
+        {{-- FUNGSI AUDIO --}}
+        @php
+            $daftarAudio = [
+                'audio_pertanyaan' => 'Audio Pertanyaan',
+                'audio_pilihan_a' => 'Audio Pilihan A',
+                'audio_pilihan_b' => 'Audio Pilihan B',
+                'audio_pilihan_c' => 'Audio Pilihan C',
+                'audio_pilihan_d' => 'Audio Pilihan D',
+            ];
+        @endphp
 
         <div class="mb-6">
-
             <p class="text-sm font-semibold text-gray-500 mb-3">
-                Audio
+                Audio Soal dan Pilihan Jawaban
             </p>
 
+            <div class="space-y-4">
+                @foreach ($daftarAudio as $field => $label)
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
 
-            @if ($quis->audio)
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-xl">
+                                🔊
+                            </div>
 
-                @php
-                    $extension = strtolower(
-                        pathinfo($quis->audio, PATHINFO_EXTENSION)
-                    );
+                            <div>
+                                <p class="font-semibold text-gray-800">
+                                    {{ $label }}
+                                </p>
 
-                    $audioType = match ($extension) {
-                        'mp3' => 'audio/mpeg',
-                        'wav' => 'audio/wav',
-                        'ogg' => 'audio/ogg',
-                        default => 'audio/mpeg',
-                    };
-                @endphp
-
-
-                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-
-                    <div class="flex items-center gap-3 mb-3">
-
-                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                            🔊
+                                @if (!empty($quis->$field))
+                                    <p class="text-xs text-green-600">
+                                        Audio tersedia
+                                    </p>
+                                @else
+                                    <p class="text-xs text-gray-500">
+                                        Audio belum ditambahkan
+                                    </p>
+                                @endif
+                            </div>
                         </div>
 
-                        <div>
+                        @if (!empty($quis->$field))
+                            @php
+                                $extension = strtolower(
+                                    pathinfo($quis->$field, PATHINFO_EXTENSION)
+                                );
 
-                            <p class="font-semibold text-gray-800">
-                                Audio Soal
-                            </p>
+                                $audioType = match ($extension) {
+                                    'mp3' => 'audio/mpeg',
+                                    'wav' => 'audio/wav',
+                                    'ogg' => 'audio/ogg',
+                                    default => 'audio/mpeg',
+                                };
+                            @endphp
 
-                            <p class="text-xs text-gray-500">
-                                {{ strtoupper($extension) }}
-                            </p>
+                            <audio
+                                controls
+                                preload="metadata"
+                                class="w-full"
+                            >
+                                <source
+                                    src="{{ asset('storage/' . $quis->$field) }}"
+                                    type="{{ $audioType }}"
+                                >
 
-                        </div>
+                                Browser kamu tidak mendukung pemutar audio.
+                            </audio>
+                        @else
+                            <div class="text-sm text-gray-400 italic">
+                                Tidak ada file audio.
+                            </div>
+                        @endif
 
                     </div>
-
-
-                    <audio
-                        controls
-                        preload="metadata"
-                        class="w-full"
-                    >
-
-                        <source
-                            src="{{ asset('storage/' . $quis->audio) }}"
-                            type="{{ $audioType }}"
-                        >
-
-                        Browser kamu tidak mendukung pemutar audio.
-
-                    </audio>
-
-                </div>
-
-            @else
-
-                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-500">
-                    Tidak ada audio.
-                </div>
-
-            @endif
-
+                @endforeach
+            </div>
         </div>
 
-
-        {{-- ========================= --}}
         {{-- PILIHAN JAWABAN --}}
-        {{-- ========================= --}}
-
         <div class="mb-6">
-
             <p class="text-sm font-semibold text-gray-500 mb-3">
                 Pilihan Jawaban
             </p>
 
-
             <div class="grid md:grid-cols-2 gap-4">
 
+                @foreach (['a', 'b', 'c', 'd'] as $opsi)
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <p class="text-sm text-gray-500 mb-1">
+                            Pilihan {{ strtoupper($opsi) }}
+                        </p>
 
-                {{-- Pilihan A --}}
-                <div class="border border-gray-200 rounded-lg p-4">
-
-                    <p class="text-sm text-gray-500 mb-1">
-                        Pilihan A
-                    </p>
-
-                    <p class="font-semibold text-gray-800">
-                        {{ $quis->pilihan_a }}
-                    </p>
-
-                </div>
-
-
-                {{-- Pilihan B --}}
-                <div class="border border-gray-200 rounded-lg p-4">
-
-                    <p class="text-sm text-gray-500 mb-1">
-                        Pilihan B
-                    </p>
-
-                    <p class="font-semibold text-gray-800">
-                        {{ $quis->pilihan_b }}
-                    </p>
-
-                </div>
-
-
-                {{-- Pilihan C --}}
-                <div class="border border-gray-200 rounded-lg p-4">
-
-                    <p class="text-sm text-gray-500 mb-1">
-                        Pilihan C
-                    </p>
-
-                    <p class="font-semibold text-gray-800">
-                        {{ $quis->pilihan_c }}
-                    </p>
-
-                </div>
-
-
-                {{-- Pilihan D --}}
-                <div class="border border-gray-200 rounded-lg p-4">
-
-                    <p class="text-sm text-gray-500 mb-1">
-                        Pilihan D
-                    </p>
-
-                    <p class="font-semibold text-gray-800">
-                        {{ $quis->pilihan_d }}
-                    </p>
-
-                </div>
+                        <p class="font-semibold text-gray-800">
+                            {{ $quis->{'pilihan_' . $opsi} ?? '-' }}
+                        </p>
+                    </div>
+                @endforeach
 
             </div>
-
         </div>
 
-
-        {{-- ========================= --}}
         {{-- JAWABAN BENAR --}}
-        {{-- ========================= --}}
-
         <div class="mb-6">
-
             <p class="text-sm font-semibold text-gray-500 mb-2">
                 Jawaban Benar
             </p>
 
             <span class="inline-flex px-4 py-2 bg-green-100 text-green-700 rounded-lg font-bold">
-                {{ $quis->jawaban }}
+                {{ $quis->jawaban ?? '-' }}
             </span>
-
         </div>
 
-
-        {{-- ========================= --}}
         {{-- TOMBOL --}}
-        {{-- ========================= --}}
-
         <div class="flex justify-end gap-3">
 
             <a
                 href="{{ route('kuis.index') }}"
-                class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg"
+                class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg transition"
             >
                 Kembali
             </a>
 
             <a
                 href="{{ route('kuis.edit', $quis) }}"
-                class="px-5 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg"
+                class="px-5 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg transition"
             >
                 Edit Soal
             </a>
@@ -334,7 +237,6 @@
         </div>
 
     </div>
-
 </div>
 
 @endsection
