@@ -1,545 +1,407 @@
 @extends('layouts.siswa.app')
 
-@section('title', 'Kuis - BUBA')
+@section('title', 'Paket Kuis - BUBA')
 
 @section('content')
-<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden px-4 py-5 select-none sm:px-6 md:px-8">
+
+@php
+    $palettes = [
+        [
+            'bg' => 'bg-[#71bf4f]',
+            'hover_bg' => 'hover:bg-[#62aa43]',
+            'shadow' => 'hover:shadow-[0_22px_36px_rgba(113,191,79,0.45)]',
+            'base_shadow' => 'shadow-[0_12px_24px_rgba(0,0,0,0.18)]',
+        ],
+        [
+            'bg' => 'bg-[#faa63a]',
+            'hover_bg' => 'hover:bg-[#e89427]',
+            'shadow' => 'hover:shadow-[0_22px_36px_rgba(250,166,58,0.45)]',
+            'base_shadow' => 'shadow-[0_12px_24px_rgba(0,0,0,0.18)]',
+        ],
+        [
+            'bg' => 'bg-[#d8759c]',
+            'hover_bg' => 'hover:bg-[#ca5e88]',
+            'shadow' => 'hover:shadow-[0_22px_36px_rgba(216,117,156,0.45)]',
+            'base_shadow' => 'shadow-[0_12px_24px_rgba(0,0,0,0.18)]',
+        ],
+        [
+            'bg' => 'bg-[#5ebef3]',
+            'hover_bg' => 'hover:bg-[#47ade7]',
+            'shadow' => 'hover:shadow-[0_22px_36px_rgba(94,190,243,0.45)]',
+            'base_shadow' => 'shadow-[0_12px_24px_rgba(0,0,0,0.18)]',
+        ],
+        [
+            'bg' => 'bg-[#9c65cd]',
+            'hover_bg' => 'hover:bg-[#894fc0]',
+            'shadow' => 'hover:shadow-[0_22px_36px_rgba(156,101,205,0.45)]',
+            'base_shadow' => 'shadow-[0_12px_24px_rgba(0,0,0,0.18)]',
+        ],
+        [
+            'bg' => 'bg-[#ffd629]',
+            'hover_bg' => 'hover:bg-[#f0c313]',
+            'shadow' => 'hover:shadow-[0_22px_36px_rgba(255,214,41,0.45)]',
+            'base_shadow' => 'shadow-[0_12px_24px_rgba(0,0,0,0.18)]',
+        ],
+        [
+            'bg' => 'bg-[#3cbdb1]',
+            'hover_bg' => 'hover:bg-[#2fa89d]',
+            'shadow' => 'hover:shadow-[0_22px_36px_rgba(60,189,177,0.45)]',
+            'base_shadow' => 'shadow-[0_12px_24px_rgba(0,0,0,0.18)]',
+        ],
+        [
+            'bg' => 'bg-[#f36b6b]',
+            'hover_bg' => 'hover:bg-[#df5555]',
+            'shadow' => 'hover:shadow-[0_22px_36px_rgba(243,107,107,0.45)]',
+            'base_shadow' => 'shadow-[0_12px_24px_rgba(0,0,0,0.18)]',
+        ],
+    ];
+
+    $icons = ['📚', '🎨', '🧩', '🌈', '⭐', '🎵', '🐻', '🎯'];
+
+    $urlDaftarKuis = route('siswa.kuis', [
+        'konten' => request()->route('konten'),
+        'kelas' => trim($kelas->nama_kelas),
+        'kategori' => $kategori->slug,
+    ]);
+@endphp
+
+<div class="relative flex min-h-screen w-full flex-col items-center overflow-x-hidden overflow-y-auto px-4 py-5 select-none sm:px-6 md:px-8">
 
     {{-- Background BUBA --}}
-    <img src="{{ asset('images/backgroundSplash.png') }}"
+    <img
+        src="{{ asset('images/backgroundSplash.png') }}"
         alt="BUBA Background"
-        class="pointer-events-none fixed inset-0 z-0 h-full w-full object-cover object-bottom">
+        class="pointer-events-none fixed inset-0 z-0 h-full w-full select-none object-cover object-bottom"
+    >
 
     {{-- Tombol Kembali --}}
     <div class="absolute left-4 top-4 z-30 sm:left-6 sm:top-6 md:left-8 md:top-8">
+
         <a href="javascript:history.back()"
-            class="group flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-[#5ebef3] text-white shadow-[0_6px_14px_rgba(0,0,0,0.18)] transition duration-200 hover:scale-110 hover:bg-[#47ade7] active:scale-90 sm:h-14 sm:w-14 md:h-16 md:w-16"
-            aria-label="Kembali ke pilihan konten">
+            class="group flex h-12 w-12 items-center justify-center rounded-full border-[4px] border-white bg-[#5ebef3] text-white shadow-[0_6px_14px_rgba(0,0,0,0.18)] transition-all duration-200 hover:scale-110 hover:bg-[#47ade7] hover:shadow-xl active:scale-90 sm:h-14 sm:w-14 md:h-16 md:w-16 md:border-[5px]"
+            aria-label="Kembali">
 
             <svg xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                class="h-6 w-6 transition-transform group-hover:-translate-x-1 sm:h-7 sm:w-7 md:h-8 md:w-8">
-                <path d="M16 5.5a1 1 0 0 0-1.6-.8l-9 7a1 1 0 0 0 0 1.6l9 7A1 1 0 0 0 16 19.5V5.5z"/>
+                class="h-6 w-6 text-white drop-shadow transition-transform duration-200 group-hover:-translate-x-0.5 sm:h-7 sm:w-7 md:h-8 md:w-8">
+
+                <path d="M16 5.5a1 1 0 0 0-1.6-.8l-9 7a1 1 0 0 0 0 1.6l9 7A1 1 0 0 0 16 19.5V5.5z" />
+
             </svg>
+
         </a>
+
     </div>
 
-    {{-- Header Kelas --}}
-    <header class="relative z-10 mb-7 flex items-center justify-center pt-2 sm:pt-4 md:pt-6">
-        <div class="rounded-2xl border-4 border-white bg-[#1e60be] px-7 py-3 shadow-[0_8px_20px_rgba(0,0,0,0.2)] sm:rounded-[2rem] sm:border-[5px] sm:px-10 md:rounded-[2.2rem] md:border-[6px] md:px-14">
+    {{-- Header --}}
+    <div class="relative z-10 flex items-center justify-center pt-2 sm:pt-4 md:pt-6">
 
-            <h1 class="text-center font-sans text-xl font-black tracking-wider text-white drop-shadow sm:text-2xl md:text-3xl">
-                KUIS {{ strtoupper($kelas->nama_kelas ?? 'ANAK') }}
+        <div class="rounded-2xl border-[4px] border-white bg-[#1e60be] px-7 py-2 shadow-[0_8px_20px_rgba(0,0,0,0.2)] transition-transform duration-300 hover:scale-105 sm:rounded-[2rem] sm:border-[5px] sm:px-10 sm:py-3 md:rounded-[2.2rem] md:border-[6px] md:px-14 md:py-3.5">
+
+            <h1 class="text-center font-sans text-2xl font-black tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] sm:text-3xl md:text-4xl lg:text-[2.6rem]">
+                KUIS KELAS {{ strtoupper($kelas->nama_kelas) }}
             </h1>
+
         </div>
-    </header>
 
-    <main class="relative z-10 mx-auto w-full max-w-3xl">
+    </div>
 
-        {{-- Judul Kuis --}}
-        <div class="mb-6 text-center">
-            <h2 class="mb-2 text-2xl font-black text-white drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] sm:text-3xl">
-                Ayo Bermain Kuis!
+    {{-- HALAMAN DAFTAR PAKET KUIS --}}
+    <div id="packagePage" class="relative z-10 my-auto flex w-full flex-col items-center">
+
+        <div class="mb-5 mt-8 text-center sm:mt-10">
+
+            <h2 class="text-2xl font-black tracking-wide text-[#1e60be] drop-shadow-sm sm:text-3xl md:text-4xl">
+                🎮 PILIH PAKET KUIS!
             </h2>
 
-            <p class="inline-block rounded-full border-2 border-white bg-white/90 px-5 py-2 text-sm font-bold text-[#1e60be] shadow-md sm:text-base">
-                Kategori:
-                {{ $kategori->nama_kategori ?? 'Pembelajaran' }}
+            <p class="mt-2 font-bold text-slate-700 sm:text-lg">
+                Yuk, pilih permainan yang ingin kamu kerjakan! 🌈
             </p>
+
+            <div class="mt-3 inline-block rounded-full border-[3px] border-white bg-[#ffd629] px-6 py-2 font-black uppercase tracking-wide text-[#704900] shadow-md">
+                {{ $kategori->nama_kategori ?? 'Pembelajaran' }}
+            </div>
+
         </div>
 
-        @if($quis->count() > 0)
+        @if(isset($paketKuis) && $paketKuis->count() > 0)
 
-            {{-- Progress Bar --}}
-            <div id="progressArea" class="mx-auto mb-5 max-w-xl rounded-2xl border-2 border-white bg-white/80 p-4 shadow-md">
+            <div class="flex w-full max-w-5xl flex-wrap items-center justify-center gap-5 px-2 py-4 sm:gap-8 md:gap-10">
 
-                <div class="mb-2 flex justify-between gap-3 text-sm font-black text-[#1e60be]">
-                    <span id="progressLabel">Soal 1 dari {{ $quis->count() }}</span>
-                    <span id="progressCount">0/{{ $quis->count() }} dijawab</span>
-                </div>
+                @foreach($paketKuis as $index => $paket)
 
-                <div class="h-3 overflow-hidden rounded-full border-2 border-white bg-slate-200">
-                    <div id="progressFill"
-                        class="h-full rounded-full bg-[#ffd629] transition-all duration-300"
-                        style="width: 0%">
-                    </div>
-                </div>
-            </div>
+                    @php
+                        $palette = $palettes[$index % count($palettes)];
+                        $icon = $icons[$index % count($icons)];
+                    @endphp
 
-            {{-- Daftar Soal --}}
-            @foreach($quis as $index => $item)
+                    <a href="{{ route('siswa.showKuis', [
+                        'konten' => request()->route('konten'),
+                        'kelas' => trim($kelas->nama_kelas),
+                        'kategori' => $kategori->slug,
+                        'kuis' => $paket->id
+                    ]) }}"
+                        class="group relative flex min-h-[240px] w-64 flex-col items-center justify-between rounded-[2rem] border-[5px] border-white p-5 {{ $palette['bg'] }} {{ $palette['hover_bg'] }} {{ $palette['base_shadow'] }} transition-all duration-300 ease-out hover:-translate-y-2.5 hover:scale-105 {{ $palette['shadow'] }} active:scale-95 active:translate-y-1 active:shadow-md focus:outline-none focus:ring-4 focus:ring-white/70 sm:min-h-[280px] sm:w-64 sm:rounded-[2.4rem] sm:border-[6px] sm:p-6 md:min-h-[320px] md:w-64 md:rounded-[2.8rem] md:border-8 md:p-7">
 
-                @php
-                    $gambar = $item->gambar ?? [];
+                        {{-- Ikon Paket --}}
+                        <div class="flex w-full flex-1 items-center justify-center">
 
-                    if (is_string($gambar)) {
-                        $decoded = json_decode($gambar, true);
+                            <span class="select-none text-6xl drop-shadow-md transition-all duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-110 group-hover:-rotate-6 sm:text-7xl md:text-8xl">
+                                {{ $icon }}
+                            </span>
 
-                        if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-                            $gambar = $decoded;
-                        } else {
-                            $gambar = [$gambar];
-                        }
-                    }
-
-                    if (!is_array($gambar)) {
-                        $gambar = [];
-                    }
-
-                    $gambar = array_values(array_filter($gambar, function ($file) {
-                        return is_string($file) && trim($file) !== '';
-                    }));
-
-                    $pilihan = [
-                        'A' => $item->pilihan_a,
-                        'B' => $item->pilihan_b,
-                        'C' => $item->pilihan_c,
-                        'D' => $item->pilihan_d,
-                    ];
-
-                    // Audio pertanyaan
-                    $audioPertanyaan = $item->audio_pertanyaan ?? null;
-
-                    // Audio setiap pilihan
-                    $audioPilihan = [
-                        'A' => $item->audio_pilihan_a ?? null,
-                        'B' => $item->audio_pilihan_b ?? null,
-                        'C' => $item->audio_pilihan_c ?? null,
-                        'D' => $item->audio_pilihan_d ?? null,
-                    ];
-                @endphp
-
-                <section
-                    class="question-card {{ $index === 0 ? 'active' : 'hidden' }} mb-5 rounded-[1.7rem] border-4 border-white bg-white/95 p-5 text-center shadow-[0_10px_25px_rgba(0,0,0,0.18)] sm:rounded-[2rem] sm:p-7"
-                    data-index="{{ $index }}"
-                    data-answer="{{ strtoupper($item->jawaban ?? '') }}">
-
-                    {{-- Nomor Soal --}}
-                    <div class="mb-4 inline-block rounded-full border-2 border-white bg-[#1e60be] px-5 py-2 text-sm font-black tracking-wide text-white shadow-md">
-                        SOAL {{ $index + 1 }}
-                    </div>
-
-                    {{-- Pertanyaan --}}
-                    <h3 class="mx-auto mb-3 max-w-xl text-lg font-black leading-relaxed text-slate-800 sm:text-xl">
-                        {{ $item->pertanyaan }}
-                    </h3>
-
-                    {{-- Audio Pertanyaan --}}
-                    @if($audioPertanyaan)
-                        <div class="mb-5 flex justify-center">
-                            <button
-                                type="button"
-                                onclick="putarAudio(this)"
-                                data-audio="{{ asset('storage/' . $audioPertanyaan) }}"
-                                class="flex items-center gap-2 rounded-full border-2 border-white bg-[#5ebef3] px-5 py-2 font-black text-white shadow-md transition hover:scale-105 hover:bg-[#47ade7] active:scale-95">
-
-                                <span class="text-xl">🔊</span>
-                                <span>Dengarkan Pertanyaan</span>
-                            </button>
                         </div>
-                    @endif
 
-                    {{-- Gambar Soal --}}
-                    @if(count($gambar) > 0)
-                        <div class="mb-5 flex flex-wrap items-center justify-center gap-3">
-                            @foreach($gambar as $file)
-                                <img
-                                    src="{{ asset('storage/' . $file) }}"
-                                    alt="Gambar soal {{ $index + 1 }}"
-                                    class="h-24 w-24 rounded-2xl border-4 border-white bg-sky-50 object-contain p-1 shadow-md sm:h-32 sm:w-32"
-                                    onerror="this.style.display='none'">
-                            @endforeach
+                        {{-- Nama Paket --}}
+                        <div class="w-full">
+
+                            <h3 class="w-full whitespace-normal break-words text-center font-sans text-lg font-black uppercase leading-tight tracking-wide text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] sm:text-xl md:text-2xl">
+                                {{ $paket->nama_kuis }}
+                            </h3>
+
+                            <p class="mt-3 text-center text-sm font-black text-white drop-shadow sm:text-base">
+                                {{ $paket->jumlah_pertanyaan ?? 0 }} Pertanyaan
+                            </p>
+
                         </div>
-                    @endif
 
-                    {{-- Pilihan Jawaban --}}
-                    <div class="options mx-auto mt-5 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-
-                        @foreach($pilihan as $huruf => $teks)
-                            @if($teks !== null && $teks !== '')
-                                <button
-                                    type="button"
-                                    class="option group flex min-h-[62px] items-center gap-3 rounded-2xl border-4 border-white bg-[#d8759c] p-3 text-left text-white shadow-[0_5px_10px_rgba(0,0,0,0.12)] transition duration-200 hover:-translate-y-1 hover:bg-[#ca5e88] hover:shadow-lg"
-                                    data-letter="{{ $huruf }}"
-                                    onclick="pilihJawaban({{ $index }}, '{{ $huruf }}', this)">
-
-                                    <span class="option-letter flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-white bg-white text-base font-black text-[#d8759c]">
-                                        {{ $huruf }}
-                                    </span>
-
-                                    <span class="flex-1 text-sm font-extrabold leading-snug sm:text-base">
-                                        {{ $teks }}
-                                    </span>
-
-                                    {{-- Audio Pilihan Jawaban --}}
-                                    @if(!empty($audioPilihan[$huruf]))
-                                        <span
-                                            role="button"
-                                            tabindex="0"
-                                            onclick="event.stopPropagation(); putarAudio(this)"
-                                            onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); putarAudio(this); }"
-                                            data-audio="{{ asset('storage/' . $audioPilihan[$huruf]) }}"
-                                            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-white bg-white text-lg text-[#d8759c] shadow-md transition hover:scale-110"
-                                            title="Dengarkan pilihan {{ $huruf }}">
-                                            🔊
-                                        </span>
-                                    @endif
-
-                                </button>
-                            @endif
-                        @endforeach
-
-                    </div>
-
-                    {{-- Feedback --}}
-                    <div class="feedback mt-4 min-h-6 text-sm font-extrabold text-[#1e60be]" aria-live="polite"></div>
-
-                </section>
-            @endforeach
-
-            {{-- Tombol Navigasi --}}
-            <div id="quizActions" class="my-6 flex flex-wrap justify-center gap-3 sm:gap-4">
-
-                {{-- Tombol Soal Sebelumnya --}}
-                <button
-                    type="button"
-                    id="prevButton"
-                    onclick="soalSebelumnya()"
-                    disabled
-                    class="rounded-2xl border-4 border-white bg-[#5ebef3] px-6 py-3 font-black text-white shadow-lg transition hover:-translate-y-1 hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:scale-100 sm:px-8">
-                    ➜ Soal Sebelumnya
-                </button>
-
-                {{-- Tombol Soal Berikutnya --}}
-                <button
-                    type="button"
-                    id="nextButton"
-                    onclick="soalBerikutnya()"
-                    class="rounded-2xl border-4 border-white bg-[#ffd629] px-6 py-3 font-black text-[#493b00] shadow-lg transition hover:-translate-y-1 hover:scale-105 active:scale-95 sm:px-8">
-                    Soal Berikutnya ➜
-                </button>
-
-                {{-- Tombol Selesai --}}
-                <button
-                    type="button"
-                    id="finishButton"
-                    onclick="selesaiKuis()"
-                    class="rounded-2xl border-4 border-white bg-[#1e60be] px-6 py-3 font-black text-white shadow-lg transition hover:-translate-y-1 hover:scale-105 hover:bg-blue-700 active:scale-95 sm:px-8">
-                    Lihat Nilai ⭐
-                </button>
-
-            </div>
-
-            {{-- Hasil Kuis --}}
-            <section id="resultCard"
-                class="hidden rounded-[2rem] border-4 border-white bg-white/95 px-5 py-8 text-center shadow-xl sm:px-8">
-
-                <div class="mb-3 text-5xl">🏆</div>
-
-                <h2 class="mb-3 text-2xl font-black text-[#1e60be] sm:text-3xl">
-                    Kuis Selesai!
-                </h2>
-
-                <p class="mb-4 font-bold text-slate-700">
-                    Hebat! Kamu sudah menyelesaikan kuis ini.
-                </p>
-
-                <div id="resultScore" class="my-4 text-5xl font-black text-[#d8759c]">
-                    0
-                </div>
-
-                <p id="resultDetail" class="mb-6 font-bold text-slate-700"></p>
-
-                <div class="flex flex-wrap justify-center gap-3">
-                    <button
-                        type="button"
-                        onclick="location.reload()"
-                        class="rounded-2xl border-4 border-white bg-[#ffd629] px-6 py-3 font-black text-[#493b00] shadow-md transition hover:scale-105">
-                        Main Lagi 🔄
-                    </button>
-
-                    <a href="{{ route('siswa.konten') }}"
-                        class="rounded-2xl border-4 border-white bg-[#1e60be] px-6 py-3 font-black text-white shadow-md transition hover:scale-105">
-                        Kembali
                     </a>
-                </div>
-            </section>
+
+                @endforeach
+
+            </div>
 
         @else
 
-            {{-- Jika Belum Ada Soal --}}
-            <section class="rounded-[2rem] border-4 border-white bg-white/90 px-5 py-8 text-center shadow-xl sm:px-8">
+            <div class="relative z-10 my-auto flex max-w-md flex-col items-center justify-center rounded-[2rem] border-[5px] border-white bg-white/95 px-8 py-6 text-center shadow-[0_10px_25px_rgba(0,0,0,0.18)]">
 
-                <div class="mb-3 text-5xl">📚</div>
+                <span class="mb-2 text-6xl">📁</span>
 
-                <h2 class="mb-3 text-2xl font-black text-[#1e60be]">
-                    Belum Ada Soal
-                </h2>
-
-                <p class="mb-6 font-semibold text-slate-700">
-                    Soal untuk kelas dan kategori ini belum tersedia.
-                    Yuk, coba kategori pembelajaran lainnya!
+                <p class="text-lg font-black text-[#1e60be]">
+                    Belum Ada Paket Kuis
                 </p>
 
-                <a href="{{ route('siswa.konten') }}"
-                    class="inline-block rounded-2xl border-4 border-white bg-[#d8759c] px-8 py-3 font-black text-white shadow-lg transition hover:scale-105 hover:bg-[#ca5e88]">
-                    Kembali
-                </a>
-            </section>
+                <p class="mt-1 text-sm font-semibold text-slate-600">
+                    Paket kuis untuk kategori ini belum tersedia.
+                </p>
+
+            </div>
 
         @endif
 
-        {{-- Footer --}}
-        <p class="my-6 text-center text-sm font-black text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)]">
-            BUBA • Belajar sambil bermain 🌈
-        </p>
+        <div class="relative z-10 mt-5 h-6 shrink-0 sm:h-10 md:h-14"></div>
 
-    </main>
+    </div>
+
+    {{-- HALAMAN HASIL KUIS --}}
+    <div id="resultPage" class="relative z-10 my-auto hidden w-full flex-col items-center px-2 py-6">
+
+        <div class="mb-5 text-center">
+
+            <h2 class="text-3xl font-black tracking-wider text-[#1e60be] drop-shadow-sm sm:text-4xl">
+                HASIL KUIS 🎉
+            </h2>
+
+            <p class="mt-2 font-bold text-slate-700 sm:text-lg">
+                Yeay! Kamu sudah menyelesaikan permainan! 🌈
+            </p>
+
+        </div>
+
+        <div class="w-full max-w-3xl rounded-[2rem] border-[5px] border-white bg-[#fff8dc]/95 p-5 shadow-[0_12px_24px_rgba(0,0,0,0.18)] sm:rounded-[2.5rem] sm:border-[6px] sm:p-8">
+
+            {{-- Piala --}}
+            <div class="text-center">
+
+                <div class="text-7xl drop-shadow-md sm:text-8xl">
+                    🏆
+                </div>
+
+                <h3 class="mt-3 text-2xl font-black text-[#1e60be] sm:text-3xl">
+                    Kuis Selesai!
+                </h3>
+
+                <p class="mt-2 font-bold text-slate-600">
+                    Hebat sekali! Terus semangat belajar, ya!
+                </p>
+
+            </div>
+
+            {{-- Nama Paket --}}
+            <div class="mt-6 rounded-[1.8rem] border-[4px] border-white bg-[#5ebef3] p-4 text-center shadow-md sm:p-5">
+
+                <p class="font-black tracking-wider text-white">
+                    PAKET KUIS
+                </p>
+
+                <p id="hasilNamaPaket" class="mt-2 break-words whitespace-normal text-xl font-black uppercase text-white drop-shadow-md sm:text-2xl">
+                    Nama Paket Kuis
+                </p>
+
+                <p id="hasilKategori" class="mt-1 font-bold text-white">
+                    Kategori Pembelajaran
+                </p>
+
+            </div>
+
+            {{-- Nilai --}}
+            <div class="mt-5 rounded-[1.8rem] border-[4px] border-white bg-[#ffd629] p-5 text-center shadow-md sm:p-6">
+
+                <p class="text-lg font-black tracking-wider text-[#704900]">
+                    NILAI KAMU
+                </p>
+
+                <p id="hasilNilai" class="mt-1 text-7xl font-black text-white drop-shadow-[0_3px_5px_rgba(0,0,0,0.25)] sm:text-8xl">
+                    0
+                </p>
+
+                <p id="pesanHasil" class="mt-2 font-black text-[#704900] sm:text-lg">
+                    Kamu hebat! Terus semangat belajar! 🌈
+                </p>
+
+            </div>
+
+            {{-- Rincian Jawaban --}}
+            <div class="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+
+                <div class="rounded-[1.7rem] border-[4px] border-white bg-[#71bf4f] p-5 text-center shadow-md">
+
+                    <div class="text-5xl">✅</div>
+
+                    <p id="hasilBenar" class="mt-2 text-4xl font-black text-white">
+                        0
+                    </p>
+
+                    <p class="font-black text-white">
+                        Jawaban Benar
+                    </p>
+
+                </div>
+
+                <div class="rounded-[1.7rem] border-[4px] border-white bg-[#f36b6b] p-5 text-center shadow-md">
+
+                    <div class="text-5xl">❌</div>
+
+                    <p id="hasilSalah" class="mt-2 text-4xl font-black text-white">
+                        0
+                    </p>
+
+                    <p class="font-black text-white">
+                        Jawaban Salah
+                    </p>
+
+                </div>
+
+                <div class="rounded-[1.7rem] border-[4px] border-white bg-[#9c65cd] p-5 text-center shadow-md">
+
+                    <div class="text-5xl">📝</div>
+
+                    <p id="hasilTotal" class="mt-2 text-4xl font-black text-white">
+                        0
+                    </p>
+
+                    <p class="font-black text-white">
+                        Total Pertanyaan
+                    </p>
+
+                </div>
+
+            </div>
+
+            {{-- Pesan --}}
+            <div class="mt-6 rounded-[1.5rem] border-[4px] border-white bg-[#3cbdb1] p-4 text-center shadow-md">
+
+                <p class="font-black text-white sm:text-lg">
+                    🌟 BUBA • Belajar sambil bermain! 🌟
+                </p>
+
+            </div>
+
+            {{-- Kembali ke Daftar Paket --}}
+            <div class="mt-7 flex justify-center">
+
+                <a href="{{ $urlDaftarKuis }}"
+                    onclick="sessionStorage.removeItem('hasilKuisBuba')"
+                    class="group flex items-center justify-center gap-2 rounded-full border-[4px] border-white bg-[#71bf4f] px-7 py-4 text-center font-black text-white shadow-[0_6px_0_#4b9632] transition-all duration-200 hover:-translate-y-1 hover:bg-[#62aa43] hover:shadow-lg active:translate-y-1 active:shadow-none">
+
+                    <span class="text-xl transition-transform group-hover:-translate-x-1">
+                        ←
+                    </span>
+
+                    KEMBALI KE DAFTAR PAKET
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="mt-6 h-6 shrink-0 sm:h-10"></div>
+
+    </div>
+
 </div>
 
-{{-- CSS Tambahan --}}
-<style>
-    .question-card.active {
-        display: block;
-        animation: bubaAppear .25s ease;
-    }
-
-    .option.selected {
-        background: #1e60be !important;
-        border-color: #ffffff !important;
-        box-shadow: 0 0 0 3px #93c5fd;
-    }
-
-    .option.selected .option-letter {
-        color: #1e60be;
-    }
-
-    .option.correct {
-        background: #239b55 !important;
-    }
-
-    .option.wrong {
-        background: #dc4545 !important;
-    }
-
-    .option:disabled {
-        cursor: default;
-        transform: none;
-    }
-
-    @keyframes bubaAppear {
-        from {
-            opacity: 0;
-            transform: translateY(8px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-</style>
-
-@if($quis->count() > 0)
+{{-- JAVASCRIPT HASIL KUIS --}}
 <script>
-    const cards = [...document.querySelectorAll('.question-card')];
-    const totalSoal = cards.length;
-    const jawabanPengguna = {};
+document.addEventListener('DOMContentLoaded', function () {
 
-    let nomorAktif = 0;
-    let sudahSelesai = false;
+    const dataHasil = sessionStorage.getItem('hasilKuisBuba');
 
-    // Audio aktif
-    let audioAktif = null;
-
-    // Fungsi memutar audio pertanyaan dan pilihan jawaban
-    function putarAudio(tombol) {
-        const sumberAudio = tombol.dataset.audio;
-
-        if (!sumberAudio) return;
-
-        // Hentikan audio sebelumnya jika masih diputar
-        if (audioAktif) {
-            audioAktif.pause();
-            audioAktif.currentTime = 0;
-        }
-
-        audioAktif = new Audio(sumberAudio);
-
-        audioAktif.play().catch(error => {
-            console.error('Audio gagal diputar:', error);
-            alert('Audio tidak dapat diputar. Silakan coba lagi.');
-        });
+    // Jika belum ada hasil, tampilkan daftar paket
+    if (!dataHasil) {
+        return;
     }
 
-    function hentikanAudio() {
-        if (audioAktif) {
-            audioAktif.pause();
-            audioAktif.currentTime = 0;
-            audioAktif = null;
-        }
-    }
+    try {
 
-    function perbaruiProgres() {
-        const dijawab = Object.keys(jawabanPengguna).length;
+        const hasil = JSON.parse(dataHasil);
 
-        document.getElementById('progressLabel').textContent =
-            `Soal ${nomorAktif + 1} dari ${totalSoal}`;
+        // Sembunyikan daftar paket
+        document.getElementById('packagePage').classList.add('hidden');
 
-        document.getElementById('progressCount').textContent =
-            `${dijawab}/${totalSoal} dijawab`;
+        // Tampilkan halaman hasil
+        const resultPage = document.getElementById('resultPage');
+        resultPage.classList.remove('hidden');
+        resultPage.classList.add('flex');
 
-        document.getElementById('progressFill').style.width =
-            `${(dijawab / totalSoal) * 100}%`;
+        // Tampilkan data hasil
+        document.getElementById('hasilNilai').textContent = hasil.nilai ?? 0;
+        document.getElementById('hasilBenar').textContent = hasil.benar ?? 0;
+        document.getElementById('hasilSalah').textContent = hasil.salah ?? 0;
+        document.getElementById('hasilTotal').textContent = hasil.total ?? 0;
 
-        // Atur tombol sebelumnya
-        document.getElementById('prevButton').disabled =
-            nomorAktif === 0;
+        document.getElementById('hasilNamaPaket').textContent =
+            hasil.namaPaket ?? 'Kuis BUBA';
 
-        // Atur tombol berikutnya
-        document.getElementById('nextButton').textContent =
-            nomorAktif === totalSoal - 1
-                ? 'Periksa Jawaban ✓'
-                : 'Soal Berikutnya ➜';
-    }
+        document.getElementById('hasilKategori').textContent =
+            'Kategori: ' + (hasil.namaKategori ?? 'Pembelajaran');
 
-    function tampilkanSoal(index) {
-        hentikanAudio();
+        // Pesan berdasarkan nilai
+        const nilai = Number(hasil.nilai ?? 0);
+        const pesan = document.getElementById('pesanHasil');
 
-        cards.forEach((card, i) => {
-            card.classList.toggle('active', i === index);
-            card.classList.toggle('hidden', i !== index);
-        });
-
-        nomorAktif = index;
-        perbaruiProgres();
-
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    function pilihJawaban(index, huruf, tombol) {
-        if (sudahSelesai) return;
-
-        const card = cards[index];
-
-        jawabanPengguna[index] = huruf;
-
-        card.querySelectorAll('.option').forEach(option => {
-            option.classList.remove('selected');
-        });
-
-        tombol.classList.add('selected');
-
-        card.querySelector('.feedback').textContent =
-            'Jawaban dipilih! Yuk, lanjut ke soal berikutnya 😊';
-
-        perbaruiProgres();
-    }
-
-    // Fungsi untuk kembali ke soal sebelumnya
-    function soalSebelumnya() {
-        if (sudahSelesai) return;
-
-        if (nomorAktif > 0) {
-            tampilkanSoal(nomorAktif - 1);
-        }
-    }
-
-    function soalBerikutnya() {
-        if (sudahSelesai) return;
-
-        if (nomorAktif < totalSoal - 1) {
-            tampilkanSoal(nomorAktif + 1);
-            return;
-        }
-
-        const belumDijawab = cards.findIndex(
-            (_, index) => jawabanPengguna[index] === undefined
-        );
-
-        if (belumDijawab !== -1) {
-            tampilkanSoal(belumDijawab);
-            alert('Ayo jawab semua soal terlebih dahulu! 😊');
+        if (nilai === 100) {
+            pesan.textContent = 'Wah, sempurna! Kamu pintar sekali! 🌟';
+        } else if (nilai >= 80) {
+            pesan.textContent = 'Hebat! Jawabanmu banyak yang benar! 🎉';
+        } else if (nilai >= 60) {
+            pesan.textContent = 'Bagus! Terus berlatih, ya! 💪';
         } else {
-            selesaiKuis();
-        }
-    }
-
-    function selesaiKuis() {
-        if (sudahSelesai) return;
-
-        const belumDijawab = cards.findIndex(
-            (_, index) => jawabanPengguna[index] === undefined
-        );
-
-        if (belumDijawab !== -1) {
-            tampilkanSoal(belumDijawab);
-            alert('Masih ada soal yang belum dijawab, ya! 😊');
-            return;
+            pesan.textContent = 'Tidak apa-apa! Ayo belajar dan coba lagi! ❤️';
         }
 
-        sudahSelesai = true;
+    } catch (error) {
 
-        // Hentikan audio ketika kuis selesai
-        hentikanAudio();
+        console.error('Gagal membaca hasil kuis:', error);
 
-        let benar = 0;
+        sessionStorage.removeItem('hasilKuisBuba');
 
-        cards.forEach((card, index) => {
-            const jawabanBenar = card.dataset.answer;
-            const jawaban = jawabanPengguna[index];
-
-            card.querySelectorAll('.option').forEach(option => {
-                const huruf = option.dataset.letter;
-
-                if (huruf === jawabanBenar) {
-                    option.classList.add('correct');
-                }
-
-                if (huruf === jawaban && huruf !== jawabanBenar) {
-                    option.classList.add('wrong');
-                }
-
-                option.disabled = true;
-            });
-
-            if (jawaban === jawabanBenar) {
-                benar++;
-
-                card.querySelector('.feedback').textContent =
-                    '🎉 Hebat! Jawaban kamu benar!';
-            } else {
-                card.querySelector('.feedback').textContent =
-                    '💪 Tetap semangat belajar, ya!';
-            }
-        });
-
-        cards.forEach(card => {
-            card.classList.remove('active');
-            card.classList.add('hidden');
-        });
-
-        document.getElementById('progressArea').classList.add('hidden');
-        document.getElementById('quizActions').classList.add('hidden');
-
-        document.getElementById('resultCard').classList.remove('hidden');
-
-        document.getElementById('resultScore').textContent =
-            Math.round((benar / totalSoal) * 100);
-
-        document.getElementById('resultDetail').textContent =
-            `${benar} jawaban benar dari ${totalSoal} soal.`;
-
-        document.getElementById('resultCard').scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-        });
     }
 
-    perbaruiProgres();
+});
 </script>
-@endif
+
 @endsection

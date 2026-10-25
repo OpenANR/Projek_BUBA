@@ -8,10 +8,29 @@ return new class extends Migration
 {
     public function up(): void
     {
+        Schema::create('paket_kuis', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_kuis');
+
+            $table->foreignId('kelas_id')
+                ->constrained('kelas')
+                ->cascadeOnDelete();
+
+            $table->foreignId('kategori_id')
+                ->constrained('kategoris')
+                ->cascadeOnDelete();
+
+            $table->timestamps();
+        });
+
         Schema::create('quis', function (Blueprint $table) {
             $table->id();
 
             $table->string('kode_kuis')->unique();
+
+            $table->foreignId('paket_kuis_id')
+                ->constrained('paket_kuis')
+                ->cascadeOnDelete();
 
             $table->foreignId('kelas_id')
                 ->constrained('kelas')
@@ -23,13 +42,9 @@ return new class extends Migration
 
             $table->text('pertanyaan');
 
-            // Menyimpan beberapa gambar dalam bentuk JSON
             $table->json('gambar')->nullable();
 
-            // Audio pertanyaan
             $table->string('audio_pertanyaan')->nullable();
-
-            // Audio pilihan jawaban
             $table->string('audio_pilihan_a')->nullable();
             $table->string('audio_pilihan_b')->nullable();
             $table->string('audio_pilihan_c')->nullable();
@@ -49,5 +64,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('quis');
+        Schema::dropIfExists('paket_kuis');
     }
 };

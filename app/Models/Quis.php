@@ -8,8 +8,11 @@ use Override;
 
 class Quis extends Model
 {
+    protected $table = 'quis';
+
     protected $fillable = [
         'kode_kuis',
+        'paket_kuis_id',
         'kelas_id',
         'kategori_id',
         'pertanyaan',
@@ -56,5 +59,17 @@ class Quis extends Model
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
+
+    // Relasi paket kuis
+    public function paketKuis()
+    {
+        return $this->belongsTo(self::class, 'paket_kuis_id');
+    }
+
+    // Mengambil seluruh pertanyaan dalam satu paket
+    public function daftarPertanyaan()
+    {
+        return self::where('paket_kuis_id', $this->paket_kuis_id);
     }
 }
