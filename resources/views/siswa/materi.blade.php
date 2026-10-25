@@ -50,15 +50,15 @@
         </div>
 
         {{-- Daftar Materi --}}
-        @if(isset($materis) && $materis->count() > 0)
+        @if(isset($materi) && $materi->count() > 0)
 
             <div class="mb-5 rounded-2xl border-2 border-white bg-white/80 p-4 text-center shadow-md">
                 <p class="font-black text-[#1e60be]">
-                    📖 Ada {{ $materis->count() }} materi yang bisa kamu pelajari!
+                    📖 Ada {{ $materi->count() }} materi yang bisa kamu pelajari!
                 </p>
             </div>
 
-            @foreach($materis as $index => $item)
+            @foreach($materi as $index => $item)
 
                 @php
                     // Mengambil gambar materi

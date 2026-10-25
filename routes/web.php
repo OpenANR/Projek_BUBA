@@ -115,11 +115,10 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
         Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])->name('siswa.kelas');
         Route::get('/{kelas:nama_kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
 
-        Route::get('/materi-list/{kelas:nama_kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
-        Route::get('/materi-show/{kelas:nama_kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
+        Route::get('/materi-list/{kelas:nama_kelas}/{kategori:slug}', [MateriController::class, 'listMateri'])->name('siswa.materi');
+        Route::get('/materi-show/{kelas:nama_kelas}/{kategori:slug}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
 
         Route::get('/kuis-list/{kelas:nama_kelas}/{kategori:slug}', [QuisController::class, 'listKuis'])->name('siswa.kuis');
         Route::get('/kuis-show/{kelas:nama_kelas}/{kategori:slug}/{kuis}', [QuisController::class, 'showKuis'])->name('siswa.showKuis');
-
     });
 });

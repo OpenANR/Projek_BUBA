@@ -140,7 +140,7 @@
                         $routeName = ($konten === 'kuis') ? 'siswa.kuis' : 'siswa.materi';
                     @endphp
 
-                    <a href="{{ route($routeName, ['konten' => $konten, 'kelas' => trim($kelas->nama_kelas), 'kategori' => $item->id]) }}"
+                    <a href="{{ route($routeName, ['konten' => $konten, 'kelas' => trim($kelas->nama_kelas), 'kategori' => $item->slug]) }}"
                         class="group relative flex flex-col items-center justify-between w-48 h-60 sm:w-56 sm:h-72 md:w-64 md:h-80 p-5 sm:p-6 md:p-7 {{ $palette['bg'] }} {{ $palette['hover_bg'] }} border-[5px] sm:border-[6px] md:border-8 border-white rounded-[2rem] sm:rounded-[2.4rem] md:rounded-[2.8rem] shadow-[0_12px_24px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-2.5 {{ $palette['shadow'] }} active:scale-95 active:translate-y-1 active:shadow-md focus:outline-none focus:ring-4 focus:ring-white/70"
                         aria-label="Pilih kategori {{ $item->nama_kategori }}">
 
