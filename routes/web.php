@@ -120,6 +120,5 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
 
         Route::get('/kuis-list/{kelas:nama_kelas}/{kategori:slug}', [QuisController::class, 'listKuis'])->name('siswa.kuis');
         Route::get('/kuis-show/{kelas:nama_kelas}/{kategori:slug}/{kuis}', [QuisController::class, 'showKuis'])->name('siswa.showKuis');
-
     });
 });
