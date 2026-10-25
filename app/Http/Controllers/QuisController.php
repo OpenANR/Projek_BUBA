@@ -568,33 +568,33 @@ class QuisController extends Controller
             );
     }
 
-    public function listKuis($konten, $kelas, $kategori)
+    public function listKuis($konten, Kelas $kelas, Kategori $kategori)
     {
         // Mengambil data kelas yang dipilih
-        $dataKelas = Kelas::findOrFail($kelas);
+        // $dataKelas = Kelas::findOrFail($kelas);
 
         // Mengambil kategori yang dipilih
-        $dataKategori = Kategori::findOrFail($kategori);
+        // $dataKategori = Kategori::findOrFail($kategori);
 
         // Memastikan kategori sesuai dengan kelas
-        if ((int) $dataKategori->kelas_id !== (int) $dataKelas->id) {
+        if ((int) $kategori->kelas_id !== (int) $kelas->id) {
             abort(404, 'Kategori tidak sesuai dengan kelas.');
         }
 
         // Mengambil soal yang telah dibuat admin
         $quis = Quis::query()
-            ->where('kelas_id', $dataKelas->id)
-            ->where('kategori_id', $dataKategori->id)
+            ->where('kelas_id', $kelas->id)
+            ->where('kategori_id', $kategori->id)
             ->inRandomOrder()
             ->get();
 
-        // dd($konten, $dataKelas, $dataKategori, $quis);
+        // dd($konten, $kelas, $kategori, $quis);
         // Mengirim data soal ke halaman kuis siswa
         return view('siswa.quis', [
             'konten' => $konten,
             'quis' => $quis,
-            'dataKelas' => $dataKelas,
-            'dataKategori' => $dataKategori,
+            'kelas' => $kelas,
+            'kategori' => $kategori,
         ]);
     }
 }
