@@ -116,6 +116,4 @@ class KelasController extends Controller
         // dd([$kelas, $konten]);
         return view('siswa.kelas', compact(['kelas', 'konten']));
     }
-
-    
 }

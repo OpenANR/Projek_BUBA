@@ -35,7 +35,7 @@
         @if ($kelas->isNotEmpty())
             <div class="relative z-10 my-auto flex w-full max-w-4xl items-center justify-center gap-4 px-2 py-4 sm:gap-8 md:gap-12">
                 @foreach ($kelas as $item)
-                    <a href="{{ route('siswa.kategori', ['konten' => $konten, 'kelas' => $item->id]) }}"
+                    <a href="{{ route('siswa.kategori', ['konten' => $konten, 'kelas' => trim($item->nama_kelas)]) }}"
                         class="group relative flex aspect-square w-[min(40vw,8rem)] shrink-0 items-center justify-center rounded-[1.7rem] border-[5px] border-white bg-[#d8759c] px-3 text-center text-3xl font-black text-white shadow-[0_10px_20px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-2 hover:bg-[#ca5e88] hover:shadow-[0_18px_30px_rgba(216,117,156,0.45)] active:scale-95 active:translate-y-1 active:shadow-md focus:outline-none focus:ring-4 focus:ring-white/70 sm:w-44 sm:rounded-[2rem] sm:border-[6px] sm:text-4xl md:w-52 md:rounded-[2.4rem] md:border-8 md:text-5xl lg:w-56"
                         aria-label="Pilih kelas {{ $item->nama_kelas }}">
                         {{ $item->nama_kelas }}

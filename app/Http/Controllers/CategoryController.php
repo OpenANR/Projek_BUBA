@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -81,6 +82,7 @@ class CategoryController extends Controller
         $data = [
             'nama_kategori' => $request->nama_kategori,
             'deskripsi'     => $request->deskripsi,
+            'slug'          => Str::slug($request->nama_kategori),
             'kelas_id'      => $request->kelas_id,
         ];
 
@@ -99,10 +101,9 @@ class CategoryController extends Controller
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus');
     }
 
-    public function pilihKategori($konten, $kelas) {
-        $dataKelas = Kelas::findOrFail($kelas);
-        $kategori = Kategori::where('kelas_id', $dataKelas->id)->get();
-
-        return view('siswa.kategori', compact('konten', 'dataKelas', 'kategori'));
+    public function pilihKategori($konten, Kelas $kelas) {
+        // $dataKelas = Kelas::findOrFail($kelas);
+        $kategori = Kategori::where('kelas_id', $kelas->id)->get();
+        return view('siswa.kategori', compact('konten', 'kelas', 'kategori'));
     }
 }

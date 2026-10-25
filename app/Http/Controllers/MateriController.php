@@ -395,16 +395,16 @@ class MateriController extends Controller
             ->with('success', 'Data berhasil dihapus');
     }
 
-    public function listMateri($konten, $kelas, $kategori) {
+    public function listMateri($konten, Kelas $kelas, Kategori $kategori) {
 
-        $materi = Materi::where('kelas_id', $kelas)
-                        ->where('kategori_id', $kategori)
+        $materi = Materi::where('kelas_id', $kelas->id)
+                        ->where('kategori_id', $kategori->id)
                         ->get();
         // dd($konten, $kelas, $kategori, $materi);
         return view('siswa.materi', compact(['konten', 'kelas', 'kategori', 'materi']));
     }
 
-    public function showMateri($konten, $kelas, $kategori, $kode_materi) {
+    public function showMateri($konten, Kelas $kelas, Kategori $kategori, $kode_materi) {
 
         $dataMateri = Materi::where('kode_materi', $kode_materi)->get();
         // dd($konten, $kelas, $kategori, $dataMateri);

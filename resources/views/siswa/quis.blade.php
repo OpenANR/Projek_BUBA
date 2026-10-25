@@ -30,7 +30,7 @@
         <div class="rounded-2xl border-4 border-white bg-[#1e60be] px-7 py-3 shadow-[0_8px_20px_rgba(0,0,0,0.2)] sm:rounded-[2rem] sm:border-[5px] sm:px-10 md:rounded-[2.2rem] md:border-[6px] md:px-14">
 
             <h1 class="text-center font-sans text-xl font-black tracking-wider text-white drop-shadow sm:text-2xl md:text-3xl">
-                KUIS {{ strtoupper($dataKelas->nama_kelas ?? 'ANAK') }}
+                KUIS {{ strtoupper($kelas->nama_kelas ?? 'ANAK') }}
             </h1>
         </div>
     </header>
@@ -45,7 +45,7 @@
 
             <p class="inline-block rounded-full border-2 border-white bg-white/90 px-5 py-2 text-sm font-bold text-[#1e60be] shadow-md sm:text-base">
                 Kategori:
-                {{ $dataKategori->nama_kategori ?? 'Pembelajaran' }}
+                {{ $kategori->nama_kategori ?? 'Pembelajaran' }}
             </p>
         </div>
 
