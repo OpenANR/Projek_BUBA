@@ -1,31 +1,28 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Tambah Paket Kuis - BUBA')
+@section('title', 'Tambah Kuis - BUBA')
 
 @section('content')
 
-<div class="mx-auto max-w-5xl px-4 py-6">
+<div class="max-w-4xl mx-auto">
 
     {{-- HEADER --}}
-    <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="flex items-center justify-between mb-6">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Tambah Paket Kuis</h1>
-            <p class="mt-1 text-sm text-gray-500">
-                Buat paket kuis dan tambahkan beberapa soal sekaligus.
+            <h1 class="text-2xl font-bold text-gray-800">
+                Tambah Kuis
+            </h1>
+
+            <p class="text-gray-500 mt-1">
+                Isi form untuk menambahkan pertanyaan kuis baru.
             </p>
         </div>
-
-        <a href="{{ route('kuis.index') }}"
-           class="rounded-lg bg-gray-500 px-4 py-2 text-white hover:bg-gray-600">
-            ← Kembali
-        </a>
     </div>
 
-    {{-- ERROR --}}
+    {{-- ERROR VALIDASI --}}
     @if ($errors->any())
-        <div class="mb-5 rounded-lg border border-red-300 bg-red-50 p-4 text-red-700">
-            <p class="mb-2 font-bold">Terjadi kesalahan:</p>
-            <ul class="list-inside list-disc text-sm">
+        <div class="mb-5 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700">
+            <ul class="list-disc list-inside">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -33,42 +30,30 @@
         </div>
     @endif
 
-    <form action="{{ route('kuis.kirim') }}"
-          method="POST"
-          enctype="multipart/form-data">
+    {{-- FORM KUIS --}}
+    <div class="bg-white rounded-xl shadow-md p-6">
 
-        @csrf
+        <form action="{{ route('kuis.kirim') }}"
+              method="POST"
+              enctype="multipart/form-data"
+              id="formKuis">
 
-        {{-- INFORMASI PAKET --}}
-        <div class="mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            @csrf
 
-            <h2 class="mb-5 text-lg font-bold text-gray-800">
-                📚 Informasi Paket Kuis
-            </h2>
-
+            {{-- KELAS --}}
             <div class="mb-5">
-                <label class="mb-2 block text-sm font-semibold text-gray-700">
-                    Nama Paket Kuis
-                </label>
 
-                <input type="text"
-                       name="nama_kuis"
-                       value="{{ old('nama_kuis') }}"
-                       maxlength="255"
-                       required
-                       placeholder="Contoh: Kuis Mengenal Hewan"
-                       class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400">
-            </div>
-
-            <div class="mb-5">
-                <label class="mb-2 block text-sm font-semibold text-gray-700">
+                <label for="kelas_id"
+                       class="block text-sm font-semibold text-gray-700 mb-2">
                     Kelas
+                    <span class="text-red-500">*</span>
                 </label>
 
                 <select name="kelas_id"
                         id="kelas_id"
                         required
-                        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800">
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none">
+
                     <option value="">-- Pilih Kelas --</option>
 
                     @foreach ($kelas as $item)
@@ -77,20 +62,35 @@
                             {{ $item->nama_kelas }}
                         </option>
                     @endforeach
+
                 </select>
+
+                @error('kelas_id')
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+                @enderror
+
             </div>
 
-            <div>
-                <label class="mb-2 block text-sm font-semibold text-gray-700">
-                    Kategori
+            {{-- KATEGORI --}}
+            <div class="mb-6">
+
+                <label for="kategori_id"
+                       class="block text-sm font-semibold text-gray-700 mb-2">
+                    Kategori Kuis
+                    <span class="text-red-500">*</span>
                 </label>
 
                 <select name="kategori_id"
                         id="kategori_id"
                         required
-                        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800">
+                        disabled
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none">
 
-                    <option value="">-- Pilih Kelas Terlebih Dahulu --</option>
+                    <option value="">
+                        -- Pilih Kelas Terlebih Dahulu --
+                    </option>
 
                     @foreach ($kategoris as $kategori)
                         <option value="{{ $kategori->id }}"
@@ -99,54 +99,57 @@
                             {{ $kategori->nama_kategori }}
                         </option>
                     @endforeach
+
                 </select>
 
-                <p class="mt-2 text-xs text-gray-500">
+                <p class="text-xs text-gray-500 mt-2">
                     Kategori akan menyesuaikan dengan kelas yang dipilih.
                 </p>
+
+                @error('kategori_id')
+                    <p class="text-sm text-red-600 mt-2">
+                        {{ $message }}
+                    </p>
+                @enderror
+
             </div>
-        </div>
 
-        {{-- DAFTAR SOAL --}}
-        <div class="mb-6">
+            {{-- DAFTAR SOAL --}}
+            <div class="mb-6">
 
-            <div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-800">
-                        📝 Daftar Pertanyaan
-                    </h2>
-                    <p class="mt-1 text-sm text-gray-500">
-                        Tambahkan pertanyaan yang akan dimasukkan ke paket ini.
+                <div class="mb-4">
+                    <h3 class="text-base font-bold text-gray-800">
+                        Daftar Pertanyaan
+                    </h3>
+
+                    <p class="text-xs text-gray-500 mt-1">
+                        Masukkan pertanyaan kuis beserta pilihan jawabannya.
                     </p>
                 </div>
 
-                <button type="button"
-                        onclick="tambahSoal()"
-                        class="rounded-lg bg-blue-600 px-4 py-2.5 font-semibold text-white hover:bg-blue-700">
-                    + Tambah Soal
-                </button>
+                <div id="soalContainer"></div>
+
             </div>
 
-            <div id="soalContainer"></div>
+            {{-- TOMBOL --}}
+            <div class="flex justify-end gap-3 border-t border-gray-100 pt-5">
 
-        </div>
+                <a href="{{ route('kuis.index') }}"
+                   class="px-5 py-2.5 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition">
+                    Batal
+                </a>
 
-        {{-- TOMBOL SIMPAN --}}
-        <div class="flex justify-end gap-3 rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                <button type="submit"
+                        class="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">
+                    ✓ Simpan Kuis
+                </button>
 
-            <a href="{{ route('kuis.index') }}"
-               class="rounded-lg bg-gray-500 px-5 py-2.5 text-white hover:bg-gray-600">
-                Batal
-            </a>
+            </div>
 
-            <button type="submit"
-                    class="rounded-lg bg-blue-600 px-6 py-2.5 font-semibold text-white hover:bg-blue-700">
-                Simpan Paket Kuis
-            </button>
+        </form>
 
-        </div>
+    </div>
 
-    </form>
 </div>
 
 <style>
@@ -175,20 +178,22 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
     function filterKategori() {
+
         const kelasId = kelasSelect.value;
+        const placeholder = kategoriSelect.querySelector('option[value=""]');
 
         semuaKategori.forEach(function (option) {
             option.hidden = option.dataset.kelas !== kelasId;
         });
 
-        const placeholder = kategoriSelect.querySelector('option[value=""]');
-
         if (!kelasId) {
+            kategoriSelect.disabled = true;
             kategoriSelect.value = '';
             placeholder.textContent = '-- Pilih Kelas Terlebih Dahulu --';
             return;
         }
 
+        kategoriSelect.disabled = false;
         placeholder.textContent = '-- Pilih Kategori --';
 
         const terpilih = semuaKategori.find(function (option) {
@@ -209,52 +214,45 @@ document.addEventListener('DOMContentLoaded', function () {
     filterKategori();
 
     // =========================================
-    // BUAT SOAL PERTAMA
+    // TAMPILKAN SATU SOAL SECARA OTOMATIS
     // =========================================
 
     tambahSoal();
 
 });
 
-// =========================================
-// TEMPLATE SOAL
-// =========================================
 
-let nomorSoal = 0;
+// =========================================
+// TEMPLATE SATU SOAL
+// =========================================
 
 function tambahSoal() {
 
-    const index = nomorSoal++;
-
+    const index = 0;
     const container = document.getElementById('soalContainer');
 
     const card = document.createElement('div');
 
-    card.className = 'soal-card mb-6 overflow-hidden rounded-xl border border-blue-200 bg-white shadow-sm';
+    card.className = 'soal-card overflow-hidden rounded-xl border border-gray-200 bg-white';
 
     card.dataset.index = index;
 
     card.innerHTML = `
-        <div class="flex items-center justify-between border-b border-blue-100 bg-blue-50 px-5 py-4">
+        <div class="border-b border-gray-200 bg-gray-50 px-4 py-3">
 
-            <h3 class="judul-soal font-bold text-gray-800">
-                Soal ${container.children.length + 1}
+            <h3 class="font-bold text-gray-800">
+                Pertanyaan Kuis
             </h3>
-
-            <button type="button"
-                    onclick="hapusSoal(this)"
-                    class="rounded-lg bg-red-100 px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-200">
-                Hapus Soal
-            </button>
 
         </div>
 
-        <div class="p-5">
+        <div class="space-y-5 p-4">
 
             {{-- PERTANYAAN --}}
-            <div class="mb-6">
+            <div>
                 <label class="mb-2 block text-sm font-semibold text-gray-700">
                     Pertanyaan
+                    <span class="text-red-500">*</span>
                 </label>
 
                 <textarea
@@ -282,8 +280,8 @@ function tambahSoal() {
             </div>
 
             {{-- PILIHAN JAWABAN --}}
-            <div class="mb-6">
-                <h4 class="mb-4 font-bold text-gray-800">
+            <div>
+                <h4 class="mb-3 font-bold text-gray-800">
                     Pilihan Jawaban
                 </h4>
 
@@ -299,21 +297,22 @@ function tambahSoal() {
                                 name="soal[${index}][pilihan_${huruf}]"
                                 required
                                 placeholder="Masukkan pilihan ${huruf.toUpperCase()}"
-                                class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800">
+                                class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400">
                         </div>
                     `;
                 }).join('')}
             </div>
 
             {{-- JAWABAN BENAR --}}
-            <div class="mb-6">
+            <div>
                 <label class="mb-2 block text-sm font-semibold text-gray-700">
                     Jawaban Benar
+                    <span class="text-red-500">*</span>
                 </label>
 
                 <select name="soal[${index}][jawaban]"
                         required
-                        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800">
+                        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400">
 
                     <option value="">-- Pilih Jawaban Benar --</option>
                     <option value="A">A</option>
@@ -325,17 +324,21 @@ function tambahSoal() {
             </div>
 
             {{-- GAMBAR --}}
-            <div class="mb-6 rounded-xl border border-gray-200 p-4">
+            <div class="rounded-lg border border-gray-200 p-4">
+
                 <h4 class="mb-2 font-bold text-gray-800">
-                    🖼️ Gambar Soal
+                    Gambar Soal
+                    <span class="font-normal text-gray-500 text-xs">(Opsional)</span>
                 </h4>
 
-                <p class="mb-4 text-xs text-gray-500">
-                    Gambar bersifat opsional dan bisa lebih dari satu.
+                <p class="mb-3 text-xs text-gray-500">
+                    Gambar bisa lebih dari satu.
                 </p>
 
                 <div class="gambar-container">
+
                     <div class="gambar-item mb-3 flex gap-2">
+
                         <input
                             type="file"
                             name="soal[${index}][gambar][]"
@@ -347,7 +350,9 @@ function tambahSoal() {
                                 class="rounded-lg bg-red-500 px-3 py-2 text-sm text-white hover:bg-red-600">
                             Hapus
                         </button>
+
                     </div>
+
                 </div>
 
                 <button type="button"
@@ -359,28 +364,34 @@ function tambahSoal() {
                 <p class="mt-2 text-xs text-gray-500">
                     JPG, JPEG, PNG, WEBP. Maksimal 2 MB per gambar.
                 </p>
+
             </div>
 
             {{-- AUDIO PERTANYAAN --}}
-            <div class="mb-6 rounded-xl border border-blue-200 bg-blue-50 p-5">
+            <div class="rounded-lg border border-gray-200 p-4">
+
                 <h4 class="mb-2 font-bold text-gray-800">
-                    🔊 Audio Pertanyaan
+                    Audio Pertanyaan
+                    <span class="font-normal text-gray-500 text-xs">(Opsional)</span>
                 </h4>
 
-                <p class="mb-4 text-xs text-gray-600">
+                <p class="mb-3 text-xs text-gray-500">
                     Upload suara untuk membacakan pertanyaan.
                 </p>
 
                 ${buatInputAudio(index, 'audio_pertanyaan', 'Audio Pertanyaan')}
+
             </div>
 
             {{-- AUDIO PILIHAN --}}
-            <div class="rounded-xl border border-pink-200 bg-pink-50 p-5">
+            <div class="rounded-lg border border-gray-200 p-4">
+
                 <h4 class="mb-2 font-bold text-gray-800">
-                    🎵 Audio Pilihan Jawaban
+                    Audio Pilihan Jawaban
+                    <span class="font-normal text-gray-500 text-xs">(Opsional)</span>
                 </h4>
 
-                <p class="mb-4 text-xs text-gray-600">
+                <p class="mb-3 text-xs text-gray-500">
                     Upload audio untuk setiap pilihan jawaban.
                 </p>
 
@@ -392,18 +403,18 @@ function tambahSoal() {
                     );
                 }).join('')}
 
-                <p class="mt-3 text-xs text-gray-500">
+                <p class="mt-2 text-xs text-gray-500">
                     Format MP3, WAV, atau OGG. Maksimal 10 MB per file.
                 </p>
+
             </div>
 
         </div>
     `;
 
     container.appendChild(card);
-
-    perbaruiNomorSoal();
 }
+
 
 // =========================================
 // TEMPLATE INPUT AUDIO
@@ -441,6 +452,7 @@ function buatInputAudio(index, field, label) {
     `;
 }
 
+
 // =========================================
 // VALIDASI PERTANYAAN
 // =========================================
@@ -457,19 +469,21 @@ function validasiPertanyaan(textarea) {
 
     if (nilaiAwal !== nilaiBersih) {
         textarea.value = nilaiBersih;
-        textarea.closest('.mb-6')
+
+        textarea.closest('.soal-card')
             .querySelector('.peringatan-karakter')
             .classList.remove('hidden');
     } else {
-        textarea.closest('.mb-6')
+        textarea.closest('.soal-card')
             .querySelector('.peringatan-karakter')
             .classList.add('hidden');
     }
 
-    textarea.closest('.mb-6')
+    textarea.closest('.soal-card')
         .querySelector('.jumlah-karakter')
         .textContent = `${Array.from(textarea.value).length}/1000 karakter`;
 }
+
 
 // =========================================
 // TAMBAH GAMBAR
@@ -500,6 +514,7 @@ function tambahGambar(button) {
     container.appendChild(item);
 }
 
+
 // =========================================
 // HAPUS GAMBAR
 // =========================================
@@ -507,7 +522,6 @@ function tambahGambar(button) {
 function hapusGambar(button) {
 
     const container = button.closest('.gambar-container');
-
     const semua = container.querySelectorAll('.gambar-item');
 
     if (semua.length > 1) {
@@ -517,6 +531,7 @@ function hapusGambar(button) {
     }
 }
 
+
 // =========================================
 // PREVIEW AUDIO
 // =========================================
@@ -524,9 +539,7 @@ function hapusGambar(button) {
 function previewAudio(input) {
 
     const file = input.files[0];
-
     const container = input.parentElement.querySelector('.preview-audio');
-
     const audio = container.querySelector('audio');
 
     if (!file) {
@@ -564,34 +577,6 @@ function previewAudio(input) {
     container.classList.remove('hidden');
 }
 
-// =========================================
-// HAPUS SOAL
-// =========================================
-
-function hapusSoal(button) {
-
-    const container = document.getElementById('soalContainer');
-
-    if (container.children.length <= 1) {
-        alert('Minimal harus ada satu soal dalam paket kuis.');
-        return;
-    }
-
-    button.closest('.soal-card').remove();
-
-    perbaruiNomorSoal();
-}
-
-// =========================================
-// PERBARUI NOMOR SOAL
-// =========================================
-
-function perbaruiNomorSoal() {
-
-    document.querySelectorAll('.soal-card').forEach(function (card, index) {
-        card.querySelector('.judul-soal').textContent = `Soal ${index + 1}`;
-    });
-}
 </script>
 
 @endsection

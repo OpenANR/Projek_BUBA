@@ -12,7 +12,6 @@ class Quis extends Model
 
     protected $fillable = [
         'kode_kuis',
-        'paket_kuis_id',
         'kelas_id',
         'kategori_id',
         'pertanyaan',
@@ -37,11 +36,13 @@ class Quis extends Model
     protected static function booted()
     {
         static::creating(function ($quis) {
-            do {
-                $kode = 'KUIS-' . Str::upper(Str::random(4));
-            } while (self::where('kode_kuis', $kode)->exists());
+            if (empty($quis->kode_kuis)) {
+                do {
+                    $kode = 'KUIS-' . Str::upper(Str::random(4));
+                } while (self::where('kode_kuis', $kode)->exists());
 
-            $quis->kode_kuis = $kode;
+                $quis->kode_kuis = $kode;
+            }
         });
     }
 
@@ -59,17 +60,5 @@ class Quis extends Model
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
-    }
-
-    // Relasi paket kuis
-    public function paketKuis()
-    {
-        return $this->belongsTo(self::class, 'paket_kuis_id');
-    }
-
-    // Mengambil seluruh pertanyaan dalam satu paket
-    public function daftarPertanyaan()
-    {
-        return self::where('paket_kuis_id', $this->paket_kuis_id);
     }
 }

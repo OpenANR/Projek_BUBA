@@ -13,41 +13,22 @@ class QuisController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | DAFTAR PAKET KUIS
+    | DAFTAR KUIS ADMIN
     |--------------------------------------------------------------------------
     */
 
     public function index()
     {
-        $paketKuis = DB::table('paket_kuis')
-            ->join('kelas', 'paket_kuis.kelas_id', '=', 'kelas.id')
-            ->join('kategoris', 'paket_kuis.kategori_id', '=', 'kategoris.id')
-            ->leftJoin('quis', 'paket_kuis.id', '=', 'quis.paket_kuis_id')
-            ->select(
-                'paket_kuis.*',
-                'kelas.nama_kelas',
-                'kategoris.nama_kategori',
-                DB::raw('COUNT(quis.id) as jumlah_pertanyaan')
-            )
-            ->groupBy(
-                'paket_kuis.id',
-                'paket_kuis.nama_kuis',
-                'paket_kuis.kelas_id',
-                'paket_kuis.kategori_id',
-                'paket_kuis.created_at',
-                'paket_kuis.updated_at',
-                'kelas.nama_kelas',
-                'kategoris.nama_kategori'
-            )
-            ->orderByDesc('paket_kuis.id')
+        $quis = Quis::with(['kelas', 'kategori'])
+            ->orderByDesc('id')
             ->get();
 
-        return view('admin.kuis.index', compact('paketKuis'));
+        return view('admin.kuis.index', compact('quis'));
     }
 
     /*
     |--------------------------------------------------------------------------
-    | TAMBAH PAKET DAN SOAL
+    | TAMBAH KUIS
     |--------------------------------------------------------------------------
     */
 
@@ -62,7 +43,6 @@ class QuisController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kuis' => 'required|string|max:255',
             'kelas_id' => 'required|exists:kelas,id',
             'kategori_id' => 'required|exists:kategoris,id',
 
@@ -73,6 +53,7 @@ class QuisController extends Controller
                 'max:1000',
                 'regex:/^[A-Za-z0-9\s?=+\-!.,:;()×÷x]+$/u',
             ],
+
             'soal.*.pilihan_a' => 'required|string',
             'soal.*.pilihan_b' => 'required|string',
             'soal.*.pilihan_c' => 'required|string',
@@ -89,23 +70,17 @@ class QuisController extends Controller
             'soal.*.audio_pilihan_d' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
         ]);
 
-        $this->validasiKategori($request->kelas_id, $request->kategori_id);
+        $this->validasiKategori(
+            $request->kelas_id,
+            $request->kategori_id
+        );
 
         DB::transaction(function () use ($request) {
-            $paketId = DB::table('paket_kuis')->insertGetId([
-                'nama_kuis' => $request->nama_kuis,
-                'kelas_id' => $request->kelas_id,
-                'kategori_id' => $request->kategori_id,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
             foreach ($request->input('soal', []) as $index => $soal) {
                 $this->simpanSoal(
                     $request,
                     $index,
                     $soal,
-                    $paketId,
                     $request->kelas_id,
                     $request->kategori_id
                 );
@@ -113,83 +88,74 @@ class QuisController extends Controller
         });
 
         return redirect()->route('kuis.index')
-            ->with('success', 'Paket kuis beserta soal berhasil ditambahkan.');
+            ->with('success', 'Kuis berhasil ditambahkan.');
     }
 
     /*
     |--------------------------------------------------------------------------
-    | DETAIL PAKET DAN SOAL
+    | DETAIL KUIS ADMIN
     |--------------------------------------------------------------------------
     */
 
-    public function show($id)
+    public function show(Quis $quis)
     {
-        $paket = DB::table('paket_kuis')
-            ->join('kelas', 'paket_kuis.kelas_id', '=', 'kelas.id')
-            ->join('kategoris', 'paket_kuis.kategori_id', '=', 'kategoris.id')
-            ->select(
-                'paket_kuis.*',
-                'kelas.nama_kelas',
-                'kategoris.nama_kategori'
-            )
-            ->where('paket_kuis.id', $id)
-            ->first();
+        $quis->load(['kelas', 'kategori']);
 
-        abort_if(!$paket, 404);
+        return view('admin.kuis.detail', compact('quis'));
+    }
 
-        $quis = Quis::where('paket_kuis_id', $id)
+    /*
+    |--------------------------------------------------------------------------
+    | EDIT KUIS
+    |--------------------------------------------------------------------------
+    */
+
+    public function edit($kodeKuis)
+    {
+        $kuisPertama = Quis::where('kode_kuis', $kodeKuis)
+            ->firstOrFail();
+
+        // Ambil semua soal dalam kelas dan kategori yang sama.
+        $quis = Quis::where('kelas_id', $kuisPertama->kelas_id)
+            ->where('kategori_id', $kuisPertama->kategori_id)
             ->orderBy('id')
             ->get();
-
-        return view('admin.kuis.detail', compact('paket', 'quis'));
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | EDIT PAKET DAN SOAL
-    |--------------------------------------------------------------------------
-    */
-
-    public function edit($id)
-    {
-        $paket = DB::table('paket_kuis')->where('id', $id)->first();
-
-        abort_if(!$paket, 404);
 
         $kelas = Kelas::orderBy('nama_kelas')->get();
         $kategoris = Kategori::orderBy('nama_kategori')->get();
 
-        $quis = Quis::where('paket_kuis_id', $id)
-            ->orderBy('id')
-            ->get();
-
         return view('admin.kuis.edit', compact(
-            'paket',
+            'quis',
             'kelas',
-            'kategoris',
-            'quis'
+            'kategoris'
         ));
     }
 
-    public function update(Request $request, $id)
-    {
-        $paket = DB::table('paket_kuis')->where('id', $id)->first();
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE KUIS
+    |--------------------------------------------------------------------------
+    */
 
-        abort_if(!$paket, 404);
+    public function update(Request $request, $kodeKuis)
+    {
+        $kuisPertama = Quis::where('kode_kuis', $kodeKuis)
+            ->firstOrFail();
 
         $request->validate([
-            'nama_kuis' => 'required|string|max:255',
             'kelas_id' => 'required|exists:kelas,id',
             'kategori_id' => 'required|exists:kategoris,id',
 
-            'soal' => 'nullable|array',
+            'soal' => 'required|array|min:1',
             'soal.*.id' => 'nullable|integer',
+
             'soal.*.pertanyaan' => [
                 'required',
                 'string',
                 'max:1000',
                 'regex:/^[A-Za-z0-9\s?=+\-!.,:;()×÷x]+$/u',
             ],
+
             'soal.*.pilihan_a' => 'required|string',
             'soal.*.pilihan_b' => 'required|string',
             'soal.*.pilihan_c' => 'required|string',
@@ -209,51 +175,86 @@ class QuisController extends Controller
             'hapus_soal.*' => 'integer',
         ]);
 
-        $this->validasiKategori($request->kelas_id, $request->kategori_id);
+        $this->validasiKategori(
+            $request->kelas_id,
+            $request->kategori_id
+        );
 
-        $soalLama = Quis::where('paket_kuis_id', $id)->get();
+        $kelasLama = $kuisPertama->kelas_id;
+        $kategoriLama = $kuisPertama->kategori_id;
 
-        if ($soalLama->isNotEmpty() &&
-            ($paket->kelas_id != $request->kelas_id ||
-             $paket->kategori_id != $request->kategori_id)) {
-            return back()->withInput()->withErrors([
-                'kelas_id' => 'Kelas dan kategori tidak dapat diubah karena paket sudah memiliki soal.',
-            ]);
+        $daftarKuisLama = Quis::where('kelas_id', $kelasLama)
+            ->where('kategori_id', $kategoriLama)
+            ->get();
+
+        $idKuisLama = $daftarKuisLama->pluck('id')->toArray();
+
+        // Pastikan ID soal berasal dari kelompok yang sedang diedit.
+        foreach ($request->input('soal', []) as $soal) {
+            if (
+                !empty($soal['id']) &&
+                !in_array((int) $soal['id'], $idKuisLama, true)
+            ) {
+                abort(404);
+            }
         }
 
-        DB::transaction(function () use ($request, $id) {
-            DB::table('paket_kuis')->where('id', $id)->update([
-                'nama_kuis' => $request->nama_kuis,
-                'kelas_id' => $request->kelas_id,
-                'kategori_id' => $request->kategori_id,
-                'updated_at' => now(),
-            ]);
+        foreach ($request->input('hapus_soal', []) as $soalId) {
+            if (!in_array((int) $soalId, $idKuisLama, true)) {
+                abort(404);
+            }
+        }
 
+        // Menampung file lama yang akan dihapus setelah transaksi berhasil.
+        $fileYangDihapus = [];
+
+        DB::transaction(function () use (
+            $request,
+            $idKuisLama,
+            &$fileYangDihapus
+        ) {
+            // Hapus soal yang dipilih.
             foreach ($request->input('hapus_soal', []) as $soalId) {
-                $soalHapus = Quis::where('paket_kuis_id', $id)
+                $soalHapus = Quis::whereIn('id', $idKuisLama)
                     ->where('id', $soalId)
                     ->first();
 
                 if ($soalHapus) {
-                    $this->hapusFileKuis($soalHapus);
+                    $fileYangDihapus = array_merge(
+                        $fileYangDihapus,
+                        $this->daftarFileKuis($soalHapus)
+                    );
+
                     $soalHapus->delete();
                 }
             }
 
+            // Perbarui soal lama atau tambahkan soal baru.
             foreach ($request->input('soal', []) as $index => $soal) {
                 $soalLama = null;
 
                 if (!empty($soal['id'])) {
-                    $soalLama = Quis::where('paket_kuis_id', $id)
+                    $soalLama = Quis::whereIn('id', $idKuisLama)
                         ->where('id', $soal['id'])
-                        ->first();
+                        ->firstOrFail();
+                }
+
+                // Catat file lama yang diganti.
+                if ($soalLama) {
+                    $fileYangDihapus = array_merge(
+                        $fileYangDihapus,
+                        $this->fileYangDiganti(
+                            $request,
+                            $index,
+                            $soalLama
+                        )
+                    );
                 }
 
                 $this->simpanSoal(
                     $request,
                     $index,
                     $soal,
-                    $id,
                     $request->kelas_id,
                     $request->kategori_id,
                     $soalLama
@@ -261,98 +262,100 @@ class QuisController extends Controller
             }
         });
 
+        // Hapus file lama setelah transaksi database berhasil.
+        foreach (array_unique($fileYangDihapus) as $file) {
+            Storage::disk('public')->delete($file);
+        }
+
         return redirect()->route('kuis.index')
-            ->with('success', 'Paket kuis berhasil diperbarui.');
+            ->with('success', 'Kuis berhasil diperbarui.');
     }
 
     /*
     |--------------------------------------------------------------------------
-    | HAPUS PAKET BESERTA SOAL
+    | HAPUS SATU KUIS
     |--------------------------------------------------------------------------
     */
 
-    public function destroy($id)
+    public function destroy(Quis $quis)
     {
-        $paket = DB::table('paket_kuis')->where('id', $id)->first();
+        $file = $this->daftarFileKuis($quis);
 
-        abort_if(!$paket, 404);
+        $quis->delete();
 
-        DB::transaction(function () use ($id) {
-            $quis = Quis::where('paket_kuis_id', $id)->get();
-
-            foreach ($quis as $soal) {
-                $this->hapusFileKuis($soal);
-                $soal->delete();
-            }
-
-            DB::table('paket_kuis')->where('id', $id)->delete();
-        });
+        foreach ($file as $path) {
+            Storage::disk('public')->delete($path);
+        }
 
         return redirect()->route('kuis.index')
-            ->with('success', 'Paket kuis beserta seluruh soalnya berhasil dihapus.');
+            ->with('success', 'Kuis berhasil dihapus.');
     }
 
     /*
     |--------------------------------------------------------------------------
-    | KUIS ANAK
+    | DAFTAR KUIS ANAK
     |--------------------------------------------------------------------------
     */
 
     public function listKuis($konten, Kelas $kelas, Kategori $kategori)
     {
-        abort_if($kategori->kelas_id != $kelas->id, 404);
+        abort_if((int) $kategori->kelas_id !== (int) $kelas->id, 404);
 
-        $paketKuis = DB::table('paket_kuis')
-            ->leftJoin('quis', 'paket_kuis.id', '=', 'quis.paket_kuis_id')
-            ->where('paket_kuis.kelas_id', $kelas->id)
-            ->where('paket_kuis.kategori_id', $kategori->id)
-            ->select(
-                'paket_kuis.*',
-                DB::raw('COUNT(quis.id) as jumlah_pertanyaan')
-            )
-            ->groupBy(
-                'paket_kuis.id',
-                'paket_kuis.nama_kuis',
-                'paket_kuis.kelas_id',
-                'paket_kuis.kategori_id',
-                'paket_kuis.created_at',
-                'paket_kuis.updated_at'
-            )
-            ->orderBy('paket_kuis.id')
+        $quis = Quis::where('kelas_id', $kelas->id)
+            ->where('kategori_id', $kategori->id)
+            ->orderBy('id')
             ->get();
 
         return view('siswa.quis', compact(
             'konten',
             'kelas',
             'kategori',
-            'paketKuis'
+            'quis'
         ));
     }
 
-    public function showKuis($konten, Kelas $kelas, Kategori $kategori, $kuis)
-    {
-        abort_if($kategori->kelas_id != $kelas->id, 404);
+    /*
+    |--------------------------------------------------------------------------
+    | MENAMPILKAN SOAL KUIS ANAK
+    |--------------------------------------------------------------------------
+    */
 
-        $paket = DB::table('paket_kuis')
-            ->where('id', $kuis)
+    public function showKuis(
+        $konten,
+        Kelas $kelas,
+        Kategori $kategori,
+        $kuis
+    ) {
+        abort_if((int) $kategori->kelas_id !== (int) $kelas->id, 404);
+
+        // Ambil kuis yang dipilih anak.
+        $kuisDipilih = Quis::where('kode_kuis', $kuis)
             ->where('kelas_id', $kelas->id)
             ->where('kategori_id', $kategori->id)
-            ->first();
+            ->firstOrFail();
 
-        abort_if(!$paket, 404);
-
-        $quis = Quis::where('paket_kuis_id', $paket->id)
-            ->inRandomOrder()
+        // Ambil semua soal dalam kategori yang sama.
+        $quis = Quis::where('kelas_id', $kelas->id)
+            ->where('kategori_id', $kategori->id)
+            ->orderBy('id')
             ->get();
 
-        abort_if($quis->isEmpty(), 404, 'Paket kuis belum memiliki soal.');
+        // Tentukan posisi soal yang dipilih.
+        $indexAwal = $quis->search(function ($item) use ($kuisDipilih) {
+            return (int) $item->id === (int) $kuisDipilih->id;
+        });
+
+        if ($indexAwal === false) {
+            abort(404);
+        }
 
         return view('siswa.detail-quis', compact(
             'konten',
             'kelas',
             'kategori',
-            'paket',
-            'quis'
+            'quis',
+            'kuisDipilih',
+            'indexAwal'
         ));
     }
 
@@ -366,13 +369,11 @@ class QuisController extends Controller
         Request $request,
         $index,
         array $soal,
-        $paketId,
         $kelasId,
         $kategoriId,
         ?Quis $quisLama = null
     ) {
         $data = [
-            'paket_kuis_id' => $paketId,
             'kelas_id' => $kelasId,
             'kategori_id' => $kategoriId,
             'pertanyaan' => $soal['pertanyaan'],
@@ -383,15 +384,10 @@ class QuisController extends Controller
             'jawaban' => $soal['jawaban'],
         ];
 
+        // Simpan gambar baru.
         $gambarBaru = $request->file("soal.$index.gambar");
 
         if ($gambarBaru) {
-            if ($quisLama) {
-                foreach ($this->ambilDaftarGambar($quisLama->gambar) as $file) {
-                    Storage::disk('public')->delete($file);
-                }
-            }
-
             $gambar = [];
 
             foreach ($gambarBaru as $file) {
@@ -403,6 +399,7 @@ class QuisController extends Controller
             $data['gambar'] = [];
         }
 
+        // Simpan audio pertanyaan dan pilihan.
         $audioFields = [
             'audio_pertanyaan',
             'audio_pilihan_a',
@@ -415,10 +412,6 @@ class QuisController extends Controller
             $file = $request->file("soal.$index.$field");
 
             if ($file) {
-                if ($quisLama && $quisLama->$field) {
-                    Storage::disk('public')->delete($quisLama->$field);
-                }
-
                 $data[$field] = $file->store('quis/audio', 'public');
             }
         }
@@ -430,6 +423,54 @@ class QuisController extends Controller
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | FILE LAMA YANG AKAN DIGANTI
+    |--------------------------------------------------------------------------
+    */
+
+    private function fileYangDiganti(
+        Request $request,
+        $index,
+        Quis $quisLama
+    ) {
+        $file = [];
+
+        // Gambar lama diganti jika ada gambar baru.
+        if ($request->hasFile("soal.$index.gambar")) {
+            $file = array_merge(
+                $file,
+                $this->ambilDaftarGambar($quisLama->gambar)
+            );
+        }
+
+        // Audio lama diganti jika ada audio baru.
+        $audioFields = [
+            'audio_pertanyaan',
+            'audio_pilihan_a',
+            'audio_pilihan_b',
+            'audio_pilihan_c',
+            'audio_pilihan_d',
+        ];
+
+        foreach ($audioFields as $field) {
+            if (
+                $request->hasFile("soal.$index.$field") &&
+                $quisLama->$field
+            ) {
+                $file[] = $quisLama->$field;
+            }
+        }
+
+        return $file;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | VALIDASI KATEGORI
+    |--------------------------------------------------------------------------
+    */
+
     private function validasiKategori($kelasId, $kategoriId)
     {
         $sesuai = Kategori::where('id', $kategoriId)
@@ -440,6 +481,12 @@ class QuisController extends Controller
             abort(422, 'Kategori tidak sesuai dengan kelas.');
         }
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | HELPER GAMBAR
+    |--------------------------------------------------------------------------
+    */
 
     private function ambilDaftarGambar($gambar)
     {
@@ -455,11 +502,15 @@ class QuisController extends Controller
         return is_array($gambar) ? array_filter($gambar) : [];
     }
 
-    private function hapusFileKuis(Quis $quis)
+    /*
+    |--------------------------------------------------------------------------
+    | DAFTAR SELURUH FILE KUIS
+    |--------------------------------------------------------------------------
+    */
+
+    private function daftarFileKuis(Quis $quis)
     {
-        foreach ($this->ambilDaftarGambar($quis->gambar) as $file) {
-            Storage::disk('public')->delete($file);
-        }
+        $file = $this->ambilDaftarGambar($quis->gambar);
 
         foreach ([
             'audio_pertanyaan',
@@ -469,8 +520,10 @@ class QuisController extends Controller
             'audio_pilihan_d',
         ] as $field) {
             if ($quis->$field) {
-                Storage::disk('public')->delete($quis->$field);
+                $file[] = $quis->$field;
             }
         }
+
+        return $file;
     }
 }
