@@ -22,6 +22,8 @@
     {{-- ERROR VALIDASI --}}
     @if ($errors->any())
         <div class="mb-5 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700">
+            <p class="font-bold mb-2">Kuis belum dapat disimpan:</p>
+
             <ul class="list-disc list-inside">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>

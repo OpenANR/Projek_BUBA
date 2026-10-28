@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Kategori;
 use App\Models\Quis;
+use App\Models\Reward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -75,6 +76,43 @@ class QuisController extends Controller
             $request->kategori_id
         );
 
+        // Cek soal duplikat dalam satu form.
+        $daftarPertanyaan = [];
+
+        foreach ($request->input('soal', []) as $index => $soal) {
+            $pertanyaan = mb_strtolower(trim($soal['pertanyaan']));
+
+            if (in_array($pertanyaan, $daftarPertanyaan, true)) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        "soal.$index.pertanyaan" =>
+                            'Pertanyaan ini duplikat dengan soal lain dalam form.',
+                    ]);
+            }
+
+            $daftarPertanyaan[] = $pertanyaan;
+        }
+
+        // Cek soal yang sudah tersimpan pada kelas dan kategori yang sama.
+        foreach ($request->input('soal', []) as $index => $soal) {
+            $pertanyaan = mb_strtolower(trim($soal['pertanyaan']));
+
+            $duplikat = Quis::where('kelas_id', $request->kelas_id)
+                ->where('kategori_id', $request->kategori_id)
+                ->whereRaw('LOWER(TRIM(pertanyaan)) = ?', [$pertanyaan])
+                ->exists();
+
+            if ($duplikat) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        "soal.$index.pertanyaan" =>
+                            'Pertanyaan ini sudah pernah ditambahkan pada kelas dan kategori tersebut.',
+                    ]);
+            }
+        }
+
         DB::transaction(function () use ($request) {
             foreach ($request->input('soal', []) as $index => $soal) {
                 $this->simpanSoal(
@@ -115,7 +153,6 @@ class QuisController extends Controller
         $kuisPertama = Quis::where('kode_kuis', $kodeKuis)
             ->firstOrFail();
 
-        // Ambil semua soal dalam kelas dan kategori yang sama.
         $quis = Quis::where('kelas_id', $kuisPertama->kelas_id)
             ->where('kategori_id', $kuisPertama->kategori_id)
             ->orderBy('id')
@@ -202,6 +239,44 @@ class QuisController extends Controller
         foreach ($request->input('hapus_soal', []) as $soalId) {
             if (!in_array((int) $soalId, $idKuisLama, true)) {
                 abort(404);
+            }
+        }
+
+        // Cek soal duplikat dalam satu form edit.
+        $daftarPertanyaan = [];
+
+        foreach ($request->input('soal', []) as $index => $soal) {
+            $pertanyaan = mb_strtolower(trim($soal['pertanyaan']));
+
+            if (in_array($pertanyaan, $daftarPertanyaan, true)) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        "soal.$index.pertanyaan" =>
+                            'Pertanyaan ini duplikat dengan soal lain dalam form.',
+                    ]);
+            }
+
+            $daftarPertanyaan[] = $pertanyaan;
+        }
+
+        // Cek soal yang sudah tersimpan di luar kelompok yang sedang diedit.
+        foreach ($request->input('soal', []) as $index => $soal) {
+            $pertanyaan = mb_strtolower(trim($soal['pertanyaan']));
+
+            $duplikat = Quis::where('kelas_id', $request->kelas_id)
+                ->where('kategori_id', $request->kategori_id)
+                ->whereNotIn('id', $idKuisLama)
+                ->whereRaw('LOWER(TRIM(pertanyaan)) = ?', [$pertanyaan])
+                ->exists();
+
+            if ($duplikat) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        "soal.$index.pertanyaan" =>
+                            'Pertanyaan ini sudah digunakan pada kelas dan kategori tersebut.',
+                    ]);
             }
         }
 
@@ -321,6 +396,7 @@ class QuisController extends Controller
     */
 
     public function showKuis(
+        Request $request,
         $konten,
         Kelas $kelas,
         Kategori $kategori,
@@ -328,26 +404,75 @@ class QuisController extends Controller
     ) {
         abort_if((int) $kategori->kelas_id !== (int) $kelas->id, 404);
 
-        // Ambil kuis yang dipilih anak.
         $kuisDipilih = Quis::where('kode_kuis', $kuis)
             ->where('kelas_id', $kelas->id)
             ->where('kategori_id', $kategori->id)
             ->firstOrFail();
 
-        // Ambil semua soal dalam kategori yang sama.
-        $quis = Quis::where('kelas_id', $kelas->id)
+        $sessionKey = 'buba_quis_order_'
+            . (auth()->id() ?? session()->getId())
+            . '_' . $kelas->id
+            . '_' . $kategori->id;
+
+        $semuaIdSoal = Quis::where('kelas_id', $kelas->id)
             ->where('kategori_id', $kategori->id)
-            ->orderBy('id')
-            ->get();
+            ->pluck('id')
+            ->all();
 
-        // Tentukan posisi soal yang dipilih.
-        $indexAwal = $quis->search(function ($item) use ($kuisDipilih) {
-            return (int) $item->id === (int) $kuisDipilih->id;
-        });
+        if ($request->boolean('ulang')) {
+            $urutanId = collect($semuaIdSoal)
+                ->shuffle()
+                ->values()
+                ->all();
 
-        if ($indexAwal === false) {
-            abort(404);
+            session()->put($sessionKey, $urutanId);
+
+            return redirect()->route('siswa.showKuis', [
+                'konten' => $konten,
+                'kelas' => $kelas->nama_kelas,
+                'kategori' => $kategori->slug,
+                'kuis' => $kuisDipilih->kode_kuis,
+            ]);
         }
+
+        if (!session()->has($sessionKey)) {
+            $urutanId = collect($semuaIdSoal)
+                ->shuffle()
+                ->values()
+                ->all();
+
+            session()->put($sessionKey, $urutanId);
+        }
+
+        $urutanId = session()->get($sessionKey, []);
+
+        $urutanId = array_values(
+            array_intersect($urutanId, $semuaIdSoal)
+        );
+
+        $idBaru = array_values(
+            array_diff($semuaIdSoal, $urutanId)
+        );
+
+        if (!empty($idBaru)) {
+            shuffle($idBaru);
+            $urutanId = array_merge($urutanId, $idBaru);
+        }
+
+        session()->put($sessionKey, $urutanId);
+
+        $daftarSoal = Quis::whereIn('id', $urutanId)
+            ->where('kelas_id', $kelas->id)
+            ->where('kategori_id', $kategori->id)
+            ->get()
+            ->keyBy('id');
+
+        $quis = collect($urutanId)
+            ->map(fn ($id) => $daftarSoal->get($id))
+            ->filter()
+            ->values();
+
+        $indexAwal = 0;
 
         return view('siswa.detail-quis', compact(
             'konten',
@@ -357,6 +482,128 @@ class QuisController extends Controller
             'kuisDipilih',
             'indexAwal'
         ));
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MENYIMPAN HASIL KUIS ANAK
+    |--------------------------------------------------------------------------
+    */
+
+    public function simpanHasil(
+        Request $request,
+        $konten,
+        Kelas $kelas,
+        Kategori $kategori,
+        $kuis
+    ) {
+        abort_if((int) $kategori->kelas_id !== (int) $kelas->id, 404);
+
+        // Pastikan kuis yang dipilih memang tersedia.
+        $kuisDipilih = Quis::where('kode_kuis', $kuis)
+            ->where('kelas_id', $kelas->id)
+            ->where('kategori_id', $kategori->id)
+            ->firstOrFail();
+
+        // Validasi jawaban yang dikirim dari halaman pengerjaan.
+        $validated = $request->validate([
+            'jawaban' => 'required|array|min:1',
+            'jawaban.*' => 'required|in:A,B,C,D',
+        ]);
+
+        // Ambil urutan soal dari session yang dibuat controller.
+        $sessionKey = 'buba_quis_order_'
+            . auth()->id()
+            . '_' . $kelas->id
+            . '_' . $kategori->id;
+
+        $urutanId = session()->get($sessionKey, []);
+
+        if (empty($urutanId)) {
+            return response()->json([
+                'message' => 'Sesi kuis tidak ditemukan. Silakan mulai kuis kembali.',
+            ], 422);
+        }
+
+        $jawabanAnak = $validated['jawaban'];
+
+        // Pastikan anak menjawab seluruh soal dalam sesi tersebut.
+        $idJawaban = array_map('intval', array_keys($jawabanAnak));
+        $idSoalSesi = array_map('intval', $urutanId);
+
+        sort($idJawaban);
+        sort($idSoalSesi);
+
+        if ($idJawaban !== $idSoalSesi) {
+            return response()->json([
+                'message' => 'Data jawaban tidak sesuai dengan soal kuis.',
+            ], 422);
+        }
+
+        // Ambil soal dari database, bukan mempercayai jawaban benar dari browser.
+        $daftarSoal = Quis::whereIn('id', $urutanId)
+            ->where('kelas_id', $kelas->id)
+            ->where('kategori_id', $kategori->id)
+            ->get()
+            ->keyBy('id');
+
+        if ($daftarSoal->count() !== count($urutanId)) {
+            return response()->json([
+                'message' => 'Sebagian soal kuis sudah tidak tersedia.',
+            ], 422);
+        }
+
+        $benar = 0;
+
+        foreach ($daftarSoal as $id => $soal) {
+            if (
+                strtoupper($jawabanAnak[$id]) ===
+                strtoupper($soal->jawaban)
+            ) {
+                $benar++;
+            }
+        }
+
+        $total = $daftarSoal->count();
+        $salah = $total - $benar;
+
+        $nilai = $total > 0
+            ? (int) round(($benar / $total) * 100)
+            : 0;
+
+        // Menghitung bintang berdasarkan nilai.
+        if ($nilai >= 90) {
+            $jumlahBintang = 5;
+        } elseif ($nilai >= 70) {
+            $jumlahBintang = 4;
+        } elseif ($nilai >= 50) {
+            $jumlahBintang = 3;
+        } elseif ($nilai >= 20) {
+            $jumlahBintang = 2;
+        } elseif ($nilai >= 1) {
+            $jumlahBintang = 1;
+        } else {
+            $jumlahBintang = 0;
+        }
+
+        // Simpan satu hasil untuk satu sesi pengerjaan kuis.
+        $reward = Reward::create([
+            'user_id' => auth()->id(),
+            'quis_id' => $kuisDipilih->id,
+            'jumlah_benar' => $benar,
+            'jumlah_salah' => $salah,
+            'skor' => $nilai,
+            'jumlah_bintang' => $jumlahBintang,
+        ]);
+
+        return response()->json([
+            'message' => 'Hasil kuis berhasil disimpan.',
+            'nilai' => $nilai,
+            'benar' => $benar,
+            'salah' => $salah,
+            'total' => $total,
+            'jumlah_bintang' => $jumlahBintang,
+        ]);
     }
 
     /*
@@ -436,7 +683,6 @@ class QuisController extends Controller
     ) {
         $file = [];
 
-        // Gambar lama diganti jika ada gambar baru.
         if ($request->hasFile("soal.$index.gambar")) {
             $file = array_merge(
                 $file,
@@ -444,7 +690,6 @@ class QuisController extends Controller
             );
         }
 
-        // Audio lama diganti jika ada audio baru.
         $audioFields = [
             'audio_pertanyaan',
             'audio_pilihan_a',

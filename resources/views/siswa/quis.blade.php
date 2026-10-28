@@ -152,7 +152,6 @@
                 <p class="mt-2 text-sm font-semibold text-slate-600">
                     Kuis untuk kategori ini belum tersedia. Yuk, coba lagi nanti!
                 </p>
-
             </div>
 
         @endif
@@ -174,6 +173,7 @@
                 Kamu sudah menyelesaikan kuis!
             </p>
 
+            {{-- Nilai --}}
             <div class="my-7 rounded-[1.5rem] border-4 border-white bg-[#eaf5ff] p-6 shadow-inner">
                 <p class="text-sm font-black text-[#1e60be]">
                     NILAI KAMU
@@ -184,6 +184,7 @@
                 </h3>
             </div>
 
+            {{-- Jumlah Benar, Salah, Total --}}
             <div class="mb-6 grid grid-cols-3 gap-3">
 
                 <div class="rounded-2xl border-2 border-white bg-green-100 p-3 shadow-sm sm:p-4">
@@ -206,10 +207,62 @@
 
             </div>
 
+            {{-- Bintang --}}
+            <div class="my-5 rounded-2xl border-2 border-yellow-200 bg-yellow-50 p-4">
+                <p class="text-sm font-black text-yellow-700">
+                    BINTANG KAMU
+                </p>
+
+                <div id="hasilBintang" class="mt-2 text-4xl tracking-widest">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <p id="pesanBintang" class="mt-2 text-sm font-bold text-yellow-700">
+                    Hebat sekali!
+                </p>
+            </div>
+
             <p id="pesanHasil" class="mb-7 text-lg font-bold text-slate-700">
                 Terus semangat belajar, ya!
             </p>
 
+            {{-- Pembahasan Jawaban --}}
+            <div class="mb-7 text-left">
+
+                <h3 class="mb-4 text-center text-xl font-black text-[#1e60be]">
+                    📖 Pembahasan Jawaban
+                </h3>
+
+                {{-- Jawaban Benar --}}
+                <div class="mb-5 rounded-2xl border-2 border-green-200 bg-green-50 p-4">
+                    <h4 class="mb-3 text-lg font-black text-green-700">
+                        ✅ Jawaban Benar
+                    </h4>
+
+                    <div id="daftarBenar" class="space-y-3"></div>
+                </div>
+
+                {{-- Jawaban Salah --}}
+                <div class="rounded-2xl border-2 border-red-200 bg-red-50 p-4">
+                    <h4 class="mb-3 text-lg font-black text-red-700">
+                        ❌ Jawaban Salah
+                    </h4>
+
+                    <div id="daftarSalah" class="space-y-3"></div>
+                </div>
+
+            </div>
+
+            {{-- Tombol Kerjakan Lagi --}}
+            <a
+                id="tombolKerjakanLagi"
+                href="#"
+                class="mb-4 hidden items-center justify-center gap-2 rounded-full border-[3px] border-white bg-[#f36b6b] px-7 py-3 font-black text-white shadow-lg transition hover:scale-105 hover:bg-[#df5555]"
+            >
+                🔄 Kerjakan Lagi
+            </a>
+
+            {{-- Kembali ke Daftar Kuis --}}
             <a
                 href="{{ $urlDaftarKuis }}"
                 onclick="sessionStorage.removeItem('hasilKuisBuba')"
@@ -230,44 +283,170 @@
 
 {{-- Script Hasil Kuis --}}
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
 
-        const hasilKuis = sessionStorage.getItem('hasilKuisBuba');
+    const hasilKuis = sessionStorage.getItem('hasilKuisBuba');
 
-        if (!hasilKuis) {
-            return;
+    if (!hasilKuis) {
+        return;
+    }
+
+    try {
+        const hasil = JSON.parse(hasilKuis);
+
+        document.getElementById('quizPage').classList.add('hidden');
+        document.getElementById('resultPage').classList.remove('hidden');
+
+        const nilai = Number(hasil.nilai ?? 0);
+        const benar = Number(hasil.benar ?? 0);
+        const salah = Number(hasil.salah ?? 0);
+        const total = Number(hasil.total ?? 0);
+
+        document.getElementById('hasilNilai').textContent = nilai;
+        document.getElementById('hasilBenar').textContent = benar;
+        document.getElementById('hasilSalah').textContent = salah;
+        document.getElementById('hasilTotal').textContent = total;
+
+        const pesan = document.getElementById('pesanHasil');
+        const bintang = document.getElementById('hasilBintang');
+        const pesanBintang = document.getElementById('pesanBintang');
+
+        let jumlahBintang = 0;
+
+        if (nilai >= 90) {
+            jumlahBintang = 5;
+            pesan.textContent = '🌟 Wah, luar biasa! Kamu pintar sekali!';
+            pesanBintang.textContent = 'Luar biasa! Kamu mendapatkan 5 bintang!';
+        } else if (nilai >= 70) {
+            jumlahBintang = 4;
+            pesan.textContent = '🎉 Bagus sekali! Terus tingkatkan kemampuanmu!';
+            pesanBintang.textContent = 'Hebat! Kamu mendapatkan 4 bintang!';
+        } else if (nilai >= 50) {
+            jumlahBintang = 3;
+            pesan.textContent = '😊 Bagus! Kamu sudah boleh melanjutkan belajar!';
+            pesanBintang.textContent = 'Bagus! Kamu mendapatkan 3 bintang!';
+        } else if (nilai >= 20) {
+            jumlahBintang = 2;
+            pesan.textContent = '💪 Tetap semangat! Ayo coba kerjakan lagi!';
+            pesanBintang.textContent = 'Kamu mendapatkan 2 bintang. Yuk, berlatih lagi!';
+        } else if (nilai >= 1) {
+            jumlahBintang = 1;
+            pesan.textContent = '💪 Jangan menyerah! Kamu pasti bisa!';
+            pesanBintang.textContent = 'Kamu mendapatkan 1 bintang. Ayo coba lagi!';
+        } else {
+            jumlahBintang = 0;
+            pesan.textContent = '😢 Tidak apa-apa, ya. Ayo belajar dan mencoba lagi!';
+            pesanBintang.textContent = 'Belum mendapatkan bintang. Tetap semangat!';
         }
 
-        try {
-            const hasil = JSON.parse(hasilKuis);
+        bintang.textContent = jumlahBintang > 0
+            ? '⭐'.repeat(jumlahBintang)
+            : '😢';
 
-            document.getElementById('quizPage').classList.add('hidden');
-            document.getElementById('resultPage').classList.remove('hidden');
+        // Tampilkan tombol ulang jika bintang kurang dari 3.
+        const tombolUlang = document.getElementById('tombolKerjakanLagi');
 
-            document.getElementById('hasilNilai').textContent = hasil.nilai ?? 0;
-            document.getElementById('hasilBenar').textContent = hasil.benar ?? 0;
-            document.getElementById('hasilSalah').textContent = hasil.salah ?? 0;
-            document.getElementById('hasilTotal').textContent = hasil.total ?? 0;
+        if (jumlahBintang <= 2 && hasil.retryUrl) {
+            tombolUlang.href = hasil.retryUrl;
+            tombolUlang.classList.remove('hidden');
+            tombolUlang.classList.add('inline-flex');
+        }
 
-            const nilai = Number(hasil.nilai ?? 0);
-            const pesan = document.getElementById('pesanHasil');
+        // Membuat elemen teks dengan aman.
+        function buatTeks(tag, isi, className = '') {
+            const elemen = document.createElement(tag);
+            elemen.className = className;
+            elemen.textContent = isi || '-';
+            return elemen;
+        }
 
-            if (nilai >= 90) {
-                pesan.textContent = '🌟 Wah, luar biasa! Kamu pintar sekali!';
-            } else if (nilai >= 70) {
-                pesan.textContent = '🎉 Bagus sekali! Terus tingkatkan kemampuanmu!';
-            } else if (nilai >= 50) {
-                pesan.textContent = '😊 Bagus! Ayo belajar dan mencoba lagi!';
+        const daftarBenar = document.getElementById('daftarBenar');
+        const daftarSalah = document.getElementById('daftarSalah');
+
+        daftarBenar.replaceChildren();
+        daftarSalah.replaceChildren();
+
+        const daftarJawaban = Array.isArray(hasil.daftarJawaban)
+            ? hasil.daftarJawaban
+            : [];
+
+        daftarJawaban.forEach(item => {
+
+            const kartu = document.createElement('div');
+            kartu.className = 'rounded-xl border-2 p-3';
+
+            kartu.appendChild(
+                buatTeks(
+                    'p',
+                    'Soal ' + item.nomor + ': ' + item.pertanyaan,
+                    'mb-2 font-black text-slate-800'
+                )
+            );
+
+            if (item.benar) {
+
+                kartu.classList.add('border-green-200', 'bg-white');
+
+                kartu.appendChild(
+                    buatTeks(
+                        'p',
+                        'Jawaban kamu: ' + item.jawabanAnakHuruf + '. ' + item.jawabanAnak,
+                        'text-sm font-bold text-green-700'
+                    )
+                );
+
+                daftarBenar.appendChild(kartu);
+
             } else {
-                pesan.textContent = '💪 Jangan menyerah! Yuk, coba lagi!';
-            }
 
-        } catch (error) {
-            console.error('Data hasil kuis tidak valid:', error);
-            sessionStorage.removeItem('hasilKuisBuba');
+                kartu.classList.add('border-red-200', 'bg-white');
+
+                kartu.appendChild(
+                    buatTeks(
+                        'p',
+                        'Jawaban kamu: ' + item.jawabanAnakHuruf + '. ' + item.jawabanAnak,
+                        'text-sm font-bold text-red-600'
+                    )
+                );
+
+                kartu.appendChild(
+                    buatTeks(
+                        'p',
+                        'Jawaban yang benar: ' + item.jawabanBenarHuruf + '. ' + item.jawabanBenar,
+                        'mt-2 text-sm font-bold text-green-700'
+                    )
+                );
+
+                daftarSalah.appendChild(kartu);
+            }
+        });
+
+        if (daftarBenar.children.length === 0) {
+            daftarBenar.appendChild(
+                buatTeks(
+                    'p',
+                    'Belum ada jawaban yang benar.',
+                    'text-sm font-semibold text-slate-600'
+                )
+            );
         }
 
-    });
+        if (daftarSalah.children.length === 0) {
+            daftarSalah.appendChild(
+                buatTeks(
+                    'p',
+                    'Hebat! Semua jawaban kamu benar! 🎉',
+                    'text-sm font-semibold text-green-700'
+                )
+            );
+        }
+
+    } catch (error) {
+        console.error('Data hasil kuis tidak valid:', error);
+        sessionStorage.removeItem('hasilKuisBuba');
+    }
+
+});
 </script>
 
 @endsection

@@ -92,9 +92,10 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
 
     // RUTE REWARD
     Route::get('/reward', function () {
-        return view('admin.reward.index');
-    })->name('reward.index');
-});
+        $rewards = \App\Models\Reward::with(['user', 'quis.kelas', 'quis.kategori'])
+        ->orderByDesc('created_at')
+        ->get();
+    return view('admin.reward.index', compact('rewards'));})->name('reward.index');});
 
 
 Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
@@ -120,5 +121,6 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
 
         Route::get('/kuis-list/{kelas:nama_kelas}/{kategori:slug}', [QuisController::class, 'listKuis'])->name('siswa.kuis');
         Route::get('/kuis-show/{kelas:nama_kelas}/{kategori:slug}/{kuis}', [QuisController::class, 'showKuis'])->name('siswa.showKuis');
-    });
+
+        Route::post('/kuis-hasil/{kelas:nama_kelas}/{kategori:slug}/{kuis}', [QuisController::class, 'simpanHasil'])->name('siswa.simpanHasil');});
 });

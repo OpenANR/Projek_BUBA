@@ -103,12 +103,6 @@
                         </p>
                     </div>
 
-                    <button type="button"
-                            id="tambahSoal"
-                            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition">
-                        + Tambah Soal
-                    </button>
-
                 </div>
 
                 <div id="soalContainer" class="space-y-6">
@@ -146,11 +140,6 @@
                                 <h3 class="text-lg font-bold text-gray-800">
                                     Soal {{ $index + 1 }}
                                 </h3>
-
-                                <button type="button"
-                                        class="hapusSoal text-sm text-red-600 hover:text-red-800 font-semibold">
-                                    Hapus Soal
-                                </button>
 
                             </div>
 

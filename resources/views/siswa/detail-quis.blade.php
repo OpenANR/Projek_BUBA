@@ -26,27 +26,36 @@
         ? $quis->values()
         : collect([$quis])->filter()->values();
 
-    $indexAwal = isset($kuisDipilih)
-        ? $daftarSoal->search(fn ($item) => (int) $item->id === (int) $kuisDipilih->id)
-        : 0;
+    $indexAwal = 0;
 
-    if ($indexAwal === false) {
-        $indexAwal = 0;
-    }
+    $urlUlangKuis = isset($kuisDipilih)
+        ? route('siswa.showKuis', [
+            'konten' => request()->route('konten'),
+            'kelas' => $kelas->nama_kelas,
+            'kategori' => $kategori->slug,
+            'kuis' => $kuisDipilih->kode_kuis,
+        ]) . '?ulang=1'
+        : $urlHasilKuis;
 
-    $indexAwal = max(0, min((int) $indexAwal, max(0, $daftarSoal->count() - 1)));
+    // URL penyimpanan hasil dibuat di PHP, bukan di dalam @json(route(...)).
+    $urlSimpanHasil = isset($kuisDipilih)
+        ? route('siswa.simpanHasil', [
+            'konten' => request()->route('konten'),
+            'kelas' => $kelas->nama_kelas,
+            'kategori' => $kategori->slug,
+            'kuis' => $kuisDipilih->kode_kuis,
+        ])
+        : null;
 @endphp
 
 <div class="relative flex min-h-screen w-full flex-col items-center overflow-x-hidden px-4 py-5 select-none sm:px-6 md:px-8">
 
-    {{-- Background BUBA --}}
     <img
         src="{{ asset('images/backgroundSplash.png') }}"
         alt="BUBA Background"
         class="pointer-events-none fixed inset-0 z-0 h-full w-full select-none object-cover object-bottom"
     >
 
-    {{-- Tombol Kembali --}}
     <div class="absolute left-4 top-4 z-30 sm:left-6 sm:top-6 md:left-8 md:top-8">
         <a
             href="javascript:history.back()"
@@ -60,7 +69,6 @@
         </a>
     </div>
 
-    {{-- Header Banner --}}
     <header class="relative z-10 mb-7 flex items-center justify-center pt-2 sm:pt-4 md:pt-6">
         <div class="rounded-2xl border-[4px] border-white bg-[#1e60be] px-7 py-2 shadow-[0_8px_20px_rgba(0,0,0,0.2)] transition-transform duration-300 hover:scale-105 sm:rounded-[2rem] sm:border-[5px] sm:px-10 sm:py-3 md:rounded-[2.2rem] md:border-[6px] md:px-14 md:py-3.5">
             <h1 class="text-center font-sans text-xl font-black tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] sm:text-2xl md:text-3xl lg:text-[2.6rem]">
@@ -71,7 +79,6 @@
 
     <main class="relative z-10 mx-auto w-full max-w-5xl">
 
-        {{-- Informasi Kuis --}}
         <div class="mb-6 text-center">
             <h2 class="mb-3 text-2xl font-black text-white drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] sm:text-3xl md:text-4xl">
                 Ayo Bermain Kuis! 🌈
@@ -88,10 +95,9 @@
 
         @if($daftarSoal->isNotEmpty())
 
-            {{-- Progress --}}
             <div id="progressArea" class="mx-auto mb-5 max-w-2xl rounded-[1.5rem] border-[4px] border-white bg-white/95 p-4 shadow-[0_10px_25px_rgba(0,0,0,0.18)] sm:p-5">
                 <div class="mb-3 flex flex-wrap justify-between gap-2 text-sm font-black text-[#1e60be] sm:text-base">
-                    <span id="progressLabel">Soal {{ $indexAwal + 1 }} dari {{ $daftarSoal->count() }}</span>
+                    <span id="progressLabel">Soal 1 dari {{ $daftarSoal->count() }}</span>
                     <span id="progressCount">0/{{ $daftarSoal->count() }} dijawab</span>
                 </div>
 
@@ -100,7 +106,6 @@
                 </div>
             </div>
 
-            {{-- Daftar Soal --}}
             @foreach($daftarSoal as $index => $item)
 
                 @php
@@ -143,21 +148,24 @@
 
                 <section
                     class="question-card {{ $index === $indexAwal ? '' : 'hidden' }} mb-6 rounded-[2rem] border-[5px] border-white bg-white/95 p-5 text-center shadow-[0_12px_24px_rgba(0,0,0,0.18)] transition-all duration-300 sm:rounded-[2.4rem] sm:border-[6px] sm:p-8"
+                    data-id="{{ $item->id }}"
                     data-index="{{ $index }}"
                     data-answer="{{ strtoupper($item->jawaban ?? '') }}"
+                    data-question="{{ $item->pertanyaan }}"
+                    data-option-a="{{ $item->pilihan_a }}"
+                    data-option-b="{{ $item->pilihan_b }}"
+                    data-option-c="{{ $item->pilihan_c }}"
+                    data-option-d="{{ $item->pilihan_d }}"
                 >
 
-                    {{-- Nomor Soal --}}
                     <div class="mb-5 inline-block rounded-full border-[3px] border-white bg-[#1e60be] px-6 py-2 text-sm font-black tracking-wide text-white shadow-md sm:text-base">
                         SOAL {{ $index + 1 }}
                     </div>
 
-                    {{-- Pertanyaan --}}
                     <h3 class="mx-auto mb-5 max-w-2xl text-xl font-black leading-relaxed text-slate-800 sm:text-2xl">
                         {{ $item->pertanyaan }}
                     </h3>
 
-                    {{-- Audio Pertanyaan --}}
                     @if($audioPertanyaan)
                         <div class="mb-5 flex justify-center">
                             <button
@@ -172,7 +180,6 @@
                         </div>
                     @endif
 
-                    {{-- Gambar Soal --}}
                     @if(count($gambar) > 0)
                         <div class="mb-6 flex flex-wrap items-center justify-center gap-4">
                             @foreach($gambar as $file)
@@ -186,10 +193,12 @@
                         </div>
                     @endif
 
-                    {{-- Pilihan Jawaban --}}
                     <div class="options mx-auto grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2">
+
                         @foreach($pilihan as $huruf => $teks)
+
                             @if($teks !== null && trim((string) $teks) !== '')
+
                                 <button
                                     type="button"
                                     class="option group flex min-h-[75px] items-center gap-3 rounded-2xl border-[4px] border-white {{ $palette['bg'] }} p-3 text-left text-white shadow-[0_5px_10px_rgba(0,0,0,0.12)] transition-all duration-200 {{ $palette['hover'] }} {{ $palette['shadow'] }} hover:-translate-y-1 hover:shadow-lg active:scale-[0.98]"
@@ -219,17 +228,21 @@
                                         </span>
                                     @endif
                                 </button>
+
                             @endif
+
                         @endforeach
+
                     </div>
 
-                    {{-- Feedback --}}
                     <div class="feedback mt-5 min-h-6 text-sm font-extrabold text-[#1e60be]" aria-live="polite"></div>
+
                 </section>
+
             @endforeach
 
-            {{-- Tombol Navigasi --}}
             <div id="quizActions" class="my-6 flex flex-wrap justify-center gap-3 sm:gap-4">
+
                 <button
                     type="button"
                     id="prevButton"
@@ -257,11 +270,11 @@
                 >
                     Selesai ⭐
                 </button>
+
             </div>
 
         @else
 
-            {{-- Jika Belum Ada Soal --}}
             <section class="mx-auto max-w-xl rounded-[2rem] border-[5px] border-white bg-white/95 px-5 py-8 text-center shadow-xl sm:px-8">
                 <div class="mb-3 text-5xl">📚</div>
 
@@ -288,6 +301,7 @@
         </p>
 
     </main>
+
 </div>
 
 <style>
@@ -327,6 +341,7 @@
 </style>
 
 @if($daftarSoal->isNotEmpty())
+
 <script>
     const cards = [...document.querySelectorAll('.question-card')];
     const totalSoal = cards.length;
@@ -337,9 +352,13 @@
     let audioAktif = null;
 
     const urlHasilKuis = @json($urlHasilKuis);
+    const urlUlangKuis = @json($urlUlangKuis);
     const namaKategori = @json($kategori->nama_kategori ?? 'Pembelajaran');
 
-    // Memutar audio pertanyaan atau pilihan.
+    // URL sudah dibuat di bagian PHP atas.
+    const urlSimpanHasil = @json($urlSimpanHasil);
+    const tokenCsrf = @json(csrf_token());
+
     function putarAudio(tombol) {
         const sumberAudio = tombol.dataset.audio;
 
@@ -355,7 +374,6 @@
         });
     }
 
-    // Menghentikan audio yang sedang diputar.
     function hentikanAudio() {
         if (audioAktif) {
             audioAktif.pause();
@@ -364,7 +382,6 @@
         }
     }
 
-    // Memperbarui informasi progress dan tombol.
     function perbaruiProgres() {
         const dijawab = Object.keys(jawabanPengguna).length;
 
@@ -391,7 +408,6 @@
         );
     }
 
-    // Memulihkan jawaban dan feedback ketika soal ditampilkan kembali.
     function pulihkanJawaban(index) {
         const card = cards[index];
         const jawaban = jawabanPengguna[index];
@@ -412,7 +428,6 @@
         }
     }
 
-    // Menampilkan soal sesuai nomor yang dipilih.
     function tampilkanSoal(index) {
         if (index < 0 || index >= totalSoal) return;
 
@@ -433,7 +448,6 @@
         });
     }
 
-    // Menyimpan jawaban anak.
     function pilihJawaban(index, huruf, tombol) {
         if (sudahSelesai) return;
 
@@ -458,22 +472,19 @@
         perbaruiProgres();
     }
 
-    // Kembali ke soal sebelumnya.
     function soalSebelumnya() {
         if (!sudahSelesai && nomorAktif > 0) {
             tampilkanSoal(nomorAktif - 1);
         }
     }
 
-    // Berpindah ke soal berikutnya.
     function soalBerikutnya() {
         if (!sudahSelesai && nomorAktif < totalSoal - 1) {
             tampilkanSoal(nomorAktif + 1);
         }
     }
 
-    // Menghitung hasil dan kembali ke daftar kuis.
-    function selesaiKuis() {
+    async function selesaiKuis() {
         if (sudahSelesai) return;
 
         const belumDijawab = cards.findIndex((_, index) => {
@@ -486,41 +497,95 @@
             return;
         }
 
-        sudahSelesai = true;
         hentikanAudio();
 
-        let benar = 0;
+        const tombolSelesai = document.getElementById('finishButton');
+
+        tombolSelesai.disabled = true;
+        tombolSelesai.textContent = 'Menyimpan hasil...';
+
+        const jawabanUntukServer = {};
 
         cards.forEach((card, index) => {
-            const jawabanBenar = card.dataset.answer;
-            const jawaban = jawabanPengguna[index];
-
-            if (jawaban === jawabanBenar) {
-                benar++;
-            }
+            jawabanUntukServer[card.dataset.id] =
+                jawabanPengguna[index];
         });
 
-        const salah = totalSoal - benar;
+        try {
+            const response = await fetch(urlSimpanHasil, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': tokenCsrf,
+                },
+                body: JSON.stringify({
+                    jawaban: jawabanUntukServer
+                })
+            });
 
-        const nilai = totalSoal > 0
-            ? Math.round((benar / totalSoal) * 100)
-            : 0;
+            const hasilServer = await response.json();
 
-        sessionStorage.setItem('hasilKuisBuba', JSON.stringify({
-            nilai: nilai,
-            benar: benar,
-            salah: salah,
-            total: totalSoal,
-            namaKuis: 'Kuis BUBA',
-            namaKategori: namaKategori
-        }));
+            if (!response.ok) {
+                throw new Error(
+                    hasilServer.message || 'Hasil kuis gagal disimpan.'
+                );
+            }
 
-        window.location.href = urlHasilKuis;
+            sudahSelesai = true;
+
+            const daftarJawaban = [];
+
+            cards.forEach((card, index) => {
+                const jawabanBenar = card.dataset.answer;
+                const jawabanAnak = jawabanPengguna[index];
+
+                const pilihanAnak =
+                    card.dataset['option' + jawabanAnak] || jawabanAnak;
+
+                const pilihanBenar =
+                    card.dataset['option' + jawabanBenar] || jawabanBenar;
+
+                const isBenar = jawabanAnak === jawabanBenar;
+
+                daftarJawaban.push({
+                    nomor: index + 1,
+                    pertanyaan: card.dataset.question || '',
+                    jawabanAnakHuruf: jawabanAnak,
+                    jawabanAnak: pilihanAnak,
+                    jawabanBenarHuruf: jawabanBenar,
+                    jawabanBenar: pilihanBenar,
+                    benar: isBenar
+                });
+            });
+
+            sessionStorage.setItem('hasilKuisBuba', JSON.stringify({
+                nilai: hasilServer.nilai,
+                benar: hasilServer.benar,
+                salah: hasilServer.salah,
+                total: hasilServer.total,
+                jumlah_bintang: hasilServer.jumlah_bintang,
+                namaKuis: 'Kuis BUBA',
+                namaKategori: namaKategori,
+                daftarJawaban: daftarJawaban,
+                retryUrl: urlUlangKuis
+            }));
+
+            window.location.href = urlHasilKuis;
+
+        } catch (error) {
+            console.error('Gagal menyimpan hasil:', error);
+
+            alert(error.message || 'Terjadi kesalahan saat menyimpan hasil kuis.');
+
+            tombolSelesai.disabled = false;
+            tombolSelesai.textContent = 'Selesai ⭐';
+        }
     }
 
-    // Tampilkan soal yang dipilih anak.
     tampilkanSoal(nomorAktif);
 </script>
+
 @endif
 
 @endsection

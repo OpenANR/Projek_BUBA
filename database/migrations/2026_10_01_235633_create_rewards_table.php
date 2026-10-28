@@ -6,21 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('rewards', function (Blueprint $table) {
             $table->id();
-            // $table->
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
+
+            $table->foreignId('quis_id')
+                ->constrained('quis')
+                ->cascadeOnDelete();
+
+            $table->integer('jumlah_benar')->default(0);
+            $table->integer('jumlah_salah')->default(0);
+            $table->integer('skor')->default(0);
+            $table->integer('jumlah_bintang')->default(0);
+
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('rewards');
