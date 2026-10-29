@@ -9,7 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClockController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\SiswaQuisController;
+use App\Http\Controllers\RewardController;
 use App\Http\Controllers\WelcomeController;
 
 Route::get('/', function () {
