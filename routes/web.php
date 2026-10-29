@@ -93,14 +93,21 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
     // =================================================
 
     // RUTE REWARD
-    Route::get('/reward', function () {
-        $rewards = \App\Models\Reward::with(['user', 'quis.kelas', 'quis.kategori'])
-        ->orderByDesc('created_at')
-        ->get();
-    return view('admin.reward.index', compact('rewards'));})->name('reward.index');});
+    Route::get('/reward', [RewardController::class, 'index'])->name('reward.index');
+    Route::delete('/reward/{id}', [RewardController::class, 'hapus'])->name('reward.hapus');
 
     Route::get('/admin/clock', [ClockController::class, 'clock']);
 
+    // HAPUS SEMUA KUIS
+    Route::delete('/kuis/hapus-semua', [QuisController::class, 'hapusSemua'])->name('kuis.hapusSemua');
+    // HAPUS SEMUA REWARD
+    Route::delete('/reward/hapus-semua', [RewardController::class, 'hapusSemua'])->name('reward.hapusSemua');
+
+    // HAPUS KUIS TERPILIH
+    Route::delete('/kuis/hapus-terpilih', [QuisController::class, 'hapusTerpilih'])->name('kuis.hapusTerpilih');
+    // HAPUS REWARD TERPILIH
+    Route::delete('/reward/hapus-terpilih', [RewardController::class, 'hapusTerpilih'])->name('reward.hapusTerpilih');
+});
 
 Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
 

@@ -47,11 +47,11 @@
                 <span class="font-medium text-sm">Kelola Quiz</span>
             </a>
 
-            <!-- Kelola Reward -->
+            <!-- Hasil Reward -->
             <a href="{{ route('reward.index') }}"
                 class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all {{ request()->routeIs('reward.*') || request()->is('admin/reward*') ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30 active' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                 <i class="fas fa-star w-5 text-center"></i>
-                <span class="font-medium text-sm">Kelola Reward</span>
+                <span class="font-medium text-sm">Hasil Reward</span>
             </a>
 
             <!-- Kelola Pengguna -->
