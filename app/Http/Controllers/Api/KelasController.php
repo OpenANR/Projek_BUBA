@@ -48,15 +48,10 @@ class KelasController extends Controller
         //
     }
 
-    public function pilihKelas($konten) {
-        
-        if(!in_array($konten, ['materi', 'kuis'])) {
-            abort(404, 'Halaman tidak ditemukan');
-        }
-
-        $kelas = Kelas::get();
-        // dd([$kelas, $konten]);
+    public function pilihKelas() {
+        $kelas = Kelas::all();
         return response()->json([
+            'success' => true,
             'kelas' => $kelas
         ]);
     }

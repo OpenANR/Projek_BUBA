@@ -1,38 +1,45 @@
 <?php
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Api\KelasController;
-use App\Http\Controllers\Api\MateriController;
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\QuisController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\KelasController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\MateriController;
+use App\Http\Controllers\Api\QuisController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+/*
+|--------------------------------------------------------------------------
+| Public Routes (Tanpa Auth)
+|--------------------------------------------------------------------------
+*/
+Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 
+/*
+|--------------------------------------------------------------------------
+| Protected Routes (Khusus Siswa yang Login via Sanctum)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth:sanctum')->group(function () {
 
+    // Auth & Profil
+    Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
+    Route::get('/me', [AuthController::class, 'me'])->name('api.me');
 
-Route::prefix('admin')->name('api.')->group(function () {
-    Route::apiResource('kelas', KelasController::class);
-});
-
-Route::prefix('siswa')->name('api.')->group(function () {
-    // Membatasi {konten} hanya 'materi' atau 'kuis'
-    Route::prefix('{konten}')->whereIn('konten', ['materi', 'kuis'])->group(function () {
+    Route::prefix('siswa')->name('api.siswa.')->group(function () {
         
-        // 1. Pilih Kelas -> /api/siswa/materi/pilih-kelas atau /api/siswa/kuis/pilih-kelas
-        Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])->name('siswa.kelas');
-        
-        // 2. Pilih Kategori -> /api/siswa/materi/7C atau /api/siswa/kuis/7C
-        Route::get('/{kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
+        // 1. Kelas & Kategori
+        Route::get('/kelas', [KelasController::class, 'pilihKelas']);
+        Route::get('/kategori/{kelas_id}', [CategoryController::class, 'pilihKategori']);
 
-        // 3. Rute khusus Materi (diberi awalan path agar tidak bertabrakan dengan rute kuis)
-        Route::get('/materi-list/{kelas}/{kategori}', [MateriController::class, 'listMateri'])->name('siswa.materi');
-        Route::get('/materi-show/{kelas}/{kategori}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
+        // 2. Materi
+        Route::get('/materi', [MateriController::class, 'listMateri']); // parameter via query ?kelas_id=1&kategori_id=2
+        Route::get('/materi/{kode_materi}', [MateriController::class, 'showMateri']);
 
-        // 4. Rute khusus Kuis
-        Route::get('/kuis-list/{kelas}/{kategori}', [QuisController::class, 'listKuis'])->name('siswa.kuis');
-        Route::get('/kuis-show/{kelas}/{kategori}/{kuis}', [QuisController::class, 'showKuis'])->name('siswa.showKuis');
+        // 3. Kuis
+        Route::get('/kuis', [QuisController::class, 'listKuis']); // ambil soal kuis tanpa kunci jawaban
+        Route::post('/kuis/submit', [QuisController::class, 'submitKuis']); // kirim jawaban & hitung nilai
+
+        // 4. Hasil Pengerjaan / Reward
+        Route::get('/hasil-kuis', [QuisController::class, 'riwayatHasil']); // lihat bintang & skor
     });
 });

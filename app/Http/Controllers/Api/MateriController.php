@@ -8,69 +8,46 @@ use App\Models\Materi;
 
 class MateriController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function listMateri(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
-    public function listMateri($konten, $kelas, $kategori) {
-
-        $materi = Materi::where('kelas_id', $kelas)
-                        ->where('kategori_id', $kategori)
-                        ->select('id', 'kode_materi', 'nama_materi')
-                        ->get();
-        
-        return response()->json([
-            'konten' => $konten,
-            'kelas' => $kelas,
-            'kategori' => $kategori,
-            'materi' => $materi
+        $request->validate([
+            'kelas_id' => 'required|exists:kelas,id',
+            'kategori_id' => 'required|exists:kategoris,id',
         ]);
+
+        $materi = Materi::where('kelas_id', $request->kelas_id)
+            ->where('kategori_id', $request->kategori_id)
+            ->select('id', 'kode_materi', 'nama_materi', 'gambar')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'kode_materi' => $item->kode_materi,
+                    'nama_materi' => $item->nama_materi,
+                    'gambar_url' => $item->gambar ? url('storage/' . $item->gambar) : null,
+                ];
+            });
+
+        return response()->json([
+            'success' => true,
+            'data' => $materi
+        ], 200);
     }
 
-    public function showMateri($konten, $kelas, $kategori, $kode_materi) {
+    public function showMateri($kode_materi)
+    {
+        $materi = Materi::where('kode_materi', $kode_materi)->firstOrFail();
 
-        $dataMateri = Materi::where('kode_materi', $kode_materi)->firstOrFail();
         return response()->json([
-            'konten' => $konten,
-            'kelas' => $kelas,
-            'kategori' => $kategori,
-            'dataMateri' => $dataMateri
-        ]);
+            'success' => true,
+            'data' => [
+                'id' => $materi->id,
+                'kode_materi' => $materi->kode_materi,
+                'nama_materi' => $materi->nama_materi,
+                'isi_materi' => $materi->isi_materi,
+                'gambar_url' => $materi->gambar ? url('storage/' . $materi->gambar) : null,
+                'audio_url' => $materi->audio ? url('storage/' . $materi->audio) : null,
+            ]
+        ], 200);
     }
 }

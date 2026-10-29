@@ -49,19 +49,22 @@ class CategoryController extends Controller
         //
     }
 
-    public function pilihKategori($konten, $kelas) {
-
-        
-        $dataKelas = Kelas::where('nama_kelas', $kelas)->first();
+    public function pilihKategori($kelas_id) {
+        $dataKelas = is_numeric($kelas_id)
+            ? Kelas::find($kelas_id)
+            : Kelas::where('nama_kelas', $kelas_id)->first();
 
         if (!$dataKelas) {
-            abort(404, 'Data kelas tidak ditemukan');
+            return response()->json([
+                'success' => false,
+                'message' => 'Data kelas tidak ditemukan'
+            ], 404);
         }
 
         $kategori = Kategori::where('kelas_id', $dataKelas->id)->get();
 
         return response()->json([
-            'konten' => $konten,
+            'success' => true,
             'dataKelas' => $dataKelas,
             'kategori' => $kategori
         ]);
