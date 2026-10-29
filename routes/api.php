@@ -11,6 +11,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
+
 Route::prefix('admin')->name('api.')->group(function () {
     Route::apiResource('kelas', KelasController::class);
 });

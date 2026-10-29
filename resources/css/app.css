@@ -1,5 +1,138 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-
 @import "tailwindcss";
+
+/* =========================================================
+   BUBA - Playful Child-Friendly Custom Animations & Styles
+   ========================================================= */
+
+@keyframes bubaFloat {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(1deg);
+    }
+}
+
+@keyframes bubaFloatSlow {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+    }
+    50% {
+        transform: translateY(-12px) translateX(6px);
+    }
+}
+
+@keyframes bubaCloudDrift1 {
+    0% {
+        transform: translateX(-5%);
+    }
+    50% {
+        transform: translateX(6%);
+    }
+    100% {
+        transform: translateX(-5%);
+    }
+}
+
+@keyframes bubaCloudDrift2 {
+    0% {
+        transform: translateX(4%);
+    }
+    50% {
+        transform: translateX(-8%);
+    }
+    100% {
+        transform: translateX(4%);
+    }
+}
+
+@keyframes bubaWiggle {
+    0%, 100% {
+        transform: rotate(-3deg);
+    }
+    50% {
+        transform: rotate(3deg);
+    }
+}
+
+@keyframes bubaPulseGlow {
+    0%, 100% {
+        opacity: 0.85;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes bubaPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.94) translateY(14px);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.01) translateY(-2px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes bubaShine {
+    0% {
+        transform: translateX(-150%) skewX(-20deg);
+    }
+    100% {
+        transform: translateX(250%) skewX(-20deg);
+    }
+}
+
+.animate-buba-float {
+    animation: bubaFloat 4s ease-in-out infinite;
+}
+
+.animate-buba-float-slow {
+    animation: bubaFloatSlow 6s ease-in-out infinite;
+}
+
+.animate-buba-cloud-1 {
+    animation: bubaCloudDrift1 18s ease-in-out infinite;
+}
+
+.animate-buba-cloud-2 {
+    animation: bubaCloudDrift2 24s ease-in-out infinite;
+}
+
+.animate-buba-wiggle {
+    animation: bubaWiggle 3s ease-in-out infinite;
+}
+
+.animate-buba-pulse {
+    animation: bubaPulseGlow 3s ease-in-out infinite;
+}
+
+.animate-buba-pop {
+    animation: bubaPopIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 3D Kid Button Utilities */
+.btn-buba-3d {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-buba-3d:hover {
+    transform: translateY(2px);
+}
+.btn-buba-3d:active {
+    transform: translateY(5px);
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+.animate-buba-shine {
+    animation: bubaShine 3s ease-in-out infinite;
+}
