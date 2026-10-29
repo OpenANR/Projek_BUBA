@@ -67,7 +67,9 @@
     <div class="relative p-4 flex justify-center items-end h-40">
         <!-- Background hijau rumput -->
         {{-- <img src="{{ asset('images/sidebarBackground.png') }}" alt=""> --}}
-        
-        <!-- Ilustrasi Beruang Membaca (Placeholder SVG) -->
+    </div>
+    <div class="text-center mb-5">
+        <span class="font-bold">BUBA E-Learning Application</span>
+        <span class="italic">NAJATIF_2026 | v0.0001 Dev</span>
     </div>
 </aside>

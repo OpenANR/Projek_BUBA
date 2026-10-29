@@ -7,7 +7,7 @@
             ['label' => 'Total Kelas',    'value' => $total_kelas ?? 0,    'icon' => 'fa-school',       'tone' => 'amber', 'href' => url('admin/kelas')],
             ['label' => 'Total Kategori', 'value' => $total_kategori ?? 0, 'icon' => 'fa-layer-group',  'tone' => 'teal',  'href' => url('admin/kategori')],
             ['label' => 'Total Materi',   'value' => $total_materi ?? 0,   'icon' => 'fa-book-open',    'tone' => 'blue',  'href' => url('admin/materi')],
-            ['label' => 'Total Kuis',     'value' => $total_kuis ?? 0,     'icon' => 'fa-pen-to-square', 'tone' => 'pink',  'href' => url('admin/quiz')],
+            ['label' => 'Total Kuis',     'value' => $total_kuis ?? 0,     'icon' => 'fa-pen-to-square', 'tone' => 'pink',  'href' => url('admin/kuis')],
         ];
 
         $tones = [
@@ -19,7 +19,7 @@
 
         $actions = [
             ['label' => 'Tambah Materi',   'desc' => 'Buat materi belajar baru',     'icon' => 'fa-book-open',    'tone' => 'blue',  'href' => url('admin/materi')],
-            ['label' => 'Tambah Kuis',     'desc' => 'Susun soal latihan',           'icon' => 'fa-pen-to-square', 'tone' => 'pink',  'href' => url('admin/quiz')],
+            ['label' => 'Tambah Kuis',     'desc' => 'Susun soal latihan',           'icon' => 'fa-pen-to-square', 'tone' => 'pink',  'href' => url('admin/kuis')],
             ['label' => 'Tambah Kategori', 'desc' => 'Kelompokkan materi',           'icon' => 'fa-layer-group',  'tone' => 'teal',  'href' => url('admin/kategori')],
             ['label' => 'Kelola Reward',   'desc' => 'Atur hadiah untuk siswa',      'icon' => 'fa-star',         'tone' => 'amber', 'href' => url('admin/reward')],
         ];

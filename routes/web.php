@@ -6,6 +6,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\QuisController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClockController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaQuisController;
@@ -96,6 +97,8 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
         ->orderByDesc('created_at')
         ->get();
     return view('admin.reward.index', compact('rewards'));})->name('reward.index');});
+
+    Route::get('/admin/clock', [ClockController::class, 'clock']);
 
 
 Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
