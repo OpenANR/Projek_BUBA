@@ -10,6 +10,7 @@ use App\Http\Controllers\ClockController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaQuisController;
+use App\Http\Controllers\WelcomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -103,13 +104,7 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
 
 Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
 
-    Route::get('/welcome', function () {
-        return view('siswa.splash');
-    })->name('splash');
-
-    Route::get('/pengaturan', function () {
-        return view('siswa.splash');
-    })->name('siswa.pengaturan');
+    Route::get('/welcome', [WelcomeController::class, 'splash'])->name('siswa.splash');
 
     Route::get('/konten', function () {
         return view('siswa.konten');

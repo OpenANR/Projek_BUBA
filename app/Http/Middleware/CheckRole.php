@@ -31,7 +31,7 @@ class CheckRole
         }
 
         if ($user->role === 'siswa') {
-            return redirect()->route('splash');
+            return redirect()->route('siswa.splash');
         }
 
         abort(403, 'Unauthorized action.');
