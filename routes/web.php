@@ -102,7 +102,11 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
     Route::delete('/kuis/hapus-semua', [QuisController::class, 'hapusSemua'])->name('kuis.hapusSemua');
     // HAPUS SEMUA REWARD
     Route::delete('/reward/hapus-semua', [RewardController::class, 'hapusSemua'])->name('reward.hapusSemua');
-    
+
+    // HAPUS KUIS TERPILIH
+    Route::delete('/kuis/hapus-terpilih', [QuisController::class, 'hapusTerpilih'])->name('kuis.hapusTerpilih');
+    // HAPUS REWARD TERPILIH
+    Route::delete('/reward/hapus-terpilih', [RewardController::class, 'hapusTerpilih'])->name('reward.hapusTerpilih');
 });
 
 Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reward;
+use Illuminate\Http\Request;
 
 class RewardController extends Controller
 {
@@ -20,16 +21,30 @@ class RewardController extends Controller
         return view('admin.reward.index', compact('rewards'));
     }
 
-    // MENGHAPUS DATA REWARD
+    // MENGHAPUS SATU DATA REWARD
     public function hapus($id)
     {
         $reward = Reward::findOrFail($id);
-
         $reward->delete();
 
         return redirect()
             ->route('reward.index')
             ->with('success', 'Hasil reward anak berhasil dihapus.');
+    }
+
+    // MENGHAPUS REWARD TERPILIH
+    public function hapusTerpilih(Request $request)
+    {
+        $validated = $request->validate([
+            'ids' => 'required|array|min:1',
+            'ids.*' => 'required|integer|distinct|exists:rewards,id',
+        ]);
+
+        Reward::whereIn('id', $validated['ids'])->delete();
+
+        return redirect()
+            ->route('reward.index')
+            ->with('success', 'Hasil reward yang dipilih berhasil dihapus.');
     }
 
     // MENGHAPUS SEMUA DATA REWARD

@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class QuisController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | DAFTAR KUIS ADMIN
-    |--------------------------------------------------------------------------
-    */
-
     public function index()
     {
         $quis = Quis::with(['kelas', 'kategori'])
@@ -26,12 +20,6 @@ class QuisController extends Controller
 
         return view('admin.kuis.index', compact('quis'));
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | TAMBAH KUIS
-    |--------------------------------------------------------------------------
-    */
 
     public function create()
     {
@@ -46,7 +34,6 @@ class QuisController extends Controller
         $request->validate([
             'kelas_id' => 'required|exists:kelas,id',
             'kategori_id' => 'required|exists:kategoris,id',
-
             'soal' => 'required|array|min:1',
             'soal.*.pertanyaan' => [
                 'required',
@@ -54,16 +41,13 @@ class QuisController extends Controller
                 'max:1000',
                 'regex:/^[A-Za-z0-9\s?=+\-!.,:;()×÷x]+$/u',
             ],
-
             'soal.*.pilihan_a' => 'required|string',
             'soal.*.pilihan_b' => 'required|string',
             'soal.*.pilihan_c' => 'required|string',
             'soal.*.pilihan_d' => 'required|string',
             'soal.*.jawaban' => 'required|in:A,B,C,D',
-
             'soal.*.gambar' => 'nullable|array',
             'soal.*.gambar.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
-
             'soal.*.audio_pertanyaan' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
             'soal.*.audio_pilihan_a' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
             'soal.*.audio_pilihan_b' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
@@ -71,10 +55,7 @@ class QuisController extends Controller
             'soal.*.audio_pilihan_d' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
         ]);
 
-        $this->validasiKategori(
-            $request->kelas_id,
-            $request->kategori_id
-        );
+        $this->validasiKategori($request->kelas_id, $request->kategori_id);
 
         $daftarPertanyaan = [];
 
@@ -82,12 +63,10 @@ class QuisController extends Controller
             $pertanyaan = mb_strtolower(trim($soal['pertanyaan']));
 
             if (in_array($pertanyaan, $daftarPertanyaan, true)) {
-                return back()
-                    ->withInput()
-                    ->withErrors([
-                        "soal.$index.pertanyaan" =>
-                            'Pertanyaan ini duplikat dengan soal lain dalam form.',
-                    ]);
+                return back()->withInput()->withErrors([
+                    "soal.$index.pertanyaan" =>
+                        'Pertanyaan ini duplikat dengan soal lain dalam form.',
+                ]);
             }
 
             $daftarPertanyaan[] = $pertanyaan;
@@ -102,12 +81,10 @@ class QuisController extends Controller
                 ->exists();
 
             if ($duplikat) {
-                return back()
-                    ->withInput()
-                    ->withErrors([
-                        "soal.$index.pertanyaan" =>
-                            'Pertanyaan ini sudah pernah ditambahkan pada kelas dan kategori tersebut.',
-                    ]);
+                return back()->withInput()->withErrors([
+                    "soal.$index.pertanyaan" =>
+                        'Pertanyaan ini sudah pernah ditambahkan pada kelas dan kategori tersebut.',
+                ]);
             }
         }
 
@@ -127,12 +104,6 @@ class QuisController extends Controller
             ->with('success', 'Kuis berhasil ditambahkan.');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | DETAIL KUIS ADMIN
-    |--------------------------------------------------------------------------
-    */
-
     public function show(Quis $quis)
     {
         $quis->load(['kelas', 'kategori']);
@@ -140,16 +111,9 @@ class QuisController extends Controller
         return view('admin.kuis.detail', compact('quis'));
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | EDIT KUIS
-    |--------------------------------------------------------------------------
-    */
-
     public function edit($kodeKuis)
     {
-        $kuisPertama = Quis::where('kode_kuis', $kodeKuis)
-            ->firstOrFail();
+        $kuisPertama = Quis::where('kode_kuis', $kodeKuis)->firstOrFail();
 
         $quis = Quis::where('kelas_id', $kuisPertama->kelas_id)
             ->where('kategori_id', $kuisPertama->kategori_id)
@@ -159,61 +123,41 @@ class QuisController extends Controller
         $kelas = Kelas::orderBy('nama_kelas')->get();
         $kategoris = Kategori::orderBy('nama_kategori')->get();
 
-        return view('admin.kuis.edit', compact(
-            'quis',
-            'kelas',
-            'kategoris'
-        ));
+        return view('admin.kuis.edit', compact('quis', 'kelas', 'kategoris'));
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | UPDATE KUIS
-    |--------------------------------------------------------------------------
-    */
 
     public function update(Request $request, $kodeKuis)
     {
-        $kuisPertama = Quis::where('kode_kuis', $kodeKuis)
-            ->firstOrFail();
+        $kuisPertama = Quis::where('kode_kuis', $kodeKuis)->firstOrFail();
 
         $request->validate([
             'kelas_id' => 'required|exists:kelas,id',
             'kategori_id' => 'required|exists:kategoris,id',
-
             'soal' => 'required|array|min:1',
             'soal.*.id' => 'nullable|integer',
-
             'soal.*.pertanyaan' => [
                 'required',
                 'string',
                 'max:1000',
                 'regex:/^[A-Za-z0-9\s?=+\-!.,:;()×÷x]+$/u',
             ],
-
             'soal.*.pilihan_a' => 'required|string',
             'soal.*.pilihan_b' => 'required|string',
             'soal.*.pilihan_c' => 'required|string',
             'soal.*.pilihan_d' => 'required|string',
             'soal.*.jawaban' => 'required|in:A,B,C,D',
-
             'soal.*.gambar' => 'nullable|array',
             'soal.*.gambar.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
-
             'soal.*.audio_pertanyaan' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
             'soal.*.audio_pilihan_a' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
             'soal.*.audio_pilihan_b' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
             'soal.*.audio_pilihan_c' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
             'soal.*.audio_pilihan_d' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
-
             'hapus_soal' => 'nullable|array',
             'hapus_soal.*' => 'integer',
         ]);
 
-        $this->validasiKategori(
-            $request->kelas_id,
-            $request->kategori_id
-        );
+        $this->validasiKategori($request->kelas_id, $request->kategori_id);
 
         $kelasLama = $kuisPertama->kelas_id;
         $kategoriLama = $kuisPertama->kategori_id;
@@ -225,10 +169,8 @@ class QuisController extends Controller
         $idKuisLama = $daftarKuisLama->pluck('id')->toArray();
 
         foreach ($request->input('soal', []) as $soal) {
-            if (
-                !empty($soal['id']) &&
-                !in_array((int) $soal['id'], $idKuisLama, true)
-            ) {
+            if (!empty($soal['id']) &&
+                !in_array((int) $soal['id'], $idKuisLama, true)) {
                 abort(404);
             }
         }
@@ -245,12 +187,10 @@ class QuisController extends Controller
             $pertanyaan = mb_strtolower(trim($soal['pertanyaan']));
 
             if (in_array($pertanyaan, $daftarPertanyaan, true)) {
-                return back()
-                    ->withInput()
-                    ->withErrors([
-                        "soal.$index.pertanyaan" =>
-                            'Pertanyaan ini duplikat dengan soal lain dalam form.',
-                    ]);
+                return back()->withInput()->withErrors([
+                    "soal.$index.pertanyaan" =>
+                        'Pertanyaan ini duplikat dengan soal lain dalam form.',
+                ]);
             }
 
             $daftarPertanyaan[] = $pertanyaan;
@@ -266,12 +206,10 @@ class QuisController extends Controller
                 ->exists();
 
             if ($duplikat) {
-                return back()
-                    ->withInput()
-                    ->withErrors([
-                        "soal.$index.pertanyaan" =>
-                            'Pertanyaan ini sudah digunakan pada kelas dan kategori tersebut.',
-                    ]);
+                return back()->withInput()->withErrors([
+                    "soal.$index.pertanyaan" =>
+                        'Pertanyaan ini sudah digunakan pada kelas dan kategori tersebut.',
+                ]);
             }
         }
 
@@ -307,11 +245,7 @@ class QuisController extends Controller
 
                     $fileYangDihapus = array_merge(
                         $fileYangDihapus,
-                        $this->fileYangDiganti(
-                            $request,
-                            $index,
-                            $quisLama
-                        )
+                        $this->fileYangDiganti($request, $index, $quisLama)
                     );
                 }
 
@@ -334,87 +268,90 @@ class QuisController extends Controller
             ->with('success', 'Kuis berhasil diperbarui.');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | HAPUS KUIS
-    |--------------------------------------------------------------------------
-    */
-
     public function destroy(Quis $quis)
     {
-        foreach ($this->daftarFileKuis($quis) as $file) {
-            Storage::disk('public')->delete($file);
+        $file = $this->daftarFileKuis($quis);
+
+        DB::transaction(function () use ($quis) {
+            Reward::where('quis_id', $quis->id)->delete();
+            $quis->delete();
+        });
+
+        if (!empty($file)) {
+            Storage::disk('public')->delete(array_unique($file));
         }
 
-        $quis->delete();
-
         return redirect()->route('kuis.index')
-            ->with('success', 'Soal berhasil dihapus.');
+            ->with('success', 'Soal dan hasil reward terkait berhasil dihapus.');
     }
 
     /*
     |--------------------------------------------------------------------------
-    | MENGHAPUS SEMUA DATA KUIS
+    | HAPUS KUIS TERPILIH
+    |--------------------------------------------------------------------------
+    */
+
+    public function hapusTerpilih(Request $request)
+    {
+        $validated = $request->validate([
+            'ids' => 'required|array|min:1',
+            'ids.*' => 'required|integer|distinct|exists:quis,id',
+        ]);
+
+        $daftarFile = [];
+
+        DB::transaction(function () use ($validated, &$daftarFile) {
+            $daftarQuis = Quis::whereIn('id', $validated['ids'])->get();
+
+            foreach ($daftarQuis as $quis) {
+                $daftarFile = array_merge(
+                    $daftarFile,
+                    $this->daftarFileKuis($quis)
+                );
+            }
+
+            Reward::whereIn('quis_id', $validated['ids'])->delete();
+            Quis::whereIn('id', $validated['ids'])->delete();
+        });
+
+        if (!empty($daftarFile)) {
+            Storage::disk('public')->delete(array_unique($daftarFile));
+        }
+
+        return redirect()->route('kuis.index')
+            ->with('success', 'Kuis yang dipilih beserta hasil reward terkait berhasil dihapus.');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | HAPUS SEMUA KUIS
     |--------------------------------------------------------------------------
     */
 
     public function hapusSemua()
     {
         $semuaQuis = Quis::all();
-
         $daftarFile = [];
 
-        // Mengumpulkan gambar dan audio seluruh kuis
         foreach ($semuaQuis as $quis) {
-
-            // Gambar kuis
-            $gambar = $quis->gambar;
-
-            if (is_array($gambar)) {
-                foreach ($gambar as $file) {
-                    if (!empty($file)) {
-                        $daftarFile[] = $file;
-                    }
-                }
-            }
-
-            // Audio pertanyaan dan audio pilihan
-            $kolomAudio = [
-                'audio',
-                'audio_pertanyaan',
-                'audio_pilihan_a',
-                'audio_pilihan_b',
-                'audio_pilihan_c',
-                'audio_pilihan_d',
-            ];
-
-            foreach ($kolomAudio as $kolom) {
-                if (!empty($quis->$kolom)) {
-                    $daftarFile[] = $quis->$kolom;
-                }
-            }
+            $daftarFile = array_merge(
+                $daftarFile,
+                $this->daftarFileKuis($quis)
+            );
         }
 
-        // Hapus reward dan kuis dalam satu transaksi
         DB::transaction(function () {
             Reward::query()->delete();
             Quis::query()->delete();
         });
 
-        // Hapus file setelah data database berhasil dihapus
         if (!empty($daftarFile)) {
             Storage::disk('public')->delete(array_unique($daftarFile));
         }
 
-        return redirect()
-            ->route('kuis.index')
+        return redirect()->route('kuis.index')
             ->with('success', 'Seluruh data kuis dan hasil reward berhasil dihapus.');
     }
-    /*
-    |--------------------------------------------------------------------------
-    | HELPER CEK KUIS TERKUNCI
-    |--------------------------------------------------------------------------
-    */
 
     private function kuisSudahTerkunci($userId, $kelasId, $kategoriId)
     {
@@ -427,18 +364,9 @@ class QuisController extends Controller
             ->exists();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | DAFTAR KUIS ANAK
-    |--------------------------------------------------------------------------
-    */
-
     public function listKuis($konten, Kelas $kelas, Kategori $kategori)
     {
-        abort_if(
-            (int) $kategori->kelas_id !== (int) $kelas->id,
-            404
-        );
+        abort_if((int) $kategori->kelas_id !== (int) $kelas->id, 404);
 
         $quis = Quis::where('kelas_id', $kelas->id)
             ->where('kategori_id', $kategori->id)
@@ -460,12 +388,6 @@ class QuisController extends Controller
         ));
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | MENAMPILKAN KUIS ANAK
-    |--------------------------------------------------------------------------
-    */
-
     public function showKuis(
         Request $request,
         $konten,
@@ -473,32 +395,26 @@ class QuisController extends Controller
         Kategori $kategori,
         $kuis
     ) {
-        abort_if(
-            (int) $kategori->kelas_id !== (int) $kelas->id,
-            404
-        );
+        abort_if((int) $kategori->kelas_id !== (int) $kelas->id, 404);
 
         $kuisDipilih = Quis::where('kode_kuis', $kuis)
             ->where('kelas_id', $kelas->id)
             ->where('kategori_id', $kategori->id)
             ->firstOrFail();
 
-        // Periksa penguncian sebelum memproses permintaan ulang.
         if ($this->kuisSudahTerkunci(
             auth()->id(),
             $kelas->id,
             $kategori->id
         )) {
-            return redirect()
-                ->route('siswa.kuis', [
-                    'konten' => $konten,
-                    'kelas' => $kelas->nama_kelas,
-                    'kategori' => $kategori->slug,
-                ])
-                ->with(
-                    'error',
-                    'Kuis ini sudah selesai karena kamu telah mendapatkan 3 bintang atau lebih! ⭐'
-                );
+            return redirect()->route('siswa.kuis', [
+                'konten' => $konten,
+                'kelas' => $kelas->nama_kelas,
+                'kategori' => $kategori->slug,
+            ])->with(
+                'error',
+                'Kuis ini sudah selesai karena kamu telah mendapatkan 3 bintang atau lebih! ⭐'
+            );
         }
 
         $sessionKey = 'buba_quis_order_'
@@ -506,7 +422,6 @@ class QuisController extends Controller
             . '_' . $kelas->id
             . '_' . $kategori->id;
 
-        // Jika anak memilih mengulang, buat urutan soal baru.
         if ($request->boolean('ulang')) {
             session()->forget($sessionKey);
         }
@@ -519,19 +434,16 @@ class QuisController extends Controller
             ->toArray();
 
         if (empty($semuaId)) {
-            return redirect()
-                ->route('siswa.kuis', [
-                    'konten' => $konten,
-                    'kelas' => $kelas->nama_kelas,
-                    'kategori' => $kategori->slug,
-                ])
-                ->with('error', 'Belum ada soal untuk kategori ini.');
+            return redirect()->route('siswa.kuis', [
+                'konten' => $konten,
+                'kelas' => $kelas->nama_kelas,
+                'kategori' => $kategori->slug,
+            ])->with('error', 'Belum ada soal untuk kategori ini.');
         }
 
         if (empty($urutanId)) {
             $urutanId = $semuaId;
             shuffle($urutanId);
-
             session()->put($sessionKey, $urutanId);
         } else {
             $idBaru = array_values(array_diff($semuaId, $urutanId));
@@ -566,12 +478,6 @@ class QuisController extends Controller
         ));
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | MENYIMPAN HASIL KUIS ANAK
-    |--------------------------------------------------------------------------
-    */
-
     public function simpanHasil(
         Request $request,
         $konten,
@@ -579,10 +485,7 @@ class QuisController extends Controller
         Kategori $kategori,
         $kuis
     ) {
-        abort_if(
-            (int) $kategori->kelas_id !== (int) $kelas->id,
-            404
-        );
+        abort_if((int) $kategori->kelas_id !== (int) $kelas->id, 404);
 
         $kuisDipilih = Quis::where('kode_kuis', $kuis)
             ->where('kelas_id', $kelas->id)
@@ -636,20 +539,14 @@ class QuisController extends Controller
         $benar = 0;
 
         foreach ($daftarSoal as $id => $soal) {
-            if (
-                strtoupper($jawabanAnak[$id]) ===
-                strtoupper($soal->jawaban)
-            ) {
+            if (strtoupper($jawabanAnak[$id]) === strtoupper($soal->jawaban)) {
                 $benar++;
             }
         }
 
         $total = $daftarSoal->count();
         $salah = $total - $benar;
-
-        $nilai = $total > 0
-            ? (int) round(($benar / $total) * 100)
-            : 0;
+        $nilai = $total > 0 ? (int) round(($benar / $total) * 100) : 0;
 
         if ($nilai >= 90) {
             $jumlahBintang = 5;
@@ -718,12 +615,6 @@ class QuisController extends Controller
         ]);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | HELPER SIMPAN SOAL
-    |--------------------------------------------------------------------------
-    */
-
     private function simpanSoal(
         Request $request,
         $index,
@@ -780,12 +671,6 @@ class QuisController extends Controller
         }
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | FILE LAMA YANG AKAN DIGANTI
-    |--------------------------------------------------------------------------
-    */
-
     private function fileYangDiganti(
         Request $request,
         $index,
@@ -809,22 +694,13 @@ class QuisController extends Controller
         ];
 
         foreach ($audioFields as $field) {
-            if (
-                $request->hasFile("soal.$index.$field") &&
-                $quisLama->$field
-            ) {
+            if ($request->hasFile("soal.$index.$field") && $quisLama->$field) {
                 $file[] = $quisLama->$field;
             }
         }
 
         return $file;
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | VALIDASI KATEGORI
-    |--------------------------------------------------------------------------
-    */
 
     private function validasiKategori($kelasId, $kategoriId)
     {
@@ -836,12 +712,6 @@ class QuisController extends Controller
             abort(422, 'Kategori tidak sesuai dengan kelas.');
         }
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | HELPER GAMBAR
-    |--------------------------------------------------------------------------
-    */
 
     private function ambilDaftarGambar($gambar)
     {
@@ -857,17 +727,12 @@ class QuisController extends Controller
         return is_array($gambar) ? array_filter($gambar) : [];
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | DAFTAR SELURUH FILE KUIS
-    |--------------------------------------------------------------------------
-    */
-
     private function daftarFileKuis(Quis $quis)
     {
         $file = $this->ambilDaftarGambar($quis->gambar);
 
         foreach ([
+            'audio',
             'audio_pertanyaan',
             'audio_pilihan_a',
             'audio_pilihan_b',
