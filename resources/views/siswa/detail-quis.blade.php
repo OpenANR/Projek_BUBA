@@ -37,7 +37,6 @@
         ]) . '?ulang=1'
         : $urlHasilKuis;
 
-    // URL penyimpanan hasil dibuat di PHP, bukan di dalam @json(route(...)).
     $urlSimpanHasil = isset($kuisDipilih)
         ? route('siswa.simpanHasil', [
             'konten' => request()->route('konten'),
@@ -59,19 +58,19 @@
     <div class="absolute left-4 top-4 z-30 sm:left-6 sm:top-6 md:left-8 md:top-8">
         <a
             href="javascript:history.back()"
-            class="group flex h-12 w-12 items-center justify-center rounded-full border-[4px] border-white bg-[#5ebef3] text-white shadow-[0_6px_14px_rgba(0,0,0,0.18)] transition-all duration-200 hover:scale-110 hover:bg-[#47ade7] hover:shadow-xl active:scale-90 sm:h-14 sm:w-14 md:h-16 md:w-16 md:border-[5px]"
-            aria-label="Kembali ke halaman sebelumnya"
+            class="group flex h-12 w-12 items-center justify-center rounded-full border-[4px] border-white bg-[#5ebef3] text-white shadow-lg transition-all hover:scale-110 hover:bg-[#47ade7] active:scale-90 sm:h-14 sm:w-14 md:h-16 md:w-16"
+            aria-label="Kembali"
         >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                class="h-6 w-6 transition-transform duration-200 group-hover:-translate-x-1 sm:h-7 sm:w-7 md:h-8 md:w-8">
+                class="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8">
                 <path d="M16 5.5a1 1 0 0 0-1.6-.8l-9 7a1 1 0 0 0 0 1.6l9 7A1 1 0 0 0 16 19.5V5.5z"/>
             </svg>
         </a>
     </div>
 
-    <header class="relative z-10 mb-7 flex items-center justify-center pt-2 sm:pt-4 md:pt-6">
-        <div class="rounded-2xl border-[4px] border-white bg-[#1e60be] px-7 py-2 shadow-[0_8px_20px_rgba(0,0,0,0.2)] transition-transform duration-300 hover:scale-105 sm:rounded-[2rem] sm:border-[5px] sm:px-10 sm:py-3 md:rounded-[2.2rem] md:border-[6px] md:px-14 md:py-3.5">
-            <h1 class="text-center font-sans text-xl font-black tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] sm:text-2xl md:text-3xl lg:text-[2.6rem]">
+    <header class="relative z-10 mb-7 flex items-center justify-center pt-4">
+        <div class="rounded-2xl border-4 border-white bg-[#1e60be] px-7 py-3 shadow-lg sm:px-10 md:px-14">
+            <h1 class="text-center text-xl font-black tracking-wider text-white sm:text-2xl md:text-3xl">
                 KUIS KELAS {{ strtoupper($kelas->nama_kelas ?? 'ANAK') }}
             </h1>
         </div>
@@ -80,30 +79,32 @@
     <main class="relative z-10 mx-auto w-full max-w-5xl">
 
         <div class="mb-6 text-center">
-            <h2 class="mb-3 text-2xl font-black text-white drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] sm:text-3xl md:text-4xl">
+            <h2 class="mb-3 text-2xl font-black text-white drop-shadow-lg sm:text-3xl md:text-4xl">
                 Ayo Bermain Kuis! 🌈
             </h2>
 
-            <p class="inline-block rounded-full border-[3px] border-white bg-white/95 px-5 py-2 text-sm font-black text-[#1e60be] shadow-md sm:text-base">
+            <p class="inline-block rounded-full border-2 border-white bg-white px-5 py-2 text-sm font-black text-[#1e60be] shadow-md sm:text-base">
                 Kategori: {{ $kategori->nama_kategori ?? 'Pembelajaran' }}
             </p>
 
-            <p class="mt-3 font-bold text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)]">
+            <p class="mt-3 font-bold text-white drop-shadow-lg">
                 Ayo jawab pertanyaannya dengan benar!
             </p>
         </div>
 
         @if($daftarSoal->isNotEmpty())
 
-            <div id="progressArea" class="mx-auto mb-5 max-w-2xl rounded-[1.5rem] border-[4px] border-white bg-white/95 p-4 shadow-[0_10px_25px_rgba(0,0,0,0.18)] sm:p-5">
+            <div id="progressArea" class="mx-auto mb-5 max-w-2xl rounded-3xl border-4 border-white bg-white/95 p-4 shadow-lg sm:p-5">
+
                 <div class="mb-3 flex flex-wrap justify-between gap-2 text-sm font-black text-[#1e60be] sm:text-base">
                     <span id="progressLabel">Soal 1 dari {{ $daftarSoal->count() }}</span>
                     <span id="progressCount">0/{{ $daftarSoal->count() }} dijawab</span>
                 </div>
 
-                <div class="h-4 overflow-hidden rounded-full border-2 border-white bg-slate-200 shadow-inner">
+                <div class="h-4 overflow-hidden rounded-full bg-slate-200 shadow-inner">
                     <div id="progressFill" class="h-full rounded-full bg-[#ffd629] transition-all duration-300" style="width: 0%"></div>
                 </div>
+
             </div>
 
             @foreach($daftarSoal as $index => $item)
@@ -147,7 +148,7 @@
                 @endphp
 
                 <section
-                    class="question-card {{ $index === $indexAwal ? '' : 'hidden' }} mb-6 rounded-[2rem] border-[5px] border-white bg-white/95 p-5 text-center shadow-[0_12px_24px_rgba(0,0,0,0.18)] transition-all duration-300 sm:rounded-[2.4rem] sm:border-[6px] sm:p-8"
+                    class="question-card {{ $index === $indexAwal ? '' : 'hidden' }} mb-6 rounded-[2rem] border-[5px] border-white bg-white/95 p-5 text-center shadow-xl sm:p-8"
                     data-id="{{ $item->id }}"
                     data-index="{{ $index }}"
                     data-answer="{{ strtoupper($item->jawaban ?? '') }}"
@@ -158,7 +159,7 @@
                     data-option-d="{{ $item->pilihan_d }}"
                 >
 
-                    <div class="mb-5 inline-block rounded-full border-[3px] border-white bg-[#1e60be] px-6 py-2 text-sm font-black tracking-wide text-white shadow-md sm:text-base">
+                    <div class="mb-5 inline-block rounded-full border-2 border-white bg-[#1e60be] px-6 py-2 text-sm font-black text-white shadow-md">
                         SOAL {{ $index + 1 }}
                     </div>
 
@@ -172,10 +173,9 @@
                                 type="button"
                                 onclick="putarAudio(this)"
                                 data-audio="{{ asset('storage/' . $audioPertanyaan) }}"
-                                class="flex items-center gap-2 rounded-full border-[3px] border-white bg-[#5ebef3] px-5 py-3 font-black text-white shadow-md transition-all duration-200 hover:scale-105 hover:bg-[#47ade7] active:scale-95"
+                                class="flex items-center gap-2 rounded-full border-2 border-white bg-[#5ebef3] px-5 py-3 font-black text-white shadow-md transition hover:scale-105"
                             >
-                                <span class="text-xl">🔊</span>
-                                <span>Dengarkan Pertanyaan</span>
+                                🔊 Dengarkan Pertanyaan
                             </button>
                         </div>
                     @endif
@@ -186,7 +186,7 @@
                                 <img
                                     src="{{ asset('storage/' . $file) }}"
                                     alt="Gambar soal {{ $index + 1 }}"
-                                    class="h-28 w-28 rounded-2xl border-[4px] border-white bg-sky-50 object-contain p-1 shadow-md sm:h-36 sm:w-36"
+                                    class="h-28 w-28 rounded-2xl border-4 border-white bg-sky-50 object-contain p-1 shadow-md sm:h-36 sm:w-36"
                                     onerror="this.style.display='none'"
                                 >
                             @endforeach
@@ -201,10 +201,11 @@
 
                                 <button
                                     type="button"
-                                    class="option group flex min-h-[75px] items-center gap-3 rounded-2xl border-[4px] border-white {{ $palette['bg'] }} p-3 text-left text-white shadow-[0_5px_10px_rgba(0,0,0,0.12)] transition-all duration-200 {{ $palette['hover'] }} {{ $palette['shadow'] }} hover:-translate-y-1 hover:shadow-lg active:scale-[0.98]"
+                                    class="option group flex min-h-[75px] items-center gap-3 rounded-2xl border-4 border-white {{ $palette['bg'] }} p-3 text-left text-white shadow-md transition-all {{ $palette['hover'] }} hover:-translate-y-1 active:scale-95"
                                     data-letter="{{ $huruf }}"
                                     onclick="pilihJawaban({{ $index }}, '{{ $huruf }}', this)"
                                 >
+
                                     <span class="option-letter flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-white bg-white text-base font-black text-[#1e60be]">
                                         {{ $huruf }}
                                     </span>
@@ -227,6 +228,7 @@
                                             🔊
                                         </span>
                                     @endif
+
                                 </button>
 
                             @endif
@@ -248,7 +250,7 @@
                     id="prevButton"
                     onclick="soalSebelumnya()"
                     disabled
-                    class="rounded-2xl border-[4px] border-white bg-[#5ebef3] px-6 py-3 font-black text-white shadow-lg transition hover:-translate-y-1 hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 sm:px-8"
+                    class="rounded-2xl border-4 border-white bg-[#5ebef3] px-6 py-3 font-black text-white shadow-lg transition hover:scale-105 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                     ← Sebelumnya
                 </button>
@@ -257,7 +259,7 @@
                     type="button"
                     id="nextButton"
                     onclick="soalBerikutnya()"
-                    class="rounded-2xl border-[4px] border-white bg-[#ffd629] px-6 py-3 font-black text-[#493b00] shadow-lg transition hover:-translate-y-1 hover:scale-105 active:scale-95 sm:px-8"
+                    class="rounded-2xl border-4 border-white bg-[#ffd629] px-6 py-3 font-black text-[#493b00] shadow-lg transition hover:scale-105"
                 >
                     Berikutnya →
                 </button>
@@ -266,7 +268,7 @@
                     type="button"
                     id="finishButton"
                     onclick="selesaiKuis()"
-                    class="rounded-2xl border-[4px] border-white bg-[#71bf4f] px-6 py-3 font-black text-white shadow-lg transition hover:-translate-y-1 hover:scale-105 active:scale-95 sm:px-8"
+                    class="rounded-2xl border-4 border-white bg-[#71bf4f] px-6 py-3 font-black text-white shadow-lg transition hover:scale-105"
                 >
                     Selesai ⭐
                 </button>
@@ -275,7 +277,8 @@
 
         @else
 
-            <section class="mx-auto max-w-xl rounded-[2rem] border-[5px] border-white bg-white/95 px-5 py-8 text-center shadow-xl sm:px-8">
+            <section class="mx-auto max-w-xl rounded-[2rem] border-4 border-white bg-white/95 px-5 py-8 text-center shadow-xl sm:px-8">
+
                 <div class="mb-3 text-5xl">📚</div>
 
                 <h2 class="mb-3 text-2xl font-black text-[#1e60be]">
@@ -288,15 +291,16 @@
 
                 <a
                     href="{{ $urlHasilKuis }}"
-                    class="inline-block rounded-2xl border-[4px] border-white bg-[#5ebef3] px-8 py-3 font-black text-white shadow-lg transition hover:scale-105 hover:bg-[#47ade7]"
+                    class="inline-block rounded-2xl border-4 border-white bg-[#5ebef3] px-8 py-3 font-black text-white shadow-lg transition hover:scale-105"
                 >
                     ← Kembali
                 </a>
+
             </section>
 
         @endif
 
-        <p class="my-8 text-center text-sm font-black text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)]">
+        <p class="my-8 text-center text-sm font-black text-white drop-shadow-lg">
             BUBA • Belajar sambil bermain 🌈
         </p>
 
@@ -354,8 +358,6 @@
     const urlHasilKuis = @json($urlHasilKuis);
     const urlUlangKuis = @json($urlUlangKuis);
     const namaKategori = @json($kategori->nama_kategori ?? 'Pembelajaran');
-
-    // URL sudah dibuat di bagian PHP atas.
     const urlSimpanHasil = @json($urlSimpanHasil);
     const tokenCsrf = @json(csrf_token());
 
@@ -423,7 +425,7 @@
 
         if (feedback) {
             feedback.textContent = jawaban
-                ? 'Jawabanmu sudah tersimpan! Kamu boleh menggantinya jika mau 😊'
+                ? 'Jawabanmu sudah dipilih! Kamu boleh menggantinya 😊'
                 : '';
         }
     }
@@ -448,7 +450,7 @@
         });
     }
 
-    function pilihJawaban(index, huruf, tombol) {
+    function pilihJawaban(index, huruf) {
         if (sudahSelesai) return;
 
         jawabanPengguna[index] = huruf;
@@ -466,7 +468,7 @@
 
         if (feedback) {
             feedback.textContent =
-                'Jawaban dipilih dan tersimpan! Yuk, lanjut 😊';
+                'Jawaban berhasil dipilih! Yuk, lanjut 😊';
         }
 
         perbaruiProgres();
@@ -527,6 +529,12 @@
             const hasilServer = await response.json();
 
             if (!response.ok) {
+                if (hasilServer.terkunci) {
+                    alert(hasilServer.message || 'Kuis sudah terkunci.');
+                    window.location.href = urlHasilKuis;
+                    return;
+                }
+
                 throw new Error(
                     hasilServer.message || 'Hasil kuis gagal disimpan.'
                 );

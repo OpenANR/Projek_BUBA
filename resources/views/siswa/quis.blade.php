@@ -86,6 +86,21 @@
             </div>
         </div>
 
+        {{-- Status Kuis --}}
+        @if($kuisTerkunci ?? false)
+            <div class="mx-auto mb-6 max-w-2xl rounded-[2rem] border-[5px] border-white bg-yellow-100 px-6 py-5 text-center shadow-lg">
+                <div class="mb-2 text-5xl">🔒⭐</div>
+
+                <h3 class="text-xl font-black text-[#1e60be] sm:text-2xl">
+                    KUIS SUDAH TERKUNCI!
+                </h3>
+
+                <p class="mt-2 font-bold text-slate-700">
+                    Hebat! Kamu sudah mendapatkan minimal 3 bintang. Kuis ini sudah selesai dan tidak bisa dikerjakan lagi.
+                </p>
+            </div>
+        @endif
+
         {{-- Daftar Kartu Kuis --}}
         @if($daftarKuis->isNotEmpty())
 
@@ -98,15 +113,19 @@
                         $ikon = $ikonKuis[$index % count($ikonKuis)];
                     @endphp
 
-                    <a
-                        href="{{ route('siswa.showKuis', [
-                            'konten' => request()->route('konten'),
-                            'kelas' => trim($kelas->nama_kelas),
-                            'kategori' => $kategori->slug,
-                            'kuis' => $item->kode_kuis,
-                        ]) }}"
-                        class="group relative flex h-60 w-48 flex-col items-center justify-between overflow-hidden rounded-[2rem] border-[5px] border-white {{ $palette['bg'] }} p-5 shadow-[0_12px_24px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:-translate-y-2.5 hover:scale-105 {{ $palette['hover'] }} {{ $palette['shadow'] }} active:scale-95 sm:h-72 sm:w-56 sm:rounded-[2.4rem] sm:border-[6px] sm:p-6 md:h-80 md:w-64 md:rounded-[2.8rem] md:border-8 md:p-7"
-                    >
+                    @if(!($kuisTerkunci ?? false))
+                        <a
+                            href="{{ route('siswa.showKuis', [
+                                'konten' => request()->route('konten'),
+                                'kelas' => trim($kelas->nama_kelas),
+                                'kategori' => $kategori->slug,
+                                'kuis' => $item->kode_kuis,
+                            ]) }}"
+                            class="group relative flex h-60 w-48 flex-col items-center justify-between overflow-hidden rounded-[2rem] border-[5px] border-white {{ $palette['bg'] }} p-5 shadow-[0_12px_24px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:-translate-y-2.5 hover:scale-105 {{ $palette['hover'] }} {{ $palette['shadow'] }} active:scale-95 sm:h-72 sm:w-56 sm:rounded-[2.4rem] sm:border-[6px] sm:p-6 md:h-80 md:w-64 md:rounded-[2.8rem] md:border-8 md:p-7"
+                        >
+                    @else
+                        <div class="relative flex h-60 w-48 flex-col items-center justify-between overflow-hidden rounded-[2rem] border-[5px] border-white bg-slate-400 p-5 opacity-80 shadow-[0_12px_24px_rgba(0,0,0,0.18)] sm:h-72 sm:w-56 sm:rounded-[2.4rem] sm:border-[6px] sm:p-6 md:h-80 md:w-64 md:rounded-[2.8rem] md:border-8 md:p-7">
+                    @endif
 
                         {{-- Hiasan --}}
                         <div class="pointer-events-none absolute -right-7 -top-7 h-24 w-24 rounded-full bg-white/20"></div>
@@ -127,13 +146,23 @@
                                 {{ \Illuminate\Support\Str::limit($item->pertanyaan, 65) }}
                             </p>
 
-                            <div class="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-white bg-white px-4 py-2 text-sm font-black text-[#1e60be] shadow-md transition-all duration-200 group-hover:bg-[#ffd629] sm:px-5">
-                                Kerjakan
-                                <span>➜</span>
-                            </div>
+                            @if(!($kuisTerkunci ?? false))
+                                <div class="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-white bg-white px-4 py-2 text-sm font-black text-[#1e60be] shadow-md transition-all duration-200 group-hover:bg-[#ffd629] sm:px-5">
+                                    Kerjakan
+                                    <span>➜</span>
+                                </div>
+                            @else
+                                <div class="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-white bg-slate-200 px-4 py-2 text-sm font-black text-slate-600 shadow-md sm:px-5">
+                                    🔒 Terkunci
+                                </div>
+                            @endif
                         </div>
 
-                    </a>
+                    @if(!($kuisTerkunci ?? false))
+                        </a>
+                    @else
+                        </div>
+                    @endif
 
                 @endforeach
 
@@ -315,15 +344,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (nilai >= 90) {
             jumlahBintang = 5;
-            pesan.textContent = '🌟 Wah, luar biasa! Kamu pintar sekali!';
+            pesan.textContent = '🌟 Wah, luar biasa! Kamu pintar sekali! Kuis sekarang terkunci!';
             pesanBintang.textContent = 'Luar biasa! Kamu mendapatkan 5 bintang!';
         } else if (nilai >= 70) {
             jumlahBintang = 4;
-            pesan.textContent = '🎉 Bagus sekali! Terus tingkatkan kemampuanmu!';
+            pesan.textContent = '🎉 Bagus sekali! Kamu mendapatkan minimal 3 bintang. Kuis sekarang terkunci!';
             pesanBintang.textContent = 'Hebat! Kamu mendapatkan 4 bintang!';
         } else if (nilai >= 50) {
             jumlahBintang = 3;
-            pesan.textContent = '😊 Bagus! Kamu sudah boleh melanjutkan belajar!';
+            pesan.textContent = '😊 Bagus! Kamu mendapatkan 3 bintang. Kuis sekarang terkunci!';
             pesanBintang.textContent = 'Bagus! Kamu mendapatkan 3 bintang!';
         } else if (nilai >= 20) {
             jumlahBintang = 2;
