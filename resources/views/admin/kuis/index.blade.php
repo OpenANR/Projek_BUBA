@@ -7,6 +7,7 @@
 
     {{-- HEADER --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-100 border border-blue-200">
                 <span class="text-lg">📝</span>
@@ -20,12 +21,38 @@
             </div>
         </div>
 
-        <a href="{{ route('kuis.tambah') }}"
-           class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-3 rounded-xl shadow-sm transition">
-            <span class="text-lg">+</span>
-            <span>Tambah Kuis</span>
-        </a>
+        <div class="flex flex-wrap items-center gap-2">
+
+            {{-- HAPUS SEMUA KUIS --}}
+            @if ($quis->count() > 0)
+                <form
+                    action="{{ route('kuis.hapusSemua') }}"
+                    method="POST"
+                    onsubmit="return confirm('PERINGATAN! Yakin ingin menghapus SELURUH data kuis beserta semua hasil reward anak? Data yang dihapus tidak dapat dikembalikan.')"
+                >
+                    @csrf
+                    @method('DELETE')
+
+                    <button
+                        type="submit"
+                        class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-semibold hover:bg-red-100 transition"
+                    >
+                        <i class="fa-solid fa-trash-can"></i>
+                        <span>Hapus Semua</span>
+                    </button>
+                </form>
+            @endif
+
+            {{-- TAMBAH KUIS --}}
+            <a href="{{ route('kuis.tambah') }}"
+               class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-3 rounded-xl shadow-sm transition">
+                <span class="text-lg">+</span>
+                <span>Tambah Kuis</span>
+            </a>
+
+        </div>
     </div>
+
 
     {{-- PESAN SUKSES --}}
     @if (session('success'))
@@ -38,6 +65,15 @@
     @endif
 
     {{-- PESAN ERROR --}}
+    @if (session('error'))
+        <div class="mb-5 px-4 py-3 rounded-xl bg-red-50 border border-red-200">
+            <p class="font-semibold text-sm text-red-800">Terjadi kesalahan</p>
+            <p class="text-sm text-red-700 mt-1">
+                {{ session('error') }}
+            </p>
+        </div>
+    @endif
+
     @if ($errors->any())
         <div class="mb-5 px-4 py-3 rounded-xl bg-red-50 border border-red-200">
             <p class="font-semibold text-sm text-red-800">Terdapat kesalahan</p>
@@ -49,12 +85,14 @@
         </div>
     @endif
 
+
     {{-- KARTU DAFTAR KUIS --}}
     <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
 
         {{-- HEADER KARTU --}}
         <div class="px-5 py-5 border-b border-gray-200">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
                 <div>
                     <h2 class="text-lg font-bold text-gray-900">
                         Daftar Kuis
@@ -68,11 +106,14 @@
                     <span>Total kuis</span>
                     <span class="font-bold">{{ $quis->count() }}</span>
                 </div>
+
             </div>
         </div>
 
+
         {{-- JIKA KUIS ADA --}}
         @if ($quis->count() > 0)
+
             {{-- PENCARIAN --}}
             <div class="px-5 py-5">
                 <div class="flex flex-col sm:flex-row gap-3">
@@ -101,9 +142,11 @@
                 </div>
             </div>
 
+
             {{-- TABEL --}}
             <div class="overflow-x-auto">
                 <table id="quisTable" class="display w-full text-sm">
+
                     <thead>
                         <tr>
                             <th>No</th>
@@ -118,6 +161,7 @@
                     <tbody>
                         @foreach ($quis as $item)
                             <tr>
+
                                 {{-- NOMOR --}}
                                 <td>
                                     <span class="inline-flex items-center justify-center min-w-8 h-8 rounded-lg bg-gray-100 text-gray-700 font-medium">
@@ -210,9 +254,11 @@
 
                                     </div>
                                 </td>
+
                             </tr>
                         @endforeach
                     </tbody>
+
                 </table>
             </div>
 
@@ -220,6 +266,7 @@
 
             {{-- TAMPILAN KOSONG --}}
             <div class="px-5 py-12 text-center">
+
                 <div class="max-w-sm mx-auto">
 
                     <div class="mx-auto w-16 h-16 flex items-center justify-center rounded-xl bg-blue-50 border border-blue-100">
@@ -251,13 +298,14 @@
 </div>
 @endsection
 
+
 {{-- DATATABLES --}}
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
     const tableElement = document.getElementById('quisTable');
 
-    // Jika data kuis kosong, tidak perlu menjalankan DataTables
     if (!tableElement) {
         return;
     }
@@ -267,7 +315,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // Inisialisasi DataTables
     let table;
 
     if (DataTable.isDataTable(tableElement)) {
@@ -276,6 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     } else {
         table = new DataTable(tableElement, {
+
             pageLength: 10,
             lengthMenu: [10, 25, 50],
             autoWidth: false,
@@ -291,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 {
                     orderable: false,
                     searchable: false,
-                    targets: [5]
+                    targets: [0, 5]
                 }
             ],
 
@@ -307,6 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 zeroRecords: 'Data tidak ditemukan',
                 emptyTable: 'Belum ada data kuis.'
             }
+
         });
     }
 
@@ -318,8 +367,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // Pencarian berdasarkan kolom
     function cariKuis() {
+
         const pilihan = searchField.value;
         const kataKunci = searchKuis.value;
 
@@ -346,15 +395,17 @@ document.addEventListener('DOMContentLoaded', function () {
     searchKuis.addEventListener('input', cariKuis);
     searchField.addEventListener('change', cariKuis);
 
-    // Reset pencarian
     resetSearch.addEventListener('click', function () {
+
         searchField.value = 'all';
         searchKuis.value = '';
 
         table.search('');
         table.columns().search('');
         table.draw();
+
     });
+
 });
 </script>
 @endpush

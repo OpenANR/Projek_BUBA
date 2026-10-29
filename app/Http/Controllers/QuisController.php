@@ -354,6 +354,64 @@ class QuisController extends Controller
 
     /*
     |--------------------------------------------------------------------------
+    | MENGHAPUS SEMUA DATA KUIS
+    |--------------------------------------------------------------------------
+    */
+
+    public function hapusSemua()
+    {
+        $semuaQuis = Quis::all();
+
+        $daftarFile = [];
+
+        // Mengumpulkan gambar dan audio seluruh kuis
+        foreach ($semuaQuis as $quis) {
+
+            // Gambar kuis
+            $gambar = $quis->gambar;
+
+            if (is_array($gambar)) {
+                foreach ($gambar as $file) {
+                    if (!empty($file)) {
+                        $daftarFile[] = $file;
+                    }
+                }
+            }
+
+            // Audio pertanyaan dan audio pilihan
+            $kolomAudio = [
+                'audio',
+                'audio_pertanyaan',
+                'audio_pilihan_a',
+                'audio_pilihan_b',
+                'audio_pilihan_c',
+                'audio_pilihan_d',
+            ];
+
+            foreach ($kolomAudio as $kolom) {
+                if (!empty($quis->$kolom)) {
+                    $daftarFile[] = $quis->$kolom;
+                }
+            }
+        }
+
+        // Hapus reward dan kuis dalam satu transaksi
+        DB::transaction(function () {
+            Reward::query()->delete();
+            Quis::query()->delete();
+        });
+
+        // Hapus file setelah data database berhasil dihapus
+        if (!empty($daftarFile)) {
+            Storage::disk('public')->delete(array_unique($daftarFile));
+        }
+
+        return redirect()
+            ->route('kuis.index')
+            ->with('success', 'Seluruh data kuis dan hasil reward berhasil dihapus.');
+    }
+    /*
+    |--------------------------------------------------------------------------
     | HELPER CEK KUIS TERKUNCI
     |--------------------------------------------------------------------------
     */

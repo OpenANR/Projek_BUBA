@@ -3,34 +3,99 @@
 @section('title', 'Hasil Reward - BUBA')
 
 @section('content')
+
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
 
     {{-- HEADER --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+
         <div class="flex items-center gap-3">
+
             <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-100 border border-blue-200">
                 <span class="text-lg">⭐</span>
             </div>
 
             <div>
-                <h1 class="text-xl font-bold text-gray-900">Hasil Reward</h1>
+                <h1 class="text-xl font-bold text-gray-900">
+                    Hasil Reward
+                </h1>
+
                 <p class="text-sm text-gray-500 mt-1">
                     Lihat hasil pengerjaan kuis dan bintang yang diperoleh anak.
                 </p>
             </div>
+
         </div>
+
+        {{-- HAPUS SEMUA REWARD --}}
+        @if ($rewards->count() > 0)
+            <form
+                action="{{ route('reward.hapusSemua') }}"
+                method="POST"
+                onsubmit="return confirm('PERINGATAN! Yakin ingin menghapus SELURUH hasil reward anak? Semua riwayat nilai dan bintang akan dihapus.')"
+            >
+                @csrf
+                @method('DELETE')
+
+                <button
+                    type="submit"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-semibold hover:bg-red-100 transition"
+                >
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>Hapus Semua Reward</span>
+                </button>
+            </form>
+        @endif
+
     </div>
+
+
+    {{-- NOTIFIKASI SUKSES --}}
+    @if (session('success'))
+        <div class="mb-5 px-4 py-3 rounded-xl bg-green-50 border border-green-200">
+            <div class="flex items-start gap-2">
+                <span class="text-green-600">✓</span>
+
+                <div>
+                    <p class="font-semibold text-sm text-green-800">
+                        Berhasil
+                    </p>
+
+                    <p class="text-sm text-green-700 mt-1">
+                        {{ session('success') }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- NOTIFIKASI ERROR --}}
+    @if (session('error'))
+        <div class="mb-5 px-4 py-3 rounded-xl bg-red-50 border border-red-200">
+            <p class="font-semibold text-sm text-red-800">
+                Terjadi Kesalahan
+            </p>
+
+            <p class="text-sm text-red-700 mt-1">
+                {{ session('error') }}
+            </p>
+        </div>
+    @endif
+
 
     {{-- KARTU DAFTAR REWARD --}}
     <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
 
         {{-- HEADER KARTU --}}
         <div class="px-5 py-5 border-b border-gray-200">
+
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
                 <div>
                     <h2 class="text-lg font-bold text-gray-900">
                         Daftar Hasil Reward Anak
                     </h2>
+
                     <p class="text-sm text-gray-500 mt-1">
                         Hasil pengerjaan kuis dan perolehan bintang anak ditampilkan di sini.
                     </p>
@@ -38,20 +103,29 @@
 
                 <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-sm">
                     <span>Total reward</span>
-                    <span class="font-bold">{{ $rewards->count() }}</span>
+
+                    <span class="font-bold">
+                        {{ $rewards->count() }}
+                    </span>
                 </div>
+
             </div>
+
         </div>
+
 
         {{-- JIKA DATA REWARD ADA --}}
         @if ($rewards->count() > 0)
 
             {{-- PENCARIAN --}}
             <div class="px-5 py-5">
+
                 <div class="flex flex-col sm:flex-row gap-3">
 
-                    <select id="searchField"
-                            class="sm:w-48 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white outline-none focus:ring-2 focus:ring-blue-400">
+                    <select
+                        id="searchField"
+                        class="sm:w-48 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white outline-none focus:ring-2 focus:ring-blue-400"
+                    >
                         <option value="all">Cari berdasarkan...</option>
                         <option value="nama">Nama Anak</option>
                         <option value="kelas">Kelas</option>
@@ -61,23 +135,30 @@
                         <option value="tanggal">Tanggal</option>
                     </select>
 
-                    <input type="text"
-                           id="searchReward"
-                           placeholder="Masukkan pencarian..."
-                           autocomplete="off"
-                           class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-blue-400">
+                    <input
+                        type="text"
+                        id="searchReward"
+                        placeholder="Masukkan pencarian..."
+                        autocomplete="off"
+                        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-blue-400"
+                    >
 
-                    <button type="button"
-                            id="resetSearch"
-                            class="px-4 py-2 rounded-lg bg-gray-100 border border-gray-200 text-gray-600 text-sm hover:bg-gray-200 transition">
+                    <button
+                        type="button"
+                        id="resetSearch"
+                        class="px-4 py-2 rounded-lg bg-gray-100 border border-gray-200 text-gray-600 text-sm hover:bg-gray-200 transition"
+                    >
                         Reset
                     </button>
 
                 </div>
+
             </div>
+
 
             {{-- TABEL --}}
             <div class="overflow-x-auto">
+
                 <table id="rewardTable" class="display w-full text-sm">
 
                     <thead>
@@ -91,13 +172,16 @@
                             <th>NILAI</th>
                             <th>BINTANG</th>
                             <th>TANGGAL</th>
+                            <th>AKSI</th>
                         </tr>
                     </thead>
 
                     <tbody>
+
                         @foreach ($rewards as $reward)
 
                             <tr>
+
                                 {{-- NOMOR --}}
                                 <td>
                                     <span class="inline-flex items-center justify-center min-w-8 h-8 rounded-lg bg-gray-100 text-gray-700 font-medium">
@@ -161,35 +245,62 @@
 
                                 {{-- BINTANG --}}
                                 <td>
-                                    @if ($reward->jumlah_bintang > 0)
-                                        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-yellow-50 border border-yellow-200 text-yellow-700 text-xs font-semibold whitespace-nowrap">
-                                            ⭐ {{ $reward->jumlah_bintang }}
-                                        </span>
-                                    @else
-                                        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-500 text-xs">
-                                            0 ⭐
-                                        </span>
-                                    @endif
+                                    <span
+                                        data-search="{{ $reward->jumlah_bintang }}"
+                                        class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg {{ $reward->jumlah_bintang > 0 ? 'bg-yellow-50 border border-yellow-200 text-yellow-700' : 'bg-gray-50 border border-gray-200 text-gray-500' }} text-xs font-semibold whitespace-nowrap"
+                                    >
+                                        ⭐ {{ $reward->jumlah_bintang }}
+                                    </span>
                                 </td>
 
                                 {{-- TANGGAL --}}
                                 <td>
                                     <span class="text-gray-600 text-xs whitespace-nowrap">
-                                        {{ $reward->created_at->format('d-m-Y H:i') }}
+                                        {{ $reward->created_at?->format('d-m-Y H:i') ?? '-' }}
                                     </span>
+                                </td>
+
+                                {{-- AKSI --}}
+                                <td>
+                                    <div class="flex items-center justify-center gap-2">
+
+                                        <form
+                                            action="{{ route('reward.hapus', $reward->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Yakin ingin menghapus hasil reward anak ini?')"
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button
+                                                type="submit"
+                                                title="Hapus Reward"
+                                                style="background-color: #fef2f2 !important; color: #dc2626 !important;"
+                                                class="w-9 h-9 flex items-center justify-center rounded-lg border border-red-200 transition hover:bg-red-100"
+                                            >
+                                                <i class="fa-solid fa-trash text-xs"></i>
+                                            </button>
+                                        </form>
+
+                                    </div>
                                 </td>
 
                             </tr>
 
                         @endforeach
+
                     </tbody>
+
                 </table>
+
             </div>
+
 
         @else
 
             {{-- TAMPILAN KOSONG --}}
             <div class="px-5 py-12 text-center">
+
                 <div class="max-w-sm mx-auto">
 
                     <div class="mx-auto w-16 h-16 flex items-center justify-center rounded-xl bg-blue-50 border border-blue-100">
@@ -207,22 +318,26 @@
                     </p>
 
                 </div>
+
             </div>
 
         @endif
 
     </div>
+
 </div>
+
 @endsection
+
 
 {{-- DATATABLES --}}
 @push('scripts')
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
     const tableElement = document.getElementById('rewardTable');
 
-    // Jika data reward kosong, tidak perlu menjalankan DataTables
     if (!tableElement) {
         return;
     }
@@ -232,62 +347,62 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // Inisialisasi DataTables
-    let table;
+    const table = new DataTable(tableElement, {
 
-    if (DataTable.isDataTable(tableElement)) {
-        table = new DataTable(tableElement, {
-            retrieve: true
-        });
-    } else {
-        table = new DataTable(tableElement, {
-            pageLength: 10,
-            lengthMenu: [10, 25, 50],
-            autoWidth: false,
+        pageLength: 10,
+        lengthMenu: [10, 25, 50],
+        autoWidth: false,
 
-            layout: {
-                topStart: 'pageLength',
-                topEnd: null,
-                bottomStart: 'info',
-                bottomEnd: 'paging'
-            },
+        layout: {
+            topStart: 'pageLength',
+            topEnd: null,
+            bottomStart: 'info',
+            bottomEnd: 'paging'
+        },
 
-            columnDefs: [
-                {
-                    orderable: false,
-                    searchable: false,
-                    targets: [0]
-                }
-            ],
-
-            language: {
-                lengthMenu: 'Tampilkan _MENU_ data',
-                info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
-                infoEmpty: 'Tidak ada data reward',
-                infoFiltered: '(difilter dari _MAX_ total data)',
-                paginate: {
-                    next: 'Berikutnya',
-                    previous: 'Sebelumnya'
-                },
-                zeroRecords: 'Data tidak ditemukan',
-                emptyTable: 'Belum ada data reward.'
+        columnDefs: [
+            {
+                orderable: false,
+                searchable: false,
+                targets: [0, 9]
             }
-        });
-    }
+        ],
+
+        language: {
+            lengthMenu: 'Tampilkan _MENU_ data',
+            info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
+            infoEmpty: 'Tidak ada data reward',
+            infoFiltered: '(difilter dari _MAX_ total data)',
+            paginate: {
+                next: 'Berikutnya',
+                previous: 'Sebelumnya'
+            },
+            zeroRecords: 'Data tidak ditemukan',
+            emptyTable: 'Belum ada data reward.'
+        }
+
+    });
+
 
     const searchField = document.getElementById('searchField');
     const searchReward = document.getElementById('searchReward');
     const resetSearch = document.getElementById('resetSearch');
 
-    if (!searchField || !searchReward || !resetSearch) {
-        return;
-    }
+    const kolom = {
+        nama: 1,
+        kelas: 2,
+        kategori: 3,
+        nilai: 6,
+        bintang: 7,
+        tanggal: 8
+    };
 
-    // Pencarian berdasarkan kolom
+
+    // PENCARIAN
     function cariReward() {
 
         const pilihan = searchField.value;
-        const kataKunci = searchReward.value;
+        const kataKunci = searchReward.value.trim();
 
         table.search('');
         table.columns().search('');
@@ -297,24 +412,22 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const kolom = {
-            nama: 1,
-            kelas: 2,
-            kategori: 3,
-            nilai: 6,
-            bintang: 7,
-            tanggal: 8
-        };
-
         if (kolom[pilihan] !== undefined) {
-            table.column(kolom[pilihan]).search(kataKunci).draw();
+
+            const indexKolom = kolom[pilihan];
+
+            table.column(indexKolom).search(kataKunci).draw();
+
         }
+
     }
+
 
     searchReward.addEventListener('input', cariReward);
     searchField.addEventListener('change', cariReward);
 
-    // Reset pencarian
+
+    // RESET PENCARIAN
     resetSearch.addEventListener('click', function () {
 
         searchField.value = 'all';
@@ -328,4 +441,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 </script>
+
 @endpush
