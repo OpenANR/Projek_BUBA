@@ -4,9 +4,9 @@
 @section('content')
     <div class="max-w-3xl mx-auto">
         <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="bg-linear-to-r from-blue-600 to-indigo-600 px-6 py-5">
-                <h1 class="text-2xl font-bold text-white">Tambah Kategori</h1>
-                <p class="text-blue-100 text-sm mt-1">Isi form untuk menambahkan kategori baru</p>
+            <div class="bg-linear-to-r from-yellow-500 to-orange-500 px-6 py-5">
+                <h1 class="text-2xl font-bold text-white">Edit Kategori</h1>
+                <p class="text-blue-100 text-sm mt-1">Edit kateogori {{ $kategori->nama_kategori }}</p>
             </div>
 
             <div class="p-6">
@@ -29,7 +29,7 @@
                             Nama Kategori <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="nama_kategori" id="nama_kategori" value="{{ old('nama_kategori', $kategori->nama_kategori) }}"
-                            required maxlength="10" placeholder="Contoh: Kategori-1"
+                            required maxlength="30" placeholder="Contoh: Kategori-1"
                             class="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                     </div>
 
@@ -62,7 +62,7 @@
                             Deskripsi <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="deskripsi" id="deskripsi" value="{{ old('deskripsi', $kategori->deskripsi   ) }}"
-                            required maxlength="10" placeholder="Contoh: Deskripsi kategori"
+                            required maxlength="50" placeholder="Contoh: Deskripsi kategori"
                             class="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                     </div>
 

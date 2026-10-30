@@ -61,7 +61,7 @@
                             Deskripsi <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="deskripsi" id="deskripsi" value="{{ old('deskripsi') }}"
-                            required maxlength="30" placeholder="Contoh: Deskripsi kategori"
+                            required maxlength="50" placeholder="Contoh: Deskripsi kategori"
                             class="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                     </div>
 
