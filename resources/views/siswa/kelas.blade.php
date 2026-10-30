@@ -44,7 +44,7 @@
             </div>
         @else
             <p class="relative z-10 my-auto rounded-2xl border-4 border-white bg-white/90 px-6 py-4 text-center font-semibold text-slate-700 shadow-lg">
-                Belum ada kelas yang tersedia.
+                Akun kamu belum terdaftar di kelas mana pun.
             </p>
         @endif
 

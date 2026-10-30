@@ -106,14 +106,14 @@ class KelasController extends Controller
      * Controller Untuk Siswa
      */
 
-    public function pilihKelas($konten) {
+    public function pilihKelas(Request $request, $konten) {
         
         if(!in_array($konten, ['materi', 'kuis'])) {
             abort(404, 'Halaman tidak ditemukan');
         }
 
-        $kelas = Kelas::get();
-        // dd([$kelas, $konten]);
+        $kelas = Kelas::whereKey($request->user()->kelas_id)->get();
+
         return view('siswa.kelas', compact(['kelas', 'konten']));
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Middleware\EnsureStudentClassAccess;
 
 Route::get('/', function () {
     return view('welcome');
@@ -109,7 +110,7 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
     Route::delete('/reward/hapus-terpilih', [RewardController::class, 'hapusTerpilih'])->name('reward.hapusTerpilih');
 });
 
-Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
+Route::middleware(['auth', 'role:siswa', EnsureStudentClassAccess::class])->prefix('siswa')->group(function () {
 
     Route::get('/welcome', [WelcomeController::class, 'splash'])->name('siswa.splash');
 

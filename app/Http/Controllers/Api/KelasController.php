@@ -48,11 +48,12 @@ class KelasController extends Controller
         //
     }
 
-    public function pilihKelas() {
-        $kelas = Kelas::all();
+    public function pilihKelas(Request $request) {
+        $kelas = $request->user()->kelas;
+
         return response()->json([
             'success' => true,
-            'kelas' => $kelas
+            'kelas' => $kelas ? [$kelas] : [],
         ]);
     }
 }

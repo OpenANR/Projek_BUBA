@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\KelasController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\MateriController;
 use App\Http\Controllers\Api\QuisController;
+use App\Http\Middleware\EnsureStudentClassAccess;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 | Protected Routes (Khusus Siswa yang Login via Sanctum)
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', EnsureStudentClassAccess::class])->group(function () {
 
     // Auth & Profil
     Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
