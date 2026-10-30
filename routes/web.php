@@ -90,42 +90,71 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
     Route::get('/siswa/edit/{siswa}', [SiswaController::class, 'edit'])->name('siswa.edit');
     Route::put('/siswa/update/{siswa}', [SiswaController::class, 'update'])->name('siswa.update');
     Route::delete('/siswa/hapus/{siswa}', [SiswaController::class, 'destroy'])->name('siswa.hapus');
+    
     // =================================================
-
-    // RUTE REWARD
-    Route::get('/reward', [RewardController::class, 'index'])->name('reward.index');
-    Route::delete('/reward/{id}', [RewardController::class, 'hapus'])->name('reward.hapus');
-
-    Route::get('/admin/clock', [ClockController::class, 'clock']);
 
     // HAPUS SEMUA KUIS
     Route::delete('/kuis/hapus-semua', [QuisController::class, 'hapusSemua'])->name('kuis.hapusSemua');
-    // HAPUS SEMUA REWARD
-    Route::delete('/reward/hapus-semua', [RewardController::class, 'hapusSemua'])->name('reward.hapusSemua');
 
     // HAPUS KUIS TERPILIH
     Route::delete('/kuis/hapus-terpilih', [QuisController::class, 'hapusTerpilih'])->name('kuis.hapusTerpilih');
+
+    // RUTE REWARD
+    Route::get('/reward', [RewardController::class, 'index'])->name('reward.index');
+
+    // HAPUS SEMUA REWARD
+    Route::delete('/reward/hapus-semua', [RewardController::class, 'hapusSemua'])->name('reward.hapusSemua');
+
     // HAPUS REWARD TERPILIH
     Route::delete('/reward/hapus-terpilih', [RewardController::class, 'hapusTerpilih'])->name('reward.hapusTerpilih');
+
+    // HAPUS SATU REWARD (LETakkan PALING BAWAH)
+    Route::delete('/reward/{id}', [RewardController::class, 'hapus'])->whereNumber('id')->name('reward.hapus');
+
+    Route::get('/admin/clock', [ClockController::class, 'clock']);
 });
 
 Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->group(function () {
 
-    Route::get('/welcome', [WelcomeController::class, 'splash'])->name('siswa.splash');
+    Route::get('/welcome', [WelcomeController::class, 'splash'])
+        ->name('siswa.splash');
 
     Route::get('/konten', function () {
         return view('siswa.konten');
     })->name('siswa.konten');
 
     Route::prefix('{konten}')->group(function () {
-        Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])->name('siswa.kelas');
-        Route::get('/{kelas:nama_kelas}', [CategoryController::class, 'pilihKategori'])->name('siswa.kategori');
 
-        Route::get('/materi-list/{kelas:nama_kelas}/{kategori:slug}', [MateriController::class, 'listMateri'])->name('siswa.materi');
-        Route::get('/materi-show/{kelas:nama_kelas}/{kategori:slug}/{materi}', [MateriController::class, 'showMateri'])->name('siswa.showMateri');
+        // PILIH KELAS
+        Route::get('/pilih-kelas', [KelasController::class, 'pilihKelas'])
+            ->name('siswa.kelas');
 
-        Route::get('/kuis-list/{kelas:nama_kelas}/{kategori:slug}', [QuisController::class, 'listKuis'])->name('siswa.kuis');
-        Route::get('/kuis-show/{kelas:nama_kelas}/{kategori:slug}/{kuis}', [QuisController::class, 'showKuis'])->name('siswa.showKuis');
+        // PILIH KATEGORI
+        Route::get('/{kelas:nama_kelas}', [CategoryController::class, 'pilihKategori'])
+            ->name('siswa.kategori');
 
-        Route::post('/kuis-hasil/{kelas:nama_kelas}/{kategori:slug}/{kuis}', [QuisController::class, 'simpanHasil'])->name('siswa.simpanHasil');});
+        // DAFTAR MATERI
+        Route::get('/materi-list/{kelas:nama_kelas}/{kategori:slug}', [MateriController::class, 'listMateri'])
+            ->name('siswa.materi');
+
+        // DETAIL MATERI
+        Route::get('/materi-show/{kelas:nama_kelas}/{kategori:slug}/{materi}', [MateriController::class, 'showMateri'])
+            ->name('siswa.showMateri');
+
+        // DAFTAR KUIS
+        Route::get('/kuis-list/{kelas:nama_kelas}/{kategori:slug}', [QuisController::class, 'listKuis'])
+            ->name('siswa.kuis');
+
+        // MULAI KUIS
+        Route::get('/kuis-show/{kelas:nama_kelas}/{kategori:slug}/{kuis}', [QuisController::class, 'showKuis'])
+            ->name('siswa.showKuis');
+
+        // SIMPAN HASIL KUIS
+        Route::post('/kuis-hasil/{kelas:nama_kelas}/{kategori:slug}/{kuis}', [QuisController::class, 'simpanHasil'])
+            ->name('siswa.simpanHasil');
+
+        // HALAMAN HASIL KUIS
+        Route::get('/kuis-hasil/{kelas:nama_kelas}/{kategori:slug}/{kuis}', [QuisController::class, 'hasilKuis'])
+            ->name('siswa.hasilKuis');
+    });
 });

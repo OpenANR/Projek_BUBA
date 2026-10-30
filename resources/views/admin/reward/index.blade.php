@@ -28,7 +28,9 @@
                 <span class="text-green-600">✓</span>
                 <div>
                     <p class="font-semibold text-sm text-green-800">Berhasil</p>
-                    <p class="text-sm text-green-700 mt-1">{{ session('success') }}</p>
+                    <p class="text-sm text-green-700 mt-1">
+                        {{ session('success') }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -105,7 +107,7 @@
                 </div>
             </div>
 
-            {{-- TABEL --}}
+            {{-- TABEL REWARD --}}
             <div class="overflow-x-auto">
                 <table id="rewardTable" class="display w-full text-sm">
                     <thead>
@@ -195,8 +197,7 @@
 
                                 {{-- BINTANG --}}
                                 <td>
-                                    <span data-search="{{ $reward->jumlah_bintang }}"
-                                          class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg {{ $reward->jumlah_bintang > 0 ? 'bg-yellow-50 border border-yellow-200 text-yellow-700' : 'bg-gray-50 border border-gray-200 text-gray-500' }} text-xs font-semibold whitespace-nowrap">
+                                    <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg {{ $reward->jumlah_bintang > 0 ? 'bg-yellow-50 border border-yellow-200 text-yellow-700' : 'bg-gray-50 border border-gray-200 text-gray-500' }} text-xs font-semibold whitespace-nowrap">
                                         ⭐ {{ $reward->jumlah_bintang }}
                                     </span>
                                 </td>
@@ -208,7 +209,7 @@
                                     </span>
                                 </td>
 
-                                {{-- AKSI --}}
+                                {{-- HAPUS SATU REWARD --}}
                                 <td>
                                     <div class="flex items-center justify-center gap-2">
                                         <form action="{{ route('reward.hapus', $reward->id) }}"
@@ -233,7 +234,9 @@
             </div>
 
             {{-- MODE NORMAL --}}
-            <div id="modeNormalReward" class="px-5 py-4 border-t border-gray-200 flex justify-end">
+            <div id="modeNormalReward"
+                 class="px-5 py-4 border-t border-gray-200 flex justify-end">
+
                 <button type="button"
                         id="btnEditReward"
                         class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition">
@@ -243,21 +246,27 @@
             </div>
 
             {{-- MODE EDIT --}}
-            <div id="modeEditReward" class="hidden px-5 py-4 border-t border-gray-200">
+            <div id="modeEditReward"
+                 class="hidden px-5 py-4 border-t border-gray-200">
+
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+
                     <div class="flex flex-wrap items-center gap-3">
                         <label class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
-                            <input type="checkbox" id="pilihSemuaReward"
+                            <input type="checkbox"
+                                   id="pilihSemuaReward"
                                    class="w-4 h-4 accent-blue-600">
                             Pilih Semua
                         </label>
 
-                        <span id="jumlahDipilihReward" class="text-sm text-gray-500">
+                        <span id="jumlahDipilihReward"
+                              class="text-sm text-gray-500">
                             0 data dipilih
                         </span>
                     </div>
 
                     <div class="flex flex-wrap items-center gap-2">
+
                         <button type="button"
                                 id="btnBatalReward"
                                 class="px-4 py-2.5 rounded-xl bg-gray-100 border border-gray-200 text-gray-700 text-sm font-semibold hover:bg-gray-200">
@@ -276,23 +285,25 @@
                                 disabled
                                 class="px-4 py-2.5 rounded-xl bg-red-600 text-white text-sm font-semibold hover:bg-red-700 disabled:opacity-40 disabled:cursor-not-allowed">
                             <i class="fa-solid fa-trash mr-1"></i>
-                            Hapus
+                            Hapus Terpilih
                         </button>
+
                     </div>
                 </div>
             </div>
 
-            {{-- FORM HAPUS TERPILIH --}}
+            {{-- FORM HAPUS REWARD TERPILIH --}}
             <form id="formHapusPilihanReward"
                   action="{{ route('reward.hapusTerpilih') }}"
                   method="POST"
                   class="hidden">
                 @csrf
                 @method('DELETE')
+
                 <div id="inputIdsReward"></div>
             </form>
 
-            {{-- FORM HAPUS SEMUA --}}
+            {{-- FORM HAPUS SEMUA REWARD --}}
             <form id="formHapusSemuaReward"
                   action="{{ route('reward.hapusSemua') }}"
                   method="POST"
@@ -310,7 +321,9 @@
                         <span class="text-3xl">⭐</span>
                     </div>
 
-                    <h3 class="mt-4 text-lg font-bold text-gray-900">Belum Ada Reward</h3>
+                    <h3 class="mt-4 text-lg font-bold text-gray-900">
+                        Belum Ada Reward
+                    </h3>
 
                     <p class="mt-2 text-sm text-gray-500 leading-6">
                         Belum ada hasil pengerjaan kuis anak.
@@ -328,17 +341,12 @@
 @push('styles')
 <style>
     .kolom-pilih[hidden] {
-    display: none !important;
+        display: none !important;
     }
 
     .kolom-pilih:not([hidden]) {
         display: table-cell !important;
         text-align: center;
-    }
-
-    .kolom-pilih {
-        display: none;
-        text-align: center !important;
     }
 
     .kolom-pilih input {
@@ -350,12 +358,14 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
     const tableElement = document.getElementById('rewardTable');
 
     if (!tableElement || typeof DataTable === 'undefined') {
         return;
     }
 
+    // DATATABLE
     const table = new DataTable(tableElement, {
         pageLength: 10,
         lengthMenu: [10, 25, 50],
@@ -381,77 +391,103 @@ document.addEventListener('DOMContentLoaded', function () {
             info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
             infoEmpty: 'Tidak ada data reward',
             infoFiltered: '(difilter dari _MAX_ total data)',
+
             paginate: {
                 next: 'Berikutnya',
                 previous: 'Sebelumnya'
             },
+
             zeroRecords: 'Data tidak ditemukan',
             emptyTable: 'Belum ada data reward.'
         }
     });
 
+    // ELEMEN PENCARIAN
     const searchField = document.getElementById('searchField');
     const searchReward = document.getElementById('searchReward');
     const resetSearch = document.getElementById('resetSearch');
 
+    // ELEMEN MODE EDIT
     const modeNormal = document.getElementById('modeNormalReward');
     const modeEdit = document.getElementById('modeEditReward');
+
     const btnEdit = document.getElementById('btnEditReward');
     const btnBatal = document.getElementById('btnBatalReward');
+
     const pilihSemua = document.getElementById('pilihSemuaReward');
     const jumlahDipilih = document.getElementById('jumlahDipilihReward');
+
     const btnHapus = document.getElementById('btnHapusPilihanReward');
     const btnHapusSemua = document.getElementById('btnHapusSemuaReward');
 
+    // FORM PENGHAPUSAN
     const formPilihan = document.getElementById('formHapusPilihanReward');
     const formSemua = document.getElementById('formHapusSemuaReward');
     const inputIds = document.getElementById('inputIdsReward');
 
     let editAktif = false;
 
+    // MENGAMBIL SEMUA CHECKBOX
     function semuaCheckbox() {
         return Array.from(table.rows().nodes()).flatMap(row =>
             Array.from(row.querySelectorAll('.checkbox-reward'))
         );
     }
 
+    // MEMPERBARUI JUMLAH PILIHAN
     function perbaruiPilihan() {
         const checkbox = semuaCheckbox();
+
         const terpilih = checkbox.filter(item => item.checked).length;
 
         jumlahDipilih.textContent = terpilih + ' data dipilih';
+
         btnHapus.disabled = terpilih === 0;
 
-        pilihSemua.checked = checkbox.length > 0 && terpilih === checkbox.length;
-        pilihSemua.indeterminate = terpilih > 0 && terpilih < checkbox.length;
+        pilihSemua.checked =
+            checkbox.length > 0 && terpilih === checkbox.length;
+
+        pilihSemua.indeterminate =
+            terpilih > 0 && terpilih < checkbox.length;
     }
 
+    // MENGATUR MODE EDIT
     function aturModeEdit(aktif) {
-    document.querySelectorAll('#rewardTable .kolom-pilih').forEach(kolom => {
-        kolom.hidden = !aktif;
-    });
 
-    document.getElementById('modeNormalReward').classList.toggle('hidden', aktif);
-    document.getElementById('modeEditReward').classList.toggle('hidden', !aktif);
+        editAktif = aktif;
 
-    if (!aktif) {
-        document.querySelectorAll('.checkbox-reward').forEach(checkbox => {
-            checkbox.checked = false;
+        document.querySelectorAll('#rewardTable .kolom-pilih').forEach(kolom => {
+            kolom.hidden = !aktif;
         });
+
+        modeNormal.classList.toggle('hidden', aktif);
+        modeEdit.classList.toggle('hidden', !aktif);
+
+        if (!aktif) {
+            semuaCheckbox().forEach(checkbox => {
+                checkbox.checked = false;
+            });
+
+            pilihSemua.checked = false;
+            pilihSemua.indeterminate = false;
+        }
+
+        perbaruiPilihan();
     }
 
-    perbaruiPilihan();
-    }
-
+    // TOMBOL EDIT
     btnEdit.addEventListener('click', function () {
         aturModeEdit(true);
     });
 
+    // TOMBOL BATAL
     btnBatal.addEventListener('click', function () {
         aturModeEdit(false);
     });
 
+    // PILIH SEMUA
     pilihSemua.addEventListener('change', function () {
+
         semuaCheckbox().forEach(checkbox => {
             checkbox.checked = pilihSemua.checked;
         });
@@ -459,21 +495,27 @@ document.addEventListener('DOMContentLoaded', function () {
         perbaruiPilihan();
     });
 
+    // PERUBAHAN CHECKBOX
     tableElement.addEventListener('change', function (event) {
+
         if (event.target.classList.contains('checkbox-reward')) {
             perbaruiPilihan();
         }
     });
 
+    // SAAT DATATABLE DIPERBARUI
     table.on('draw', function () {
+
         document.querySelectorAll('#rewardTable .kolom-pilih').forEach(kolom => {
-            kolom.style.display = editAktif ? 'table-cell' : 'none';
+            kolom.hidden = !editAktif;
         });
 
         perbaruiPilihan();
     });
 
+    // HAPUS REWARD TERPILIH
     btnHapus.addEventListener('click', function () {
+
         const ids = semuaCheckbox()
             .filter(checkbox => checkbox.checked)
             .map(checkbox => checkbox.value);
@@ -483,35 +525,61 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        if (!confirm('Yakin ingin menghapus ' + ids.length + ' hasil reward yang dipilih?')) {
+        const konfirmasi = confirm(
+            'Yakin ingin menghapus ' + ids.length +
+            ' hasil reward yang dipilih?'
+        );
+
+        if (!konfirmasi) {
             return;
         }
 
+        // KOSONGKAN INPUT ID SEBELUM MENGIRIM
         inputIds.innerHTML = '';
 
+        // MASUKKAN ID REWARD YANG DIPILIH
         ids.forEach(id => {
+
             const input = document.createElement('input');
+
             input.type = 'hidden';
             input.name = 'ids[]';
             input.value = id;
+
             inputIds.appendChild(input);
         });
 
+        // PASTIKAN FORM MENGARAH KE ROUTE REWARD
+        formPilihan.setAttribute(
+            'action',
+            "{{ route('reward.hapusTerpilih') }}"
+        );
+
+        // KIRIM FORM
         formPilihan.submit();
     });
 
+    // HAPUS SEMUA REWARD
     btnHapusSemua.addEventListener('click', function () {
-        semuaCheckbox().forEach(checkbox => checkbox.checked = true);
-        pilihSemua.checked = true;
-        perbaruiPilihan();
 
-        if (!confirm('PERINGATAN! Yakin ingin menghapus SELURUH hasil reward anak? Semua riwayat nilai dan bintang akan dihapus.')) {
+        const konfirmasi = confirm(
+            'PERINGATAN! Yakin ingin menghapus SELURUH hasil reward anak? ' +
+            'Semua riwayat nilai dan bintang akan dihapus.'
+        );
+
+        if (!konfirmasi) {
             return;
         }
+
+        formSemua.setAttribute(
+            'action',
+            "{{ route('reward.hapusSemua') }}"
+        );
 
         formSemua.submit();
     });
 
+    // PENCARIAN BERDASARKAN KOLOM
     const kolom = {
         nama: 2,
         kelas: 3,
@@ -522,6 +590,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     function cariReward() {
+
         const pilihan = searchField.value;
         const kataKunci = searchReward.value.trim();
 
@@ -534,21 +603,28 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (kolom[pilihan] !== undefined) {
-            table.column(kolom[pilihan]).search(kataKunci).draw();
+            table.column(kolom[pilihan])
+                .search(kataKunci)
+                .draw();
         }
     }
 
     searchReward.addEventListener('input', cariReward);
+
     searchField.addEventListener('change', cariReward);
 
+    // RESET PENCARIAN
     resetSearch.addEventListener('click', function () {
+
         searchField.value = 'all';
         searchReward.value = '';
 
         table.search('');
         table.columns().search('');
+
         table.draw();
     });
+
 });
 </script>
 @endpush
