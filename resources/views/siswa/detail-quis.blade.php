@@ -65,7 +65,7 @@
     <header class="relative z-10 mb-7 flex w-full items-center justify-center pt-2 sm:pt-4 md:pt-6">
         <div class="max-w-full rounded-2xl border-[4px] border-white bg-[#1e60be] px-7 py-2 shadow-lg sm:rounded-[2rem] sm:border-[5px] sm:px-10 sm:py-3 md:rounded-[2.2rem] md:border-[6px] md:px-14 md:py-3.5">
             <h1 class="text-center font-sans text-xl font-black tracking-wider text-white sm:text-3xl md:text-4xl">
-                KUIS KELAS {{ strtoupper($kelas->nama_kelas) }}
+                KUIS {{ strtoupper($kelas->nama_kelas) }}
             </h1>
         </div>
     </header>

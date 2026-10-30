@@ -1,4 +1,3 @@
-
 @extends('layouts.siswa.app')
 
 @section('title', 'Hasil Kuis - BUBA')
@@ -48,7 +47,7 @@
     <header class="relative z-10 mb-7 flex items-center justify-center pt-2 sm:pt-4 md:pt-6">
         <div class="rounded-2xl border-[4px] border-white bg-[#1e60be] px-7 py-2 shadow-[0_8px_20px_rgba(0,0,0,0.2)] sm:rounded-[2rem] sm:border-[5px] sm:px-10 sm:py-3 md:rounded-[2.2rem] md:border-[6px] md:px-14 md:py-3.5">
             <h1 class="text-center font-sans text-xl font-black tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] sm:text-3xl md:text-4xl">
-                HASIL KUIS KELAS {{ strtoupper($kelas->nama_kelas) }}
+                HASIL KUIS {{ strtoupper($kelas->nama_kelas) }}
             </h1>
         </div>
     </header>
