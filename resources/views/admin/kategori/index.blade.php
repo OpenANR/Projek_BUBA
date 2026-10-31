@@ -38,6 +38,7 @@
 						<tr>
 							<th scope="col" class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">No</th>
 							<th scope="col" class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nama Kategori</th>
+							<th scope="col" class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Kelas</th>
 							<th scope="col" class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Deskripsi</th>
 							<th scope="col" class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
 						</tr>
@@ -47,6 +48,7 @@
 							<tr class="hover:bg-gray-50 transition">
 								<td class="px-4 py-3 text-sm text-gray-700">{{ $loop->iteration }}</td>
 								<td class="px-4 py-3 text-sm font-medium text-gray-800">{{ $item->nama_kategori }}</td>
+								<td class="px-4 py-3 text-sm font-medium text-gray-800">{{ $item->kelas->nama_kelas }}</td>
 								<td class="px-4 py-3 text-sm text-gray-700">{{ $item->deskripsi }}</td>
 								<td class="px-4 py-3 text-sm">
 									<div class="flex flex-wrap items-center gap-2">
