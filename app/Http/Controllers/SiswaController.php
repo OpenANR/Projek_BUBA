@@ -46,7 +46,7 @@ class SiswaController extends Controller
             // 'kode_user' => 'required|unique:users,kode_user',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string',
+            'password' => 'required|string|min:8',
             'jenis_kelamin' => 'nullable',
             'role' => 'required',
             'kelas_id'  => 'nullable|exists:kelas,id'
@@ -99,7 +99,7 @@ class SiswaController extends Controller
             // 'kode_user' => 'required|unique:users,kode_user',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $siswa->id,
-            'password' => 'nullable|string',
+            'password' => 'nullable|string|min:8',
             'jenis_kelamin' => 'nullable',
             'role' => 'required',
             'kelas_id'  => 'nullable|exists:kelas,id'
