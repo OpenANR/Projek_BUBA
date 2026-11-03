@@ -7,6 +7,7 @@ use App\Models\Kelas;
 use App\Models\Materi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class MateriController extends Controller
 {
@@ -56,6 +57,9 @@ class MateriController extends Controller
                 'string',
                 'max:25',
                 'regex:/^[A-Za-z0-9 ]+$/',
+                Rule::unique('materis', 'nama_materi')
+                    ->where('kelas_id', $request->kelas_id)
+                    ->where('kategori_id', $request->kategori_id),
             ],
             'kategori_id' => 'required|exists:kategoris,id',
             'kelas_id' => 'required|exists:kelas,id',
@@ -66,6 +70,7 @@ class MateriController extends Controller
             'nama_materi.required' => 'Nama materi harus diisi.',
             'nama_materi.max' => 'Nama materi tidak boleh lebih dari 25 karakter.',
             'nama_materi.regex' => 'Nama materi hanya boleh menggunakan huruf, angka, dan spasi.',
+            'nama_materi.unique' => 'Materi dengan judul, kelas, dan kategori tersebut sudah tersedia.',
             'kategori_id.required' => 'Kategori harus diisi.',
             'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
             'kelas_id.required' => 'Kelas harus diisi.',
@@ -141,6 +146,10 @@ class MateriController extends Controller
                 'string',
                 'max:25',
                 'regex:/^[A-Za-z0-9 ]+$/',
+                Rule::unique('materis', 'nama_materi')
+                    ->where('kelas_id', $request->kelas_id)
+                    ->where('kategori_id', $request->kategori_id)
+                    ->ignore($materi->getKey()),
             ],
             'kategori_id' => 'required|exists:kategoris,id',
             'kelas_id' => 'required|exists:kelas,id',
@@ -151,6 +160,7 @@ class MateriController extends Controller
             'nama_materi.required' => 'Nama materi harus diisi.',
             'nama_materi.max' => 'Nama materi tidak boleh lebih dari 25 karakter.',
             'nama_materi.regex' => 'Nama materi hanya boleh menggunakan huruf, angka, dan spasi.',
+            'nama_materi.unique' => 'Materi dengan judul, kelas, dan kategori tersebut sudah tersedia.',
             'kategori_id.required' => 'Kategori harus diisi.',
             'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
             'kelas_id.required' => 'Kelas harus diisi.',
