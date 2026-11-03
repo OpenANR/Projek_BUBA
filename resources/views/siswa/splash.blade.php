@@ -295,6 +295,10 @@
                             </li>
                         </ol>
                     </div>
+                    <div class="text-center">
+                        <p class="italic">BUBA E-Learning Application | version 1.0</p>
+                        <p class="font-bold">&copy; {{ date('Y') }} NAJATIF. Politeknik Negeri Jember.</p>
+                    </div>
 
                 </div>
 
@@ -387,7 +391,8 @@
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#5ebef3]/10 border-2 border-[#5ebef3]/40">
                             <span class="text-lg">🧑‍🎓</span>
-                            <h3 class="text-lg sm:text-xl font-black text-[#1e60be]">{{ Auth::user()->name ?? 'Nama Siswa' }}
+                            <h3 class="text-lg sm:text-xl font-black text-[#1e60be]">
+                                {{ Auth::user()->name ?? 'Nama Siswa' }}
                             </h3>
                         </div>
                     </div>

@@ -1060,8 +1060,8 @@
             </div>
 
             <div class="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-center text-xs font-semibold text-blue-200 sm:flex-row sm:text-left">
-                <p>&copy; {{ date('Y') }} BUBA E-Learning. Belajar • Bermain • Berkembang.</p>
-                <p>Dibuat dengan <span class="text-[#f36b6b]">❤</span> untuk pembelajaran yang menyenangkan.</p>
+                <p>&copy; {{ date('Y') }} NAJATIF. Politeknik Negeri Jember.</p>
+                <p>BUBA E-Learning Application | version 1.0</p>
             </div>
         </div>
     </footer>

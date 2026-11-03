@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <aside class="w-64 bg-[white] flex flex-col justify-between  shadow-xl z-20 transition-all duration-300">
-    
+
     <!-- Bagian Atas: Logo & Menu -->
     <div>
         <!-- Logo Buba -->
@@ -8,7 +8,8 @@
             <!-- Ikon Beruang (SVG sederhana) -->
             <img src="{{ asset('images/logoAdmin.png') }}" alt="">
         </div>
-        <p class="text-[10px] text-center text-slate-500 mt-1 tracking-wider uppercase">Belajar - Bermain - Berkembang</p>
+        <p class="text-[10px] text-center text-slate-500 mt-1 tracking-wider uppercase">Belajar - Bermain - Berkembang
+        </p>
 
         <!-- Menu Navigasi -->
         <nav class="mt-6 px-3 space-y-1">
@@ -69,7 +70,8 @@
         {{-- <img src="{{ asset('images/sidebarBackground.png') }}" alt=""> --}}
     </div>
     <div class="text-center mb-5">
-        <span class="font-bold">BUBA E-Learning Application</span>
-        <span class="italic">NAJATIF_2026 | v0.0001 Dev</span>
+        <p class="italic">BUBA E-Learning Application</p>
+        <p class="font-bold">&copy; {{ date('Y') }} NAJATIF</p>
+        <p class="font-bold">Politeknik Negeri Jember</p>
     </div>
 </aside>
