@@ -2,7 +2,23 @@
     // Ganti tanda '#' dengan tautan Play Store / App Store / file APK jika sudah tersedia.
     $androidUrl = '#';
     $iosUrl = '#';
+
     $webUrl = route('login');
+    $buttonText = 'MASUK';
+
+    if(Auth::check()) {
+        $role = Auth::user()->role;
+
+        if ($role === 'guru' || $role === 'admin') {
+            $webUrl = route('admin.dashboard');
+            $buttonText = 'DASHBOARD 💻';
+        }
+
+        if ($role === 'siswa') {
+            $webUrl = route('siswa.splash');
+            $buttonText = 'AYO MENEGERJAKAN 📝';
+        }
+    }
 @endphp
 
 <!DOCTYPE html>
@@ -100,7 +116,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                     </svg>
-                    Masuk
+                    {{ $buttonText }}
                 </a>
                 <a href="#unduh"
                     class="group inline-flex items-center gap-2 rounded-full border-2 border-white bg-[#1e60be] px-5 py-2.5 text-sm font-extrabold text-white shadow-[0_5px_0_#154a94] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#2b73d1] hover:shadow-[0_7px_0_#154a94] active:translate-y-1 active:shadow-[0_2px_0_#154a94]">
@@ -213,7 +229,7 @@
                                 d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Mulai Belajar
+                        {{ $buttonText }}
                     </a>
 
                     <a href="#unduh"
