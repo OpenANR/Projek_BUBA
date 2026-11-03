@@ -70,9 +70,18 @@
                     </p>
                 </div>
 
-                <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-sm">
-                    <span>Total reward</span>
-                    <span class="font-bold">{{ $rewards->count() }}</span>
+                {{-- TOTAL REWARD DAN UNDUH SEMUA PDF --}}
+                <div class="flex flex-wrap items-center gap-2">
+                    <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-sm">
+                        <span>Total reward</span>
+                        <span class="font-bold">{{ $rewards->count() }}</span>
+                    </div>
+
+                    <a href="{{ route('reward.downloadSemuaPdf') }}"
+                       class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-semibold transition">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        Unduh Semua PDF
+                    </a>
                 </div>
             </div>
         </div>
@@ -209,9 +218,18 @@
                                     </span>
                                 </td>
 
-                                {{-- HAPUS SATU REWARD --}}
+                                {{-- AKSI --}}
                                 <td>
                                     <div class="flex items-center justify-center gap-2">
+
+                                        {{-- UNDUH PDF PER REWARD --}}
+                                        <a href="{{ route('reward.downloadPdf', $reward->id) }}"
+                                           title="Unduh PDF"
+                                           class="w-9 h-9 flex items-center justify-center rounded-lg border border-blue-200 bg-blue-50 text-blue-600 hover:bg-blue-100 transition">
+                                            <i class="fa-solid fa-file-pdf text-xs"></i>
+                                        </a>
+
+                                        {{-- HAPUS SATU REWARD --}}
                                         <form action="{{ route('reward.hapus', $reward->id) }}"
                                               method="POST"
                                               onsubmit="return confirm('Yakin ingin menghapus hasil reward anak ini?')">
@@ -225,6 +243,7 @@
                                                 <i class="fa-solid fa-trash text-xs"></i>
                                             </button>
                                         </form>
+
                                     </div>
                                 </td>
                             </tr>

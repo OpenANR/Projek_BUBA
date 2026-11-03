@@ -71,7 +71,7 @@
             </a>
 
             <!-- Card RIWAYAT (Oranye) -->
-            <a href="{{ route('siswa.kelas', ['konten' => 'kuis']) }}"
+            <a href="{{ route('siswa.reward') }}"
                 class="group relative flex flex-col items-center justify-between w-60 h-64 sm:w-72 sm:h-80 md:w-80 md:h-88 lg:w-96 lg:h-96 p-5 sm:p-6 md:p-8 bg-[#faa63a] border-[6px] sm:border-[7px] md:border-8 border-white rounded-[2rem] sm:rounded-[2.4rem] md:rounded-[2.8rem] shadow-[0_12px_24px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-2.5 hover:shadow-[0_22px_36px_rgba(250,166,58,0.45)] active:scale-95 active:translate-y-1 active:shadow-md focus:outline-none focus:ring-4 focus:ring-white/70"
                 aria-label="Pilih Riwayat">
 

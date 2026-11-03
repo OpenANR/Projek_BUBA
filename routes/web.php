@@ -112,6 +112,12 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
     // HAPUS SATU REWARD (LETakkan PALING BAWAH)
     Route::delete('/reward/{id}', [RewardController::class, 'hapus'])->whereNumber('id')->name('reward.hapus');
 
+    // DOWNLOAD PDF SEMUA HASIL KUIS
+    Route::get('/reward/pdf', [RewardController::class, 'downloadSemuaPdf'])->name('reward.downloadSemuaPdf');
+
+    // DOWNLOAD PDF SATU HASIL KUIS
+    Route::get('/reward/{id}/pdf', [RewardController::class, 'downloadPdf'])->whereNumber('id')->name('reward.downloadPdf');
+
     Route::get('/admin/clock', [ClockController::class, 'clock']);
 });
 
@@ -120,9 +126,12 @@ Route::middleware(['auth', 'role:siswa', EnsureStudentClassAccess::class])->pref
     Route::get('/welcome', [WelcomeController::class, 'splash'])
         ->name('siswa.splash');
 
-    Route::get('/konten', function () {
-        return view('siswa.konten');
-    })->name('siswa.konten');
+    Route::get('/konten', function () {return view('siswa.konten');})
+    ->name('siswa.konten');
+
+    // HALAMAN HASIL REWARD SISWA
+    Route::get('/reward', [RewardController::class, 'indexSiswa'])
+    ->name('siswa.reward');
 
     Route::prefix('{konten}')->group(function () {
 
