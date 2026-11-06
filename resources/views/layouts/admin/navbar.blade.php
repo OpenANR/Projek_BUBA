@@ -104,30 +104,28 @@
 </header>
 
 <script>
+    // Tampilkan waktu WIB (Asia/Jakarta) apa pun timezone perangkat pengguna.
+    const wibDateFormatter = new Intl.DateTimeFormat('id-ID', {
+        timeZone: 'Asia/Jakarta',
+        weekday: 'long',
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+    });
+
+    const wibTimeFormatter = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Jakarta',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+    });
+
     function updateClock() {
         const now = new Date();
 
-        const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-        const months = [
-            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-        ];
-
-        const dayName = days[now.getDay()];
-        const dayNumber = String(now.getDate()).padStart(2, '0');
-        const monthName = months[now.getMonth()];
-        const year = now.getFullYear();
-
-        const fullDate = `${dayName}, ${dayNumber} ${monthName} ${year}`;
-
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-
-        const fullTime = `${hours}:${minutes}:${seconds}`;
-
-        document.getElementById('date-display').textContent = fullDate;
-        document.getElementById('time-display').textContent = fullTime;
+        document.getElementById('date-display').textContent = wibDateFormatter.format(now);
+        document.getElementById('time-display').textContent = wibTimeFormatter.format(now);
     }
 
     updateClock();

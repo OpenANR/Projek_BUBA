@@ -259,7 +259,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M8 3v18m8-18v18M3 8h18M3 16h18M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" />
                         </svg>
-                        Android &amp; iOS
+                        Android
                     </span>
                     <span class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 shadow-sm">
                         <span class="text-sm">🎒</span>
@@ -811,7 +811,7 @@
                         </h2>
                         <p class="mx-auto mt-4 max-w-xl text-base font-semibold leading-relaxed text-blue-50 lg:mx-0">
                             Belajar dari sekolah, rumah, atau perjalanan. BUBA tersedia sebagai aplikasi web yang
-                            responsif dan aplikasi mobile untuk Android serta iOS.
+                            responsif dan aplikasi mobile untuk Android.
                         </p>
 
                         <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap lg:justify-start">
@@ -824,18 +824,6 @@
                                 <span class="leading-tight">
                                     <span class="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Unduh di</span>
                                     <span class="font-display block text-base font-extrabold text-slate-900">Google Play</span>
-                                </span>
-                            </a>
-
-                            {{-- App Store --}}
-                            <a href="{{ $iosUrl }}"
-                                class="group inline-flex w-full items-center justify-center gap-3 rounded-2xl border-2 border-white bg-white px-5 py-3 text-left shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl sm:w-auto">
-                                <svg class="h-7 w-7 shrink-0 text-slate-900" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                    <path d="M16.365 1.43c0 1.14-.46 2.2-1.205 3.02-.87.96-2.28 1.7-3.61 1.6-.16-1.1.43-2.27 1.12-3.02.79-.86 2.18-1.55 3.47-1.6h.225zm3.72 17.15c-.62 1.42-.92 2.05-1.72 3.3-1.12 1.74-2.7 3.9-4.66 3.92-1.73.02-2.18-1.13-4.53-1.11-2.35.01-2.84 1.14-4.57 1.12-1.96-.02-3.46-1.98-4.58-3.72-3.13-4.86-3.46-10.57-1.53-13.6 1.37-2.15 3.54-3.41 5.58-3.41 2.06 0 3.36 1.13 5.07 1.13 1.66 0 2.67-1.13 5.06-1.13 1.81 0 3.73.99 5.09 2.7-4.47 2.45-3.75 8.84.29 10.8z" />
-                                </svg>
-                                <span class="leading-tight">
-                                    <span class="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Unduh di</span>
-                                    <span class="font-display block text-base font-extrabold text-slate-900">App Store</span>
                                 </span>
                             </a>
 
@@ -852,7 +840,7 @@
                         </div>
 
                         <p class="mt-4 text-xs font-semibold leading-relaxed text-blue-100">
-                            Gunakan akun yang diberikan guru/admin untuk masuk. Tersedia untuk Android, iOS, dan browser.
+                            Gunakan akun yang diberikan guru/admin untuk masuk. Tersedia untuk Android, dan browser.
                         </p>
                     </div>
 
@@ -989,7 +977,7 @@
                     </summary>
                     <p class="mt-3 text-sm font-semibold leading-relaxed text-slate-500 sm:text-base">
                         Ya. BUBA dapat dibuka melalui browser di komputer, tablet, maupun ponsel. Aplikasi mobile juga
-                        tersedia untuk Android dan iOS melalui tombol unduh di halaman ini.
+                        tersedia untuk Android dan melalui tombol unduh di halaman ini.
                     </p>
                 </details>
             </div>
@@ -1019,7 +1007,6 @@
                     <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-extrabold text-blue-100">
                         <span class="rounded-full bg-white/10 px-3 py-1.5 ring-1 ring-white/10">Web</span>
                         <span class="rounded-full bg-white/10 px-3 py-1.5 ring-1 ring-white/10">Android</span>
-                        <span class="rounded-full bg-white/10 px-3 py-1.5 ring-1 ring-white/10">iOS</span>
                     </div>
                 </div>
 

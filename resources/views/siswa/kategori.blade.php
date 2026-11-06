@@ -93,12 +93,12 @@
             : ['type' => 'image', 'value' => asset('images/icon-materi.png')];
     @endphp
 
-    <!-- Container Utama (Fullscreen responsif) -->
-    <div class="relative flex h-screen min-h-[600px] w-full flex-col items-center justify-between overflow-x-hidden overflow-y-auto px-4 py-5 select-none sm:overflow-hidden sm:px-6 md:px-8">
+    <!-- Container Utama (Responsif dengan Vertical Scroll) -->
+    <div class="relative flex min-h-screen w-full flex-col items-center justify-between overflow-x-hidden px-4 py-5 select-none sm:px-6 md:px-8">
 
         <!-- 1. Background Image -->
         <img src="{{ asset('images/backgroundSplash.png') }}" alt="BUBA Background"
-            class="pointer-events-none absolute inset-0 z-0 h-full w-full select-none object-cover object-bottom">
+            class="pointer-events-none fixed inset-0 z-0 h-full w-full select-none object-cover object-bottom">
 
         <!-- 2. Tombol Kembali (Top Left) -->
         <div class="absolute left-4 top-4 z-30 sm:left-6 sm:top-6 md:left-8 md:top-8">
