@@ -88,8 +88,8 @@
         {{-- <img src="{{ asset('images/sidebarBackground.png') }}" alt=""> --}}
     </div>
     <div class="text-center mb-5 px-2" x-show="!sidebarCollapsed">
-        <p class="italic">BUBA E-Learning Application</p>
+        <p class="italic">BUBA E-Learning Application | Version 1.0</p>
         <p class="font-bold">&copy; {{ date('Y') }} NAJATIF</p>
-        <p class="font-bold">All Right Reserved.<</p>
+        <p class="font-bold">All Right Reserved.</p>
     </div>
 </aside>

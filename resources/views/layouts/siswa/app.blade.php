@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>@yield('title', 'Welcome to BUBA')</title>
+    @include('layouts.partials.favicon')
 </head>
 
 @php

@@ -7,9 +7,9 @@
     <!-- Container Utama (Fullscreen responsif) -->
     <div class="relative w-full h-screen min-h-[600px] flex flex-col justify-between items-center overflow-x-hidden overflow-y-auto sm:overflow-hidden select-none py-5 px-4 sm:px-6 md:px-8">
 
-        <!-- 1. Background Image -->
+        <!-- 1. Background Image (fixed agar tidak ikut bergeser saat halaman di-scroll/diperkecil) -->
         <img src="{{ asset('images/backgroundSplash.png') }}" alt="BUBA Background"
-            class="absolute inset-0 w-full h-full object-cover object-bottom z-0 pointer-events-none select-none">
+            class="fixed inset-0 w-full h-full object-cover object-bottom z-0 pointer-events-none select-none">
 
         <!-- 2. Tombol Kembali (Top Left) -->
         <div class="absolute top-4 left-4 sm:top-6 sm:left-6 md:top-8 md:left-8 z-30">

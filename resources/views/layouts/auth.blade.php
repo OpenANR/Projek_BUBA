@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Autentikasi') - {{ config('app.name', 'BUBA') }}</title>
+    @include('layouts.partials.favicon')
 
     <!-- Google / Bunny Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -20,7 +21,7 @@
 </head>
 
 <body
-    class="h-full font-sans antialiased text-gray-900 bg-[#eaf4fe] selection:bg-[#5ebef3] selection:text-white overflow-x-hidden rounded-l-lg">
+    class="h-full font-sans antialiased text-gray-900 bg-[#eaf4fe] selection:bg-[#5ebef3] selection:text-white overflow-x-hidden">
 
     <div class="min-h-screen flex flex-col lg:flex-row w-full relative">
 

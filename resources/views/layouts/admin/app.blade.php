@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Buba Dashboard</title>
+    @include('layouts.partials.favicon')
     <!-- Tailwind CSS via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Font Awesome untuk ikon (opsional, jika tidak pakai SVG) -->

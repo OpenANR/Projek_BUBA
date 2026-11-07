@@ -1,132 +1,70 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('layouts.status')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Halaman Tidak Ditemukan</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @keyframes float {
+@section('title', '404 - Halaman Tidak Ditemukan | BUBA')
 
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
+@php
+    $user = auth()->user();
+    $role = $user?->role;
 
-            50% {
-                transform: translateY(-20px);
-            }
-        }
+    if (in_array($role, ['guru', 'admin'], true)) {
+        $homeUrl = route('admin.dashboard');
+        $homeLabel = 'Kembali ke Dashboard';
+    } elseif ($role === 'siswa') {
+        $homeUrl = route('siswa.splash');
+        $homeLabel = 'Kembali ke Beranda';
+    } else {
+        $homeUrl = url('/');
+        $homeLabel = 'Kembali ke Beranda';
+    }
+@endphp
 
-        @keyframes glitch {
-
-            0%,
-            100% {
-                transform: translate(0);
-            }
-
-            20% {
-                transform: translate(-3px, 3px);
-            }
-
-            40% {
-                transform: translate(-3px, -3px);
-            }
-
-            60% {
-                transform: translate(3px, 3px);
-            }
-
-            80% {
-                transform: translate(3px, -3px);
-            }
-        }
-
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .animate-glitch {
-            animation: glitch 0.3s ease-in-out infinite;
-        }
-    </style>
-</head>
-
-<body
-    class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 overflow-hidden">
-
-    <!-- Background decorative elements -->
-    <div class="absolute inset-0 overflow-hidden">
-        <div
-            class="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float">
-        </div>
-        <div class="absolute bottom-20 right-10 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"
-            style="animation-delay: 2s;"></div>
-        <div class="absolute top-1/2 left-1/2 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"
-            style="animation-delay: 4s;"></div>
+@section('content')
+    <div class="badge">
+        <span class="badge-dot"></span>
+        Error 404
     </div>
 
-    <!-- Main content -->
-    <div class="relative z-10 text-center max-w-2xl mx-auto">
+    <div class="error-art" aria-hidden="true">
+        <svg class="mini-cloud" viewBox="0 0 100 60" fill="currentColor">
+            <path
+                d="M20 50 C10 50 2 42 2 32 C2 24 8 18 16 16 C19 8 28 2 38 2 C49 2 58 8 62 18 C66 16 70 16 74 18 C83 19 90 26 90 35 C90 43 83 50 74 50 Z" />
+        </svg>
 
-        <!-- 404 Number -->
-        <div class="relative mb-8">
-            <h1
-                class="text-[150px] sm:text-[200px] md:text-[250px] font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 leading-none select-none">
-                404
-            </h1>
-            <!-- Ghost floating on top -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-float">
-                <svg class="w-24 h-24 sm:w-32 sm:h-32 text-white/90 drop-shadow-2xl" viewBox="0 0 24 24"
-                    fill="currentColor">
-                    <path
-                        d="M12 2C7.58 2 4 5.58 4 10v10c0 .55.45 1 1 1s1-.45 1-1v-1h2v1c0 .55.45 1 1 1s1-.45 1-1v-1h2v1c0 .55.45 1 1 1s1-.45 1-1v-1h2v1c0 .55.45 1 1 1s1-.45 1-1V10c0-4.42-3.58-8-8-8zm-3 9c-.83 0-1.5-.67-1.5-1.5S8.17 8 9 8s1.5.67 1.5 1.5S9.83 11 9 11zm6 0c-.83 0-1.5-.67-1.5-1.5S14.17 8 15 8s1.5.67 1.5 1.5S15.83 11 15 11z" />
-                </svg>
-            </div>
+        <div class="digit digit--sky">4</div>
+        <div class="digit digit--yellow">
+            0
+            <span class="digit-spark">&#9733;</span>
         </div>
-
-        <!-- Message -->
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-            Ups! Halaman Tidak Ditemukan
-        </h2>
-        <p class="text-gray-300 text-base sm:text-lg mb-8 max-w-md mx-auto">
-            Sepertinya halaman yang kamu cari sudah pindah, dihapus, atau tidak pernah ada. Jangan khawatir, kamu bisa
-            kembali ke beranda.
-        </p>
-
-        <!-- Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="{{ route('menu') }}"
-                class="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full shadow-lg shadow-purple-500/50 hover:shadow-pink-500/50 hover:scale-105 transition-all duration-300">
-                <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none"
-                    stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-                Kembali ke Beranda
-            </a>
-
-            <button onclick="history.back()"
-                class="group inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-300">
-                <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none"
-                    stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Halaman Sebelumnya
-            </button>
-        </div>
-
-        <!-- Error code -->
-        <p class="mt-12 text-gray-400 text-sm">
-            Error Code: <span class="font-mono text-purple-400">404_NOT_FOUND</span>
-        </p>
-        <p class="mt-12 text-gray-400 text-sm">
-            &copy; 2026 NAJATIF. Politeknik Negeri Jember.
-        </p>
+        <div class="digit digit--pink">4</div>
     </div>
 
-</body>
+    <h1 class="title">Ups! Halaman Ini <span class="marker">Tersesat</span></h1>
 
-</html>
+    <p class="lead">
+        Sepertinya halaman yang kamu cari sudah dipindahkan, dihapus, atau alamatnya salah ketik.
+        Tenang saja, petualangan belajar di <strong>BUBA</strong> masih bisa dilanjutkan dari beranda.
+    </p>
+
+    <div class="actions">
+        <a class="btn btn-primary" href="{{ $homeUrl }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                    d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 11-1.06 1.06l-.72-.72V19.5a2.25 2.25 0 01-2.25 2.25h-3a.75.75 0 01-.75-.75v-4.5h-3v4.5a.75.75 0 01-.75.75h-3A2.25 2.25 0 014.5 19.5v-6.63l-.72.72a.75.75 0 11-1.06-1.06l8.69-8.69z" />
+            </svg>
+            {{ $homeLabel }}
+        </a>
+
+        <button class="btn btn-secondary" type="button" onclick="history.back()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.4" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12l7.5-7.5M3 12h18" />
+            </svg>
+            Halaman Sebelumnya
+        </button>
+    </div>
+
+    <p class="note">
+        <span aria-hidden="true">&#128269;</span>
+        Kode kesalahan 404 &mdash; periksa kembali alamat halaman yang kamu tuju.
+    </p>
+@endsection

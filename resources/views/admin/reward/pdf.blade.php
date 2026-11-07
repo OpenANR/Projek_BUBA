@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ $judul }}</title>
+    @include('layouts.partials.favicon')
 
     <style>
         body {

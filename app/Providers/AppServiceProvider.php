@@ -9,6 +9,8 @@ use App\Models\Quis;
 use App\Models\Reward;
 use App\Models\User;
 use App\Observers\DataChangeObserver;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,5 +34,19 @@ class AppServiceProvider extends ServiceProvider
         Quis::observe(DataChangeObserver::class);
         Reward::observe(DataChangeObserver::class);
         User::observe(DataChangeObserver::class);
+
+        // Kustomisasi Tampilan Email Verifikasi sesuai Tema Aplikasi BUBA
+        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+            return (new MailMessage)
+                ->subject('Konfirmasi Alamat Email - BUBA')
+                ->view('emails.verify-email', [
+                    'user' => $notifiable,
+                    'url' => $url,
+                ])
+                ->text('emails.verify-email-text', [
+                    'user' => $notifiable,
+                    'url' => $url,
+                ]);
+        });
     }
 }

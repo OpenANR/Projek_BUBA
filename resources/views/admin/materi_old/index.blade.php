@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 <title>Daftar Materi - BUBA</title>
+@include('layouts.partials.favicon')
 
 <link rel="stylesheet" href="{{ asset('css/materi.css') }}">
 ```

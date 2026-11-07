@@ -12,14 +12,11 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\EnsureStudentClassAccess;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return view('landing');
 });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('admin.dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,11 +33,28 @@ require __DIR__ . '/auth.php';
  * by : Najatif_2026
  */
 
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu');
+// Route::get('/menu', function () {
+//     return view('menu');
+// })->name('menu');
 
+/**==============================
+ *         HALAMAN JAM
+ * ==============================
+ */
 Route::get('/clock', [ClockController::class, 'clock']);
+
+/**==============================
+ *      LINK DONWLOAD APK
+ * ==============================
+ */
+Route::get('/download', function(){
+    if(!Storage::disk('local')->exists('apk/buba.apk')) {
+        abort(404, 'File tidak ditemukan');
+    }
+
+    return Storage::download('apk/buba.apk', 'BUBA.apk');
+})->name('download.apk');
+
 
 Route::middleware(['auth', 'verified', 'role:guru'])->prefix('admin')->group(function () {
 
@@ -170,3 +184,19 @@ Route::middleware(['auth', 'verified', 'role:siswa', EnsureStudentClassAccess::c
             ->name('siswa.hasilKuis');
     });
 });
+
+/**==============================
+ *  PRATINJAU EMAIL KONFIRMASI (DEV)
+ * ==============================
+ */
+if (app()->environment('local')) {
+    Route::get('/mail/preview/verify-email', function () {
+        $user = new \App\Models\User([
+            'name' => 'Budi Pratama',
+            'email' => 'budi@sekolah.id',
+        ]);
+        $url = url('/verify-email/1/' . sha1('budi@sekolah.id') . '?expires=' . (time() + 3600) . '&signature=demo');
+
+        return view('emails.verify-email', compact('user', 'url'));
+    })->name('mail.preview.verify-email');
+}

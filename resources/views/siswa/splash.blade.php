@@ -8,9 +8,9 @@
     <div x-data="{ showInfo: false, showProfile: false }"
         class="relative flex h-screen min-h-[600px] w-full flex-col items-center justify-between overflow-x-hidden overflow-y-auto px-4 py-5 select-none sm:overflow-hidden sm:px-6 md:px-8">
 
-        <!-- 1. Background Image (Ilustrasi Utama BUBA) -->
+        <!-- 1. Background Image (Ilustrasi Utama BUBA - fixed agar tidak ikut bergeser saat halaman di-scroll/diperkecil) -->
         <img src="{{ asset('images/backgroundSplash.png') }}" alt="BUBA Background"
-            class="pointer-events-none absolute inset-0 z-0 h-full w-full select-none object-cover object-bottom">
+            class="pointer-events-none fixed inset-0 z-0 h-full w-full select-none object-cover object-bottom">
 
         <!-- 2. Dekorasi Animasi Mengambang di Langit (Awan & Bintang Berpendar) -->
         <div class="pointer-events-none absolute inset-0 overflow-hidden z-10 select-none">

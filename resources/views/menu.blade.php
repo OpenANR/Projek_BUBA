@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Menu Navigasi dengan Link - Tailwind</title>
+    @include('layouts.partials.favicon')
 
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -140,7 +141,7 @@
         <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
 
 
-            <a href="{{ route('splash') }}"
+            <a href="{{ route('siswa.splash') }}"
                 class="menu-link group flex flex-col items-center justify-center gap-2 rounded-2xl px-4 py-5
                 bg-white text-slate-800 font-semibold text-sm sm:text-base
                 border border-white/70 shadow-md shadow-slate-300/40
