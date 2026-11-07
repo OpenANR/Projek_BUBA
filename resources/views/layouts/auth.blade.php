@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full overflow-x-hidden">
 
 <head>
     <meta charset="utf-8">
@@ -20,7 +20,7 @@
 </head>
 
 <body
-    class="h-full font-sans antialiased text-gray-900 bg-[#eaf4fe] selection:bg-[#5ebef3] selection:text-white overflow-x-hidden">
+    class="h-full font-sans antialiased text-gray-900 bg-[#eaf4fe] selection:bg-[#5ebef3] selection:text-white overflow-x-hidden rounded-l-lg">
 
     <div class="min-h-screen flex flex-col lg:flex-row w-full relative">
 
@@ -126,25 +126,25 @@
              SISI KANAN: Form Autentikasi dengan Siswa Aesthetics
              ======================================================== -->
         <div
-            class="w-full lg:w-[48%] xl:w-[45%] flex flex-col justify-center items-center p-4 sm:p-8 lg:p-10 xl:p-12 relative min-h-[480px] lg:min-h-screen bg-gradient-to-br from-[#ebf5ff] via-[#f7fbff] to-[#fffdf5] overflow-y-auto">
+            class="w-full lg:w-[48%] xl:w-[45%] flex flex-col justify-center items-center p-4 sm:p-8 lg:p-10 xl:p-12 relative min-h-[480px] lg:min-h-screen bg-gradient-to-br from-[#ebf5ff] via-[#f7fbff] to-[#fffdf5] overflow-y-auto overflow-x-hidden">
 
-            <!-- Ornamen Blur Geometris Halus di Background Kanan -->
-            <div class="pointer-events-none absolute -top-16 -right-16 w-64 h-64 bg-[#5ebef3]/20 rounded-full blur-3xl">
-            </div>
-            <div
-                class="pointer-events-none absolute -bottom-16 -left-16 w-64 h-64 bg-[#ffd629]/25 rounded-full blur-3xl">
-            </div>
-            <div class="pointer-events-none absolute top-1/2 -right-10 w-48 h-48 bg-[#d8759c]/15 rounded-full blur-2xl">
+            <!-- Ornamen Blur Geometris Halus di Background Kanan
+                 Dibungkus overflow-hidden agar tidak memicu scroll horizontal -->
+            <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+                <div class="absolute -top-16 -right-16 w-64 h-64 bg-[#5ebef3]/20 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-16 -left-16 w-64 h-64 bg-[#ffd629]/25 rounded-full blur-3xl"></div>
+                <div class="absolute top-1/2 -right-10 w-48 h-48 bg-[#d8759c]/15 rounded-full blur-2xl"></div>
             </div>
 
             <!-- Kartu Kontainer Utama Form Autentikasi -->
-            <div class="w-full max-w-[420px] relative z-10 animate-buba-pop">
+            <div class="w-full max-w-[420px] mx-auto relative z-10 animate-buba-pop">
                 @yield('content')
             </div>
 
             <!-- Footer Hak Cipta Ringkas -->
             <div class="relative z-10 mt-6 text-center text-xs font-semibold text-slate-400">
-                &copy; {{ date('Y') }} BUBA. Seluruh hak cipta dilindungi.
+                <p class="italic">BUBA E-Learning Application | version 1.0</p>
+                <p class="font-bold">&copy; {{ date('Y') }} NAJATIF. All Right Reserved.</p>
             </div>
         </div>
     </div>

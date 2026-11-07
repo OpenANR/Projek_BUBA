@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Buba Dashboard</title>
     <!-- Tailwind CSS via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -12,9 +13,26 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
 </head>
 
-<body class="h-full font-sans text-black overflow-hidden">
+@php
+    $realtimePage = match (true) {
+        request()->routeIs('admin.dashboard') => 'dashboard',
+        request()->routeIs('kelas.index') => 'kelas',
+        request()->routeIs('kategori.index') => 'kategori',
+        request()->routeIs('materi.index') => 'materi',
+        request()->routeIs('kuis.index') => 'kuis',
+        request()->routeIs('siswa.index') => 'siswa',
+        request()->routeIs('reward.index') => 'reward',
+        default => '',
+    };
+@endphp
 
-    <div class="flex h-screen w-full bg-[white]">
+<body class="h-full font-sans text-black overflow-hidden"
+      data-realtime-page="{{ $realtimePage }}"
+      data-realtime-role="{{ auth()->user()?->role }}"
+      data-realtime-user-id="{{ auth()->id() }}">
+
+    <div class="flex h-screen w-full bg-[white]"
+         x-data="{ sidebarCollapsed: localStorage.getItem('admin-sidebar-collapsed') === 'true' }">
 
         <!-- SIDEBAR -->
         @include('layouts.admin.sidebar')

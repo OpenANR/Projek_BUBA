@@ -4,7 +4,10 @@
     <!-- Kiri: Hamburger & Jam Digital -->
     <div class="flex items-center gap-5">
         <!-- Hamburger Menu Button -->
-        <button class="p-2 text-slate-600 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-all focus:outline-none">
+        <button @click="sidebarCollapsed = !sidebarCollapsed; localStorage.setItem('admin-sidebar-collapsed', sidebarCollapsed)"
+            :aria-expanded="(!sidebarCollapsed).toString()" aria-controls="admin-sidebar"
+            :title="sidebarCollapsed ? 'Buka sidebar' : 'Tutup sidebar'"
+            class="p-2 text-slate-600 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-all focus:outline-none">
             <i class="fas fa-bars text-xl"></i>
         </button>
 

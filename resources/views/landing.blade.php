@@ -998,8 +998,8 @@
             <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
                 {{-- Brand --}}
                 <div class="lg:col-span-1">
-                    <a href="#beranda" class="inline-flex rounded-2xl bg-white p-3 shadow-lg" aria-label="BUBA">
-                        <img src="{{ asset('images/logoBuba.png') }}" alt="Logo BUBA" class="h-16 w-auto object-contain">
+                    <a href="#beranda" class="inline-flex rounded-2xl" aria-label="BUBA">
+                        <img src="{{ asset('images/logoBuba.png') }}" alt="Logo BUBA" class="h-24 w-auto object-contain">
                     </a>
                     <p class="mt-4 max-w-xs text-sm font-semibold leading-relaxed text-blue-100">
                         Aplikasi e-learning interaktif untuk guru dan siswa. Belajar, bermain, dan berkembang bersama BUBA.
@@ -1047,7 +1047,7 @@
             </div>
 
             <div class="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-center text-xs font-semibold text-blue-200 sm:flex-row sm:text-left">
-                <p>&copy; {{ date('Y') }} NAJATIF. Politeknik Negeri Jember.</p>
+                <p>&copy; {{ date('Y') }} NAJATIF. All Right Reserved.</p>
                 <p>BUBA E-Learning Application | version 1.0</p>
             </div>
         </div>

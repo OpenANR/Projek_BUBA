@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DataChanged;
 use App\Models\Reward;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -69,7 +70,18 @@ class RewardController extends Controller
             'ids.*' => 'required|integer|distinct|exists:rewards,id',
         ]);
 
+        $jumlah = count($validated['ids']);
+
         Reward::whereIn('id', $validated['ids'])->delete();
+
+        DataChanged::dispatch(
+            entity: 'reward',
+            action: 'bulk-deleted',
+            id: null,
+            label: $jumlah . ' reward dihapus',
+            actorId: auth()->id(),
+            forStudents: true,
+        );
 
         return redirect()
             ->route('reward.index')
@@ -79,7 +91,18 @@ class RewardController extends Controller
     // MENGHAPUS SEMUA DATA REWARD
     public function hapusSemua()
     {
+        $jumlah = Reward::count();
+
         Reward::query()->delete();
+
+        DataChanged::dispatch(
+            entity: 'reward',
+            action: 'bulk-deleted',
+            id: null,
+            label: $jumlah . ' reward dihapus',
+            actorId: auth()->id(),
+            forStudents: true,
+        );
 
         return redirect()
             ->route('reward.index')

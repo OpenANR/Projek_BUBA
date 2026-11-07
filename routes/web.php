@@ -21,7 +21,7 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('admin.dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -40,7 +40,9 @@ Route::get('/menu', function () {
     return view('menu');
 })->name('menu');
 
-Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
+Route::get('/clock', [ClockController::class, 'clock']);
+
+Route::middleware(['auth', 'verified', 'role:guru'])->prefix('admin')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -118,10 +120,10 @@ Route::middleware(['auth', 'role:guru'])->prefix('admin')->group(function () {
     // DOWNLOAD PDF SATU HASIL KUIS
     Route::get('/reward/{id}/pdf', [RewardController::class, 'downloadPdf'])->whereNumber('id')->name('reward.downloadPdf');
 
-    Route::get('/admin/clock', [ClockController::class, 'clock']);
+    
 });
 
-Route::middleware(['auth', 'role:siswa', EnsureStudentClassAccess::class])->prefix('siswa')->group(function () {
+Route::middleware(['auth', 'verified', 'role:siswa', EnsureStudentClassAccess::class])->prefix('siswa')->group(function () {
 
     Route::get('/welcome', [WelcomeController::class, 'splash'])
         ->name('siswa.splash');

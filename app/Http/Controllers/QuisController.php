@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DataChanged;
 use App\Models\Kelas;
 use App\Models\Kategori;
 use App\Models\Quis;
@@ -316,6 +317,15 @@ class QuisController extends Controller
             $quis->delete();
         });
 
+        DataChanged::dispatch(
+            entity: 'reward',
+            action: 'deleted',
+            id: null,
+            label: 'Reward terkait kuis dihapus',
+            actorId: auth()->id(),
+            forStudents: true,
+        );
+
         if (!empty($file)) {
             Storage::disk('public')->delete(array_unique($file));
         }
@@ -347,6 +357,24 @@ class QuisController extends Controller
             Quis::whereIn('id', $validated['ids'])->delete();
         });
 
+        DataChanged::dispatch(
+            entity: 'reward',
+            action: 'bulk-deleted',
+            id: null,
+            label: 'Reward terkait kuis terpilih dihapus',
+            actorId: auth()->id(),
+            forStudents: true,
+        );
+
+        DataChanged::dispatch(
+            entity: 'quis',
+            action: 'bulk-deleted',
+            id: null,
+            label: 'Kuis terpilih dihapus',
+            actorId: auth()->id(),
+            forStudents: true,
+        );
+
         if (!empty($daftarFile)) {
             Storage::disk('public')->delete(array_unique($daftarFile));
         }
@@ -371,6 +399,24 @@ class QuisController extends Controller
             Reward::query()->delete();
             Quis::query()->delete();
         });
+
+        DataChanged::dispatch(
+            entity: 'reward',
+            action: 'bulk-deleted',
+            id: null,
+            label: 'Seluruh reward dihapus',
+            actorId: auth()->id(),
+            forStudents: true,
+        );
+
+        DataChanged::dispatch(
+            entity: 'quis',
+            action: 'bulk-deleted',
+            id: null,
+            label: 'Seluruh kuis dihapus',
+            actorId: auth()->id(),
+            forStudents: true,
+        );
 
         if (!empty($daftarFile)) {
             Storage::disk('public')->delete(array_unique($daftarFile));

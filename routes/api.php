@@ -20,7 +20,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 | Protected Routes (Khusus Siswa yang Login via Sanctum)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth:sanctum', EnsureStudentClassAccess::class])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', EnsureStudentClassAccess::class])->group(function () {
 
     // Auth & Profil
     Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
