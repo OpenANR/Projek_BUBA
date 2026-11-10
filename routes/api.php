@@ -17,16 +17,21 @@ Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 
 /*
 |--------------------------------------------------------------------------
-| Protected Routes (Khusus Siswa yang Login via Sanctum)
+| Protected Routes (Khusus yang memiliki Sanctum Token)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth:sanctum', 'verified', EnsureStudentClassAccess::class])->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
-    // Auth & Profil
+    // Auth & Profil dasar
     Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
     Route::get('/me', [AuthController::class, 'me'])->name('api.me');
 
-    Route::prefix('siswa')->name('api.siswa.')->group(function () {
+    // Cek status verifikasi & kirim ulang email verifikasi
+    Route::get('/email/status', [AuthController::class, 'checkEmailStatus'])->name('api.email.status');
+    Route::post('/email/resend', [AuthController::class, 'resendVerificationEmail'])->name('api.email.resend');
+
+    // Fitur Siswa (Wajib terverifikasi & punya akses kelas)
+    Route::middleware(['verified', EnsureStudentClassAccess::class])->prefix('siswa')->name('api.siswa.')->group(function () {
         
         // 1. Kelas & Kategori
         Route::get('/kelas', [KelasController::class, 'pilihKelas']);

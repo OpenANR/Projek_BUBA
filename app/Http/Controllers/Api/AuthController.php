@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function login(Request $request) 
+    public function login(Request $request)
     {
         // 1. Validasi input (gunakan rule string)
         $request->validate([
@@ -39,8 +39,34 @@ class AuthController extends Controller
         // 5. Generate Personal Access Token Sanctum
         $token = $user->createToken('buba_flutter_siswa_token')->plainTextToken;
 
+        if (!$user->hasVerifiedEmail()) {
+            // Kirim email verifikasi ke Mailtrap
+            $user->sendEmailVerificationNotification();
+
+            return response()->json([
+                'success' => true,
+                'email_verified' => false,
+                'message' => 'Email Anda belum diverifikasi. Link verifikasi telah dikirimkan ke email Anda.',
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'user' => [
+                    'id' => $user->id,
+                    'kode_user' => $user->kode_user,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'role' => $user->role,
+                    'jenis_kelamin' => $user->jenis_kelamin,
+                    'kelas' => $user->kelas ? [
+                        'id' => $user->kelas->id,
+                        'nama_kelas' => $user->kelas->nama_kelas,
+                    ] : null,
+                ],
+            ], 200);
+        }
+
         return response()->json([
             'success' => true,
+            'email_verified' => true,
             'message' => 'Login berhasil.',
             'access_token' => $token,
             'token_type' => 'Bearer',
@@ -57,6 +83,44 @@ class AuthController extends Controller
                 ] : null,
             ],
         ], 200);
+    }
+
+    public function checkEmailStatus(Request $request)
+    {
+        $user = $request->user()->fresh()->load('kelas');
+
+        return response()->json([
+            'success' => true,
+            'email_verified' => $user->hasVerifiedEmail(),
+            'user' => [
+                'id' => $user->id,
+                'kode_user' => $user->kode_user,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role,
+                'jenis_kelamin' => $user->jenis_kelamin,
+                'kelas' => $user->kelas ? [
+                    'id' => $user->kelas->id,
+                    'nama_kelas' => $user->kelas->nama_kelas,
+                ] : null,
+            ],
+        ]);
+    }
+
+    public function resendVerificationEmail(Request $request)
+    {
+        $user = $request->user();
+        if ($user->hasVerifiedEmail()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email Anda sudah terverifikasi.',
+            ], 400);
+        }
+        $user->sendEmailVerificationNotification();
+        return response()->json([
+            'success' => true,
+            'message' => 'Email verifikasi berhasil dikirim ulang.',
+        ]);
     }
 
     public function logout(Request $request)
