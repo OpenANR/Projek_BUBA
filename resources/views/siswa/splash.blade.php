@@ -296,8 +296,8 @@
                         </ol>
                     </div>
                     <div class="text-center">
-                        <p class="italic">BUBA E-Learning Application | version 1.0</p>
-                        <p class="font-bold">&copy; {{ date('Y') }} NAJATIF. All Right Reserved.</p>
+                        <p class="italic font-bold">BUBA E-Learning Application</p>
+                        <p class="">&copy; {{ date('Y') }} NAJATIF. All Right Reserved.</p>
                     </div>
 
                 </div>

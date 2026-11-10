@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Buba Dashboard</title>
+    <script>
+        // Terapkan state sidebar sebelum halaman dilukis agar tidak berkedip
+        // (membuka lalu menyusut) setiap kali berpindah menu.
+        (function () {
+            try {
+                var collapsed = localStorage.getItem('admin-sidebar-collapsed') === 'true';
+                document.documentElement.classList.toggle('sidebar-collapsed', collapsed);
+            } catch (error) {
+                // localStorage bisa diblokir; gunakan sidebar terbuka.
+            }
+        })();
+    </script>
     @include('layouts.partials.favicon')
     <!-- Tailwind CSS via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -33,7 +45,19 @@
       data-realtime-user-id="{{ auth()->id() }}">
 
     <div class="flex h-screen w-full bg-[white]"
-         x-data="{ sidebarCollapsed: localStorage.getItem('admin-sidebar-collapsed') === 'true' }">
+         x-data="{
+             sidebarCollapsed: document.documentElement.classList.contains('sidebar-collapsed'),
+             init() {
+                 this.$watch('sidebarCollapsed', (collapsed) => {
+                     document.documentElement.classList.toggle('sidebar-collapsed', collapsed);
+                     try {
+                         localStorage.setItem('admin-sidebar-collapsed', String(collapsed));
+                     } catch (error) {
+                         // localStorage bisa diblokir; state tetap berlaku di halaman ini.
+                     }
+                 });
+             }
+         }">
 
         <!-- SIDEBAR -->
         @include('layouts.admin.sidebar')

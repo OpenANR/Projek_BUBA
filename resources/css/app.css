@@ -133,6 +133,60 @@
     display: none !important;
 }
 
+/* =========================================================
+   Admin Sidebar
+   State collapsed diterapkan lewat class di <html> agar
+   sidebar tidak berkedip/menganimasi ulang saat pindah menu.
+   ========================================================= */
+#admin-sidebar {
+    width: 16rem;
+}
+
+html.sidebar-collapsed #admin-sidebar {
+    width: 5rem;
+}
+
+/* Logo: tampilkan versi lengkap saat terbuka, ikon beruang saat menyusut */
+#admin-sidebar [data-sidebar-logo="collapsed"] {
+    display: none;
+}
+
+#admin-sidebar [data-sidebar-logo="expanded"] {
+    display: block;
+}
+
+html.sidebar-collapsed #admin-sidebar [data-sidebar-logo="expanded"] {
+    display: none;
+}
+
+html.sidebar-collapsed #admin-sidebar [data-sidebar-logo="collapsed"] {
+    display: block;
+}
+
+/* Sembunyikan teks sebelum Alpine sempat berjalan */
+html.sidebar-collapsed #admin-sidebar [data-sidebar-label] {
+    display: none;
+}
+
+/* Tata letak menu saat terbuka */
+#admin-sidebar nav > a {
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+}
+
+/* Tata letak menu saat menyusut */
+html.sidebar-collapsed #admin-sidebar nav {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+html.sidebar-collapsed #admin-sidebar nav > a {
+    justify-content: center;
+    gap: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .animate-buba-shine {
     animation: bubaShine 3s ease-in-out infinite;
 }

@@ -1243,8 +1243,8 @@
                     <ul class="mt-4 space-y-2.5 text-sm font-semibold text-blue-100">
                         <li><a href="{{ $webUrl }}" class="transition hover:text-white hover:underline">Masuk
                                 ke Aplikasi</a></li>
-                        <li><a href="#unduh" class="transition hover:text-white hover:underline">Google Play</a></li>
-                        <li><a href="#unduh" class="transition hover:text-white hover:underline">App Store</a></li>
+                        {{-- <li><a href="#unduh" class="transition hover:text-white hover:underline">Google Play</a></li>
+                        <li><a href="#unduh" class="transition hover:text-white hover:underline">App Store</a></li> --}}
                         <li><a href="#faq" class="transition hover:text-white hover:underline">Pusat Bantuan</a>
                         </li>
                     </ul>
