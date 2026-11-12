@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kelas;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -21,7 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('auth.register', [
+            'kelas' => Kelas::orderBy('nama_kelas')->get(),
+        ]);
     }
 
     /**
@@ -35,20 +37,27 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', Rules\Password::defaults()],
+            'jenis_kelamin' => ['nullable', 'in:L,P'],
+            'kelas_id' => ['required', 'exists:kelas,id'],
+        ], [
+            'kelas_id.required' => 'Kelas wajib dipilih agar akun siswa dapat digunakan.',
+            'kelas_id.exists' => 'Kelas yang dipilih tidak valid.',
+            'jenis_kelamin.in' => 'Jenis kelamin tidak valid.',
         ]);
 
         $user = User::create([
-            'kode_guru' => 'GR - ' . Str::random(Str::upper(4)),
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'role' => 'siswa',
+            'kelas_id' => $request->kelas_id,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        // return redirect(route('dashboard', absolute: false));
-        return redirect('/login');
+        return redirect()->route('verification.notice');
     }
 }

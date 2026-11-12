@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori;
 use App\Models\Kelas;
+use App\Models\Materi;
+use App\Models\Quis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -142,7 +146,54 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $categories = Kategori::findOrFail($id);
-        $categories->delete();
+
+        // Kategori dihapus akan menghapus materi & kuis lewat cascade.
+        // Kumpulkan dulu file-file terkait agar tidak menjadi file orphan.
+        $daftarFile = [];
+
+        foreach (Materi::where('kategori_id', $categories->id)->get() as $materi) {
+            foreach (['gambar', 'audio'] as $field) {
+                if ($materi->$field) {
+                    $daftarFile[] = $materi->$field;
+                }
+            }
+        }
+
+        foreach (Quis::where('kategori_id', $categories->id)->get() as $quis) {
+            $gambar = $quis->gambar ?? [];
+
+            if (is_string($gambar)) {
+                $decoded = json_decode($gambar, true);
+                $gambar = is_array($decoded) ? $decoded : [$gambar];
+            }
+
+            if (is_array($gambar)) {
+                foreach (array_filter($gambar) as $file) {
+                    $daftarFile[] = $file;
+                }
+            }
+
+            foreach ([
+                'audio_pertanyaan',
+                'audio_pilihan_a',
+                'audio_pilihan_b',
+                'audio_pilihan_c',
+                'audio_pilihan_d',
+            ] as $field) {
+                if ($quis->$field) {
+                    $daftarFile[] = $quis->$field;
+                }
+            }
+        }
+
+        DB::transaction(function () use ($categories) {
+            $categories->delete();
+        });
+
+        if (! empty($daftarFile)) {
+            Storage::disk('public')->delete(array_unique($daftarFile));
+        }
+
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus');
     }
 

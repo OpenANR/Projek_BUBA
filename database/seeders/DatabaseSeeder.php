@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
                 'kode_user' => 'TCR-4GT4',
                 'name'      => 'Ahmad Nuzulur Rozaq',
                 'password'  => Hash::make('admin123'),
-                'role'      => 'guru'
+                'role'      => 'guru',
+                'email_verified_at' => now(),
             ]
         );
 
@@ -33,7 +34,7 @@ class DatabaseSeeder extends Seeder
             KelasSeeder::class,
             KategoriSeeder::class,
             SiswaSeeder::class,
-            // MateriSeeder::class,
+            MateriSeeder::class,
         ]);
     }
 }

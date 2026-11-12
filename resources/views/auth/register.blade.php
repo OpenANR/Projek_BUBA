@@ -95,6 +95,45 @@
                 @enderror
             </div>
 
+            <!-- Pilihan Kelas -->
+            <div>
+                <label for="kelas_id" class="block text-xs sm:text-sm font-extrabold text-slate-700 mb-1.5 pl-1">
+                    <span class="inline-flex items-center gap-1.5">
+                        <span>🏫</span>
+                        <span>Kelas</span>
+                    </span>
+                </label>
+                <div class="relative flex items-center">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <div class="w-8 h-8 rounded-xl bg-violet-100 border border-violet-200 text-violet-700 flex items-center justify-center text-xs shadow-xs">
+                            <i class="fa-solid fa-school"></i>
+                        </div>
+                    </div>
+                    <select
+                        id="kelas_id"
+                        name="kelas_id"
+                        required
+                        class="w-full pl-13 pr-10 py-3 sm:py-3.5 bg-slate-50/90 hover:bg-white focus:bg-white border-2 border-slate-200 focus:border-[#2490df] rounded-2xl text-sm sm:text-base text-slate-800 font-semibold transition-all duration-200 shadow-xs focus:ring-4 focus:ring-sky-100 outline-none appearance-none cursor-pointer"
+                    >
+                        <option value="" disabled {{ old('kelas_id') ? '' : 'selected' }}>Pilih kelasmu</option>
+                        @foreach ($kelas as $item)
+                            <option value="{{ $item->id }}" {{ (string) old('kelas_id') === (string) $item->id ? 'selected' : '' }}>
+                                Kelas {{ $item->nama_kelas }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-chevron-down text-xs"></i>
+                    </div>
+                </div>
+                @error('kelas_id')
+                    <div class="flex items-center gap-1.5 text-xs font-bold text-rose-500 mt-1.5 pl-2 animate-buba-wiggle">
+                        <i class="fa-solid fa-circle-exclamation text-rose-500"></i>
+                        <span>{{ $message }}</span>
+                    </div>
+                @enderror
+            </div>
+
             <!-- Input Password -->
             <div>
                 <label for="password" class="block text-xs sm:text-sm font-extrabold text-slate-700 mb-1.5 pl-1">

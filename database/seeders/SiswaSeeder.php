@@ -62,6 +62,7 @@ class SiswaSeeder extends Seeder
                 'role' => 'siswa',
                 'kelas_id' => $daftarKelas[$siswa['rombel']]->id,
                 'password' => Hash::make('siswa123'),
+                'email_verified_at' => $user->email_verified_at ?? now(),
             ]);
 
             $user->save();

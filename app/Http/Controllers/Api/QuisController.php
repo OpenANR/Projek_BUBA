@@ -9,6 +9,7 @@ use App\Models\Reward;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class QuisController extends Controller
 {
@@ -37,7 +38,13 @@ class QuisController extends Controller
     {
         $validated = $request->validate([
             'kelas_id' => 'required|exists:kelas,id',
-            'kategori_id' => 'required|exists:kategoris,id',
+            'kategori_id' => [
+                'required',
+                Rule::exists('kategoris', 'id')
+                    ->where('kelas_id', $request->input('kelas_id')),
+            ],
+        ], [
+            'kategori_id.exists' => 'Kategori tidak sesuai dengan kelas yang dipilih.',
         ]);
 
         $userId = $request->user()->id;
@@ -146,9 +153,15 @@ class QuisController extends Controller
         $validated = $request->validate([
             'quis_id' => 'required|integer|exists:quis,id',
             'kelas_id' => 'required|exists:kelas,id',
-            'kategori_id' => 'required|exists:kategoris,id',
+            'kategori_id' => [
+                'required',
+                Rule::exists('kategoris', 'id')
+                    ->where('kelas_id', $request->input('kelas_id')),
+            ],
             'jawaban' => 'required|array|min:1',
             'jawaban.*' => 'required|in:A,B,C,D',
+        ], [
+            'kategori_id.exists' => 'Kategori tidak sesuai dengan kelas yang dipilih.',
         ]);
 
         $userId = $request->user()->id;
@@ -325,15 +338,4 @@ class QuisController extends Controller
         ], 200);
     }
 
-    // Cek apakah kategori kuis ini sudah terkunci (minimal 3 bintang).
-    private function kuisSudahTerkunci(int $userId, int $kelasId, int $kategoriId): bool
-    {
-        return Reward::where('user_id', $userId)
-            ->where('jumlah_bintang', '>=', 3)
-            ->whereHas('quis', function ($query) use ($kelasId, $kategoriId) {
-                $query->where('kelas_id', $kelasId)
-                    ->where('kategori_id', $kategoriId);
-            })
-            ->exists();
-    }
 }

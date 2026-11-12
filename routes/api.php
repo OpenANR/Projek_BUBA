@@ -13,7 +13,9 @@ use App\Http\Middleware\EnsureStudentClassAccess;
 | Public Routes (Tanpa Auth)
 |--------------------------------------------------------------------------
 */
-Route::post('/login', [AuthController::class, 'login'])->name('api.login');
+Route::post('/login', [AuthController::class, 'login'])
+    ->middleware('throttle:api-login')
+    ->name('api.login');
 
 /*
 |--------------------------------------------------------------------------

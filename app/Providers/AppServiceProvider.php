@@ -10,8 +10,12 @@ use App\Models\Reward;
 use App\Models\User;
 use App\Observers\DataChangeObserver;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +32,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        RateLimiter::for('api-login', function (Request $request) {
+            $email = Str::lower((string) $request->input('email'));
+
+            return Limit::perMinute(5)
+                ->by($email.'|'.$request->ip())
+                ->response(function (Request $request, array $headers) {
+                    $detik = $headers['Retry-After'] ?? 60;
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Terlalu banyak percobaan login. Silakan coba lagi dalam '.$detik.' detik.',
+                    ], 429, $headers);
+                });
+        });
+
         Kelas::observe(DataChangeObserver::class);
         Kategori::observe(DataChangeObserver::class);
         Materi::observe(DataChangeObserver::class);

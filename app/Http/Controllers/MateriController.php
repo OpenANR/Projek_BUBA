@@ -61,7 +61,11 @@ class MateriController extends Controller
                     ->where('kelas_id', $request->kelas_id)
                     ->where('kategori_id', $request->kategori_id),
             ],
-            'kategori_id' => 'required|exists:kategoris,id',
+            'kategori_id' => [
+                'required',
+                Rule::exists('kategoris', 'id')
+                    ->where('kelas_id', $request->kelas_id),
+            ],
             'kelas_id' => 'required|exists:kelas,id',
             'isi_materi' => 'required|string',
             'gambar' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
@@ -72,7 +76,7 @@ class MateriController extends Controller
             'nama_materi.regex' => 'Nama materi hanya boleh menggunakan huruf, angka, dan spasi.',
             'nama_materi.unique' => 'Materi dengan judul, kelas, dan kategori tersebut sudah tersedia.',
             'kategori_id.required' => 'Kategori harus diisi.',
-            'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
+            'kategori_id.exists' => 'Kategori tidak sesuai dengan kelas yang dipilih.',
             'kelas_id.required' => 'Kelas harus diisi.',
             'kelas_id.exists' => 'Kelas yang dipilih tidak valid.',
             'isi_materi.required' => 'Isi materi harus diisi.',
@@ -151,7 +155,11 @@ class MateriController extends Controller
                     ->where('kategori_id', $request->kategori_id)
                     ->ignore($materi->getKey()),
             ],
-            'kategori_id' => 'required|exists:kategoris,id',
+            'kategori_id' => [
+                'required',
+                Rule::exists('kategoris', 'id')
+                    ->where('kelas_id', $request->kelas_id),
+            ],
             'kelas_id' => 'required|exists:kelas,id',
             'isi_materi' => 'required|string',
             'gambar' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
@@ -162,7 +170,7 @@ class MateriController extends Controller
             'nama_materi.regex' => 'Nama materi hanya boleh menggunakan huruf, angka, dan spasi.',
             'nama_materi.unique' => 'Materi dengan judul, kelas, dan kategori tersebut sudah tersedia.',
             'kategori_id.required' => 'Kategori harus diisi.',
-            'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
+            'kategori_id.exists' => 'Kategori tidak sesuai dengan kelas yang dipilih.',
             'kelas_id.required' => 'Kelas harus diisi.',
             'kelas_id.exists' => 'Kelas yang dipilih tidak valid.',
             'isi_materi.required' => 'Isi materi harus diisi.',
@@ -247,6 +255,11 @@ class MateriController extends Controller
         Kelas $kelas,
         Kategori $kategori
     ) {
+        abort_if(
+            (int) $kategori->kelas_id !== (int) $kelas->id,
+            404
+        );
+
         $dataMateri = Materi::where('kelas_id', $kelas->id)
             ->where('kategori_id', $kategori->id)
             ->get();
@@ -267,6 +280,11 @@ class MateriController extends Controller
         Kategori $kategori,
         $materi
     ) {
+        abort_if(
+            (int) $kategori->kelas_id !== (int) $kelas->id,
+            404
+        );
+
         $dataMateri = Materi::where('kode_materi', $materi)
             ->where('kelas_id', $kelas->id)
             ->where('kategori_id', $kategori->id)

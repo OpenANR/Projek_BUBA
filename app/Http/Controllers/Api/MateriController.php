@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Materi;
+use Illuminate\Validation\Rule;
 
 class MateriController extends Controller
 {
@@ -12,7 +13,13 @@ class MateriController extends Controller
     {
         $request->validate([
             'kelas_id' => 'required|exists:kelas,id',
-            'kategori_id' => 'required|exists:kategoris,id',
+            'kategori_id' => [
+                'required',
+                Rule::exists('kategoris', 'id')
+                    ->where('kelas_id', $request->input('kelas_id')),
+            ],
+        ], [
+            'kategori_id.exists' => 'Kategori tidak sesuai dengan kelas yang dipilih.',
         ]);
 
         $materi = Materi::where('kelas_id', $request->kelas_id)

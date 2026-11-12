@@ -47,6 +47,7 @@ class GuruSeeder extends Seeder
                 'jenis_kelamin' => $guru['jenis_kelamin'],
                 'role' => 'guru',
                 'password' => Hash::make('guru123'),
+                'email_verified_at' => $user->email_verified_at ?? now(),
             ]);
 
             $user->save();
