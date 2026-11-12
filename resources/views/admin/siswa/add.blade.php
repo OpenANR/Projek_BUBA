@@ -4,301 +4,278 @@
 
 @section('content')
 
-<div class="max-w-4xl mx-auto">
+    <div class="max-w-4xl mx-auto">
 
-    {{-- Header --}}
-    <div class="flex items-center justify-between mb-6">
+        {{-- Header --}}
+        <div class="flex items-center justify-between mb-6">
 
-        <div>
-            <h1 class="text-2xl font-bold text-gray-800">
-                Tambah Siswa
-            </h1>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-800">
+                    Tambah Siswa
+                </h1>
 
-            <p class="text-gray-500 mt-1">
-                Tambahkan data siswa baru ke sistem BUBA.
-            </p>
-        </div>
+                <p class="text-gray-500 mt-1">
+                    Tambahkan data siswa baru ke sistem BUBA.
+                </p>
+            </div>
 
-        <a
-            href="{{ route('siswa.index') }}"
-            class="px-4 py-2 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition"
-        >
-            ← Kembali
-        </a>
-
-    </div>
-
-
-    {{-- Error Validasi --}}
-    @if ($errors->any())
-
-        <div class="mb-5 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700">
-
-            <ul class="list-disc list-inside">
-
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-
-            </ul>
+            <a href="{{ route('siswa.index') }}"
+                class="px-4 py-2 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition">
+                ← Kembali
+            </a>
 
         </div>
 
-    @endif
 
+        {{-- Error Validasi --}}
+        @if ($errors->any())
 
-    {{-- Form --}}
-    <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="mb-5 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700">
 
-        <form
-            action="{{ route('siswa.kirim') }}"
-            method="POST"
-        >
+                <ul class="list-disc list-inside">
 
-            @csrf
-
-            {{-- ========================= --}}
-            {{-- NAMA SISWA --}}
-            {{-- ========================= --}}
-            <div class="mb-5">
-
-                <label
-                    for="name"
-                    class="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                    Nama Siswa <span class="text-red-500">*</span>
-                </label>
-
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value="{{ old('name') }}"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
-                    placeholder="Masukkan nama lengkap siswa..."
-                    required
-                >
-
-                @error('name')
-                    <p class="text-sm text-red-600 mt-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-
-            </div>
-
-
-            {{-- ========================= --}}
-            {{-- JENIS KELAMIN --}}
-            {{-- ========================= --}}
-            <div class="mb-5">
-
-                <label
-                    for="jenis_kelamin"
-                    class="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                    Jenis Kelamin <span class="text-red-500">*</span>
-                </label>
-
-                <select
-                    name="jenis_kelamin"
-                    id="jenis_kelamin"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
-                    required
-                >
-
-                    <option value="" disabled {{ old('jenis_kelamin') ? '' : 'selected' }}>
-                        -- Pilih Jenis Kelamin --
-                    </option>
-
-                    <option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>
-                        Laki-Laki
-                    </option>
-
-                    <option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>
-                        Perempuan
-                    </option>
-
-                </select>
-
-                @error('jenis_kelamin')
-                    <p class="text-sm text-red-600 mt-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-
-            </div>
-
-
-            {{-- ========================= --}}
-            {{-- KELAS --}}
-            {{-- ========================= --}}
-            <div class="mb-5">
-
-                <label
-                    for="kelas_id"
-                    class="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                    Kelas <span class="text-red-500">*</span>
-                </label>
-
-                <select
-                    name="kelas_id"
-                    id="kelas_id"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
-                    required
-                >
-
-                    <option value="" disabled {{ old('kelas_id') ? '' : 'selected' }}>
-                        -- Pilih Kelas --
-                    </option>
-
-                    @foreach ($dataKelas as $item)
-
-                        <option
-                            value="{{ $item->id }}"
-                            {{ old('kelas_id') == $item->id ? 'selected' : '' }}
-                        >
-                            {{ $item->nama_kelas }}
-                        </option>
-
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
                     @endforeach
 
-                </select>
+                </ul>
 
-                @error('kelas_id')
-                    <p class="text-sm text-red-600 mt-2">
-                        {{ $message }}
+            </div>
+
+        @endif
+
+
+        {{-- Form --}}
+        <div class="bg-white rounded-xl shadow-md p-6">
+
+            <form id="formTambahSiswa" action="{{ route('siswa.kirim') }}" method="POST">
+
+                @csrf
+
+                {{-- ========================= --}}
+                {{-- NAMA SISWA --}}
+                {{-- ========================= --}}
+                <div class="mb-5">
+
+                    <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Nama Siswa <span class="text-red-500">*</span>
+                    </label>
+
+                    <input type="text" name="name" id="name" value="{{ old('name') }}"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
+                        placeholder="Masukkan nama lengkap siswa..." required>
+
+                    @error('name')
+                        <p class="text-sm text-red-600 mt-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- ========================= --}}
+                {{-- JENIS KELAMIN --}}
+                {{-- ========================= --}}
+                <div class="mb-5">
+
+                    <label for="jenis_kelamin" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Jenis Kelamin <span class="text-red-500">*</span>
+                    </label>
+
+                    <select name="jenis_kelamin" id="jenis_kelamin"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
+                        required>
+
+                        <option value="" disabled {{ old('jenis_kelamin') ? '' : 'selected' }}>
+                            -- Pilih Jenis Kelamin --
+                        </option>
+
+                        <option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>
+                            Laki-Laki
+                        </option>
+
+                        <option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>
+                            Perempuan
+                        </option>
+
+                    </select>
+
+                    @error('jenis_kelamin')
+                        <p class="text-sm text-red-600 mt-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- ========================= --}}
+                {{-- KELAS --}}
+                {{-- ========================= --}}
+                <div class="mb-5">
+
+                    <label for="kelas_id" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Kelas <span class="text-red-500">*</span>
+                    </label>
+
+                    <select name="kelas_id" id="kelas_id"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
+                        required>
+
+                        <option value="" disabled {{ old('kelas_id') ? '' : 'selected' }}>
+                            -- Pilih Kelas --
+                        </option>
+
+                        @foreach ($dataKelas as $item)
+                            <option value="{{ $item->id }}" {{ old('kelas_id') == $item->id ? 'selected' : '' }}>
+                                {{ $item->nama_kelas }}
+                            </option>
+                        @endforeach
+
+                    </select>
+
+                    @error('kelas_id')
+                        <p class="text-sm text-red-600 mt-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- ========================= --}}
+                {{-- ROLE --}}
+                {{-- ========================= --}}
+                <div class="mb-5">
+
+                    <label for="role" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Role <span class="text-red-500">*</span>
+                    </label>
+
+                    <select name="role" id="role"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
+                        required>
+
+                        <option value="siswa" {{ old('role', 'siswa') == 'siswa' ? 'selected' : '' }}>
+                            Siswa
+                        </option>
+
+                    </select>
+
+                    @error('role')
+                        <p class="text-sm text-red-600 mt-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- ========================= --}}
+                {{-- EMAIL --}}
+                {{-- ========================= --}}
+                <div class="mb-5">
+
+                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Email <span class="text-red-500">*</span>
+                    </label>
+
+                    <input type="email" name="email" id="email" value="{{ old('email') }}"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
+                        placeholder="Masukkan alamat email siswa..." required>
+
+                    @error('email')
+                        <p class="text-sm text-red-600 mt-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- ========================= --}}
+                {{-- PASSWORD --}}
+                {{-- ========================= --}}
+                <div class="mb-6">
+
+                    <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Password <span class="text-red-500">*</span>
+                    </label>
+
+                    <input type="password" name="password" id="password"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
+                        placeholder="Masukkan password akun siswa..." required>
+
+                    <p class="text-xs text-gray-500 mt-2">
+                        Password digunakan untuk masuk (login) ke dalam sistem BUBA.
                     </p>
-                @enderror
 
-            </div>
+                    @error('password')
+                        <p class="text-sm text-red-600 mt-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
 
-
-            {{-- ========================= --}}
-            {{-- ROLE --}}
-            {{-- ========================= --}}
-            <div class="mb-5">
-
-                <label
-                    for="role"
-                    class="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                    Role <span class="text-red-500">*</span>
-                </label>
-
-                <select
-                    name="role"
-                    id="role"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
-                    required
-                >
-
-                    <option value="siswa" {{ old('role', 'siswa') == 'siswa' ? 'selected' : '' }}>
-                        Siswa
-                    </option>
-
-                </select>
-
-                @error('role')
-                    <p class="text-sm text-red-600 mt-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-
-            </div>
+                </div>
 
 
-            {{-- ========================= --}}
-            {{-- EMAIL --}}
-            {{-- ========================= --}}
-            <div class="mb-5">
+                {{-- ========================= --}}
+                {{-- TOMBOL --}}
+                {{-- ========================= --}}
+                <div class="flex justify-end gap-3 pt-2">
 
-                <label
-                    for="email"
-                    class="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                    Email <span class="text-red-500">*</span>
-                </label>
+                    <a href="{{ route('siswa.index') }}"
+                        class="px-5 py-2.5 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition">
+                        Batal
+                    </a>
 
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value="{{ old('email') }}"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
-                    placeholder="Masukkan alamat email siswa..."
-                    required
-                >
+                    <button type="submit" id="submitButton" disabled
+                        class="px-5 py-2.5 rounded-lg bg-gray-400 text-white cursor-not-allowed transition">
+                        Simpan Siswa
+                    </button>
 
-                @error('email')
-                    <p class="text-sm text-red-600 mt-2">
-                        {{ $message }}
-                    </p>
-                @enderror
+                </div>
 
-            </div>
+            </form>
 
-
-            {{-- ========================= --}}
-            {{-- PASSWORD --}}
-            {{-- ========================= --}}
-            <div class="mb-6">
-
-                <label
-                    for="password"
-                    class="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                    Password <span class="text-red-500">*</span>
-                </label>
-
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
-                    placeholder="Masukkan password akun siswa..."
-                    required
-                >
-
-                <p class="text-xs text-gray-500 mt-2">
-                    Password digunakan untuk masuk (login) ke dalam sistem BUBA.
-                </p>
-
-                @error('password')
-                    <p class="text-sm text-red-600 mt-2">
-                        {{ $message }}
-                    </p>
-                @enderror
-
-            </div>
-
-
-            {{-- ========================= --}}
-            {{-- TOMBOL --}}
-            {{-- ========================= --}}
-            <div class="flex justify-end gap-3 pt-2">
-
-                <a
-                    href="{{ route('siswa.index') }}"
-                    class="px-5 py-2.5 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition"
-                >
-                    Batal
-                </a>
-
-                <button
-                    type="submit"
-                    class="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-                >
-                    Simpan Siswa
-                </button>
-
-            </div>
-
-        </form>
+        </div>
 
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('formTambahSiswa');
+            const submitButton = document.getElementById('submitButton');
 
-</div>
+            const requiredFields = form.querySelectorAll('input[required], select[required]');
+
+            function checkInput() {
+                let inputAllFilled = true;
+
+                requiredFields.forEach(field => {
+                    if (field.value.trim() === '') {
+                        inputAllFilled = false;
+                    }
+                });
+
+                if (inputAllFilled) {
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                    submitButton.classList.add('bg-blue-600', 'hover:bg-blue-700', 'cursor-pointer');
+                } else {
+                    submitButton.disabled = true;
+                    submitButton.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'cursor-pointer');
+                    submitButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+                }
+            }
+
+            requiredFields.forEach(field => {
+                field.addEventListener('input', checkInput);
+                field.addEventListener('change', checkInput);
+            });
+
+            checkInput();
+        });
+    </script>
 
 @endsection

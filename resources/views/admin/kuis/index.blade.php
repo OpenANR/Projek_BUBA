@@ -98,7 +98,7 @@
 
                     <button type="button"
                             id="resetSearch"
-                            class="px-4 py-2 rounded-lg bg-gray-100 border border-gray-200 text-gray-600 text-sm hover:bg-gray-200 transition">
+                            class="px-5 py-2 rounded-lg bg-gray-500 text-white text-sm font-medium hover:bg-gray-600 transition">
                         Reset
                     </button>
                 </div>

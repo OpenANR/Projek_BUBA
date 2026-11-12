@@ -1,6 +1,32 @@
 @import "tailwindcss";
 
 /* =========================================================
+   Interaksi & Kursor
+   Menyamakan kursor untuk semua elemen yang bisa diklik
+   (tombol, link, dan elemen ber-role button) di seluruh
+   halaman admin/guru maupun siswa.
+   ========================================================= */
+@layer base {
+    :where(
+        button,
+        [role="button"],
+        input[type="submit"],
+        input[type="button"],
+        input[type="reset"],
+        summary,
+        a[href],
+        label[for]
+    ) {
+        cursor: pointer;
+    }
+
+    :where(button, input, [role="button"]):disabled,
+    :where([aria-disabled="true"]) {
+        cursor: not-allowed;
+    }
+}
+
+/* =========================================================
    BUBA - Playful Child-Friendly Custom Animations & Styles
    ========================================================= */
 

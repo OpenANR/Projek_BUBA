@@ -82,7 +82,6 @@
     </div>
     <div class="text-center mb-5 px-2" x-show="!sidebarCollapsed" data-sidebar-label>
         <p class="font-bold">BUBA E-Learning Application</p>
-        <p class="">&copy; {{ date('Y') }} NAJATIF</p>
-        <p class="">All Right Reserved.</p>
+        <p class="">Version 1.0</p>
     </div>
 </aside>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quis;
 use App\Models\Reward;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -151,61 +152,51 @@ class QuisController extends Controller
         ]);
 
         $userId = $request->user()->id;
-        $quisId = $validated['quis_id'];
-        $kelasId = $validated['kelas_id'];
-        $kategoriId = $validated['kategori_id'];
-        $jawabanSiswa = $validated['jawaban'];
+        $jawabanSiswa = $request->jawaban;
+        $kelasId = (int) $request->kelas_id;
+        $kategoriId = (int) $request->kategori_id;
 
-        // Pastikan kuis yang dipilih benar-benar
-        // berasal dari kelas dan kategori yang dikirim.
-        $kuisDipilih = Quis::where('id', $quisId)
-            ->where('kelas_id', $kelasId)
-            ->where('kategori_id', $kategoriId)
-            ->first();
-
-        if (!$kuisDipilih) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Kuis tidak ditemukan atau tidak sesuai dengan kategori.',
-            ], 422);
-        }
-
-        // Ambil semua soal dalam kategori.
+        // Ambil SEMUA soal pada kelas dan kategori ini, bukan hanya yang dikirim siswa.
         $daftarSoal = Quis::where('kelas_id', $kelasId)
             ->where('kategori_id', $kategoriId)
-            ->orderBy('id')
             ->get();
 
         if ($daftarSoal->isEmpty()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Belum ada soal dalam kategori ini.',
+                'message' => 'Soal kuis tidak ditemukan atau tidak valid.',
             ], 422);
         }
 
-        // Pastikan siswa menjawab seluruh soal.
-        // ID jawaban harus sama persis dengan ID soal kategori.
-        $idSoalDatabase = $daftarSoal
-            ->pluck('id')
+        // Wajib menjawab seluruh soal; mencegah skor tinggi dari jawaban parsial.
+        $idSoal = $daftarSoal->pluck('id')
             ->map(fn ($id) => (string) $id)
             ->sort()
             ->values()
             ->all();
 
-        $idJawabanSiswa = collect(array_keys($jawabanSiswa))
+        $idJawaban = collect(array_keys($jawabanSiswa))
             ->map(fn ($id) => (string) $id)
             ->sort()
             ->values()
             ->all();
 
-        if ($idSoalDatabase !== $idJawabanSiswa) {
+        if ($idSoal !== $idJawaban) {
             return response()->json([
                 'success' => false,
-                'message' => 'Semua soal harus dijawab sebelum kuis dikumpulkan.',
+                'message' => 'Semua soal kuis harus dijawab sebelum dikirim.',
             ], 422);
         }
 
-        // Hitung jawaban benar.
+        // Terapkan aturan kunci yang sama seperti alur kuis web.
+        if ($this->kuisSudahTerkunci($userId, $kelasId, $kategoriId)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Kuis sudah terkunci karena kamu telah mendapatkan minimal 3 bintang! ⭐',
+                'terkunci' => true,
+            ], 403);
+        }
+
         $benar = 0;
 
         foreach ($daftarSoal as $soal) {
@@ -238,7 +229,10 @@ class QuisController extends Controller
             $bintang = 0;
         }
 
-        // Simpan hasil dengan transaksi database.
+        // Simpan ke tabel rewards; cek kunci sekali lagi di dalam transaksi
+        // agar dua permintaan bersamaan tidak sama-sama lolos.
+        $quisId = $daftarSoal->first()->id; // representasi soal kategori ini
+
         $reward = DB::transaction(function () use (
             $userId,
             $quisId,
@@ -249,28 +243,17 @@ class QuisController extends Controller
             $nilai,
             $bintang
         ) {
-            // Kunci baris user untuk membantu mencegah
-            // dua submit bersamaan melewati pemeriksaan.
-            DB::table('users')
-                ->where('id', $userId)
+            User::whereKey($userId)
                 ->lockForUpdate()
-                ->first();
+                ->firstOrFail();
 
-            // Periksa kembali status penguncian.
-            if ($this->kuisSudahTerkunci(
-                $userId,
-                $kelasId,
-                $kategoriId
-            )) {
+            if ($this->kuisSudahTerkunci($userId, $kelasId, $kategoriId)) {
                 return null;
             }
 
             return Reward::create([
                 'user_id' => $userId,
-
-                // Gunakan ID kuis yang dipilih siswa.
                 'quis_id' => $quisId,
-
                 'jumlah_benar' => $benar,
                 'jumlah_salah' => $salah,
                 'skor' => $nilai,
@@ -278,13 +261,12 @@ class QuisController extends Controller
             ]);
         });
 
-        // Jika kategori sudah terkunci ketika transaksi berjalan.
-        if (!$reward) {
+        if (! $reward) {
             return response()->json([
                 'success' => false,
+                'message' => 'Kuis sudah terkunci karena kamu telah mendapatkan minimal 3 bintang! ⭐',
                 'terkunci' => true,
-                'message' => 'Kategori kuis sudah terkunci.',
-            ], 409);
+            ], 403);
         }
 
         return response()->json([
@@ -341,5 +323,17 @@ class QuisController extends Controller
             'success' => true,
             'data' => $rewards,
         ], 200);
+    }
+
+    // Cek apakah kategori kuis ini sudah terkunci (minimal 3 bintang).
+    private function kuisSudahTerkunci(int $userId, int $kelasId, int $kategoriId): bool
+    {
+        return Reward::where('user_id', $userId)
+            ->where('jumlah_bintang', '>=', 3)
+            ->whereHas('quis', function ($query) use ($kelasId, $kategoriId) {
+                $query->where('kelas_id', $kelasId)
+                    ->where('kategori_id', $kategoriId);
+            })
+            ->exists();
     }
 }

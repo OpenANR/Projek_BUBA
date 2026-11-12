@@ -27,9 +27,12 @@
 						<label for="nama_kelas" class="block text-sm font-semibold text-gray-700 mb-1">
 							Nama Kelas <span class="text-red-500">*</span>
 						</label>
+						
 						<input type="text" name="nama_kelas" id="nama_kelas" value="{{ old('nama_kelas') }}" required maxlength="10" pattern="[A-Za-z0-9-]+"
 							placeholder="Contoh: Kelas-1A"
 							class="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+						
+						<span id="char_count" class="text-xs font-medium text-gray-500">0/10</span>
 					</div>
 
 					<div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
@@ -53,9 +56,18 @@
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 			const input = document.getElementById('nama_kelas');
+			const charCount = document.getElementById('char_count');
 			const button = input.form.querySelector('button[type="submit"]');
+			const maxLength = input.getAttribute('maxLength') || 10;
 
 			function updateButtonState() {
+
+				const currentLength = input.value.length;
+
+				if (charCount) {
+					charCount.textContent = `${currentLength}/${maxLength}`;
+				}
+
 				const isValid = input.value.length > 0
 					&& input.value.length <= 10
 					&& /^[A-Za-z0-9-]+$/.test(input.value);

@@ -6,6 +6,7 @@ use App\Models\Kategori;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {
@@ -34,12 +35,13 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kategori' => 'required|string|unique:kategoris,nama_kategori',
+            'nama_kategori' => 'required|string|max:30|unique:kategoris,nama_kategori',
             'deskripsi'     => 'required|string',
             'kelas_id'      => 'required|exists:kelas,id',
         ], [
             'nama_kategori.required' => 'Nama kategori wajib diisi.',
             'nama_kategori.unique'   => 'Nama kategori telah ada.',
+            'nama_kategori.max'      => 'Nama kategori maksimal 30 karakter.',
             'deskripsi.required'     => 'Deskripsi wajib diisi.',
             'kelas_id.required'      => 'Kelas wajib dipilih.',
             'kelas_id.exists'        => 'Kelas tidak valid.',
@@ -48,7 +50,7 @@ class CategoryController extends Controller
         $data = [
             'nama_kategori' => $request->nama_kategori,
             'deskripsi'     => $request->deskripsi,
-            'slug'          => Str::slug($request->nama_kategori),
+            'slug'          => $this->slugUnik($request->nama_kategori),
             'kelas_id'      => $request->kelas_id,
         ];
 
@@ -79,13 +81,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $categories = Kategori::findOrFail($id);
+
         $request->validate([
-            'nama_kategori' => 'required|string|unique:kategoris,nama_kategori,' . $id,
+            'nama_kategori' => 'required|string|max:30|unique:kategoris,nama_kategori,' . $categories->id,
             'deskripsi'     => 'required|string',
             'kelas_id'      => 'required|exists:kelas,id',
         ], [
             'nama_kategori.required' => 'Nama kategori wajib diisi.',
             'nama_kategori.unique'   => 'Nama kategori telah ada.',
+            'nama_kategori.max'      => 'Nama kategori maksimal 30 karakter.',
             'deskripsi.required'     => 'Deskripsi wajib diisi.',
             'kelas_id.required'      => 'Kelas wajib dipilih.',
             'kelas_id.exists'        => 'Kelas tidak valid.',
@@ -94,14 +99,41 @@ class CategoryController extends Controller
         $data = [
             'nama_kategori' => $request->nama_kategori,
             'deskripsi'     => $request->deskripsi,
-            'slug'          => Str::slug($request->nama_kategori), // Tambahkan update slug juga jika nama diubah
+            'slug'          => $this->slugUnik($request->nama_kategori, $categories->id),
             'kelas_id'      => $request->kelas_id,
         ];
 
-        $categories = Kategori::findOrFail($id);
         $categories->update($data);
 
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui');
+    }
+
+    /**
+     * Buat slug unik, atau kirim pesan validasi jika slug sudah dipakai.
+     */
+    private function slugUnik(string $namaKategori, ?int $abaikanId = null): string
+    {
+        $slug = Str::slug($namaKategori);
+
+        if ($slug === '') {
+            throw ValidationException::withMessages([
+                'nama_kategori' => 'Nama kategori tidak valid.',
+            ]);
+        }
+
+        $query = Kategori::where('slug', $slug);
+
+        if ($abaikanId !== null) {
+            $query->where('id', '!=', $abaikanId);
+        }
+
+        if ($query->exists()) {
+            throw ValidationException::withMessages([
+                'nama_kategori' => 'Nama kategori terlalu mirip dengan kategori yang sudah ada.',
+            ]);
+        }
+
+        return $slug;
     }
 
     /**

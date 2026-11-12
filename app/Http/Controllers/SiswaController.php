@@ -47,9 +47,13 @@ class SiswaController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
-            'jenis_kelamin' => 'nullable',
-            'role' => 'required',
+            'jenis_kelamin' => 'nullable|in:L,P',
+            'role' => 'required|in:siswa',
             'kelas_id'  => 'nullable|exists:kelas,id'
+        ], [
+            'role.required' => 'Role wajib diisi.',
+            'role.in' => 'Halaman ini hanya untuk akun siswa.',
+            'jenis_kelamin.in' => 'Jenis kelamin tidak valid.',
         ]);
 
         $data = [
@@ -84,6 +88,12 @@ class SiswaController extends Controller
      */
     public function edit(User $siswa)
     {
+        abort_unless(
+            $siswa->role === 'siswa',
+            403,
+            'Hanya akun siswa yang dapat dikelola dari halaman ini.'
+        );
+
         $dataKelas = Kelas::get();
         $dataSiswa = $siswa;
         // dd($dataSiswa);
@@ -95,14 +105,24 @@ class SiswaController extends Controller
      */
     public function update(Request $request, User $siswa)
     {
+        abort_unless(
+            $siswa->role === 'siswa',
+            403,
+            'Hanya akun siswa yang dapat dikelola dari halaman ini.'
+        );
+
         $request->validate([
             // 'kode_user' => 'required|unique:users,kode_user',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $siswa->id,
             'password' => 'nullable|string|min:8',
-            'jenis_kelamin' => 'nullable',
-            'role' => 'required',
+            'jenis_kelamin' => 'nullable|in:L,P',
+            'role' => 'required|in:siswa',
             'kelas_id'  => 'nullable|exists:kelas,id'
+        ], [
+            'role.required' => 'Role wajib diisi.',
+            'role.in' => 'Halaman ini hanya untuk akun siswa.',
+            'jenis_kelamin.in' => 'Jenis kelamin tidak valid.',
         ]);
 
         $data = [
@@ -132,6 +152,12 @@ class SiswaController extends Controller
      */
     public function destroy(User $siswa)
     {
+        abort_unless(
+            $siswa->role === 'siswa',
+            403,
+            'Hanya akun siswa yang dapat dihapus dari halaman ini.'
+        );
+
         $siswa->delete();
 
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil dihapus.');

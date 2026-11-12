@@ -144,8 +144,8 @@
 
             <!-- Footer Hak Cipta Ringkas -->
             <div class="relative z-10 mt-6 text-center text-xs font-semibold text-slate-400">
-                <p class="italic">BUBA E-Learning Application | version 1.0</p>
-                <p class="font-bold">&copy; {{ date('Y') }} NAJATIF. All Right Reserved.</p>
+                <p class="font-bold pb-2">BUBA E-Learning Application</p>
+                <p class="">&copy; {{ date('Y') }} NAJATIF. All Right Reserved.</p>
             </div>
         </div>
     </div>

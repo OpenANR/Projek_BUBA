@@ -30,39 +30,36 @@
                         <input type="text" name="nama_kategori" id="nama_kategori" value="{{ old('nama_kategori') }}"
                             required maxlength="30" placeholder="Contoh: Kategori-1"
                             class="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+
+                        <span id="char_count_kategori" class="text-xs font-medium text-gray-500">0/30</span>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">
-                            Kelas
+                        <label for="kelas_id" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Kelas <span class="text-red-500">*</span>
                         </label>
 
                         <select name="kelas_id" id="kelas_id"
                             class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
                             required>
-
-                            <option value="">
-                                -- Pilih Kelas --
-                            </option>
-
+                            <option value="">-- Pilih Kelas --</option>
                             @foreach ($kelas as $item)
-                                <option value="{{ $item->id }}" {{ old('kelas_id', $item->kelas_id) == $item->id ? 'selected' : '' }}>
-
+                                <option value="{{ $item->id }}" {{ old('kelas_id') == $item->id ? 'selected' : '' }}>
                                     {{ $item->nama_kelas }}
-
                                 </option>
                             @endforeach
-
                         </select>
                     </div>
 
-                     <div>
+                    <div>
                         <label for="deskripsi" class="block text-sm font-semibold text-gray-700 mb-1">
                             Deskripsi <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="deskripsi" id="deskripsi" value="{{ old('deskripsi') }}"
                             required maxlength="50" placeholder="Contoh: Deskripsi kategori"
                             class="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+
+                        <span id="char_count_deskripsi" class="text-xs font-medium text-gray-500">0/50</span>
                     </div>
 
                     <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
@@ -85,23 +82,46 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const input = document.getElementById('nama_kelas');
-            const button = input.form.querySelector('button[type="submit"]');
+            const inputKategori = document.getElementById('nama_kategori');
+            const countKategori = document.getElementById('char_count_kategori');
+            const maxKategori = parseInt(inputKategori.getAttribute('maxlength')) || 30;
+
+            const selectKelas = document.getElementById('kelas_id');
+
+            const inputDeskripsi = document.getElementById('deskripsi');
+            const countDeskripsi = document.getElementById('char_count_deskripsi');
+            const maxDeskripsi = parseInt(inputDeskripsi.getAttribute('maxlength')) || 50;
+
+            const button = inputKategori.form.querySelector('button[type="submit"]');
 
             function updateButtonState() {
-                const cursorPosition = input.selectionStart;
-                const sanitizedValue = input.value.replace(/[^A-Za-z0-9-]/g, '');
+                // Sanitasi Nama Kategori (huruf, angka, spasi, dan tanda hubung)
+                const cursorPosition = inputKategori.selectionStart;
+                const sanitizedValue = inputKategori.value.replace(/[^A-Za-z0-9 -]/g, '');
 
-                if (sanitizedValue !== input.value) {
-                    const sanitizedCursorPosition = input.value.slice(0, cursorPosition).replace(/[^A-Za-z0-9-]/g,
-                        '').length;
-                    input.value = sanitizedValue;
-                    input.setSelectionRange(sanitizedCursorPosition, sanitizedCursorPosition);
+                if (sanitizedValue !== inputKategori.value) {
+                    const sanitizedCursor = inputKategori.value.slice(0, cursorPosition).replace(/[^A-Za-z0-9 -]/g, '').length;
+                    inputKategori.value = sanitizedValue;
+                    inputKategori.setSelectionRange(sanitizedCursor, sanitizedCursor);
                 }
 
-                const isValid = input.value.length > 0 &&
-                    input.value.length <= 10 &&
-                    /^[A-Za-z0-9-]+$/.test(input.value);
+                // Update indikator jumlah karakter
+                const lenKategori = inputKategori.value.length;
+                const lenDeskripsi = inputDeskripsi.value.length;
+
+                if (countKategori) {
+                    countKategori.textContent = `${lenKategori}/${maxKategori}`;
+                }
+                if (countDeskripsi) {
+                    countDeskripsi.textContent = `${lenDeskripsi}/${maxDeskripsi}`;
+                }
+
+                // Validasi semua input wajib
+                const isKategoriValid = inputKategori.value.trim().length > 0 && lenKategori <= maxKategori;
+                const isKelasValid = selectKelas.value !== '';
+                const isDeskripsiValid = inputDeskripsi.value.trim().length > 0 && lenDeskripsi <= maxDeskripsi;
+
+                const isValid = isKategoriValid && isKelasValid && isDeskripsiValid;
 
                 button.disabled = !isValid;
                 button.classList.toggle('bg-blue-600', isValid);
@@ -111,7 +131,10 @@
                 button.classList.toggle('cursor-not-allowed', !isValid);
             }
 
-            input.addEventListener('input', updateButtonState);
+            inputKategori.addEventListener('input', updateButtonState);
+            selectKelas.addEventListener('change', updateButtonState);
+            inputDeskripsi.addEventListener('input', updateButtonState);
+
             updateButtonState();
         });
     </script>

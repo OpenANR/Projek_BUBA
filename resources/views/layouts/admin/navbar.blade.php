@@ -29,11 +29,11 @@
     <!-- Kanan: Notifikasi, Profil, Maskot -->
     <div class="flex items-center gap-4 md:gap-6">
 
-        <!-- Notifikasi -->
+        {{-- <!-- Notifikasi -->
         <button class="relative p-2 text-slate-500 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-all focus:outline-none">
             <i class="far fa-bell text-xl"></i>
             <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full"></span>
-        </button>
+        </button> --}}
 
         <!-- Profil Admin Dropdown -->
         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
