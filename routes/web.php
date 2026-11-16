@@ -199,4 +199,22 @@ if (app()->environment('local')) {
 
         return view('emails.verify-email', compact('user', 'url'));
     })->name('mail.preview.verify-email');
+
+    /** audio flutter */
+
+Route::get('/audio-kuis/{filename}', function ($filename) {
+    $filename = basename($filename);
+
+    $path = storage_path('app/public/quis/audio/' . $filename);
+
+    if (!file_exists($path)) {
+        abort(404, 'File audio tidak ditemukan.');
+    }
+
+    return response()->file($path, [
+        'Content-Type' => 'audio/mpeg',
+        'Access-Control-Allow-Origin' => '*',
+        'Cross-Origin-Resource-Policy' => 'cross-origin',
+    ]);
+});
 }

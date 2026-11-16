@@ -165,7 +165,9 @@ class QuisController extends Controller
         ]);
 
         $userId = $request->user()->id;
-        $jawabanSiswa = $request->jawaban;
+        $jawabanSiswa = collect($validated['jawaban'])->mapWithKeys(function ($jawaban, $id) {
+            return [(string) $id => strtoupper($jawaban)];
+        })->all();
         $kelasId = (int) $request->kelas_id;
         $kategoriId = (int) $request->kategori_id;
 
@@ -213,9 +215,7 @@ class QuisController extends Controller
         $benar = 0;
 
         foreach ($daftarSoal as $soal) {
-            $jawabanDipilih = strtoupper(
-                $jawabanSiswa[$soal->id] ?? ''
-            );
+            $jawabanDipilih = $jawabanSiswa[(string) $soal->id] ?? '';
 
             if ($jawabanDipilih === strtoupper($soal->jawaban)) {
                 $benar++;
@@ -244,7 +244,14 @@ class QuisController extends Controller
 
         // Simpan ke tabel rewards; cek kunci sekali lagi di dalam transaksi
         // agar dua permintaan bersamaan tidak sama-sama lolos.
-        $quisId = $daftarSoal->first()->id; // representasi soal kategori ini
+        // Pastikan kuis yang dikirim Flutter benar-benar termasuk
+        // dalam kelas dan kategori yang sedang dikerjakan.
+        $kuisDipilih = Quis::where('id', $validated['quis_id'])
+            ->where('kelas_id', $kelasId)
+            ->where('kategori_id', $kategoriId)
+            ->firstOrFail();
+
+        $quisId = $kuisDipilih->id;
 
         $reward = DB::transaction(function () use (
             $userId,
@@ -311,19 +318,23 @@ class QuisController extends Controller
             ->map(function ($item) {
                 return [
                     'id' => $item->id,
-
                     'quis_id' => $item->quis_id,
 
-                    'kelas' => $item->quis?->kelas?->nama_kelas,
+                    'quis' => [
+                        'kode_kuis' => $item->quis?->kode_kuis,
 
-                    'kategori' => $item->quis?->kategori?->nama_kategori,
+                        'kelas' => [
+                            'nama_kelas' => $item->quis?->kelas?->nama_kelas,
+                        ],
+
+                        'kategori' => [
+                            'nama_kategori' => $item->quis?->kategori?->nama_kategori,
+                        ],
+                    ],
 
                     'skor' => $item->skor,
-
                     'jumlah_benar' => $item->jumlah_benar,
-
                     'jumlah_salah' => $item->jumlah_salah,
-
                     'jumlah_bintang' => $item->jumlah_bintang,
 
                     'tanggal' => $item->created_at
