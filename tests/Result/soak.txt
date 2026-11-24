@@ -1,0 +1,3800 @@
+>> k6 profile : soak
+>> target     : http://localhost:8000
+
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /var/home/nuzulurrozaq/Projects/Coding/Web/Projek_BUBA/tests/k6/soak.js
+        output: -
+
+     scenarios: (100.00%) 4 scenarios, 12 max VUs, 10m15s max duration (incl. graceful stop):
+              * soak_admin: 1 looping VUs for 10m0s (exec: adminScenario, gracefulStop: 15s)
+              * soak_api: 4 looping VUs for 10m0s (exec: apiScenario, gracefulStop: 15s)
+              * soak_public: 4 looping VUs for 10m0s (exec: publicScenario, gracefulStop: 15s)
+              * soak_student: 3 looping VUs for 10m0s (exec: studentScenario, gracefulStop: 15s)
+
+
+Run            [ 100% ] setup()
+soak_admin     [   0% ]
+soak_api       [   0% ]
+soak_public    [   0% ]
+soak_student   [   0% ]
+
+running (00m01.7s), 12/12 VUs, 0 complete and 0 interrupted iterations
+soak_admin     [   0% ] 1 VUs  00m00.3s/10m0s
+soak_api       [   0% ] 4 VUs  00m00.3s/10m0s
+soak_public    [   0% ] 4 VUs  00m00.3s/10m0s
+soak_student   [   0% ] 3 VUs  00m00.3s/10m0s
+
+running (00m01.7s), 12/12 VUs, 0 complete and 0 interrupted iterations
+soak_admin     [   0% ] 1 VUs  00m00.4s/10m0s
+soak_api       [   0% ] 4 VUs  00m00.4s/10m0s
+soak_public    [   0% ] 4 VUs  00m00.4s/10m0s
+soak_student   [   0% ] 3 VUs  00m00.4s/10m0s
+
+running (00m01.8s), 12/12 VUs, 0 complete and 0 interrupted iterations
+soak_admin     [   0% ] 1 VUs  00m00.5s/10m0s
+soak_api       [   0% ] 4 VUs  00m00.5s/10m0s
+soak_public    [   0% ] 4 VUs  00m00.5s/10m0s
+soak_student   [   0% ] 3 VUs  00m00.5s/10m0s
+
+running (00m02.0s), 12/12 VUs, 0 complete and 0 interrupted iterations
+soak_admin     [   0% ] 1 VUs  00m00.6s/10m0s
+soak_api       [   0% ] 4 VUs  00m00.6s/10m0s
+soak_public    [   0% ] 4 VUs  00m00.6s/10m0s
+soak_student   [   0% ] 3 VUs  00m00.6s/10m0s
+
+running (00m02.0s), 12/12 VUs, 0 complete and 0 interrupted iterations
+soak_admin     [   0% ] 1 VUs  00m00.6s/10m0s
+soak_api       [   0% ] 4 VUs  00m00.6s/10m0s
+soak_public    [   0% ] 4 VUs  00m00.6s/10m0s
+soak_student   [   0% ] 3 VUs  00m00.6s/10m0s
+
+running (00m02.0s), 12/12 VUs, 0 complete and 0 interrupted iterations
+soak_admin     [   0% ] 1 VUs  00m00.7s/10m0s
+soak_api       [   0% ] 4 VUs  00m00.7s/10m0s
+soak_public    [   0% ] 4 VUs  00m00.7s/10m0s
+soak_student   [   0% ] 3 VUs  00m00.7s/10m0s
+
+running (00m03.0s), 12/12 VUs, 0 complete and 0 interrupted iterations
+soak_admin     [   0% ] 1 VUs  00m01.6s/10m0s
+soak_api       [   0% ] 4 VUs  00m01.6s/10m0s
+soak_public    [   0% ] 4 VUs  00m01.6s/10m0s
+soak_student   [   0% ] 3 VUs  00m01.6s/10m0s
+
+running (00m04.0s), 12/12 VUs, 3 complete and 0 interrupted iterations
+soak_admin     [   0% ] 1 VUs  00m02.6s/10m0s
+soak_api       [   0% ] 4 VUs  00m02.6s/10m0s
+soak_public    [   0% ] 4 VUs  00m02.6s/10m0s
+soak_student   [   0% ] 3 VUs  00m02.6s/10m0s
+
+running (00m05.0s), 12/12 VUs, 12 complete and 0 interrupted iterations
+soak_admin     [   1% ] 1 VUs  00m03.6s/10m0s
+soak_api       [   1% ] 4 VUs  00m03.6s/10m0s
+soak_public    [   1% ] 4 VUs  00m03.6s/10m0s
+soak_student   [   1% ] 3 VUs  00m03.6s/10m0s
+
+running (00m06.0s), 12/12 VUs, 19 complete and 0 interrupted iterations
+soak_admin     [   1% ] 1 VUs  00m04.6s/10m0s
+soak_api       [   1% ] 4 VUs  00m04.6s/10m0s
+soak_public    [   1% ] 4 VUs  00m04.6s/10m0s
+soak_student   [   1% ] 3 VUs  00m04.6s/10m0s
+
+running (00m07.0s), 12/12 VUs, 23 complete and 0 interrupted iterations
+soak_admin     [   1% ] 1 VUs  00m05.6s/10m0s
+soak_api       [   1% ] 4 VUs  00m05.6s/10m0s
+soak_public    [   1% ] 4 VUs  00m05.6s/10m0s
+soak_student   [   1% ] 3 VUs  00m05.6s/10m0s
+
+running (00m08.0s), 12/12 VUs, 31 complete and 0 interrupted iterations
+soak_admin     [   1% ] 1 VUs  00m06.6s/10m0s
+soak_api       [   1% ] 4 VUs  00m06.6s/10m0s
+soak_public    [   1% ] 4 VUs  00m06.6s/10m0s
+soak_student   [   1% ] 3 VUs  00m06.6s/10m0s
+
+running (00m09.0s), 12/12 VUs, 35 complete and 0 interrupted iterations
+soak_admin     [   1% ] 1 VUs  00m07.6s/10m0s
+soak_api       [   1% ] 4 VUs  00m07.6s/10m0s
+soak_public    [   1% ] 4 VUs  00m07.6s/10m0s
+soak_student   [   1% ] 3 VUs  00m07.6s/10m0s
+
+running (00m10.0s), 12/12 VUs, 41 complete and 0 interrupted iterations
+soak_admin     [   1% ] 1 VUs  00m08.6s/10m0s
+soak_api       [   1% ] 4 VUs  00m08.6s/10m0s
+soak_public    [   1% ] 4 VUs  00m08.6s/10m0s
+soak_student   [   1% ] 3 VUs  00m08.6s/10m0s
+
+running (00m11.0s), 12/12 VUs, 49 complete and 0 interrupted iterations
+soak_admin     [   2% ] 1 VUs  00m09.6s/10m0s
+soak_api       [   2% ] 4 VUs  00m09.6s/10m0s
+soak_public    [   2% ] 4 VUs  00m09.6s/10m0s
+soak_student   [   2% ] 3 VUs  00m09.6s/10m0s
+
+running (00m12.0s), 12/12 VUs, 54 complete and 0 interrupted iterations
+soak_admin     [   2% ] 1 VUs  00m10.6s/10m0s
+soak_api       [   2% ] 4 VUs  00m10.6s/10m0s
+soak_public    [   2% ] 4 VUs  00m10.6s/10m0s
+soak_student   [   2% ] 3 VUs  00m10.6s/10m0s
+
+running (00m13.0s), 12/12 VUs, 60 complete and 0 interrupted iterations
+soak_admin     [   2% ] 1 VUs  00m11.6s/10m0s
+soak_api       [   2% ] 4 VUs  00m11.6s/10m0s
+soak_public    [   2% ] 4 VUs  00m11.6s/10m0s
+soak_student   [   2% ] 3 VUs  00m11.6s/10m0s
+
+running (00m14.0s), 12/12 VUs, 65 complete and 0 interrupted iterations
+soak_admin     [   2% ] 1 VUs  00m12.6s/10m0s
+soak_api       [   2% ] 4 VUs  00m12.6s/10m0s
+soak_public    [   2% ] 4 VUs  00m12.6s/10m0s
+soak_student   [   2% ] 3 VUs  00m12.6s/10m0s
+
+running (00m15.0s), 12/12 VUs, 74 complete and 0 interrupted iterations
+soak_admin     [   2% ] 1 VUs  00m13.6s/10m0s
+soak_api       [   2% ] 4 VUs  00m13.6s/10m0s
+soak_public    [   2% ] 4 VUs  00m13.6s/10m0s
+soak_student   [   2% ] 3 VUs  00m13.6s/10m0s
+
+running (00m16.0s), 12/12 VUs, 79 complete and 0 interrupted iterations
+soak_admin     [   2% ] 1 VUs  00m14.6s/10m0s
+soak_api       [   2% ] 4 VUs  00m14.6s/10m0s
+soak_public    [   2% ] 4 VUs  00m14.6s/10m0s
+soak_student   [   2% ] 3 VUs  00m14.6s/10m0s
+
+running (00m17.0s), 12/12 VUs, 83 complete and 0 interrupted iterations
+soak_admin     [   3% ] 1 VUs  00m15.6s/10m0s
+soak_api       [   3% ] 4 VUs  00m15.6s/10m0s
+soak_public    [   3% ] 4 VUs  00m15.6s/10m0s
+soak_student   [   3% ] 3 VUs  00m15.6s/10m0s
+
+running (00m18.0s), 12/12 VUs, 90 complete and 0 interrupted iterations
+soak_admin     [   3% ] 1 VUs  00m16.6s/10m0s
+soak_api       [   3% ] 4 VUs  00m16.6s/10m0s
+soak_public    [   3% ] 4 VUs  00m16.6s/10m0s
+soak_student   [   3% ] 3 VUs  00m16.6s/10m0s
+
+running (00m19.0s), 12/12 VUs, 98 complete and 0 interrupted iterations
+soak_admin     [   3% ] 1 VUs  00m17.6s/10m0s
+soak_api       [   3% ] 4 VUs  00m17.6s/10m0s
+soak_public    [   3% ] 4 VUs  00m17.6s/10m0s
+soak_student   [   3% ] 3 VUs  00m17.6s/10m0s
+
+running (00m20.0s), 12/12 VUs, 104 complete and 0 interrupted iterations
+soak_admin     [   3% ] 1 VUs  00m18.6s/10m0s
+soak_api       [   3% ] 4 VUs  00m18.6s/10m0s
+soak_public    [   3% ] 4 VUs  00m18.6s/10m0s
+soak_student   [   3% ] 3 VUs  00m18.6s/10m0s
+
+running (00m21.0s), 12/12 VUs, 108 complete and 0 interrupted iterations
+soak_admin     [   3% ] 1 VUs  00m19.6s/10m0s
+soak_api       [   3% ] 4 VUs  00m19.6s/10m0s
+soak_public    [   3% ] 4 VUs  00m19.6s/10m0s
+soak_student   [   3% ] 3 VUs  00m19.6s/10m0s
+
+running (00m22.0s), 12/12 VUs, 117 complete and 0 interrupted iterations
+soak_admin     [   3% ] 1 VUs  00m20.6s/10m0s
+soak_api       [   3% ] 4 VUs  00m20.6s/10m0s
+soak_public    [   3% ] 4 VUs  00m20.6s/10m0s
+soak_student   [   3% ] 3 VUs  00m20.6s/10m0s
+
+running (00m23.0s), 12/12 VUs, 121 complete and 0 interrupted iterations
+soak_admin     [   4% ] 1 VUs  00m21.6s/10m0s
+soak_api       [   4% ] 4 VUs  00m21.6s/10m0s
+soak_public    [   4% ] 4 VUs  00m21.6s/10m0s
+soak_student   [   4% ] 3 VUs  00m21.6s/10m0s
+
+running (00m24.0s), 12/12 VUs, 129 complete and 0 interrupted iterations
+soak_admin     [   4% ] 1 VUs  00m22.6s/10m0s
+soak_api       [   4% ] 4 VUs  00m22.6s/10m0s
+soak_public    [   4% ] 4 VUs  00m22.6s/10m0s
+soak_student   [   4% ] 3 VUs  00m22.6s/10m0s
+
+running (00m25.0s), 12/12 VUs, 135 complete and 0 interrupted iterations
+soak_admin     [   4% ] 1 VUs  00m23.6s/10m0s
+soak_api       [   4% ] 4 VUs  00m23.6s/10m0s
+soak_public    [   4% ] 4 VUs  00m23.6s/10m0s
+soak_student   [   4% ] 3 VUs  00m23.6s/10m0s
+
+running (00m26.0s), 12/12 VUs, 141 complete and 0 interrupted iterations
+soak_admin     [   4% ] 1 VUs  00m24.6s/10m0s
+soak_api       [   4% ] 4 VUs  00m24.6s/10m0s
+soak_public    [   4% ] 4 VUs  00m24.6s/10m0s
+soak_student   [   4% ] 3 VUs  00m24.6s/10m0s
+
+running (00m27.0s), 12/12 VUs, 148 complete and 0 interrupted iterations
+soak_admin     [   4% ] 1 VUs  00m25.6s/10m0s
+soak_api       [   4% ] 4 VUs  00m25.6s/10m0s
+soak_public    [   4% ] 4 VUs  00m25.6s/10m0s
+soak_student   [   4% ] 3 VUs  00m25.6s/10m0s
+
+running (00m28.0s), 12/12 VUs, 154 complete and 0 interrupted iterations
+soak_admin     [   4% ] 1 VUs  00m26.6s/10m0s
+soak_api       [   4% ] 4 VUs  00m26.6s/10m0s
+soak_public    [   4% ] 4 VUs  00m26.6s/10m0s
+soak_student   [   4% ] 3 VUs  00m26.6s/10m0s
+
+running (00m29.0s), 12/12 VUs, 157 complete and 0 interrupted iterations
+soak_admin     [   5% ] 1 VUs  00m27.6s/10m0s
+soak_api       [   5% ] 4 VUs  00m27.6s/10m0s
+soak_public    [   5% ] 4 VUs  00m27.6s/10m0s
+soak_student   [   5% ] 3 VUs  00m27.6s/10m0s
+
+running (00m30.0s), 12/12 VUs, 163 complete and 0 interrupted iterations
+soak_admin     [   5% ] 1 VUs  00m28.6s/10m0s
+soak_api       [   5% ] 4 VUs  00m28.6s/10m0s
+soak_public    [   5% ] 4 VUs  00m28.6s/10m0s
+soak_student   [   5% ] 3 VUs  00m28.6s/10m0s
+
+running (00m31.0s), 12/12 VUs, 172 complete and 0 interrupted iterations
+soak_admin     [   5% ] 1 VUs  00m29.6s/10m0s
+soak_api       [   5% ] 4 VUs  00m29.6s/10m0s
+soak_public    [   5% ] 4 VUs  00m29.6s/10m0s
+soak_student   [   5% ] 3 VUs  00m29.6s/10m0s
+
+running (00m32.0s), 12/12 VUs, 175 complete and 0 interrupted iterations
+soak_admin     [   5% ] 1 VUs  00m30.6s/10m0s
+soak_api       [   5% ] 4 VUs  00m30.6s/10m0s
+soak_public    [   5% ] 4 VUs  00m30.6s/10m0s
+soak_student   [   5% ] 3 VUs  00m30.6s/10m0s
+
+running (00m33.0s), 12/12 VUs, 179 complete and 0 interrupted iterations
+soak_admin     [   5% ] 1 VUs  00m31.6s/10m0s
+soak_api       [   5% ] 4 VUs  00m31.6s/10m0s
+soak_public    [   5% ] 4 VUs  00m31.6s/10m0s
+soak_student   [   5% ] 3 VUs  00m31.6s/10m0s
+
+running (00m34.0s), 12/12 VUs, 187 complete and 0 interrupted iterations
+soak_admin     [   5% ] 1 VUs  00m32.6s/10m0s
+soak_api       [   5% ] 4 VUs  00m32.6s/10m0s
+soak_public    [   5% ] 4 VUs  00m32.6s/10m0s
+soak_student   [   5% ] 3 VUs  00m32.6s/10m0s
+
+running (00m35.0s), 12/12 VUs, 193 complete and 0 interrupted iterations
+soak_admin     [   6% ] 1 VUs  00m33.6s/10m0s
+soak_api       [   6% ] 4 VUs  00m33.6s/10m0s
+soak_public    [   6% ] 4 VUs  00m33.6s/10m0s
+soak_student   [   6% ] 3 VUs  00m33.6s/10m0s
+
+running (00m36.0s), 12/12 VUs, 198 complete and 0 interrupted iterations
+soak_admin     [   6% ] 1 VUs  00m34.6s/10m0s
+soak_api       [   6% ] 4 VUs  00m34.6s/10m0s
+soak_public    [   6% ] 4 VUs  00m34.6s/10m0s
+soak_student   [   6% ] 3 VUs  00m34.6s/10m0s
+
+running (00m37.0s), 12/12 VUs, 204 complete and 0 interrupted iterations
+soak_admin     [   6% ] 1 VUs  00m35.6s/10m0s
+soak_api       [   6% ] 4 VUs  00m35.6s/10m0s
+soak_public    [   6% ] 4 VUs  00m35.6s/10m0s
+soak_student   [   6% ] 3 VUs  00m35.6s/10m0s
+
+running (00m38.0s), 12/12 VUs, 209 complete and 0 interrupted iterations
+soak_admin     [   6% ] 1 VUs  00m36.6s/10m0s
+soak_api       [   6% ] 4 VUs  00m36.6s/10m0s
+soak_public    [   6% ] 4 VUs  00m36.6s/10m0s
+soak_student   [   6% ] 3 VUs  00m36.6s/10m0s
+
+running (00m39.0s), 12/12 VUs, 219 complete and 0 interrupted iterations
+soak_admin     [   6% ] 1 VUs  00m37.6s/10m0s
+soak_api       [   6% ] 4 VUs  00m37.6s/10m0s
+soak_public    [   6% ] 4 VUs  00m37.6s/10m0s
+soak_student   [   6% ] 3 VUs  00m37.6s/10m0s
+
+running (00m40.0s), 12/12 VUs, 220 complete and 0 interrupted iterations
+soak_admin     [   6% ] 1 VUs  00m38.6s/10m0s
+soak_api       [   6% ] 4 VUs  00m38.6s/10m0s
+soak_public    [   6% ] 4 VUs  00m38.6s/10m0s
+soak_student   [   6% ] 3 VUs  00m38.6s/10m0s
+
+running (00m41.0s), 12/12 VUs, 229 complete and 0 interrupted iterations
+soak_admin     [   7% ] 1 VUs  00m39.6s/10m0s
+soak_api       [   7% ] 4 VUs  00m39.6s/10m0s
+soak_public    [   7% ] 4 VUs  00m39.6s/10m0s
+soak_student   [   7% ] 3 VUs  00m39.6s/10m0s
+
+running (00m42.0s), 12/12 VUs, 233 complete and 0 interrupted iterations
+soak_admin     [   7% ] 1 VUs  00m40.6s/10m0s
+soak_api       [   7% ] 4 VUs  00m40.6s/10m0s
+soak_public    [   7% ] 4 VUs  00m40.6s/10m0s
+soak_student   [   7% ] 3 VUs  00m40.6s/10m0s
+
+running (00m43.0s), 12/12 VUs, 242 complete and 0 interrupted iterations
+soak_admin     [   7% ] 1 VUs  00m41.6s/10m0s
+soak_api       [   7% ] 4 VUs  00m41.6s/10m0s
+soak_public    [   7% ] 4 VUs  00m41.6s/10m0s
+soak_student   [   7% ] 3 VUs  00m41.6s/10m0s
+
+running (00m44.0s), 12/12 VUs, 246 complete and 0 interrupted iterations
+soak_admin     [   7% ] 1 VUs  00m42.6s/10m0s
+soak_api       [   7% ] 4 VUs  00m42.6s/10m0s
+soak_public    [   7% ] 4 VUs  00m42.6s/10m0s
+soak_student   [   7% ] 3 VUs  00m42.6s/10m0s
+
+running (00m45.0s), 12/12 VUs, 254 complete and 0 interrupted iterations
+soak_admin     [   7% ] 1 VUs  00m43.6s/10m0s
+soak_api       [   7% ] 4 VUs  00m43.6s/10m0s
+soak_public    [   7% ] 4 VUs  00m43.6s/10m0s
+soak_student   [   7% ] 3 VUs  00m43.6s/10m0s
+
+running (00m46.0s), 12/12 VUs, 259 complete and 0 interrupted iterations
+soak_admin     [   7% ] 1 VUs  00m44.6s/10m0s
+soak_api       [   7% ] 4 VUs  00m44.6s/10m0s
+soak_public    [   7% ] 4 VUs  00m44.6s/10m0s
+soak_student   [   7% ] 3 VUs  00m44.6s/10m0s
+
+running (00m47.0s), 12/12 VUs, 268 complete and 0 interrupted iterations
+soak_admin     [   8% ] 1 VUs  00m45.6s/10m0s
+soak_api       [   8% ] 4 VUs  00m45.6s/10m0s
+soak_public    [   8% ] 4 VUs  00m45.6s/10m0s
+soak_student   [   8% ] 3 VUs  00m45.6s/10m0s
+
+running (00m48.0s), 12/12 VUs, 272 complete and 0 interrupted iterations
+soak_admin     [   8% ] 1 VUs  00m46.6s/10m0s
+soak_api       [   8% ] 4 VUs  00m46.6s/10m0s
+soak_public    [   8% ] 4 VUs  00m46.6s/10m0s
+soak_student   [   8% ] 3 VUs  00m46.6s/10m0s
+
+running (00m49.0s), 12/12 VUs, 279 complete and 0 interrupted iterations
+soak_admin     [   8% ] 1 VUs  00m47.6s/10m0s
+soak_api       [   8% ] 4 VUs  00m47.6s/10m0s
+soak_public    [   8% ] 4 VUs  00m47.6s/10m0s
+soak_student   [   8% ] 3 VUs  00m47.6s/10m0s
+
+running (00m50.0s), 12/12 VUs, 283 complete and 0 interrupted iterations
+soak_admin     [   8% ] 1 VUs  00m48.6s/10m0s
+soak_api       [   8% ] 4 VUs  00m48.6s/10m0s
+soak_public    [   8% ] 4 VUs  00m48.6s/10m0s
+soak_student   [   8% ] 3 VUs  00m48.6s/10m0s
+
+running (00m51.0s), 12/12 VUs, 288 complete and 0 interrupted iterations
+soak_admin     [   8% ] 1 VUs  00m49.6s/10m0s
+soak_api       [   8% ] 4 VUs  00m49.6s/10m0s
+soak_public    [   8% ] 4 VUs  00m49.6s/10m0s
+soak_student   [   8% ] 3 VUs  00m49.6s/10m0s
+
+running (00m52.0s), 12/12 VUs, 296 complete and 0 interrupted iterations
+soak_admin     [   8% ] 1 VUs  00m50.6s/10m0s
+soak_api       [   8% ] 4 VUs  00m50.6s/10m0s
+soak_public    [   8% ] 4 VUs  00m50.6s/10m0s
+soak_student   [   8% ] 3 VUs  00m50.6s/10m0s
+
+running (00m53.0s), 12/12 VUs, 302 complete and 0 interrupted iterations
+soak_admin     [   9% ] 1 VUs  00m51.6s/10m0s
+soak_api       [   9% ] 4 VUs  00m51.6s/10m0s
+soak_public    [   9% ] 4 VUs  00m51.6s/10m0s
+soak_student   [   9% ] 3 VUs  00m51.6s/10m0s
+
+running (00m54.0s), 12/12 VUs, 308 complete and 0 interrupted iterations
+soak_admin     [   9% ] 1 VUs  00m52.6s/10m0s
+soak_api       [   9% ] 4 VUs  00m52.6s/10m0s
+soak_public    [   9% ] 4 VUs  00m52.6s/10m0s
+soak_student   [   9% ] 3 VUs  00m52.6s/10m0s
+
+running (00m55.0s), 12/12 VUs, 313 complete and 0 interrupted iterations
+soak_admin     [   9% ] 1 VUs  00m53.6s/10m0s
+soak_api       [   9% ] 4 VUs  00m53.6s/10m0s
+soak_public    [   9% ] 4 VUs  00m53.6s/10m0s
+soak_student   [   9% ] 3 VUs  00m53.6s/10m0s
+
+running (00m56.0s), 12/12 VUs, 321 complete and 0 interrupted iterations
+soak_admin     [   9% ] 1 VUs  00m54.6s/10m0s
+soak_api       [   9% ] 4 VUs  00m54.6s/10m0s
+soak_public    [   9% ] 4 VUs  00m54.6s/10m0s
+soak_student   [   9% ] 3 VUs  00m54.6s/10m0s
+
+running (00m57.0s), 12/12 VUs, 327 complete and 0 interrupted iterations
+soak_admin     [   9% ] 1 VUs  00m55.6s/10m0s
+soak_api       [   9% ] 4 VUs  00m55.6s/10m0s
+soak_public    [   9% ] 4 VUs  00m55.6s/10m0s
+soak_student   [   9% ] 3 VUs  00m55.6s/10m0s
+
+running (00m58.0s), 12/12 VUs, 331 complete and 0 interrupted iterations
+soak_admin     [   9% ] 1 VUs  00m56.6s/10m0s
+soak_api       [   9% ] 4 VUs  00m56.6s/10m0s
+soak_public    [   9% ] 4 VUs  00m56.6s/10m0s
+soak_student   [   9% ] 3 VUs  00m56.6s/10m0s
+
+running (00m59.0s), 12/12 VUs, 339 complete and 0 interrupted iterations
+soak_admin     [  10% ] 1 VUs  00m57.6s/10m0s
+soak_api       [  10% ] 4 VUs  00m57.6s/10m0s
+soak_public    [  10% ] 4 VUs  00m57.6s/10m0s
+soak_student   [  10% ] 3 VUs  00m57.6s/10m0s
+
+running (01m00.0s), 12/12 VUs, 344 complete and 0 interrupted iterations
+soak_admin     [  10% ] 1 VUs  00m58.6s/10m0s
+soak_api       [  10% ] 4 VUs  00m58.6s/10m0s
+soak_public    [  10% ] 4 VUs  00m58.6s/10m0s
+soak_student   [  10% ] 3 VUs  00m58.6s/10m0s
+
+running (01m01.0s), 12/12 VUs, 350 complete and 0 interrupted iterations
+soak_admin     [  10% ] 1 VUs  00m59.6s/10m0s
+soak_api       [  10% ] 4 VUs  00m59.6s/10m0s
+soak_public    [  10% ] 4 VUs  00m59.6s/10m0s
+soak_student   [  10% ] 3 VUs  00m59.6s/10m0s
+
+running (01m02.0s), 12/12 VUs, 357 complete and 0 interrupted iterations
+soak_admin     [  10% ] 1 VUs  01m00.6s/10m0s
+soak_api       [  10% ] 4 VUs  01m00.6s/10m0s
+soak_public    [  10% ] 4 VUs  01m00.6s/10m0s
+soak_student   [  10% ] 3 VUs  01m00.6s/10m0s
+
+running (01m03.0s), 12/12 VUs, 363 complete and 0 interrupted iterations
+soak_admin     [  10% ] 1 VUs  01m01.6s/10m0s
+soak_api       [  10% ] 4 VUs  01m01.6s/10m0s
+soak_public    [  10% ] 4 VUs  01m01.6s/10m0s
+soak_student   [  10% ] 3 VUs  01m01.6s/10m0s
+
+running (01m04.0s), 12/12 VUs, 371 complete and 0 interrupted iterations
+soak_admin     [  10% ] 1 VUs  01m02.6s/10m0s
+soak_api       [  10% ] 4 VUs  01m02.6s/10m0s
+soak_public    [  10% ] 4 VUs  01m02.6s/10m0s
+soak_student   [  10% ] 3 VUs  01m02.6s/10m0s
+
+running (01m05.0s), 12/12 VUs, 375 complete and 0 interrupted iterations
+soak_admin     [  11% ] 1 VUs  01m03.6s/10m0s
+soak_api       [  11% ] 4 VUs  01m03.6s/10m0s
+soak_public    [  11% ] 4 VUs  01m03.6s/10m0s
+soak_student   [  11% ] 3 VUs  01m03.6s/10m0s
+
+running (01m06.0s), 12/12 VUs, 381 complete and 0 interrupted iterations
+soak_admin     [  11% ] 1 VUs  01m04.6s/10m0s
+soak_api       [  11% ] 4 VUs  01m04.6s/10m0s
+soak_public    [  11% ] 4 VUs  01m04.6s/10m0s
+soak_student   [  11% ] 3 VUs  01m04.6s/10m0s
+
+running (01m07.0s), 12/12 VUs, 389 complete and 0 interrupted iterations
+soak_admin     [  11% ] 1 VUs  01m05.6s/10m0s
+soak_api       [  11% ] 4 VUs  01m05.6s/10m0s
+soak_public    [  11% ] 4 VUs  01m05.6s/10m0s
+soak_student   [  11% ] 3 VUs  01m05.6s/10m0s
+
+running (01m08.0s), 12/12 VUs, 392 complete and 0 interrupted iterations
+soak_admin     [  11% ] 1 VUs  01m06.6s/10m0s
+soak_api       [  11% ] 4 VUs  01m06.6s/10m0s
+soak_public    [  11% ] 4 VUs  01m06.6s/10m0s
+soak_student   [  11% ] 3 VUs  01m06.6s/10m0s
+
+running (01m09.0s), 12/12 VUs, 398 complete and 0 interrupted iterations
+soak_admin     [  11% ] 1 VUs  01m07.6s/10m0s
+soak_api       [  11% ] 4 VUs  01m07.6s/10m0s
+soak_public    [  11% ] 4 VUs  01m07.6s/10m0s
+soak_student   [  11% ] 3 VUs  01m07.6s/10m0s
+
+running (01m10.0s), 12/12 VUs, 405 complete and 0 interrupted iterations
+soak_admin     [  11% ] 1 VUs  01m08.6s/10m0s
+soak_api       [  11% ] 4 VUs  01m08.6s/10m0s
+soak_public    [  11% ] 4 VUs  01m08.6s/10m0s
+soak_student   [  11% ] 3 VUs  01m08.6s/10m0s
+
+running (01m11.0s), 12/12 VUs, 410 complete and 0 interrupted iterations
+soak_admin     [  12% ] 1 VUs  01m09.6s/10m0s
+soak_api       [  12% ] 4 VUs  01m09.6s/10m0s
+soak_public    [  12% ] 4 VUs  01m09.6s/10m0s
+soak_student   [  12% ] 3 VUs  01m09.6s/10m0s
+
+running (01m12.0s), 12/12 VUs, 416 complete and 0 interrupted iterations
+soak_admin     [  12% ] 1 VUs  01m10.6s/10m0s
+soak_api       [  12% ] 4 VUs  01m10.6s/10m0s
+soak_public    [  12% ] 4 VUs  01m10.6s/10m0s
+soak_student   [  12% ] 3 VUs  01m10.6s/10m0s
+
+running (01m13.0s), 12/12 VUs, 423 complete and 0 interrupted iterations
+soak_admin     [  12% ] 1 VUs  01m11.6s/10m0s
+soak_api       [  12% ] 4 VUs  01m11.6s/10m0s
+soak_public    [  12% ] 4 VUs  01m11.6s/10m0s
+soak_student   [  12% ] 3 VUs  01m11.6s/10m0s
+
+running (01m14.0s), 12/12 VUs, 427 complete and 0 interrupted iterations
+soak_admin     [  12% ] 1 VUs  01m12.6s/10m0s
+soak_api       [  12% ] 4 VUs  01m12.6s/10m0s
+soak_public    [  12% ] 4 VUs  01m12.6s/10m0s
+soak_student   [  12% ] 3 VUs  01m12.6s/10m0s
+
+running (01m15.0s), 12/12 VUs, 435 complete and 0 interrupted iterations
+soak_admin     [  12% ] 1 VUs  01m13.6s/10m0s
+soak_api       [  12% ] 4 VUs  01m13.6s/10m0s
+soak_public    [  12% ] 4 VUs  01m13.6s/10m0s
+soak_student   [  12% ] 3 VUs  01m13.6s/10m0s
+
+running (01m16.0s), 12/12 VUs, 442 complete and 0 interrupted iterations
+soak_admin     [  12% ] 1 VUs  01m14.6s/10m0s
+soak_api       [  12% ] 4 VUs  01m14.6s/10m0s
+soak_public    [  12% ] 4 VUs  01m14.6s/10m0s
+soak_student   [  12% ] 3 VUs  01m14.6s/10m0s
+
+running (01m17.0s), 12/12 VUs, 445 complete and 0 interrupted iterations
+soak_admin     [  13% ] 1 VUs  01m15.6s/10m0s
+soak_api       [  13% ] 4 VUs  01m15.6s/10m0s
+soak_public    [  13% ] 4 VUs  01m15.6s/10m0s
+soak_student   [  13% ] 3 VUs  01m15.6s/10m0s
+
+running (01m18.0s), 12/12 VUs, 454 complete and 0 interrupted iterations
+soak_admin     [  13% ] 1 VUs  01m16.6s/10m0s
+soak_api       [  13% ] 4 VUs  01m16.6s/10m0s
+soak_public    [  13% ] 4 VUs  01m16.6s/10m0s
+soak_student   [  13% ] 3 VUs  01m16.6s/10m0s
+
+running (01m19.0s), 12/12 VUs, 457 complete and 0 interrupted iterations
+soak_admin     [  13% ] 1 VUs  01m17.6s/10m0s
+soak_api       [  13% ] 4 VUs  01m17.6s/10m0s
+soak_public    [  13% ] 4 VUs  01m17.6s/10m0s
+soak_student   [  13% ] 3 VUs  01m17.6s/10m0s
+
+running (01m20.0s), 12/12 VUs, 466 complete and 0 interrupted iterations
+soak_admin     [  13% ] 1 VUs  01m18.6s/10m0s
+soak_api       [  13% ] 4 VUs  01m18.6s/10m0s
+soak_public    [  13% ] 4 VUs  01m18.6s/10m0s
+soak_student   [  13% ] 3 VUs  01m18.6s/10m0s
+
+running (01m21.0s), 12/12 VUs, 468 complete and 0 interrupted iterations
+soak_admin     [  13% ] 1 VUs  01m19.6s/10m0s
+soak_api       [  13% ] 4 VUs  01m19.6s/10m0s
+soak_public    [  13% ] 4 VUs  01m19.6s/10m0s
+soak_student   [  13% ] 3 VUs  01m19.6s/10m0s
+
+running (01m22.0s), 12/12 VUs, 473 complete and 0 interrupted iterations
+soak_admin     [  13% ] 1 VUs  01m20.6s/10m0s
+soak_api       [  13% ] 4 VUs  01m20.6s/10m0s
+soak_public    [  13% ] 4 VUs  01m20.6s/10m0s
+soak_student   [  13% ] 3 VUs  01m20.6s/10m0s
+
+running (01m23.0s), 12/12 VUs, 480 complete and 0 interrupted iterations
+soak_admin     [  14% ] 1 VUs  01m21.6s/10m0s
+soak_api       [  14% ] 4 VUs  01m21.6s/10m0s
+soak_public    [  14% ] 4 VUs  01m21.6s/10m0s
+soak_student   [  14% ] 3 VUs  01m21.6s/10m0s
+
+running (01m24.0s), 12/12 VUs, 487 complete and 0 interrupted iterations
+soak_admin     [  14% ] 1 VUs  01m22.6s/10m0s
+soak_api       [  14% ] 4 VUs  01m22.6s/10m0s
+soak_public    [  14% ] 4 VUs  01m22.6s/10m0s
+soak_student   [  14% ] 3 VUs  01m22.6s/10m0s
+
+running (01m25.0s), 12/12 VUs, 492 complete and 0 interrupted iterations
+soak_admin     [  14% ] 1 VUs  01m23.6s/10m0s
+soak_api       [  14% ] 4 VUs  01m23.6s/10m0s
+soak_public    [  14% ] 4 VUs  01m23.6s/10m0s
+soak_student   [  14% ] 3 VUs  01m23.6s/10m0s
+
+running (01m26.0s), 12/12 VUs, 495 complete and 0 interrupted iterations
+soak_admin     [  14% ] 1 VUs  01m24.6s/10m0s
+soak_api       [  14% ] 4 VUs  01m24.6s/10m0s
+soak_public    [  14% ] 4 VUs  01m24.6s/10m0s
+soak_student   [  14% ] 3 VUs  01m24.6s/10m0s
+
+running (01m27.0s), 12/12 VUs, 503 complete and 0 interrupted iterations
+soak_admin     [  14% ] 1 VUs  01m25.6s/10m0s
+soak_api       [  14% ] 4 VUs  01m25.6s/10m0s
+soak_public    [  14% ] 4 VUs  01m25.6s/10m0s
+soak_student   [  14% ] 3 VUs  01m25.6s/10m0s
+
+running (01m28.0s), 12/12 VUs, 509 complete and 0 interrupted iterations
+soak_admin     [  14% ] 1 VUs  01m26.6s/10m0s
+soak_api       [  14% ] 4 VUs  01m26.6s/10m0s
+soak_public    [  14% ] 4 VUs  01m26.6s/10m0s
+soak_student   [  14% ] 3 VUs  01m26.6s/10m0s
+
+running (01m29.0s), 12/12 VUs, 512 complete and 0 interrupted iterations
+soak_admin     [  15% ] 1 VUs  01m27.6s/10m0s
+soak_api       [  15% ] 4 VUs  01m27.6s/10m0s
+soak_public    [  15% ] 4 VUs  01m27.6s/10m0s
+soak_student   [  15% ] 3 VUs  01m27.6s/10m0s
+
+running (01m30.0s), 12/12 VUs, 518 complete and 0 interrupted iterations
+soak_admin     [  15% ] 1 VUs  01m28.6s/10m0s
+soak_api       [  15% ] 4 VUs  01m28.6s/10m0s
+soak_public    [  15% ] 4 VUs  01m28.6s/10m0s
+soak_student   [  15% ] 3 VUs  01m28.6s/10m0s
+
+running (01m31.0s), 12/12 VUs, 526 complete and 0 interrupted iterations
+soak_admin     [  15% ] 1 VUs  01m29.6s/10m0s
+soak_api       [  15% ] 4 VUs  01m29.6s/10m0s
+soak_public    [  15% ] 4 VUs  01m29.6s/10m0s
+soak_student   [  15% ] 3 VUs  01m29.6s/10m0s
+
+running (01m32.0s), 12/12 VUs, 529 complete and 0 interrupted iterations
+soak_admin     [  15% ] 1 VUs  01m30.6s/10m0s
+soak_api       [  15% ] 4 VUs  01m30.6s/10m0s
+soak_public    [  15% ] 4 VUs  01m30.6s/10m0s
+soak_student   [  15% ] 3 VUs  01m30.6s/10m0s
+
+running (01m33.0s), 12/12 VUs, 534 complete and 0 interrupted iterations
+soak_admin     [  15% ] 1 VUs  01m31.6s/10m0s
+soak_api       [  15% ] 4 VUs  01m31.6s/10m0s
+soak_public    [  15% ] 4 VUs  01m31.6s/10m0s
+soak_student   [  15% ] 3 VUs  01m31.6s/10m0s
+
+running (01m34.0s), 12/12 VUs, 540 complete and 0 interrupted iterations
+soak_admin     [  15% ] 1 VUs  01m32.6s/10m0s
+soak_api       [  15% ] 4 VUs  01m32.6s/10m0s
+soak_public    [  15% ] 4 VUs  01m32.6s/10m0s
+soak_student   [  15% ] 3 VUs  01m32.6s/10m0s
+
+running (01m35.0s), 12/12 VUs, 548 complete and 0 interrupted iterations
+soak_admin     [  16% ] 1 VUs  01m33.6s/10m0s
+soak_api       [  16% ] 4 VUs  01m33.6s/10m0s
+soak_public    [  16% ] 4 VUs  01m33.6s/10m0s
+soak_student   [  16% ] 3 VUs  01m33.6s/10m0s
+
+running (01m36.0s), 12/12 VUs, 552 complete and 0 interrupted iterations
+soak_admin     [  16% ] 1 VUs  01m34.6s/10m0s
+soak_api       [  16% ] 4 VUs  01m34.6s/10m0s
+soak_public    [  16% ] 4 VUs  01m34.6s/10m0s
+soak_student   [  16% ] 3 VUs  01m34.6s/10m0s
+
+running (01m37.0s), 12/12 VUs, 557 complete and 0 interrupted iterations
+soak_admin     [  16% ] 1 VUs  01m35.6s/10m0s
+soak_api       [  16% ] 4 VUs  01m35.6s/10m0s
+soak_public    [  16% ] 4 VUs  01m35.6s/10m0s
+soak_student   [  16% ] 3 VUs  01m35.6s/10m0s
+
+running (01m38.0s), 12/12 VUs, 564 complete and 0 interrupted iterations
+soak_admin     [  16% ] 1 VUs  01m36.6s/10m0s
+soak_api       [  16% ] 4 VUs  01m36.6s/10m0s
+soak_public    [  16% ] 4 VUs  01m36.6s/10m0s
+soak_student   [  16% ] 3 VUs  01m36.6s/10m0s
+
+running (01m39.0s), 12/12 VUs, 569 complete and 0 interrupted iterations
+soak_admin     [  16% ] 1 VUs  01m37.6s/10m0s
+soak_api       [  16% ] 4 VUs  01m37.6s/10m0s
+soak_public    [  16% ] 4 VUs  01m37.6s/10m0s
+soak_student   [  16% ] 3 VUs  01m37.6s/10m0s
+
+running (01m40.0s), 12/12 VUs, 573 complete and 0 interrupted iterations
+soak_admin     [  16% ] 1 VUs  01m38.6s/10m0s
+soak_api       [  16% ] 4 VUs  01m38.6s/10m0s
+soak_public    [  16% ] 4 VUs  01m38.6s/10m0s
+soak_student   [  16% ] 3 VUs  01m38.6s/10m0s
+
+running (01m41.0s), 12/12 VUs, 582 complete and 0 interrupted iterations
+soak_admin     [  17% ] 1 VUs  01m39.6s/10m0s
+soak_api       [  17% ] 4 VUs  01m39.6s/10m0s
+soak_public    [  17% ] 4 VUs  01m39.6s/10m0s
+soak_student   [  17% ] 3 VUs  01m39.6s/10m0s
+
+running (01m42.0s), 12/12 VUs, 587 complete and 0 interrupted iterations
+soak_admin     [  17% ] 1 VUs  01m40.6s/10m0s
+soak_api       [  17% ] 4 VUs  01m40.6s/10m0s
+soak_public    [  17% ] 4 VUs  01m40.6s/10m0s
+soak_student   [  17% ] 3 VUs  01m40.6s/10m0s
+
+running (01m43.0s), 12/12 VUs, 592 complete and 0 interrupted iterations
+soak_admin     [  17% ] 1 VUs  01m41.6s/10m0s
+soak_api       [  17% ] 4 VUs  01m41.6s/10m0s
+soak_public    [  17% ] 4 VUs  01m41.6s/10m0s
+soak_student   [  17% ] 3 VUs  01m41.6s/10m0s
+
+running (01m44.0s), 12/12 VUs, 600 complete and 0 interrupted iterations
+soak_admin     [  17% ] 1 VUs  01m42.6s/10m0s
+soak_api       [  17% ] 4 VUs  01m42.6s/10m0s
+soak_public    [  17% ] 4 VUs  01m42.6s/10m0s
+soak_student   [  17% ] 3 VUs  01m42.6s/10m0s
+
+running (01m45.0s), 12/12 VUs, 604 complete and 0 interrupted iterations
+soak_admin     [  17% ] 1 VUs  01m43.6s/10m0s
+soak_api       [  17% ] 4 VUs  01m43.6s/10m0s
+soak_public    [  17% ] 4 VUs  01m43.6s/10m0s
+soak_student   [  17% ] 3 VUs  01m43.6s/10m0s
+
+running (01m46.0s), 12/12 VUs, 609 complete and 0 interrupted iterations
+soak_admin     [  17% ] 1 VUs  01m44.6s/10m0s
+soak_api       [  17% ] 4 VUs  01m44.6s/10m0s
+soak_public    [  17% ] 4 VUs  01m44.6s/10m0s
+soak_student   [  17% ] 3 VUs  01m44.6s/10m0s
+
+running (01m47.0s), 12/12 VUs, 616 complete and 0 interrupted iterations
+soak_admin     [  18% ] 1 VUs  01m45.6s/10m0s
+soak_api       [  18% ] 4 VUs  01m45.6s/10m0s
+soak_public    [  18% ] 4 VUs  01m45.6s/10m0s
+soak_student   [  18% ] 3 VUs  01m45.6s/10m0s
+
+running (01m48.0s), 12/12 VUs, 622 complete and 0 interrupted iterations
+soak_admin     [  18% ] 1 VUs  01m46.6s/10m0s
+soak_api       [  18% ] 4 VUs  01m46.6s/10m0s
+soak_public    [  18% ] 4 VUs  01m46.6s/10m0s
+soak_student   [  18% ] 3 VUs  01m46.6s/10m0s
+
+running (01m49.0s), 12/12 VUs, 628 complete and 0 interrupted iterations
+soak_admin     [  18% ] 1 VUs  01m47.6s/10m0s
+soak_api       [  18% ] 4 VUs  01m47.6s/10m0s
+soak_public    [  18% ] 4 VUs  01m47.6s/10m0s
+soak_student   [  18% ] 3 VUs  01m47.6s/10m0s
+
+running (01m50.0s), 12/12 VUs, 632 complete and 0 interrupted iterations
+soak_admin     [  18% ] 1 VUs  01m48.6s/10m0s
+soak_api       [  18% ] 4 VUs  01m48.6s/10m0s
+soak_public    [  18% ] 4 VUs  01m48.6s/10m0s
+soak_student   [  18% ] 3 VUs  01m48.6s/10m0s
+
+running (01m51.0s), 12/12 VUs, 638 complete and 0 interrupted iterations
+soak_admin     [  18% ] 1 VUs  01m49.6s/10m0s
+soak_api       [  18% ] 4 VUs  01m49.6s/10m0s
+soak_public    [  18% ] 4 VUs  01m49.6s/10m0s
+soak_student   [  18% ] 3 VUs  01m49.6s/10m0s
+
+running (01m52.0s), 12/12 VUs, 647 complete and 0 interrupted iterations
+soak_admin     [  18% ] 1 VUs  01m50.6s/10m0s
+soak_api       [  18% ] 4 VUs  01m50.6s/10m0s
+soak_public    [  18% ] 4 VUs  01m50.6s/10m0s
+soak_student   [  18% ] 3 VUs  01m50.6s/10m0s
+
+running (01m53.0s), 12/12 VUs, 652 complete and 0 interrupted iterations
+soak_admin     [  19% ] 1 VUs  01m51.6s/10m0s
+soak_api       [  19% ] 4 VUs  01m51.6s/10m0s
+soak_public    [  19% ] 4 VUs  01m51.6s/10m0s
+soak_student   [  19% ] 3 VUs  01m51.6s/10m0s
+
+running (01m54.0s), 12/12 VUs, 659 complete and 0 interrupted iterations
+soak_admin     [  19% ] 1 VUs  01m52.6s/10m0s
+soak_api       [  19% ] 4 VUs  01m52.6s/10m0s
+soak_public    [  19% ] 4 VUs  01m52.6s/10m0s
+soak_student   [  19% ] 3 VUs  01m52.6s/10m0s
+
+running (01m55.0s), 12/12 VUs, 661 complete and 0 interrupted iterations
+soak_admin     [  19% ] 1 VUs  01m53.6s/10m0s
+soak_api       [  19% ] 4 VUs  01m53.6s/10m0s
+soak_public    [  19% ] 4 VUs  01m53.6s/10m0s
+soak_student   [  19% ] 3 VUs  01m53.6s/10m0s
+
+running (01m56.0s), 12/12 VUs, 666 complete and 0 interrupted iterations
+soak_admin     [  19% ] 1 VUs  01m54.6s/10m0s
+soak_api       [  19% ] 4 VUs  01m54.6s/10m0s
+soak_public    [  19% ] 4 VUs  01m54.6s/10m0s
+soak_student   [  19% ] 3 VUs  01m54.6s/10m0s
+
+running (01m57.0s), 12/12 VUs, 674 complete and 0 interrupted iterations
+soak_admin     [  19% ] 1 VUs  01m55.6s/10m0s
+soak_api       [  19% ] 4 VUs  01m55.6s/10m0s
+soak_public    [  19% ] 4 VUs  01m55.6s/10m0s
+soak_student   [  19% ] 3 VUs  01m55.6s/10m0s
+
+running (01m58.0s), 12/12 VUs, 676 complete and 0 interrupted iterations
+soak_admin     [  19% ] 1 VUs  01m56.6s/10m0s
+soak_api       [  19% ] 4 VUs  01m56.6s/10m0s
+soak_public    [  19% ] 4 VUs  01m56.6s/10m0s
+soak_student   [  19% ] 3 VUs  01m56.6s/10m0s
+
+running (01m59.0s), 12/12 VUs, 683 complete and 0 interrupted iterations
+soak_admin     [  20% ] 1 VUs  01m57.6s/10m0s
+soak_api       [  20% ] 4 VUs  01m57.6s/10m0s
+soak_public    [  20% ] 4 VUs  01m57.6s/10m0s
+soak_student   [  20% ] 3 VUs  01m57.6s/10m0s
+
+running (02m00.0s), 12/12 VUs, 689 complete and 0 interrupted iterations
+soak_admin     [  20% ] 1 VUs  01m58.6s/10m0s
+soak_api       [  20% ] 4 VUs  01m58.6s/10m0s
+soak_public    [  20% ] 4 VUs  01m58.6s/10m0s
+soak_student   [  20% ] 3 VUs  01m58.6s/10m0s
+
+running (02m01.0s), 12/12 VUs, 696 complete and 0 interrupted iterations
+soak_admin     [  20% ] 1 VUs  01m59.6s/10m0s
+soak_api       [  20% ] 4 VUs  01m59.6s/10m0s
+soak_public    [  20% ] 4 VUs  01m59.6s/10m0s
+soak_student   [  20% ] 3 VUs  01m59.6s/10m0s
+
+running (02m02.0s), 12/12 VUs, 700 complete and 0 interrupted iterations
+soak_admin     [  20% ] 1 VUs  02m00.6s/10m0s
+soak_api       [  20% ] 4 VUs  02m00.6s/10m0s
+soak_public    [  20% ] 4 VUs  02m00.6s/10m0s
+soak_student   [  20% ] 3 VUs  02m00.6s/10m0s
+
+running (02m03.0s), 12/12 VUs, 706 complete and 0 interrupted iterations
+soak_admin     [  20% ] 1 VUs  02m01.6s/10m0s
+soak_api       [  20% ] 4 VUs  02m01.6s/10m0s
+soak_public    [  20% ] 4 VUs  02m01.6s/10m0s
+soak_student   [  20% ] 3 VUs  02m01.6s/10m0s
+
+running (02m04.0s), 12/12 VUs, 714 complete and 0 interrupted iterations
+soak_admin     [  20% ] 1 VUs  02m02.6s/10m0s
+soak_api       [  20% ] 4 VUs  02m02.6s/10m0s
+soak_public    [  20% ] 4 VUs  02m02.6s/10m0s
+soak_student   [  20% ] 3 VUs  02m02.6s/10m0s
+
+running (02m05.0s), 12/12 VUs, 718 complete and 0 interrupted iterations
+soak_admin     [  21% ] 1 VUs  02m03.6s/10m0s
+soak_api       [  21% ] 4 VUs  02m03.6s/10m0s
+soak_public    [  21% ] 4 VUs  02m03.6s/10m0s
+soak_student   [  21% ] 3 VUs  02m03.6s/10m0s
+
+running (02m06.0s), 12/12 VUs, 723 complete and 0 interrupted iterations
+soak_admin     [  21% ] 1 VUs  02m04.6s/10m0s
+soak_api       [  21% ] 4 VUs  02m04.6s/10m0s
+soak_public    [  21% ] 4 VUs  02m04.6s/10m0s
+soak_student   [  21% ] 3 VUs  02m04.6s/10m0s
+
+running (02m07.0s), 12/12 VUs, 729 complete and 0 interrupted iterations
+soak_admin     [  21% ] 1 VUs  02m05.6s/10m0s
+soak_api       [  21% ] 4 VUs  02m05.6s/10m0s
+soak_public    [  21% ] 4 VUs  02m05.6s/10m0s
+soak_student   [  21% ] 3 VUs  02m05.6s/10m0s
+
+running (02m08.0s), 12/12 VUs, 735 complete and 0 interrupted iterations
+soak_admin     [  21% ] 1 VUs  02m06.6s/10m0s
+soak_api       [  21% ] 4 VUs  02m06.6s/10m0s
+soak_public    [  21% ] 4 VUs  02m06.6s/10m0s
+soak_student   [  21% ] 3 VUs  02m06.6s/10m0s
+
+running (02m09.0s), 12/12 VUs, 741 complete and 0 interrupted iterations
+soak_admin     [  21% ] 1 VUs  02m07.6s/10m0s
+soak_api       [  21% ] 4 VUs  02m07.6s/10m0s
+soak_public    [  21% ] 4 VUs  02m07.6s/10m0s
+soak_student   [  21% ] 3 VUs  02m07.6s/10m0s
+
+running (02m10.0s), 12/12 VUs, 745 complete and 0 interrupted iterations
+soak_admin     [  21% ] 1 VUs  02m08.6s/10m0s
+soak_api       [  21% ] 4 VUs  02m08.6s/10m0s
+soak_public    [  21% ] 4 VUs  02m08.6s/10m0s
+soak_student   [  21% ] 3 VUs  02m08.6s/10m0s
+
+running (02m11.0s), 12/12 VUs, 751 complete and 0 interrupted iterations
+soak_admin     [  22% ] 1 VUs  02m09.6s/10m0s
+soak_api       [  22% ] 4 VUs  02m09.6s/10m0s
+soak_public    [  22% ] 4 VUs  02m09.6s/10m0s
+soak_student   [  22% ] 3 VUs  02m09.6s/10m0s
+
+running (02m12.0s), 12/12 VUs, 759 complete and 0 interrupted iterations
+soak_admin     [  22% ] 1 VUs  02m10.6s/10m0s
+soak_api       [  22% ] 4 VUs  02m10.6s/10m0s
+soak_public    [  22% ] 4 VUs  02m10.6s/10m0s
+soak_student   [  22% ] 3 VUs  02m10.6s/10m0s
+
+running (02m13.0s), 12/12 VUs, 764 complete and 0 interrupted iterations
+soak_admin     [  22% ] 1 VUs  02m11.6s/10m0s
+soak_api       [  22% ] 4 VUs  02m11.6s/10m0s
+soak_public    [  22% ] 4 VUs  02m11.6s/10m0s
+soak_student   [  22% ] 3 VUs  02m11.6s/10m0s
+
+running (02m14.0s), 12/12 VUs, 768 complete and 0 interrupted iterations
+soak_admin     [  22% ] 1 VUs  02m12.6s/10m0s
+soak_api       [  22% ] 4 VUs  02m12.6s/10m0s
+soak_public    [  22% ] 4 VUs  02m12.6s/10m0s
+soak_student   [  22% ] 3 VUs  02m12.6s/10m0s
+
+running (02m15.0s), 12/12 VUs, 774 complete and 0 interrupted iterations
+soak_admin     [  22% ] 1 VUs  02m13.6s/10m0s
+soak_api       [  22% ] 4 VUs  02m13.6s/10m0s
+soak_public    [  22% ] 4 VUs  02m13.6s/10m0s
+soak_student   [  22% ] 3 VUs  02m13.6s/10m0s
+
+running (02m16.0s), 12/12 VUs, 781 complete and 0 interrupted iterations
+soak_admin     [  22% ] 1 VUs  02m14.6s/10m0s
+soak_api       [  22% ] 4 VUs  02m14.6s/10m0s
+soak_public    [  22% ] 4 VUs  02m14.6s/10m0s
+soak_student   [  22% ] 3 VUs  02m14.6s/10m0s
+
+running (02m17.0s), 12/12 VUs, 787 complete and 0 interrupted iterations
+soak_admin     [  23% ] 1 VUs  02m15.6s/10m0s
+soak_api       [  23% ] 4 VUs  02m15.6s/10m0s
+soak_public    [  23% ] 4 VUs  02m15.6s/10m0s
+soak_student   [  23% ] 3 VUs  02m15.6s/10m0s
+
+running (02m18.0s), 12/12 VUs, 792 complete and 0 interrupted iterations
+soak_admin     [  23% ] 1 VUs  02m16.6s/10m0s
+soak_api       [  23% ] 4 VUs  02m16.6s/10m0s
+soak_public    [  23% ] 4 VUs  02m16.6s/10m0s
+soak_student   [  23% ] 3 VUs  02m16.6s/10m0s
+
+running (02m19.0s), 12/12 VUs, 800 complete and 0 interrupted iterations
+soak_admin     [  23% ] 1 VUs  02m17.6s/10m0s
+soak_api       [  23% ] 4 VUs  02m17.6s/10m0s
+soak_public    [  23% ] 4 VUs  02m17.6s/10m0s
+soak_student   [  23% ] 3 VUs  02m17.6s/10m0s
+
+running (02m20.0s), 12/12 VUs, 807 complete and 0 interrupted iterations
+soak_admin     [  23% ] 1 VUs  02m18.6s/10m0s
+soak_api       [  23% ] 4 VUs  02m18.6s/10m0s
+soak_public    [  23% ] 4 VUs  02m18.6s/10m0s
+soak_student   [  23% ] 3 VUs  02m18.6s/10m0s
+
+running (02m21.0s), 12/12 VUs, 814 complete and 0 interrupted iterations
+soak_admin     [  23% ] 1 VUs  02m19.6s/10m0s
+soak_api       [  23% ] 4 VUs  02m19.6s/10m0s
+soak_public    [  23% ] 4 VUs  02m19.6s/10m0s
+soak_student   [  23% ] 3 VUs  02m19.6s/10m0s
+
+running (02m22.0s), 12/12 VUs, 817 complete and 0 interrupted iterations
+soak_admin     [  23% ] 1 VUs  02m20.6s/10m0s
+soak_api       [  23% ] 4 VUs  02m20.6s/10m0s
+soak_public    [  23% ] 4 VUs  02m20.6s/10m0s
+soak_student   [  23% ] 3 VUs  02m20.6s/10m0s
+
+running (02m23.0s), 12/12 VUs, 824 complete and 0 interrupted iterations
+soak_admin     [  24% ] 1 VUs  02m21.6s/10m0s
+soak_api       [  24% ] 4 VUs  02m21.6s/10m0s
+soak_public    [  24% ] 4 VUs  02m21.6s/10m0s
+soak_student   [  24% ] 3 VUs  02m21.6s/10m0s
+
+running (02m24.0s), 12/12 VUs, 832 complete and 0 interrupted iterations
+soak_admin     [  24% ] 1 VUs  02m22.6s/10m0s
+soak_api       [  24% ] 4 VUs  02m22.6s/10m0s
+soak_public    [  24% ] 4 VUs  02m22.6s/10m0s
+soak_student   [  24% ] 3 VUs  02m22.6s/10m0s
+
+running (02m25.0s), 12/12 VUs, 837 complete and 0 interrupted iterations
+soak_admin     [  24% ] 1 VUs  02m23.6s/10m0s
+soak_api       [  24% ] 4 VUs  02m23.6s/10m0s
+soak_public    [  24% ] 4 VUs  02m23.6s/10m0s
+soak_student   [  24% ] 3 VUs  02m23.6s/10m0s
+
+running (02m26.0s), 12/12 VUs, 842 complete and 0 interrupted iterations
+soak_admin     [  24% ] 1 VUs  02m24.6s/10m0s
+soak_api       [  24% ] 4 VUs  02m24.6s/10m0s
+soak_public    [  24% ] 4 VUs  02m24.6s/10m0s
+soak_student   [  24% ] 3 VUs  02m24.6s/10m0s
+
+running (02m27.0s), 12/12 VUs, 850 complete and 0 interrupted iterations
+soak_admin     [  24% ] 1 VUs  02m25.6s/10m0s
+soak_api       [  24% ] 4 VUs  02m25.6s/10m0s
+soak_public    [  24% ] 4 VUs  02m25.6s/10m0s
+soak_student   [  24% ] 3 VUs  02m25.6s/10m0s
+
+running (02m28.0s), 12/12 VUs, 858 complete and 0 interrupted iterations
+soak_admin     [  24% ] 1 VUs  02m26.6s/10m0s
+soak_api       [  24% ] 4 VUs  02m26.6s/10m0s
+soak_public    [  24% ] 4 VUs  02m26.6s/10m0s
+soak_student   [  24% ] 3 VUs  02m26.6s/10m0s
+
+running (02m29.0s), 12/12 VUs, 863 complete and 0 interrupted iterations
+soak_admin     [  25% ] 1 VUs  02m27.6s/10m0s
+soak_api       [  25% ] 4 VUs  02m27.6s/10m0s
+soak_public    [  25% ] 4 VUs  02m27.6s/10m0s
+soak_student   [  25% ] 3 VUs  02m27.6s/10m0s
+
+running (02m30.0s), 12/12 VUs, 868 complete and 0 interrupted iterations
+soak_admin     [  25% ] 1 VUs  02m28.6s/10m0s
+soak_api       [  25% ] 4 VUs  02m28.6s/10m0s
+soak_public    [  25% ] 4 VUs  02m28.6s/10m0s
+soak_student   [  25% ] 3 VUs  02m28.6s/10m0s
+
+running (02m31.0s), 12/12 VUs, 873 complete and 0 interrupted iterations
+soak_admin     [  25% ] 1 VUs  02m29.6s/10m0s
+soak_api       [  25% ] 4 VUs  02m29.6s/10m0s
+soak_public    [  25% ] 4 VUs  02m29.6s/10m0s
+soak_student   [  25% ] 3 VUs  02m29.6s/10m0s
+
+running (02m32.0s), 12/12 VUs, 880 complete and 0 interrupted iterations
+soak_admin     [  25% ] 1 VUs  02m30.6s/10m0s
+soak_api       [  25% ] 4 VUs  02m30.6s/10m0s
+soak_public    [  25% ] 4 VUs  02m30.6s/10m0s
+soak_student   [  25% ] 3 VUs  02m30.6s/10m0s
+
+running (02m33.0s), 12/12 VUs, 884 complete and 0 interrupted iterations
+soak_admin     [  25% ] 1 VUs  02m31.6s/10m0s
+soak_api       [  25% ] 4 VUs  02m31.6s/10m0s
+soak_public    [  25% ] 4 VUs  02m31.6s/10m0s
+soak_student   [  25% ] 3 VUs  02m31.6s/10m0s
+
+running (02m34.0s), 12/12 VUs, 890 complete and 0 interrupted iterations
+soak_admin     [  25% ] 1 VUs  02m32.6s/10m0s
+soak_api       [  25% ] 4 VUs  02m32.6s/10m0s
+soak_public    [  25% ] 4 VUs  02m32.6s/10m0s
+soak_student   [  25% ] 3 VUs  02m32.6s/10m0s
+
+running (02m35.0s), 12/12 VUs, 897 complete and 0 interrupted iterations
+soak_admin     [  26% ] 1 VUs  02m33.6s/10m0s
+soak_api       [  26% ] 4 VUs  02m33.6s/10m0s
+soak_public    [  26% ] 4 VUs  02m33.6s/10m0s
+soak_student   [  26% ] 3 VUs  02m33.6s/10m0s
+
+running (02m36.0s), 12/12 VUs, 902 complete and 0 interrupted iterations
+soak_admin     [  26% ] 1 VUs  02m34.6s/10m0s
+soak_api       [  26% ] 4 VUs  02m34.6s/10m0s
+soak_public    [  26% ] 4 VUs  02m34.6s/10m0s
+soak_student   [  26% ] 3 VUs  02m34.6s/10m0s
+
+running (02m37.0s), 12/12 VUs, 906 complete and 0 interrupted iterations
+soak_admin     [  26% ] 1 VUs  02m35.6s/10m0s
+soak_api       [  26% ] 4 VUs  02m35.6s/10m0s
+soak_public    [  26% ] 4 VUs  02m35.6s/10m0s
+soak_student   [  26% ] 3 VUs  02m35.6s/10m0s
+
+running (02m38.0s), 12/12 VUs, 912 complete and 0 interrupted iterations
+soak_admin     [  26% ] 1 VUs  02m36.6s/10m0s
+soak_api       [  26% ] 4 VUs  02m36.6s/10m0s
+soak_public    [  26% ] 4 VUs  02m36.6s/10m0s
+soak_student   [  26% ] 3 VUs  02m36.6s/10m0s
+
+running (02m39.0s), 12/12 VUs, 919 complete and 0 interrupted iterations
+soak_admin     [  26% ] 1 VUs  02m37.6s/10m0s
+soak_api       [  26% ] 4 VUs  02m37.6s/10m0s
+soak_public    [  26% ] 4 VUs  02m37.6s/10m0s
+soak_student   [  26% ] 3 VUs  02m37.6s/10m0s
+
+running (02m40.0s), 12/12 VUs, 923 complete and 0 interrupted iterations
+soak_admin     [  26% ] 1 VUs  02m38.6s/10m0s
+soak_api       [  26% ] 4 VUs  02m38.6s/10m0s
+soak_public    [  26% ] 4 VUs  02m38.6s/10m0s
+soak_student   [  26% ] 3 VUs  02m38.6s/10m0s
+
+running (02m41.0s), 12/12 VUs, 930 complete and 0 interrupted iterations
+soak_admin     [  27% ] 1 VUs  02m39.6s/10m0s
+soak_api       [  27% ] 4 VUs  02m39.6s/10m0s
+soak_public    [  27% ] 4 VUs  02m39.6s/10m0s
+soak_student   [  27% ] 3 VUs  02m39.6s/10m0s
+
+running (02m42.0s), 12/12 VUs, 936 complete and 0 interrupted iterations
+soak_admin     [  27% ] 1 VUs  02m40.6s/10m0s
+soak_api       [  27% ] 4 VUs  02m40.6s/10m0s
+soak_public    [  27% ] 4 VUs  02m40.6s/10m0s
+soak_student   [  27% ] 3 VUs  02m40.6s/10m0s
+
+running (02m43.0s), 12/12 VUs, 942 complete and 0 interrupted iterations
+soak_admin     [  27% ] 1 VUs  02m41.6s/10m0s
+soak_api       [  27% ] 4 VUs  02m41.6s/10m0s
+soak_public    [  27% ] 4 VUs  02m41.6s/10m0s
+soak_student   [  27% ] 3 VUs  02m41.6s/10m0s
+
+running (02m44.0s), 12/12 VUs, 948 complete and 0 interrupted iterations
+soak_admin     [  27% ] 1 VUs  02m42.6s/10m0s
+soak_api       [  27% ] 4 VUs  02m42.6s/10m0s
+soak_public    [  27% ] 4 VUs  02m42.6s/10m0s
+soak_student   [  27% ] 3 VUs  02m42.6s/10m0s
+
+running (02m45.0s), 12/12 VUs, 954 complete and 0 interrupted iterations
+soak_admin     [  27% ] 1 VUs  02m43.6s/10m0s
+soak_api       [  27% ] 4 VUs  02m43.6s/10m0s
+soak_public    [  27% ] 4 VUs  02m43.6s/10m0s
+soak_student   [  27% ] 3 VUs  02m43.6s/10m0s
+
+running (02m46.0s), 12/12 VUs, 958 complete and 0 interrupted iterations
+soak_admin     [  27% ] 1 VUs  02m44.6s/10m0s
+soak_api       [  27% ] 4 VUs  02m44.6s/10m0s
+soak_public    [  27% ] 4 VUs  02m44.6s/10m0s
+soak_student   [  27% ] 3 VUs  02m44.6s/10m0s
+
+running (02m47.0s), 12/12 VUs, 966 complete and 0 interrupted iterations
+soak_admin     [  28% ] 1 VUs  02m45.6s/10m0s
+soak_api       [  28% ] 4 VUs  02m45.6s/10m0s
+soak_public    [  28% ] 4 VUs  02m45.6s/10m0s
+soak_student   [  28% ] 3 VUs  02m45.6s/10m0s
+
+running (02m48.0s), 12/12 VUs, 974 complete and 0 interrupted iterations
+soak_admin     [  28% ] 1 VUs  02m46.6s/10m0s
+soak_api       [  28% ] 4 VUs  02m46.6s/10m0s
+soak_public    [  28% ] 4 VUs  02m46.6s/10m0s
+soak_student   [  28% ] 3 VUs  02m46.6s/10m0s
+
+running (02m49.0s), 12/12 VUs, 982 complete and 0 interrupted iterations
+soak_admin     [  28% ] 1 VUs  02m47.6s/10m0s
+soak_api       [  28% ] 4 VUs  02m47.6s/10m0s
+soak_public    [  28% ] 4 VUs  02m47.6s/10m0s
+soak_student   [  28% ] 3 VUs  02m47.6s/10m0s
+
+running (02m50.0s), 12/12 VUs, 983 complete and 0 interrupted iterations
+soak_admin     [  28% ] 1 VUs  02m48.6s/10m0s
+soak_api       [  28% ] 4 VUs  02m48.6s/10m0s
+soak_public    [  28% ] 4 VUs  02m48.6s/10m0s
+soak_student   [  28% ] 3 VUs  02m48.6s/10m0s
+
+running (02m51.0s), 12/12 VUs, 992 complete and 0 interrupted iterations
+soak_admin     [  28% ] 1 VUs  02m49.6s/10m0s
+soak_api       [  28% ] 4 VUs  02m49.6s/10m0s
+soak_public    [  28% ] 4 VUs  02m49.6s/10m0s
+soak_student   [  28% ] 3 VUs  02m49.6s/10m0s
+
+running (02m52.0s), 12/12 VUs, 996 complete and 0 interrupted iterations
+soak_admin     [  28% ] 1 VUs  02m50.6s/10m0s
+soak_api       [  28% ] 4 VUs  02m50.6s/10m0s
+soak_public    [  28% ] 4 VUs  02m50.6s/10m0s
+soak_student   [  28% ] 3 VUs  02m50.6s/10m0s
+
+running (02m53.0s), 12/12 VUs, 1003 complete and 0 interrupted iterations
+soak_admin     [  29% ] 1 VUs  02m51.6s/10m0s
+soak_api       [  29% ] 4 VUs  02m51.6s/10m0s
+soak_public    [  29% ] 4 VUs  02m51.6s/10m0s
+soak_student   [  29% ] 3 VUs  02m51.6s/10m0s
+
+running (02m54.0s), 12/12 VUs, 1010 complete and 0 interrupted iterations
+soak_admin     [  29% ] 1 VUs  02m52.6s/10m0s
+soak_api       [  29% ] 4 VUs  02m52.6s/10m0s
+soak_public    [  29% ] 4 VUs  02m52.6s/10m0s
+soak_student   [  29% ] 3 VUs  02m52.6s/10m0s
+
+running (02m55.0s), 12/12 VUs, 1016 complete and 0 interrupted iterations
+soak_admin     [  29% ] 1 VUs  02m53.6s/10m0s
+soak_api       [  29% ] 4 VUs  02m53.6s/10m0s
+soak_public    [  29% ] 4 VUs  02m53.6s/10m0s
+soak_student   [  29% ] 3 VUs  02m53.6s/10m0s
+
+running (02m56.0s), 12/12 VUs, 1020 complete and 0 interrupted iterations
+soak_admin     [  29% ] 1 VUs  02m54.6s/10m0s
+soak_api       [  29% ] 4 VUs  02m54.6s/10m0s
+soak_public    [  29% ] 4 VUs  02m54.6s/10m0s
+soak_student   [  29% ] 3 VUs  02m54.6s/10m0s
+
+running (02m57.0s), 12/12 VUs, 1024 complete and 0 interrupted iterations
+soak_admin     [  29% ] 1 VUs  02m55.6s/10m0s
+soak_api       [  29% ] 4 VUs  02m55.6s/10m0s
+soak_public    [  29% ] 4 VUs  02m55.6s/10m0s
+soak_student   [  29% ] 3 VUs  02m55.6s/10m0s
+
+running (02m58.0s), 12/12 VUs, 1033 complete and 0 interrupted iterations
+soak_admin     [  29% ] 1 VUs  02m56.6s/10m0s
+soak_api       [  29% ] 4 VUs  02m56.6s/10m0s
+soak_public    [  29% ] 4 VUs  02m56.6s/10m0s
+soak_student   [  29% ] 3 VUs  02m56.6s/10m0s
+
+running (02m59.0s), 12/12 VUs, 1038 complete and 0 interrupted iterations
+soak_admin     [  30% ] 1 VUs  02m57.6s/10m0s
+soak_api       [  30% ] 4 VUs  02m57.6s/10m0s
+soak_public    [  30% ] 4 VUs  02m57.6s/10m0s
+soak_student   [  30% ] 3 VUs  02m57.6s/10m0s
+
+running (03m00.0s), 12/12 VUs, 1041 complete and 0 interrupted iterations
+soak_admin     [  30% ] 1 VUs  02m58.6s/10m0s
+soak_api       [  30% ] 4 VUs  02m58.6s/10m0s
+soak_public    [  30% ] 4 VUs  02m58.6s/10m0s
+soak_student   [  30% ] 3 VUs  02m58.6s/10m0s
+
+running (03m01.0s), 12/12 VUs, 1049 complete and 0 interrupted iterations
+soak_admin     [  30% ] 1 VUs  02m59.6s/10m0s
+soak_api       [  30% ] 4 VUs  02m59.6s/10m0s
+soak_public    [  30% ] 4 VUs  02m59.6s/10m0s
+soak_student   [  30% ] 3 VUs  02m59.6s/10m0s
+
+running (03m02.0s), 12/12 VUs, 1056 complete and 0 interrupted iterations
+soak_admin     [  30% ] 1 VUs  03m00.6s/10m0s
+soak_api       [  30% ] 4 VUs  03m00.6s/10m0s
+soak_public    [  30% ] 4 VUs  03m00.6s/10m0s
+soak_student   [  30% ] 3 VUs  03m00.6s/10m0s
+
+running (03m03.0s), 12/12 VUs, 1061 complete and 0 interrupted iterations
+soak_admin     [  30% ] 1 VUs  03m01.6s/10m0s
+soak_api       [  30% ] 4 VUs  03m01.6s/10m0s
+soak_public    [  30% ] 4 VUs  03m01.6s/10m0s
+soak_student   [  30% ] 3 VUs  03m01.6s/10m0s
+
+running (03m04.0s), 12/12 VUs, 1064 complete and 0 interrupted iterations
+soak_admin     [  30% ] 1 VUs  03m02.6s/10m0s
+soak_api       [  30% ] 4 VUs  03m02.6s/10m0s
+soak_public    [  30% ] 4 VUs  03m02.6s/10m0s
+soak_student   [  30% ] 3 VUs  03m02.6s/10m0s
+
+running (03m05.0s), 12/12 VUs, 1073 complete and 0 interrupted iterations
+soak_admin     [  31% ] 1 VUs  03m03.6s/10m0s
+soak_api       [  31% ] 4 VUs  03m03.6s/10m0s
+soak_public    [  31% ] 4 VUs  03m03.6s/10m0s
+soak_student   [  31% ] 3 VUs  03m03.6s/10m0s
+
+running (03m06.0s), 12/12 VUs, 1078 complete and 0 interrupted iterations
+soak_admin     [  31% ] 1 VUs  03m04.6s/10m0s
+soak_api       [  31% ] 4 VUs  03m04.6s/10m0s
+soak_public    [  31% ] 4 VUs  03m04.6s/10m0s
+soak_student   [  31% ] 3 VUs  03m04.6s/10m0s
+
+running (03m07.0s), 12/12 VUs, 1083 complete and 0 interrupted iterations
+soak_admin     [  31% ] 1 VUs  03m05.6s/10m0s
+soak_api       [  31% ] 4 VUs  03m05.6s/10m0s
+soak_public    [  31% ] 4 VUs  03m05.6s/10m0s
+soak_student   [  31% ] 3 VUs  03m05.6s/10m0s
+
+running (03m08.0s), 12/12 VUs, 1089 complete and 0 interrupted iterations
+soak_admin     [  31% ] 1 VUs  03m06.6s/10m0s
+soak_api       [  31% ] 4 VUs  03m06.6s/10m0s
+soak_public    [  31% ] 4 VUs  03m06.6s/10m0s
+soak_student   [  31% ] 3 VUs  03m06.6s/10m0s
+
+running (03m09.0s), 12/12 VUs, 1096 complete and 0 interrupted iterations
+soak_admin     [  31% ] 1 VUs  03m07.6s/10m0s
+soak_api       [  31% ] 4 VUs  03m07.6s/10m0s
+soak_public    [  31% ] 4 VUs  03m07.6s/10m0s
+soak_student   [  31% ] 3 VUs  03m07.6s/10m0s
+
+running (03m10.0s), 12/12 VUs, 1102 complete and 0 interrupted iterations
+soak_admin     [  31% ] 1 VUs  03m08.6s/10m0s
+soak_api       [  31% ] 4 VUs  03m08.6s/10m0s
+soak_public    [  31% ] 4 VUs  03m08.6s/10m0s
+soak_student   [  31% ] 3 VUs  03m08.6s/10m0s
+
+running (03m11.0s), 12/12 VUs, 1108 complete and 0 interrupted iterations
+soak_admin     [  32% ] 1 VUs  03m09.6s/10m0s
+soak_api       [  32% ] 4 VUs  03m09.6s/10m0s
+soak_public    [  32% ] 4 VUs  03m09.6s/10m0s
+soak_student   [  32% ] 3 VUs  03m09.6s/10m0s
+
+running (03m12.0s), 12/12 VUs, 1114 complete and 0 interrupted iterations
+soak_admin     [  32% ] 1 VUs  03m10.6s/10m0s
+soak_api       [  32% ] 4 VUs  03m10.6s/10m0s
+soak_public    [  32% ] 4 VUs  03m10.6s/10m0s
+soak_student   [  32% ] 3 VUs  03m10.6s/10m0s
+
+running (03m13.0s), 12/12 VUs, 1118 complete and 0 interrupted iterations
+soak_admin     [  32% ] 1 VUs  03m11.6s/10m0s
+soak_api       [  32% ] 4 VUs  03m11.6s/10m0s
+soak_public    [  32% ] 4 VUs  03m11.6s/10m0s
+soak_student   [  32% ] 3 VUs  03m11.6s/10m0s
+
+running (03m14.0s), 12/12 VUs, 1127 complete and 0 interrupted iterations
+soak_admin     [  32% ] 1 VUs  03m12.6s/10m0s
+soak_api       [  32% ] 4 VUs  03m12.6s/10m0s
+soak_public    [  32% ] 4 VUs  03m12.6s/10m0s
+soak_student   [  32% ] 3 VUs  03m12.6s/10m0s
+
+running (03m15.0s), 12/12 VUs, 1130 complete and 0 interrupted iterations
+soak_admin     [  32% ] 1 VUs  03m13.6s/10m0s
+soak_api       [  32% ] 4 VUs  03m13.6s/10m0s
+soak_public    [  32% ] 4 VUs  03m13.6s/10m0s
+soak_student   [  32% ] 3 VUs  03m13.6s/10m0s
+
+running (03m16.0s), 12/12 VUs, 1137 complete and 0 interrupted iterations
+soak_admin     [  32% ] 1 VUs  03m14.6s/10m0s
+soak_api       [  32% ] 4 VUs  03m14.6s/10m0s
+soak_public    [  32% ] 4 VUs  03m14.6s/10m0s
+soak_student   [  32% ] 3 VUs  03m14.6s/10m0s
+
+running (03m17.0s), 12/12 VUs, 1144 complete and 0 interrupted iterations
+soak_admin     [  33% ] 1 VUs  03m15.6s/10m0s
+soak_api       [  33% ] 4 VUs  03m15.6s/10m0s
+soak_public    [  33% ] 4 VUs  03m15.6s/10m0s
+soak_student   [  33% ] 3 VUs  03m15.6s/10m0s
+
+running (03m18.0s), 12/12 VUs, 1149 complete and 0 interrupted iterations
+soak_admin     [  33% ] 1 VUs  03m16.6s/10m0s
+soak_api       [  33% ] 4 VUs  03m16.6s/10m0s
+soak_public    [  33% ] 4 VUs  03m16.6s/10m0s
+soak_student   [  33% ] 3 VUs  03m16.6s/10m0s
+
+running (03m19.0s), 12/12 VUs, 1156 complete and 0 interrupted iterations
+soak_admin     [  33% ] 1 VUs  03m17.6s/10m0s
+soak_api       [  33% ] 4 VUs  03m17.6s/10m0s
+soak_public    [  33% ] 4 VUs  03m17.6s/10m0s
+soak_student   [  33% ] 3 VUs  03m17.6s/10m0s
+
+running (03m20.0s), 12/12 VUs, 1162 complete and 0 interrupted iterations
+soak_admin     [  33% ] 1 VUs  03m18.6s/10m0s
+soak_api       [  33% ] 4 VUs  03m18.6s/10m0s
+soak_public    [  33% ] 4 VUs  03m18.6s/10m0s
+soak_student   [  33% ] 3 VUs  03m18.6s/10m0s
+
+running (03m21.0s), 12/12 VUs, 1167 complete and 0 interrupted iterations
+soak_admin     [  33% ] 1 VUs  03m19.6s/10m0s
+soak_api       [  33% ] 4 VUs  03m19.6s/10m0s
+soak_public    [  33% ] 4 VUs  03m19.6s/10m0s
+soak_student   [  33% ] 3 VUs  03m19.6s/10m0s
+
+running (03m22.0s), 12/12 VUs, 1172 complete and 0 interrupted iterations
+soak_admin     [  33% ] 1 VUs  03m20.6s/10m0s
+soak_api       [  33% ] 4 VUs  03m20.6s/10m0s
+soak_public    [  33% ] 4 VUs  03m20.6s/10m0s
+soak_student   [  33% ] 3 VUs  03m20.6s/10m0s
+
+running (03m23.0s), 12/12 VUs, 1181 complete and 0 interrupted iterations
+soak_admin     [  34% ] 1 VUs  03m21.6s/10m0s
+soak_api       [  34% ] 4 VUs  03m21.6s/10m0s
+soak_public    [  34% ] 4 VUs  03m21.6s/10m0s
+soak_student   [  34% ] 3 VUs  03m21.6s/10m0s
+
+running (03m24.0s), 12/12 VUs, 1185 complete and 0 interrupted iterations
+soak_admin     [  34% ] 1 VUs  03m22.6s/10m0s
+soak_api       [  34% ] 4 VUs  03m22.6s/10m0s
+soak_public    [  34% ] 4 VUs  03m22.6s/10m0s
+soak_student   [  34% ] 3 VUs  03m22.6s/10m0s
+
+running (03m25.0s), 12/12 VUs, 1191 complete and 0 interrupted iterations
+soak_admin     [  34% ] 1 VUs  03m23.6s/10m0s
+soak_api       [  34% ] 4 VUs  03m23.6s/10m0s
+soak_public    [  34% ] 4 VUs  03m23.6s/10m0s
+soak_student   [  34% ] 3 VUs  03m23.6s/10m0s
+
+running (03m26.0s), 12/12 VUs, 1196 complete and 0 interrupted iterations
+soak_admin     [  34% ] 1 VUs  03m24.6s/10m0s
+soak_api       [  34% ] 4 VUs  03m24.6s/10m0s
+soak_public    [  34% ] 4 VUs  03m24.6s/10m0s
+soak_student   [  34% ] 3 VUs  03m24.6s/10m0s
+
+running (03m27.0s), 12/12 VUs, 1203 complete and 0 interrupted iterations
+soak_admin     [  34% ] 1 VUs  03m25.6s/10m0s
+soak_api       [  34% ] 4 VUs  03m25.6s/10m0s
+soak_public    [  34% ] 4 VUs  03m25.6s/10m0s
+soak_student   [  34% ] 3 VUs  03m25.6s/10m0s
+
+running (03m28.0s), 12/12 VUs, 1207 complete and 0 interrupted iterations
+soak_admin     [  34% ] 1 VUs  03m26.6s/10m0s
+soak_api       [  34% ] 4 VUs  03m26.6s/10m0s
+soak_public    [  34% ] 4 VUs  03m26.6s/10m0s
+soak_student   [  34% ] 3 VUs  03m26.6s/10m0s
+
+running (03m29.0s), 12/12 VUs, 1215 complete and 0 interrupted iterations
+soak_admin     [  35% ] 1 VUs  03m27.6s/10m0s
+soak_api       [  35% ] 4 VUs  03m27.6s/10m0s
+soak_public    [  35% ] 4 VUs  03m27.6s/10m0s
+soak_student   [  35% ] 3 VUs  03m27.6s/10m0s
+
+running (03m30.0s), 12/12 VUs, 1222 complete and 0 interrupted iterations
+soak_admin     [  35% ] 1 VUs  03m28.6s/10m0s
+soak_api       [  35% ] 4 VUs  03m28.6s/10m0s
+soak_public    [  35% ] 4 VUs  03m28.6s/10m0s
+soak_student   [  35% ] 3 VUs  03m28.6s/10m0s
+
+running (03m31.0s), 12/12 VUs, 1227 complete and 0 interrupted iterations
+soak_admin     [  35% ] 1 VUs  03m29.6s/10m0s
+soak_api       [  35% ] 4 VUs  03m29.6s/10m0s
+soak_public    [  35% ] 4 VUs  03m29.6s/10m0s
+soak_student   [  35% ] 3 VUs  03m29.6s/10m0s
+
+running (03m32.0s), 12/12 VUs, 1234 complete and 0 interrupted iterations
+soak_admin     [  35% ] 1 VUs  03m30.6s/10m0s
+soak_api       [  35% ] 4 VUs  03m30.6s/10m0s
+soak_public    [  35% ] 4 VUs  03m30.6s/10m0s
+soak_student   [  35% ] 3 VUs  03m30.6s/10m0s
+
+running (03m33.0s), 12/12 VUs, 1239 complete and 0 interrupted iterations
+soak_admin     [  35% ] 1 VUs  03m31.6s/10m0s
+soak_api       [  35% ] 4 VUs  03m31.6s/10m0s
+soak_public    [  35% ] 4 VUs  03m31.6s/10m0s
+soak_student   [  35% ] 3 VUs  03m31.6s/10m0s
+
+running (03m34.0s), 12/12 VUs, 1245 complete and 0 interrupted iterations
+soak_admin     [  35% ] 1 VUs  03m32.6s/10m0s
+soak_api       [  35% ] 4 VUs  03m32.6s/10m0s
+soak_public    [  35% ] 4 VUs  03m32.6s/10m0s
+soak_student   [  35% ] 3 VUs  03m32.6s/10m0s
+
+running (03m35.0s), 12/12 VUs, 1252 complete and 0 interrupted iterations
+soak_admin     [  36% ] 1 VUs  03m33.6s/10m0s
+soak_api       [  36% ] 4 VUs  03m33.6s/10m0s
+soak_public    [  36% ] 4 VUs  03m33.6s/10m0s
+soak_student   [  36% ] 3 VUs  03m33.6s/10m0s
+
+running (03m36.0s), 12/12 VUs, 1259 complete and 0 interrupted iterations
+soak_admin     [  36% ] 1 VUs  03m34.6s/10m0s
+soak_api       [  36% ] 4 VUs  03m34.6s/10m0s
+soak_public    [  36% ] 4 VUs  03m34.6s/10m0s
+soak_student   [  36% ] 3 VUs  03m34.6s/10m0s
+
+running (03m37.0s), 12/12 VUs, 1265 complete and 0 interrupted iterations
+soak_admin     [  36% ] 1 VUs  03m35.6s/10m0s
+soak_api       [  36% ] 4 VUs  03m35.6s/10m0s
+soak_public    [  36% ] 4 VUs  03m35.6s/10m0s
+soak_student   [  36% ] 3 VUs  03m35.6s/10m0s
+
+running (03m38.0s), 12/12 VUs, 1270 complete and 0 interrupted iterations
+soak_admin     [  36% ] 1 VUs  03m36.6s/10m0s
+soak_api       [  36% ] 4 VUs  03m36.6s/10m0s
+soak_public    [  36% ] 4 VUs  03m36.6s/10m0s
+soak_student   [  36% ] 3 VUs  03m36.6s/10m0s
+
+running (03m39.0s), 12/12 VUs, 1276 complete and 0 interrupted iterations
+soak_admin     [  36% ] 1 VUs  03m37.6s/10m0s
+soak_api       [  36% ] 4 VUs  03m37.6s/10m0s
+soak_public    [  36% ] 4 VUs  03m37.6s/10m0s
+soak_student   [  36% ] 3 VUs  03m37.6s/10m0s
+
+running (03m40.0s), 12/12 VUs, 1284 complete and 0 interrupted iterations
+soak_admin     [  36% ] 1 VUs  03m38.6s/10m0s
+soak_api       [  36% ] 4 VUs  03m38.6s/10m0s
+soak_public    [  36% ] 4 VUs  03m38.6s/10m0s
+soak_student   [  36% ] 3 VUs  03m38.6s/10m0s
+
+running (03m41.0s), 12/12 VUs, 1287 complete and 0 interrupted iterations
+soak_admin     [  37% ] 1 VUs  03m39.6s/10m0s
+soak_api       [  37% ] 4 VUs  03m39.6s/10m0s
+soak_public    [  37% ] 4 VUs  03m39.6s/10m0s
+soak_student   [  37% ] 3 VUs  03m39.6s/10m0s
+
+running (03m42.0s), 12/12 VUs, 1295 complete and 0 interrupted iterations
+soak_admin     [  37% ] 1 VUs  03m40.6s/10m0s
+soak_api       [  37% ] 4 VUs  03m40.6s/10m0s
+soak_public    [  37% ] 4 VUs  03m40.6s/10m0s
+soak_student   [  37% ] 3 VUs  03m40.6s/10m0s
+
+running (03m43.0s), 12/12 VUs, 1299 complete and 0 interrupted iterations
+soak_admin     [  37% ] 1 VUs  03m41.6s/10m0s
+soak_api       [  37% ] 4 VUs  03m41.6s/10m0s
+soak_public    [  37% ] 4 VUs  03m41.6s/10m0s
+soak_student   [  37% ] 3 VUs  03m41.6s/10m0s
+
+running (03m44.0s), 12/12 VUs, 1306 complete and 0 interrupted iterations
+soak_admin     [  37% ] 1 VUs  03m42.6s/10m0s
+soak_api       [  37% ] 4 VUs  03m42.6s/10m0s
+soak_public    [  37% ] 4 VUs  03m42.6s/10m0s
+soak_student   [  37% ] 3 VUs  03m42.6s/10m0s
+
+running (03m45.0s), 12/12 VUs, 1311 complete and 0 interrupted iterations
+soak_admin     [  37% ] 1 VUs  03m43.6s/10m0s
+soak_api       [  37% ] 4 VUs  03m43.6s/10m0s
+soak_public    [  37% ] 4 VUs  03m43.6s/10m0s
+soak_student   [  37% ] 3 VUs  03m43.6s/10m0s
+
+running (03m46.0s), 12/12 VUs, 1316 complete and 0 interrupted iterations
+soak_admin     [  37% ] 1 VUs  03m44.6s/10m0s
+soak_api       [  37% ] 4 VUs  03m44.6s/10m0s
+soak_public    [  37% ] 4 VUs  03m44.6s/10m0s
+soak_student   [  37% ] 3 VUs  03m44.6s/10m0s
+
+running (03m47.0s), 12/12 VUs, 1324 complete and 0 interrupted iterations
+soak_admin     [  38% ] 1 VUs  03m45.6s/10m0s
+soak_api       [  38% ] 4 VUs  03m45.6s/10m0s
+soak_public    [  38% ] 4 VUs  03m45.6s/10m0s
+soak_student   [  38% ] 3 VUs  03m45.6s/10m0s
+
+running (03m48.0s), 12/12 VUs, 1330 complete and 0 interrupted iterations
+soak_admin     [  38% ] 1 VUs  03m46.6s/10m0s
+soak_api       [  38% ] 4 VUs  03m46.6s/10m0s
+soak_public    [  38% ] 4 VUs  03m46.6s/10m0s
+soak_student   [  38% ] 3 VUs  03m46.6s/10m0s
+
+running (03m49.0s), 12/12 VUs, 1335 complete and 0 interrupted iterations
+soak_admin     [  38% ] 1 VUs  03m47.6s/10m0s
+soak_api       [  38% ] 4 VUs  03m47.6s/10m0s
+soak_public    [  38% ] 4 VUs  03m47.6s/10m0s
+soak_student   [  38% ] 3 VUs  03m47.6s/10m0s
+
+running (03m50.0s), 12/12 VUs, 1343 complete and 0 interrupted iterations
+soak_admin     [  38% ] 1 VUs  03m48.6s/10m0s
+soak_api       [  38% ] 4 VUs  03m48.6s/10m0s
+soak_public    [  38% ] 4 VUs  03m48.6s/10m0s
+soak_student   [  38% ] 3 VUs  03m48.6s/10m0s
+
+running (03m51.0s), 12/12 VUs, 1347 complete and 0 interrupted iterations
+soak_admin     [  38% ] 1 VUs  03m49.6s/10m0s
+soak_api       [  38% ] 4 VUs  03m49.6s/10m0s
+soak_public    [  38% ] 4 VUs  03m49.6s/10m0s
+soak_student   [  38% ] 3 VUs  03m49.6s/10m0s
+
+running (03m52.0s), 12/12 VUs, 1353 complete and 0 interrupted iterations
+soak_admin     [  38% ] 1 VUs  03m50.6s/10m0s
+soak_api       [  38% ] 4 VUs  03m50.6s/10m0s
+soak_public    [  38% ] 4 VUs  03m50.6s/10m0s
+soak_student   [  38% ] 3 VUs  03m50.6s/10m0s
+
+running (03m53.0s), 12/12 VUs, 1361 complete and 0 interrupted iterations
+soak_admin     [  39% ] 1 VUs  03m51.6s/10m0s
+soak_api       [  39% ] 4 VUs  03m51.6s/10m0s
+soak_public    [  39% ] 4 VUs  03m51.6s/10m0s
+soak_student   [  39% ] 3 VUs  03m51.6s/10m0s
+
+running (03m54.0s), 12/12 VUs, 1367 complete and 0 interrupted iterations
+soak_admin     [  39% ] 1 VUs  03m52.6s/10m0s
+soak_api       [  39% ] 4 VUs  03m52.6s/10m0s
+soak_public    [  39% ] 4 VUs  03m52.6s/10m0s
+soak_student   [  39% ] 3 VUs  03m52.6s/10m0s
+
+running (03m55.0s), 12/12 VUs, 1372 complete and 0 interrupted iterations
+soak_admin     [  39% ] 1 VUs  03m53.6s/10m0s
+soak_api       [  39% ] 4 VUs  03m53.6s/10m0s
+soak_public    [  39% ] 4 VUs  03m53.6s/10m0s
+soak_student   [  39% ] 3 VUs  03m53.6s/10m0s
+
+running (03m56.0s), 12/12 VUs, 1378 complete and 0 interrupted iterations
+soak_admin     [  39% ] 1 VUs  03m54.6s/10m0s
+soak_api       [  39% ] 4 VUs  03m54.6s/10m0s
+soak_public    [  39% ] 4 VUs  03m54.6s/10m0s
+soak_student   [  39% ] 3 VUs  03m54.6s/10m0s
+
+running (03m57.0s), 12/12 VUs, 1386 complete and 0 interrupted iterations
+soak_admin     [  39% ] 1 VUs  03m55.6s/10m0s
+soak_api       [  39% ] 4 VUs  03m55.6s/10m0s
+soak_public    [  39% ] 4 VUs  03m55.6s/10m0s
+soak_student   [  39% ] 3 VUs  03m55.6s/10m0s
+
+running (03m58.0s), 12/12 VUs, 1389 complete and 0 interrupted iterations
+soak_admin     [  39% ] 1 VUs  03m56.6s/10m0s
+soak_api       [  39% ] 4 VUs  03m56.6s/10m0s
+soak_public    [  39% ] 4 VUs  03m56.6s/10m0s
+soak_student   [  39% ] 3 VUs  03m56.6s/10m0s
+
+running (03m59.0s), 12/12 VUs, 1394 complete and 0 interrupted iterations
+soak_admin     [  40% ] 1 VUs  03m57.6s/10m0s
+soak_api       [  40% ] 4 VUs  03m57.6s/10m0s
+soak_public    [  40% ] 4 VUs  03m57.6s/10m0s
+soak_student   [  40% ] 3 VUs  03m57.6s/10m0s
+
+running (04m00.0s), 12/12 VUs, 1399 complete and 0 interrupted iterations
+soak_admin     [  40% ] 1 VUs  03m58.6s/10m0s
+soak_api       [  40% ] 4 VUs  03m58.6s/10m0s
+soak_public    [  40% ] 4 VUs  03m58.6s/10m0s
+soak_student   [  40% ] 3 VUs  03m58.6s/10m0s
+
+running (04m01.0s), 12/12 VUs, 1405 complete and 0 interrupted iterations
+soak_admin     [  40% ] 1 VUs  03m59.6s/10m0s
+soak_api       [  40% ] 4 VUs  03m59.6s/10m0s
+soak_public    [  40% ] 4 VUs  03m59.6s/10m0s
+soak_student   [  40% ] 3 VUs  03m59.6s/10m0s
+
+running (04m02.0s), 12/12 VUs, 1413 complete and 0 interrupted iterations
+soak_admin     [  40% ] 1 VUs  04m00.6s/10m0s
+soak_api       [  40% ] 4 VUs  04m00.6s/10m0s
+soak_public    [  40% ] 4 VUs  04m00.6s/10m0s
+soak_student   [  40% ] 3 VUs  04m00.6s/10m0s
+
+running (04m03.0s), 12/12 VUs, 1417 complete and 0 interrupted iterations
+soak_admin     [  40% ] 1 VUs  04m01.6s/10m0s
+soak_api       [  40% ] 4 VUs  04m01.6s/10m0s
+soak_public    [  40% ] 4 VUs  04m01.6s/10m0s
+soak_student   [  40% ] 3 VUs  04m01.6s/10m0s
+
+running (04m04.0s), 12/12 VUs, 1424 complete and 0 interrupted iterations
+soak_admin     [  40% ] 1 VUs  04m02.6s/10m0s
+soak_api       [  40% ] 4 VUs  04m02.6s/10m0s
+soak_public    [  40% ] 4 VUs  04m02.6s/10m0s
+soak_student   [  40% ] 3 VUs  04m02.6s/10m0s
+
+running (04m05.0s), 12/12 VUs, 1429 complete and 0 interrupted iterations
+soak_admin     [  41% ] 1 VUs  04m03.6s/10m0s
+soak_api       [  41% ] 4 VUs  04m03.6s/10m0s
+soak_public    [  41% ] 4 VUs  04m03.6s/10m0s
+soak_student   [  41% ] 3 VUs  04m03.6s/10m0s
+
+running (04m06.0s), 12/12 VUs, 1436 complete and 0 interrupted iterations
+soak_admin     [  41% ] 1 VUs  04m04.6s/10m0s
+soak_api       [  41% ] 4 VUs  04m04.6s/10m0s
+soak_public    [  41% ] 4 VUs  04m04.6s/10m0s
+soak_student   [  41% ] 3 VUs  04m04.6s/10m0s
+
+running (04m07.0s), 12/12 VUs, 1441 complete and 0 interrupted iterations
+soak_admin     [  41% ] 1 VUs  04m05.6s/10m0s
+soak_api       [  41% ] 4 VUs  04m05.6s/10m0s
+soak_public    [  41% ] 4 VUs  04m05.6s/10m0s
+soak_student   [  41% ] 3 VUs  04m05.6s/10m0s
+
+running (04m08.0s), 12/12 VUs, 1448 complete and 0 interrupted iterations
+soak_admin     [  41% ] 1 VUs  04m06.6s/10m0s
+soak_api       [  41% ] 4 VUs  04m06.6s/10m0s
+soak_public    [  41% ] 4 VUs  04m06.6s/10m0s
+soak_student   [  41% ] 3 VUs  04m06.6s/10m0s
+
+running (04m09.0s), 12/12 VUs, 1452 complete and 0 interrupted iterations
+soak_admin     [  41% ] 1 VUs  04m07.6s/10m0s
+soak_api       [  41% ] 4 VUs  04m07.6s/10m0s
+soak_public    [  41% ] 4 VUs  04m07.6s/10m0s
+soak_student   [  41% ] 3 VUs  04m07.6s/10m0s
+
+running (04m10.0s), 12/12 VUs, 1459 complete and 0 interrupted iterations
+soak_admin     [  41% ] 1 VUs  04m08.6s/10m0s
+soak_api       [  41% ] 4 VUs  04m08.6s/10m0s
+soak_public    [  41% ] 4 VUs  04m08.6s/10m0s
+soak_student   [  41% ] 3 VUs  04m08.6s/10m0s
+
+running (04m11.0s), 12/12 VUs, 1467 complete and 0 interrupted iterations
+soak_admin     [  42% ] 1 VUs  04m09.6s/10m0s
+soak_api       [  42% ] 4 VUs  04m09.6s/10m0s
+soak_public    [  42% ] 4 VUs  04m09.6s/10m0s
+soak_student   [  42% ] 3 VUs  04m09.6s/10m0s
+
+running (04m12.0s), 12/12 VUs, 1471 complete and 0 interrupted iterations
+soak_admin     [  42% ] 1 VUs  04m10.6s/10m0s
+soak_api       [  42% ] 4 VUs  04m10.6s/10m0s
+soak_public    [  42% ] 4 VUs  04m10.6s/10m0s
+soak_student   [  42% ] 3 VUs  04m10.6s/10m0s
+
+running (04m13.0s), 12/12 VUs, 1478 complete and 0 interrupted iterations
+soak_admin     [  42% ] 1 VUs  04m11.6s/10m0s
+soak_api       [  42% ] 4 VUs  04m11.6s/10m0s
+soak_public    [  42% ] 4 VUs  04m11.6s/10m0s
+soak_student   [  42% ] 3 VUs  04m11.6s/10m0s
+
+running (04m14.0s), 12/12 VUs, 1482 complete and 0 interrupted iterations
+soak_admin     [  42% ] 1 VUs  04m12.6s/10m0s
+soak_api       [  42% ] 4 VUs  04m12.6s/10m0s
+soak_public    [  42% ] 4 VUs  04m12.6s/10m0s
+soak_student   [  42% ] 3 VUs  04m12.6s/10m0s
+
+running (04m15.0s), 12/12 VUs, 1491 complete and 0 interrupted iterations
+soak_admin     [  42% ] 1 VUs  04m13.6s/10m0s
+soak_api       [  42% ] 4 VUs  04m13.6s/10m0s
+soak_public    [  42% ] 4 VUs  04m13.6s/10m0s
+soak_student   [  42% ] 3 VUs  04m13.6s/10m0s
+
+running (04m16.0s), 12/12 VUs, 1496 complete and 0 interrupted iterations
+soak_admin     [  42% ] 1 VUs  04m14.6s/10m0s
+soak_api       [  42% ] 4 VUs  04m14.6s/10m0s
+soak_public    [  42% ] 4 VUs  04m14.6s/10m0s
+soak_student   [  42% ] 3 VUs  04m14.6s/10m0s
+
+running (04m17.0s), 12/12 VUs, 1502 complete and 0 interrupted iterations
+soak_admin     [  43% ] 1 VUs  04m15.6s/10m0s
+soak_api       [  43% ] 4 VUs  04m15.6s/10m0s
+soak_public    [  43% ] 4 VUs  04m15.6s/10m0s
+soak_student   [  43% ] 3 VUs  04m15.6s/10m0s
+
+running (04m18.0s), 12/12 VUs, 1510 complete and 0 interrupted iterations
+soak_admin     [  43% ] 1 VUs  04m16.6s/10m0s
+soak_api       [  43% ] 4 VUs  04m16.6s/10m0s
+soak_public    [  43% ] 4 VUs  04m16.6s/10m0s
+soak_student   [  43% ] 3 VUs  04m16.6s/10m0s
+
+running (04m19.0s), 12/12 VUs, 1513 complete and 0 interrupted iterations
+soak_admin     [  43% ] 1 VUs  04m17.6s/10m0s
+soak_api       [  43% ] 4 VUs  04m17.6s/10m0s
+soak_public    [  43% ] 4 VUs  04m17.6s/10m0s
+soak_student   [  43% ] 3 VUs  04m17.6s/10m0s
+
+running (04m20.0s), 12/12 VUs, 1519 complete and 0 interrupted iterations
+soak_admin     [  43% ] 1 VUs  04m18.6s/10m0s
+soak_api       [  43% ] 4 VUs  04m18.6s/10m0s
+soak_public    [  43% ] 4 VUs  04m18.6s/10m0s
+soak_student   [  43% ] 3 VUs  04m18.6s/10m0s
+
+running (04m21.0s), 12/12 VUs, 1525 complete and 0 interrupted iterations
+soak_admin     [  43% ] 1 VUs  04m19.6s/10m0s
+soak_api       [  43% ] 4 VUs  04m19.6s/10m0s
+soak_public    [  43% ] 4 VUs  04m19.6s/10m0s
+soak_student   [  43% ] 3 VUs  04m19.6s/10m0s
+
+running (04m22.0s), 12/12 VUs, 1533 complete and 0 interrupted iterations
+soak_admin     [  43% ] 1 VUs  04m20.6s/10m0s
+soak_api       [  43% ] 4 VUs  04m20.6s/10m0s
+soak_public    [  43% ] 4 VUs  04m20.6s/10m0s
+soak_student   [  43% ] 3 VUs  04m20.6s/10m0s
+
+running (04m23.0s), 12/12 VUs, 1541 complete and 0 interrupted iterations
+soak_admin     [  44% ] 1 VUs  04m21.6s/10m0s
+soak_api       [  44% ] 4 VUs  04m21.6s/10m0s
+soak_public    [  44% ] 4 VUs  04m21.6s/10m0s
+soak_student   [  44% ] 3 VUs  04m21.6s/10m0s
+
+running (04m24.0s), 12/12 VUs, 1544 complete and 0 interrupted iterations
+soak_admin     [  44% ] 1 VUs  04m22.6s/10m0s
+soak_api       [  44% ] 4 VUs  04m22.6s/10m0s
+soak_public    [  44% ] 4 VUs  04m22.6s/10m0s
+soak_student   [  44% ] 3 VUs  04m22.6s/10m0s
+
+running (04m25.0s), 12/12 VUs, 1551 complete and 0 interrupted iterations
+soak_admin     [  44% ] 1 VUs  04m23.6s/10m0s
+soak_api       [  44% ] 4 VUs  04m23.6s/10m0s
+soak_public    [  44% ] 4 VUs  04m23.6s/10m0s
+soak_student   [  44% ] 3 VUs  04m23.6s/10m0s
+
+running (04m26.0s), 12/12 VUs, 1557 complete and 0 interrupted iterations
+soak_admin     [  44% ] 1 VUs  04m24.6s/10m0s
+soak_api       [  44% ] 4 VUs  04m24.6s/10m0s
+soak_public    [  44% ] 4 VUs  04m24.6s/10m0s
+soak_student   [  44% ] 3 VUs  04m24.6s/10m0s
+
+running (04m27.0s), 12/12 VUs, 1563 complete and 0 interrupted iterations
+soak_admin     [  44% ] 1 VUs  04m25.6s/10m0s
+soak_api       [  44% ] 4 VUs  04m25.6s/10m0s
+soak_public    [  44% ] 4 VUs  04m25.6s/10m0s
+soak_student   [  44% ] 3 VUs  04m25.6s/10m0s
+
+running (04m28.0s), 12/12 VUs, 1569 complete and 0 interrupted iterations
+soak_admin     [  44% ] 1 VUs  04m26.6s/10m0s
+soak_api       [  44% ] 4 VUs  04m26.6s/10m0s
+soak_public    [  44% ] 4 VUs  04m26.6s/10m0s
+soak_student   [  44% ] 3 VUs  04m26.6s/10m0s
+
+running (04m29.0s), 12/12 VUs, 1578 complete and 0 interrupted iterations
+soak_admin     [  45% ] 1 VUs  04m27.6s/10m0s
+soak_api       [  45% ] 4 VUs  04m27.6s/10m0s
+soak_public    [  45% ] 4 VUs  04m27.6s/10m0s
+soak_student   [  45% ] 3 VUs  04m27.6s/10m0s
+
+running (04m30.0s), 12/12 VUs, 1581 complete and 0 interrupted iterations
+soak_admin     [  45% ] 1 VUs  04m28.6s/10m0s
+soak_api       [  45% ] 4 VUs  04m28.6s/10m0s
+soak_public    [  45% ] 4 VUs  04m28.6s/10m0s
+soak_student   [  45% ] 3 VUs  04m28.6s/10m0s
+
+running (04m31.0s), 12/12 VUs, 1589 complete and 0 interrupted iterations
+soak_admin     [  45% ] 1 VUs  04m29.6s/10m0s
+soak_api       [  45% ] 4 VUs  04m29.6s/10m0s
+soak_public    [  45% ] 4 VUs  04m29.6s/10m0s
+soak_student   [  45% ] 3 VUs  04m29.6s/10m0s
+
+running (04m32.0s), 12/12 VUs, 1594 complete and 0 interrupted iterations
+soak_admin     [  45% ] 1 VUs  04m30.6s/10m0s
+soak_api       [  45% ] 4 VUs  04m30.6s/10m0s
+soak_public    [  45% ] 4 VUs  04m30.6s/10m0s
+soak_student   [  45% ] 3 VUs  04m30.6s/10m0s
+
+running (04m33.0s), 12/12 VUs, 1600 complete and 0 interrupted iterations
+soak_admin     [  45% ] 1 VUs  04m31.6s/10m0s
+soak_api       [  45% ] 4 VUs  04m31.6s/10m0s
+soak_public    [  45% ] 4 VUs  04m31.6s/10m0s
+soak_student   [  45% ] 3 VUs  04m31.6s/10m0s
+
+running (04m34.0s), 12/12 VUs, 1605 complete and 0 interrupted iterations
+soak_admin     [  45% ] 1 VUs  04m32.6s/10m0s
+soak_api       [  45% ] 4 VUs  04m32.6s/10m0s
+soak_public    [  45% ] 4 VUs  04m32.6s/10m0s
+soak_student   [  45% ] 3 VUs  04m32.6s/10m0s
+
+running (04m35.0s), 12/12 VUs, 1612 complete and 0 interrupted iterations
+soak_admin     [  46% ] 1 VUs  04m33.6s/10m0s
+soak_api       [  46% ] 4 VUs  04m33.6s/10m0s
+soak_public    [  46% ] 4 VUs  04m33.6s/10m0s
+soak_student   [  46% ] 3 VUs  04m33.6s/10m0s
+
+running (04m36.0s), 12/12 VUs, 1617 complete and 0 interrupted iterations
+soak_admin     [  46% ] 1 VUs  04m34.6s/10m0s
+soak_api       [  46% ] 4 VUs  04m34.6s/10m0s
+soak_public    [  46% ] 4 VUs  04m34.6s/10m0s
+soak_student   [  46% ] 3 VUs  04m34.6s/10m0s
+
+running (04m37.0s), 12/12 VUs, 1623 complete and 0 interrupted iterations
+soak_admin     [  46% ] 1 VUs  04m35.6s/10m0s
+soak_api       [  46% ] 4 VUs  04m35.6s/10m0s
+soak_public    [  46% ] 4 VUs  04m35.6s/10m0s
+soak_student   [  46% ] 3 VUs  04m35.6s/10m0s
+
+running (04m38.0s), 12/12 VUs, 1630 complete and 0 interrupted iterations
+soak_admin     [  46% ] 1 VUs  04m36.6s/10m0s
+soak_api       [  46% ] 4 VUs  04m36.6s/10m0s
+soak_public    [  46% ] 4 VUs  04m36.6s/10m0s
+soak_student   [  46% ] 3 VUs  04m36.6s/10m0s
+
+running (04m39.0s), 12/12 VUs, 1634 complete and 0 interrupted iterations
+soak_admin     [  46% ] 1 VUs  04m37.6s/10m0s
+soak_api       [  46% ] 4 VUs  04m37.6s/10m0s
+soak_public    [  46% ] 4 VUs  04m37.6s/10m0s
+soak_student   [  46% ] 3 VUs  04m37.6s/10m0s
+
+running (04m40.0s), 12/12 VUs, 1637 complete and 0 interrupted iterations
+soak_admin     [  46% ] 1 VUs  04m38.6s/10m0s
+soak_api       [  46% ] 4 VUs  04m38.6s/10m0s
+soak_public    [  46% ] 4 VUs  04m38.6s/10m0s
+soak_student   [  46% ] 3 VUs  04m38.6s/10m0s
+
+running (04m41.0s), 12/12 VUs, 1645 complete and 0 interrupted iterations
+soak_admin     [  47% ] 1 VUs  04m39.6s/10m0s
+soak_api       [  47% ] 4 VUs  04m39.6s/10m0s
+soak_public    [  47% ] 4 VUs  04m39.6s/10m0s
+soak_student   [  47% ] 3 VUs  04m39.6s/10m0s
+
+running (04m42.0s), 12/12 VUs, 1651 complete and 0 interrupted iterations
+soak_admin     [  47% ] 1 VUs  04m40.6s/10m0s
+soak_api       [  47% ] 4 VUs  04m40.6s/10m0s
+soak_public    [  47% ] 4 VUs  04m40.6s/10m0s
+soak_student   [  47% ] 3 VUs  04m40.6s/10m0s
+
+running (04m43.0s), 12/12 VUs, 1657 complete and 0 interrupted iterations
+soak_admin     [  47% ] 1 VUs  04m41.6s/10m0s
+soak_api       [  47% ] 4 VUs  04m41.6s/10m0s
+soak_public    [  47% ] 4 VUs  04m41.6s/10m0s
+soak_student   [  47% ] 3 VUs  04m41.6s/10m0s
+
+running (04m44.0s), 12/12 VUs, 1662 complete and 0 interrupted iterations
+soak_admin     [  47% ] 1 VUs  04m42.6s/10m0s
+soak_api       [  47% ] 4 VUs  04m42.6s/10m0s
+soak_public    [  47% ] 4 VUs  04m42.6s/10m0s
+soak_student   [  47% ] 3 VUs  04m42.6s/10m0s
+
+running (04m45.0s), 12/12 VUs, 1669 complete and 0 interrupted iterations
+soak_admin     [  47% ] 1 VUs  04m43.6s/10m0s
+soak_api       [  47% ] 4 VUs  04m43.6s/10m0s
+soak_public    [  47% ] 4 VUs  04m43.6s/10m0s
+soak_student   [  47% ] 3 VUs  04m43.6s/10m0s
+
+running (04m46.0s), 12/12 VUs, 1674 complete and 0 interrupted iterations
+soak_admin     [  47% ] 1 VUs  04m44.6s/10m0s
+soak_api       [  47% ] 4 VUs  04m44.6s/10m0s
+soak_public    [  47% ] 4 VUs  04m44.6s/10m0s
+soak_student   [  47% ] 3 VUs  04m44.6s/10m0s
+
+running (04m47.0s), 12/12 VUs, 1679 complete and 0 interrupted iterations
+soak_admin     [  48% ] 1 VUs  04m45.6s/10m0s
+soak_api       [  48% ] 4 VUs  04m45.6s/10m0s
+soak_public    [  48% ] 4 VUs  04m45.6s/10m0s
+soak_student   [  48% ] 3 VUs  04m45.6s/10m0s
+
+running (04m48.0s), 12/12 VUs, 1685 complete and 0 interrupted iterations
+soak_admin     [  48% ] 1 VUs  04m46.6s/10m0s
+soak_api       [  48% ] 4 VUs  04m46.6s/10m0s
+soak_public    [  48% ] 4 VUs  04m46.6s/10m0s
+soak_student   [  48% ] 3 VUs  04m46.6s/10m0s
+
+running (04m49.0s), 12/12 VUs, 1695 complete and 0 interrupted iterations
+soak_admin     [  48% ] 1 VUs  04m47.6s/10m0s
+soak_api       [  48% ] 4 VUs  04m47.6s/10m0s
+soak_public    [  48% ] 4 VUs  04m47.6s/10m0s
+soak_student   [  48% ] 3 VUs  04m47.6s/10m0s
+
+running (04m50.0s), 12/12 VUs, 1698 complete and 0 interrupted iterations
+soak_admin     [  48% ] 1 VUs  04m48.6s/10m0s
+soak_api       [  48% ] 4 VUs  04m48.6s/10m0s
+soak_public    [  48% ] 4 VUs  04m48.6s/10m0s
+soak_student   [  48% ] 3 VUs  04m48.6s/10m0s
+
+running (04m51.0s), 12/12 VUs, 1702 complete and 0 interrupted iterations
+soak_admin     [  48% ] 1 VUs  04m49.6s/10m0s
+soak_api       [  48% ] 4 VUs  04m49.6s/10m0s
+soak_public    [  48% ] 4 VUs  04m49.6s/10m0s
+soak_student   [  48% ] 3 VUs  04m49.6s/10m0s
+
+running (04m52.0s), 12/12 VUs, 1710 complete and 0 interrupted iterations
+soak_admin     [  48% ] 1 VUs  04m50.6s/10m0s
+soak_api       [  48% ] 4 VUs  04m50.6s/10m0s
+soak_public    [  48% ] 4 VUs  04m50.6s/10m0s
+soak_student   [  48% ] 3 VUs  04m50.6s/10m0s
+
+running (04m53.0s), 12/12 VUs, 1715 complete and 0 interrupted iterations
+soak_admin     [  49% ] 1 VUs  04m51.6s/10m0s
+soak_api       [  49% ] 4 VUs  04m51.6s/10m0s
+soak_public    [  49% ] 4 VUs  04m51.6s/10m0s
+soak_student   [  49% ] 3 VUs  04m51.6s/10m0s
+
+running (04m54.0s), 12/12 VUs, 1726 complete and 0 interrupted iterations
+soak_admin     [  49% ] 1 VUs  04m52.6s/10m0s
+soak_api       [  49% ] 4 VUs  04m52.6s/10m0s
+soak_public    [  49% ] 4 VUs  04m52.6s/10m0s
+soak_student   [  49% ] 3 VUs  04m52.6s/10m0s
+
+running (04m55.0s), 12/12 VUs, 1727 complete and 0 interrupted iterations
+soak_admin     [  49% ] 1 VUs  04m53.6s/10m0s
+soak_api       [  49% ] 4 VUs  04m53.6s/10m0s
+soak_public    [  49% ] 4 VUs  04m53.6s/10m0s
+soak_student   [  49% ] 3 VUs  04m53.6s/10m0s
+
+running (04m56.0s), 12/12 VUs, 1735 complete and 0 interrupted iterations
+soak_admin     [  49% ] 1 VUs  04m54.6s/10m0s
+soak_api       [  49% ] 4 VUs  04m54.6s/10m0s
+soak_public    [  49% ] 4 VUs  04m54.6s/10m0s
+soak_student   [  49% ] 3 VUs  04m54.6s/10m0s
+
+running (04m57.0s), 12/12 VUs, 1739 complete and 0 interrupted iterations
+soak_admin     [  49% ] 1 VUs  04m55.6s/10m0s
+soak_api       [  49% ] 4 VUs  04m55.6s/10m0s
+soak_public    [  49% ] 4 VUs  04m55.6s/10m0s
+soak_student   [  49% ] 3 VUs  04m55.6s/10m0s
+
+running (04m58.0s), 12/12 VUs, 1745 complete and 0 interrupted iterations
+soak_admin     [  49% ] 1 VUs  04m56.6s/10m0s
+soak_api       [  49% ] 4 VUs  04m56.6s/10m0s
+soak_public    [  49% ] 4 VUs  04m56.6s/10m0s
+soak_student   [  49% ] 3 VUs  04m56.6s/10m0s
+
+running (04m59.0s), 12/12 VUs, 1754 complete and 0 interrupted iterations
+soak_admin     [  50% ] 1 VUs  04m57.6s/10m0s
+soak_api       [  50% ] 4 VUs  04m57.6s/10m0s
+soak_public    [  50% ] 4 VUs  04m57.6s/10m0s
+soak_student   [  50% ] 3 VUs  04m57.6s/10m0s
+
+running (05m00.0s), 12/12 VUs, 1757 complete and 0 interrupted iterations
+soak_admin     [  50% ] 1 VUs  04m58.6s/10m0s
+soak_api       [  50% ] 4 VUs  04m58.6s/10m0s
+soak_public    [  50% ] 4 VUs  04m58.6s/10m0s
+soak_student   [  50% ] 3 VUs  04m58.6s/10m0s
+
+running (05m01.0s), 12/12 VUs, 1762 complete and 0 interrupted iterations
+soak_admin     [  50% ] 1 VUs  04m59.6s/10m0s
+soak_api       [  50% ] 4 VUs  04m59.6s/10m0s
+soak_public    [  50% ] 4 VUs  04m59.6s/10m0s
+soak_student   [  50% ] 3 VUs  04m59.6s/10m0s
+
+running (05m02.0s), 12/12 VUs, 1772 complete and 0 interrupted iterations
+soak_admin     [  50% ] 1 VUs  05m00.6s/10m0s
+soak_api       [  50% ] 4 VUs  05m00.6s/10m0s
+soak_public    [  50% ] 4 VUs  05m00.6s/10m0s
+soak_student   [  50% ] 3 VUs  05m00.6s/10m0s
+
+running (05m03.0s), 12/12 VUs, 1775 complete and 0 interrupted iterations
+soak_admin     [  50% ] 1 VUs  05m01.6s/10m0s
+soak_api       [  50% ] 4 VUs  05m01.6s/10m0s
+soak_public    [  50% ] 4 VUs  05m01.6s/10m0s
+soak_student   [  50% ] 3 VUs  05m01.6s/10m0s
+
+running (05m04.0s), 12/12 VUs, 1781 complete and 0 interrupted iterations
+soak_admin     [  50% ] 1 VUs  05m02.6s/10m0s
+soak_api       [  50% ] 4 VUs  05m02.6s/10m0s
+soak_public    [  50% ] 4 VUs  05m02.6s/10m0s
+soak_student   [  50% ] 3 VUs  05m02.6s/10m0s
+
+running (05m05.0s), 12/12 VUs, 1788 complete and 0 interrupted iterations
+soak_admin     [  51% ] 1 VUs  05m03.6s/10m0s
+soak_api       [  51% ] 4 VUs  05m03.6s/10m0s
+soak_public    [  51% ] 4 VUs  05m03.6s/10m0s
+soak_student   [  51% ] 3 VUs  05m03.6s/10m0s
+
+running (05m06.0s), 12/12 VUs, 1795 complete and 0 interrupted iterations
+soak_admin     [  51% ] 1 VUs  05m04.6s/10m0s
+soak_api       [  51% ] 4 VUs  05m04.6s/10m0s
+soak_public    [  51% ] 4 VUs  05m04.6s/10m0s
+soak_student   [  51% ] 3 VUs  05m04.6s/10m0s
+
+running (05m07.0s), 12/12 VUs, 1800 complete and 0 interrupted iterations
+soak_admin     [  51% ] 1 VUs  05m05.6s/10m0s
+soak_api       [  51% ] 4 VUs  05m05.6s/10m0s
+soak_public    [  51% ] 4 VUs  05m05.6s/10m0s
+soak_student   [  51% ] 3 VUs  05m05.6s/10m0s
+
+running (05m08.0s), 12/12 VUs, 1806 complete and 0 interrupted iterations
+soak_admin     [  51% ] 1 VUs  05m06.6s/10m0s
+soak_api       [  51% ] 4 VUs  05m06.6s/10m0s
+soak_public    [  51% ] 4 VUs  05m06.6s/10m0s
+soak_student   [  51% ] 3 VUs  05m06.6s/10m0s
+
+running (05m09.0s), 12/12 VUs, 1813 complete and 0 interrupted iterations
+soak_admin     [  51% ] 1 VUs  05m07.6s/10m0s
+soak_api       [  51% ] 4 VUs  05m07.6s/10m0s
+soak_public    [  51% ] 4 VUs  05m07.6s/10m0s
+soak_student   [  51% ] 3 VUs  05m07.6s/10m0s
+
+running (05m10.0s), 12/12 VUs, 1821 complete and 0 interrupted iterations
+soak_admin     [  51% ] 1 VUs  05m08.6s/10m0s
+soak_api       [  51% ] 4 VUs  05m08.6s/10m0s
+soak_public    [  51% ] 4 VUs  05m08.6s/10m0s
+soak_student   [  51% ] 3 VUs  05m08.6s/10m0s
+
+running (05m11.0s), 12/12 VUs, 1824 complete and 0 interrupted iterations
+soak_admin     [  52% ] 1 VUs  05m09.6s/10m0s
+soak_api       [  52% ] 4 VUs  05m09.6s/10m0s
+soak_public    [  52% ] 4 VUs  05m09.6s/10m0s
+soak_student   [  52% ] 3 VUs  05m09.6s/10m0s
+
+running (05m12.0s), 12/12 VUs, 1831 complete and 0 interrupted iterations
+soak_admin     [  52% ] 1 VUs  05m10.6s/10m0s
+soak_api       [  52% ] 4 VUs  05m10.6s/10m0s
+soak_public    [  52% ] 4 VUs  05m10.6s/10m0s
+soak_student   [  52% ] 3 VUs  05m10.6s/10m0s
+
+running (05m13.0s), 12/12 VUs, 1839 complete and 0 interrupted iterations
+soak_admin     [  52% ] 1 VUs  05m11.6s/10m0s
+soak_api       [  52% ] 4 VUs  05m11.6s/10m0s
+soak_public    [  52% ] 4 VUs  05m11.6s/10m0s
+soak_student   [  52% ] 3 VUs  05m11.6s/10m0s
+
+running (05m14.0s), 12/12 VUs, 1842 complete and 0 interrupted iterations
+soak_admin     [  52% ] 1 VUs  05m12.6s/10m0s
+soak_api       [  52% ] 4 VUs  05m12.6s/10m0s
+soak_public    [  52% ] 4 VUs  05m12.6s/10m0s
+soak_student   [  52% ] 3 VUs  05m12.6s/10m0s
+
+running (05m15.0s), 12/12 VUs, 1851 complete and 0 interrupted iterations
+soak_admin     [  52% ] 1 VUs  05m13.6s/10m0s
+soak_api       [  52% ] 4 VUs  05m13.6s/10m0s
+soak_public    [  52% ] 4 VUs  05m13.6s/10m0s
+soak_student   [  52% ] 3 VUs  05m13.6s/10m0s
+
+running (05m16.0s), 12/12 VUs, 1856 complete and 0 interrupted iterations
+soak_admin     [  52% ] 1 VUs  05m14.6s/10m0s
+soak_api       [  52% ] 4 VUs  05m14.6s/10m0s
+soak_public    [  52% ] 4 VUs  05m14.6s/10m0s
+soak_student   [  52% ] 3 VUs  05m14.6s/10m0s
+
+running (05m17.0s), 12/12 VUs, 1860 complete and 0 interrupted iterations
+soak_admin     [  53% ] 1 VUs  05m15.6s/10m0s
+soak_api       [  53% ] 4 VUs  05m15.6s/10m0s
+soak_public    [  53% ] 4 VUs  05m15.6s/10m0s
+soak_student   [  53% ] 3 VUs  05m15.6s/10m0s
+
+running (05m18.0s), 12/12 VUs, 1866 complete and 0 interrupted iterations
+soak_admin     [  53% ] 1 VUs  05m16.6s/10m0s
+soak_api       [  53% ] 4 VUs  05m16.6s/10m0s
+soak_public    [  53% ] 4 VUs  05m16.6s/10m0s
+soak_student   [  53% ] 3 VUs  05m16.6s/10m0s
+
+running (05m19.0s), 12/12 VUs, 1874 complete and 0 interrupted iterations
+soak_admin     [  53% ] 1 VUs  05m17.6s/10m0s
+soak_api       [  53% ] 4 VUs  05m17.6s/10m0s
+soak_public    [  53% ] 4 VUs  05m17.6s/10m0s
+soak_student   [  53% ] 3 VUs  05m17.6s/10m0s
+
+running (05m20.0s), 12/12 VUs, 1879 complete and 0 interrupted iterations
+soak_admin     [  53% ] 1 VUs  05m18.6s/10m0s
+soak_api       [  53% ] 4 VUs  05m18.6s/10m0s
+soak_public    [  53% ] 4 VUs  05m18.6s/10m0s
+soak_student   [  53% ] 3 VUs  05m18.6s/10m0s
+
+running (05m21.0s), 12/12 VUs, 1883 complete and 0 interrupted iterations
+soak_admin     [  53% ] 1 VUs  05m19.6s/10m0s
+soak_api       [  53% ] 4 VUs  05m19.6s/10m0s
+soak_public    [  53% ] 4 VUs  05m19.6s/10m0s
+soak_student   [  53% ] 3 VUs  05m19.6s/10m0s
+
+running (05m22.0s), 12/12 VUs, 1890 complete and 0 interrupted iterations
+soak_admin     [  53% ] 1 VUs  05m20.6s/10m0s
+soak_api       [  53% ] 4 VUs  05m20.6s/10m0s
+soak_public    [  53% ] 4 VUs  05m20.6s/10m0s
+soak_student   [  53% ] 3 VUs  05m20.6s/10m0s
+
+running (05m23.0s), 12/12 VUs, 1896 complete and 0 interrupted iterations
+soak_admin     [  54% ] 1 VUs  05m21.6s/10m0s
+soak_api       [  54% ] 4 VUs  05m21.6s/10m0s
+soak_public    [  54% ] 4 VUs  05m21.6s/10m0s
+soak_student   [  54% ] 3 VUs  05m21.6s/10m0s
+
+running (05m24.0s), 12/12 VUs, 1902 complete and 0 interrupted iterations
+soak_admin     [  54% ] 1 VUs  05m22.6s/10m0s
+soak_api       [  54% ] 4 VUs  05m22.6s/10m0s
+soak_public    [  54% ] 4 VUs  05m22.6s/10m0s
+soak_student   [  54% ] 3 VUs  05m22.6s/10m0s
+
+running (05m25.0s), 12/12 VUs, 1907 complete and 0 interrupted iterations
+soak_admin     [  54% ] 1 VUs  05m23.6s/10m0s
+soak_api       [  54% ] 4 VUs  05m23.6s/10m0s
+soak_public    [  54% ] 4 VUs  05m23.6s/10m0s
+soak_student   [  54% ] 3 VUs  05m23.6s/10m0s
+
+running (05m26.0s), 12/12 VUs, 1911 complete and 0 interrupted iterations
+soak_admin     [  54% ] 1 VUs  05m24.6s/10m0s
+soak_api       [  54% ] 4 VUs  05m24.6s/10m0s
+soak_public    [  54% ] 4 VUs  05m24.6s/10m0s
+soak_student   [  54% ] 3 VUs  05m24.6s/10m0s
+
+running (05m27.0s), 12/12 VUs, 1919 complete and 0 interrupted iterations
+soak_admin     [  54% ] 1 VUs  05m25.6s/10m0s
+soak_api       [  54% ] 4 VUs  05m25.6s/10m0s
+soak_public    [  54% ] 4 VUs  05m25.6s/10m0s
+soak_student   [  54% ] 3 VUs  05m25.6s/10m0s
+
+running (05m28.0s), 12/12 VUs, 1923 complete and 0 interrupted iterations
+soak_admin     [  54% ] 1 VUs  05m26.6s/10m0s
+soak_api       [  54% ] 4 VUs  05m26.6s/10m0s
+soak_public    [  54% ] 4 VUs  05m26.6s/10m0s
+soak_student   [  54% ] 3 VUs  05m26.6s/10m0s
+
+running (05m29.0s), 12/12 VUs, 1931 complete and 0 interrupted iterations
+soak_admin     [  55% ] 1 VUs  05m27.6s/10m0s
+soak_api       [  55% ] 4 VUs  05m27.6s/10m0s
+soak_public    [  55% ] 4 VUs  05m27.6s/10m0s
+soak_student   [  55% ] 3 VUs  05m27.6s/10m0s
+
+running (05m30.0s), 12/12 VUs, 1934 complete and 0 interrupted iterations
+soak_admin     [  55% ] 1 VUs  05m28.6s/10m0s
+soak_api       [  55% ] 4 VUs  05m28.6s/10m0s
+soak_public    [  55% ] 4 VUs  05m28.6s/10m0s
+soak_student   [  55% ] 3 VUs  05m28.6s/10m0s
+
+running (05m31.0s), 12/12 VUs, 1943 complete and 0 interrupted iterations
+soak_admin     [  55% ] 1 VUs  05m29.6s/10m0s
+soak_api       [  55% ] 4 VUs  05m29.6s/10m0s
+soak_public    [  55% ] 4 VUs  05m29.6s/10m0s
+soak_student   [  55% ] 3 VUs  05m29.6s/10m0s
+
+running (05m32.0s), 12/12 VUs, 1946 complete and 0 interrupted iterations
+soak_admin     [  55% ] 1 VUs  05m30.6s/10m0s
+soak_api       [  55% ] 4 VUs  05m30.6s/10m0s
+soak_public    [  55% ] 4 VUs  05m30.6s/10m0s
+soak_student   [  55% ] 3 VUs  05m30.6s/10m0s
+
+running (05m33.0s), 12/12 VUs, 1956 complete and 0 interrupted iterations
+soak_admin     [  55% ] 1 VUs  05m31.6s/10m0s
+soak_api       [  55% ] 4 VUs  05m31.6s/10m0s
+soak_public    [  55% ] 4 VUs  05m31.6s/10m0s
+soak_student   [  55% ] 3 VUs  05m31.6s/10m0s
+
+running (05m34.0s), 12/12 VUs, 1960 complete and 0 interrupted iterations
+soak_admin     [  55% ] 1 VUs  05m32.6s/10m0s
+soak_api       [  55% ] 4 VUs  05m32.6s/10m0s
+soak_public    [  55% ] 4 VUs  05m32.6s/10m0s
+soak_student   [  55% ] 3 VUs  05m32.6s/10m0s
+
+running (05m35.0s), 12/12 VUs, 1963 complete and 0 interrupted iterations
+soak_admin     [  56% ] 1 VUs  05m33.6s/10m0s
+soak_api       [  56% ] 4 VUs  05m33.6s/10m0s
+soak_public    [  56% ] 4 VUs  05m33.6s/10m0s
+soak_student   [  56% ] 3 VUs  05m33.6s/10m0s
+
+running (05m36.0s), 12/12 VUs, 1969 complete and 0 interrupted iterations
+soak_admin     [  56% ] 1 VUs  05m34.6s/10m0s
+soak_api       [  56% ] 4 VUs  05m34.6s/10m0s
+soak_public    [  56% ] 4 VUs  05m34.6s/10m0s
+soak_student   [  56% ] 3 VUs  05m34.6s/10m0s
+
+running (05m37.0s), 12/12 VUs, 1976 complete and 0 interrupted iterations
+soak_admin     [  56% ] 1 VUs  05m35.6s/10m0s
+soak_api       [  56% ] 4 VUs  05m35.6s/10m0s
+soak_public    [  56% ] 4 VUs  05m35.6s/10m0s
+soak_student   [  56% ] 3 VUs  05m35.6s/10m0s
+
+running (05m38.0s), 12/12 VUs, 1984 complete and 0 interrupted iterations
+soak_admin     [  56% ] 1 VUs  05m36.6s/10m0s
+soak_api       [  56% ] 4 VUs  05m36.6s/10m0s
+soak_public    [  56% ] 4 VUs  05m36.6s/10m0s
+soak_student   [  56% ] 3 VUs  05m36.6s/10m0s
+
+running (05m39.0s), 12/12 VUs, 1986 complete and 0 interrupted iterations
+soak_admin     [  56% ] 1 VUs  05m37.6s/10m0s
+soak_api       [  56% ] 4 VUs  05m37.6s/10m0s
+soak_public    [  56% ] 4 VUs  05m37.6s/10m0s
+soak_student   [  56% ] 3 VUs  05m37.6s/10m0s
+
+running (05m40.0s), 12/12 VUs, 1995 complete and 0 interrupted iterations
+soak_admin     [  56% ] 1 VUs  05m38.6s/10m0s
+soak_api       [  56% ] 4 VUs  05m38.6s/10m0s
+soak_public    [  56% ] 4 VUs  05m38.6s/10m0s
+soak_student   [  56% ] 3 VUs  05m38.6s/10m0s
+
+running (05m41.0s), 12/12 VUs, 1999 complete and 0 interrupted iterations
+soak_admin     [  57% ] 1 VUs  05m39.6s/10m0s
+soak_api       [  57% ] 4 VUs  05m39.6s/10m0s
+soak_public    [  57% ] 4 VUs  05m39.6s/10m0s
+soak_student   [  57% ] 3 VUs  05m39.6s/10m0s
+
+running (05m42.0s), 12/12 VUs, 2006 complete and 0 interrupted iterations
+soak_admin     [  57% ] 1 VUs  05m40.6s/10m0s
+soak_api       [  57% ] 4 VUs  05m40.6s/10m0s
+soak_public    [  57% ] 4 VUs  05m40.6s/10m0s
+soak_student   [  57% ] 3 VUs  05m40.6s/10m0s
+
+running (05m43.0s), 12/12 VUs, 2009 complete and 0 interrupted iterations
+soak_admin     [  57% ] 1 VUs  05m41.6s/10m0s
+soak_api       [  57% ] 4 VUs  05m41.6s/10m0s
+soak_public    [  57% ] 4 VUs  05m41.6s/10m0s
+soak_student   [  57% ] 3 VUs  05m41.6s/10m0s
+
+running (05m44.0s), 12/12 VUs, 2016 complete and 0 interrupted iterations
+soak_admin     [  57% ] 1 VUs  05m42.6s/10m0s
+soak_api       [  57% ] 4 VUs  05m42.6s/10m0s
+soak_public    [  57% ] 4 VUs  05m42.6s/10m0s
+soak_student   [  57% ] 3 VUs  05m42.6s/10m0s
+
+running (05m45.0s), 12/12 VUs, 2024 complete and 0 interrupted iterations
+soak_admin     [  57% ] 1 VUs  05m43.6s/10m0s
+soak_api       [  57% ] 4 VUs  05m43.6s/10m0s
+soak_public    [  57% ] 4 VUs  05m43.6s/10m0s
+soak_student   [  57% ] 3 VUs  05m43.6s/10m0s
+
+running (05m46.0s), 12/12 VUs, 2029 complete and 0 interrupted iterations
+soak_admin     [  57% ] 1 VUs  05m44.6s/10m0s
+soak_api       [  57% ] 4 VUs  05m44.6s/10m0s
+soak_public    [  57% ] 4 VUs  05m44.6s/10m0s
+soak_student   [  57% ] 3 VUs  05m44.6s/10m0s
+
+running (05m47.0s), 12/12 VUs, 2035 complete and 0 interrupted iterations
+soak_admin     [  58% ] 1 VUs  05m45.6s/10m0s
+soak_api       [  58% ] 4 VUs  05m45.6s/10m0s
+soak_public    [  58% ] 4 VUs  05m45.6s/10m0s
+soak_student   [  58% ] 3 VUs  05m45.6s/10m0s
+
+running (05m48.0s), 12/12 VUs, 2042 complete and 0 interrupted iterations
+soak_admin     [  58% ] 1 VUs  05m46.6s/10m0s
+soak_api       [  58% ] 4 VUs  05m46.6s/10m0s
+soak_public    [  58% ] 4 VUs  05m46.6s/10m0s
+soak_student   [  58% ] 3 VUs  05m46.6s/10m0s
+
+running (05m49.0s), 12/12 VUs, 2048 complete and 0 interrupted iterations
+soak_admin     [  58% ] 1 VUs  05m47.6s/10m0s
+soak_api       [  58% ] 4 VUs  05m47.6s/10m0s
+soak_public    [  58% ] 4 VUs  05m47.6s/10m0s
+soak_student   [  58% ] 3 VUs  05m47.6s/10m0s
+
+running (05m50.0s), 12/12 VUs, 2054 complete and 0 interrupted iterations
+soak_admin     [  58% ] 1 VUs  05m48.6s/10m0s
+soak_api       [  58% ] 4 VUs  05m48.6s/10m0s
+soak_public    [  58% ] 4 VUs  05m48.6s/10m0s
+soak_student   [  58% ] 3 VUs  05m48.6s/10m0s
+
+running (05m51.0s), 12/12 VUs, 2058 complete and 0 interrupted iterations
+soak_admin     [  58% ] 1 VUs  05m49.6s/10m0s
+soak_api       [  58% ] 4 VUs  05m49.6s/10m0s
+soak_public    [  58% ] 4 VUs  05m49.6s/10m0s
+soak_student   [  58% ] 3 VUs  05m49.6s/10m0s
+
+running (05m52.0s), 12/12 VUs, 2066 complete and 0 interrupted iterations
+soak_admin     [  58% ] 1 VUs  05m50.6s/10m0s
+soak_api       [  58% ] 4 VUs  05m50.6s/10m0s
+soak_public    [  58% ] 4 VUs  05m50.6s/10m0s
+soak_student   [  58% ] 3 VUs  05m50.6s/10m0s
+
+running (05m53.0s), 12/12 VUs, 2071 complete and 0 interrupted iterations
+soak_admin     [  59% ] 1 VUs  05m51.6s/10m0s
+soak_api       [  59% ] 4 VUs  05m51.6s/10m0s
+soak_public    [  59% ] 4 VUs  05m51.6s/10m0s
+soak_student   [  59% ] 3 VUs  05m51.6s/10m0s
+
+running (05m54.0s), 12/12 VUs, 2074 complete and 0 interrupted iterations
+soak_admin     [  59% ] 1 VUs  05m52.6s/10m0s
+soak_api       [  59% ] 4 VUs  05m52.6s/10m0s
+soak_public    [  59% ] 4 VUs  05m52.6s/10m0s
+soak_student   [  59% ] 3 VUs  05m52.6s/10m0s
+
+running (05m55.0s), 12/12 VUs, 2082 complete and 0 interrupted iterations
+soak_admin     [  59% ] 1 VUs  05m53.6s/10m0s
+soak_api       [  59% ] 4 VUs  05m53.6s/10m0s
+soak_public    [  59% ] 4 VUs  05m53.6s/10m0s
+soak_student   [  59% ] 3 VUs  05m53.6s/10m0s
+
+running (05m56.0s), 12/12 VUs, 2087 complete and 0 interrupted iterations
+soak_admin     [  59% ] 1 VUs  05m54.6s/10m0s
+soak_api       [  59% ] 4 VUs  05m54.6s/10m0s
+soak_public    [  59% ] 4 VUs  05m54.6s/10m0s
+soak_student   [  59% ] 3 VUs  05m54.6s/10m0s
+
+running (05m57.0s), 12/12 VUs, 2091 complete and 0 interrupted iterations
+soak_admin     [  59% ] 1 VUs  05m55.6s/10m0s
+soak_api       [  59% ] 4 VUs  05m55.6s/10m0s
+soak_public    [  59% ] 4 VUs  05m55.6s/10m0s
+soak_student   [  59% ] 3 VUs  05m55.6s/10m0s
+
+running (05m58.0s), 12/12 VUs, 2098 complete and 0 interrupted iterations
+soak_admin     [  59% ] 1 VUs  05m56.6s/10m0s
+soak_api       [  59% ] 4 VUs  05m56.6s/10m0s
+soak_public    [  59% ] 4 VUs  05m56.6s/10m0s
+soak_student   [  59% ] 3 VUs  05m56.6s/10m0s
+
+running (05m59.0s), 12/12 VUs, 2103 complete and 0 interrupted iterations
+soak_admin     [  60% ] 1 VUs  05m57.6s/10m0s
+soak_api       [  60% ] 4 VUs  05m57.6s/10m0s
+soak_public    [  60% ] 4 VUs  05m57.6s/10m0s
+soak_student   [  60% ] 3 VUs  05m57.6s/10m0s
+
+running (06m00.0s), 12/12 VUs, 2107 complete and 0 interrupted iterations
+soak_admin     [  60% ] 1 VUs  05m58.6s/10m0s
+soak_api       [  60% ] 4 VUs  05m58.6s/10m0s
+soak_public    [  60% ] 4 VUs  05m58.6s/10m0s
+soak_student   [  60% ] 3 VUs  05m58.6s/10m0s
+
+running (06m01.0s), 12/12 VUs, 2115 complete and 0 interrupted iterations
+soak_admin     [  60% ] 1 VUs  05m59.6s/10m0s
+soak_api       [  60% ] 4 VUs  05m59.6s/10m0s
+soak_public    [  60% ] 4 VUs  05m59.6s/10m0s
+soak_student   [  60% ] 3 VUs  05m59.6s/10m0s
+
+running (06m02.0s), 12/12 VUs, 2120 complete and 0 interrupted iterations
+soak_admin     [  60% ] 1 VUs  06m00.6s/10m0s
+soak_api       [  60% ] 4 VUs  06m00.6s/10m0s
+soak_public    [  60% ] 4 VUs  06m00.6s/10m0s
+soak_student   [  60% ] 3 VUs  06m00.6s/10m0s
+
+running (06m03.0s), 12/12 VUs, 2126 complete and 0 interrupted iterations
+soak_admin     [  60% ] 1 VUs  06m01.6s/10m0s
+soak_api       [  60% ] 4 VUs  06m01.6s/10m0s
+soak_public    [  60% ] 4 VUs  06m01.6s/10m0s
+soak_student   [  60% ] 3 VUs  06m01.6s/10m0s
+
+running (06m04.0s), 12/12 VUs, 2132 complete and 0 interrupted iterations
+soak_admin     [  60% ] 1 VUs  06m02.6s/10m0s
+soak_api       [  60% ] 4 VUs  06m02.6s/10m0s
+soak_public    [  60% ] 4 VUs  06m02.6s/10m0s
+soak_student   [  60% ] 3 VUs  06m02.6s/10m0s
+
+running (06m05.0s), 12/12 VUs, 2138 complete and 0 interrupted iterations
+soak_admin     [  61% ] 1 VUs  06m03.6s/10m0s
+soak_api       [  61% ] 4 VUs  06m03.6s/10m0s
+soak_public    [  61% ] 4 VUs  06m03.6s/10m0s
+soak_student   [  61% ] 3 VUs  06m03.6s/10m0s
+
+running (06m06.0s), 12/12 VUs, 2145 complete and 0 interrupted iterations
+soak_admin     [  61% ] 1 VUs  06m04.6s/10m0s
+soak_api       [  61% ] 4 VUs  06m04.6s/10m0s
+soak_public    [  61% ] 4 VUs  06m04.6s/10m0s
+soak_student   [  61% ] 3 VUs  06m04.6s/10m0s
+
+running (06m07.0s), 12/12 VUs, 2149 complete and 0 interrupted iterations
+soak_admin     [  61% ] 1 VUs  06m05.6s/10m0s
+soak_api       [  61% ] 4 VUs  06m05.6s/10m0s
+soak_public    [  61% ] 4 VUs  06m05.6s/10m0s
+soak_student   [  61% ] 3 VUs  06m05.6s/10m0s
+
+running (06m08.0s), 12/12 VUs, 2157 complete and 0 interrupted iterations
+soak_admin     [  61% ] 1 VUs  06m06.6s/10m0s
+soak_api       [  61% ] 4 VUs  06m06.6s/10m0s
+soak_public    [  61% ] 4 VUs  06m06.6s/10m0s
+soak_student   [  61% ] 3 VUs  06m06.6s/10m0s
+
+running (06m09.0s), 12/12 VUs, 2165 complete and 0 interrupted iterations
+soak_admin     [  61% ] 1 VUs  06m07.6s/10m0s
+soak_api       [  61% ] 4 VUs  06m07.6s/10m0s
+soak_public    [  61% ] 4 VUs  06m07.6s/10m0s
+soak_student   [  61% ] 3 VUs  06m07.6s/10m0s
+
+running (06m10.0s), 12/12 VUs, 2168 complete and 0 interrupted iterations
+soak_admin     [  61% ] 1 VUs  06m08.6s/10m0s
+soak_api       [  61% ] 4 VUs  06m08.6s/10m0s
+soak_public    [  61% ] 4 VUs  06m08.6s/10m0s
+soak_student   [  61% ] 3 VUs  06m08.6s/10m0s
+
+running (06m11.0s), 12/12 VUs, 2175 complete and 0 interrupted iterations
+soak_admin     [  62% ] 1 VUs  06m09.6s/10m0s
+soak_api       [  62% ] 4 VUs  06m09.6s/10m0s
+soak_public    [  62% ] 4 VUs  06m09.6s/10m0s
+soak_student   [  62% ] 3 VUs  06m09.6s/10m0s
+
+running (06m12.0s), 12/12 VUs, 2181 complete and 0 interrupted iterations
+soak_admin     [  62% ] 1 VUs  06m10.6s/10m0s
+soak_api       [  62% ] 4 VUs  06m10.6s/10m0s
+soak_public    [  62% ] 4 VUs  06m10.6s/10m0s
+soak_student   [  62% ] 3 VUs  06m10.6s/10m0s
+
+running (06m13.0s), 12/12 VUs, 2187 complete and 0 interrupted iterations
+soak_admin     [  62% ] 1 VUs  06m11.6s/10m0s
+soak_api       [  62% ] 4 VUs  06m11.6s/10m0s
+soak_public    [  62% ] 4 VUs  06m11.6s/10m0s
+soak_student   [  62% ] 3 VUs  06m11.6s/10m0s
+
+running (06m14.0s), 12/12 VUs, 2193 complete and 0 interrupted iterations
+soak_admin     [  62% ] 1 VUs  06m12.6s/10m0s
+soak_api       [  62% ] 4 VUs  06m12.6s/10m0s
+soak_public    [  62% ] 4 VUs  06m12.6s/10m0s
+soak_student   [  62% ] 3 VUs  06m12.6s/10m0s
+
+running (06m15.0s), 12/12 VUs, 2200 complete and 0 interrupted iterations
+soak_admin     [  62% ] 1 VUs  06m13.6s/10m0s
+soak_api       [  62% ] 4 VUs  06m13.6s/10m0s
+soak_public    [  62% ] 4 VUs  06m13.6s/10m0s
+soak_student   [  62% ] 3 VUs  06m13.6s/10m0s
+
+running (06m16.0s), 12/12 VUs, 2206 complete and 0 interrupted iterations
+soak_admin     [  62% ] 1 VUs  06m14.6s/10m0s
+soak_api       [  62% ] 4 VUs  06m14.6s/10m0s
+soak_public    [  62% ] 4 VUs  06m14.6s/10m0s
+soak_student   [  62% ] 3 VUs  06m14.6s/10m0s
+
+running (06m17.0s), 12/12 VUs, 2211 complete and 0 interrupted iterations
+soak_admin     [  63% ] 1 VUs  06m15.6s/10m0s
+soak_api       [  63% ] 4 VUs  06m15.6s/10m0s
+soak_public    [  63% ] 4 VUs  06m15.6s/10m0s
+soak_student   [  63% ] 3 VUs  06m15.6s/10m0s
+
+running (06m18.0s), 12/12 VUs, 2213 complete and 0 interrupted iterations
+soak_admin     [  63% ] 1 VUs  06m16.6s/10m0s
+soak_api       [  63% ] 4 VUs  06m16.6s/10m0s
+soak_public    [  63% ] 4 VUs  06m16.6s/10m0s
+soak_student   [  63% ] 3 VUs  06m16.6s/10m0s
+
+running (06m19.0s), 12/12 VUs, 2221 complete and 0 interrupted iterations
+soak_admin     [  63% ] 1 VUs  06m17.6s/10m0s
+soak_api       [  63% ] 4 VUs  06m17.6s/10m0s
+soak_public    [  63% ] 4 VUs  06m17.6s/10m0s
+soak_student   [  63% ] 3 VUs  06m17.6s/10m0s
+
+running (06m20.0s), 12/12 VUs, 2227 complete and 0 interrupted iterations
+soak_admin     [  63% ] 1 VUs  06m18.6s/10m0s
+soak_api       [  63% ] 4 VUs  06m18.6s/10m0s
+soak_public    [  63% ] 4 VUs  06m18.6s/10m0s
+soak_student   [  63% ] 3 VUs  06m18.6s/10m0s
+
+running (06m21.0s), 12/12 VUs, 2232 complete and 0 interrupted iterations
+soak_admin     [  63% ] 1 VUs  06m19.6s/10m0s
+soak_api       [  63% ] 4 VUs  06m19.6s/10m0s
+soak_public    [  63% ] 4 VUs  06m19.6s/10m0s
+soak_student   [  63% ] 3 VUs  06m19.6s/10m0s
+
+running (06m22.0s), 12/12 VUs, 2239 complete and 0 interrupted iterations
+soak_admin     [  63% ] 1 VUs  06m20.6s/10m0s
+soak_api       [  63% ] 4 VUs  06m20.6s/10m0s
+soak_public    [  63% ] 4 VUs  06m20.6s/10m0s
+soak_student   [  63% ] 3 VUs  06m20.6s/10m0s
+
+running (06m23.0s), 12/12 VUs, 2244 complete and 0 interrupted iterations
+soak_admin     [  64% ] 1 VUs  06m21.6s/10m0s
+soak_api       [  64% ] 4 VUs  06m21.6s/10m0s
+soak_public    [  64% ] 4 VUs  06m21.6s/10m0s
+soak_student   [  64% ] 3 VUs  06m21.6s/10m0s
+
+running (06m24.0s), 12/12 VUs, 2251 complete and 0 interrupted iterations
+soak_admin     [  64% ] 1 VUs  06m22.6s/10m0s
+soak_api       [  64% ] 4 VUs  06m22.6s/10m0s
+soak_public    [  64% ] 4 VUs  06m22.6s/10m0s
+soak_student   [  64% ] 3 VUs  06m22.6s/10m0s
+
+running (06m25.0s), 12/12 VUs, 2257 complete and 0 interrupted iterations
+soak_admin     [  64% ] 1 VUs  06m23.6s/10m0s
+soak_api       [  64% ] 4 VUs  06m23.6s/10m0s
+soak_public    [  64% ] 4 VUs  06m23.6s/10m0s
+soak_student   [  64% ] 3 VUs  06m23.6s/10m0s
+
+running (06m26.0s), 12/12 VUs, 2265 complete and 0 interrupted iterations
+soak_admin     [  64% ] 1 VUs  06m24.6s/10m0s
+soak_api       [  64% ] 4 VUs  06m24.6s/10m0s
+soak_public    [  64% ] 4 VUs  06m24.6s/10m0s
+soak_student   [  64% ] 3 VUs  06m24.6s/10m0s
+
+running (06m27.0s), 12/12 VUs, 2269 complete and 0 interrupted iterations
+soak_admin     [  64% ] 1 VUs  06m25.6s/10m0s
+soak_api       [  64% ] 4 VUs  06m25.6s/10m0s
+soak_public    [  64% ] 4 VUs  06m25.6s/10m0s
+soak_student   [  64% ] 3 VUs  06m25.6s/10m0s
+
+running (06m28.0s), 12/12 VUs, 2273 complete and 0 interrupted iterations
+soak_admin     [  64% ] 1 VUs  06m26.6s/10m0s
+soak_api       [  64% ] 4 VUs  06m26.6s/10m0s
+soak_public    [  64% ] 4 VUs  06m26.6s/10m0s
+soak_student   [  64% ] 3 VUs  06m26.6s/10m0s
+
+running (06m29.0s), 12/12 VUs, 2281 complete and 0 interrupted iterations
+soak_admin     [  65% ] 1 VUs  06m27.6s/10m0s
+soak_api       [  65% ] 4 VUs  06m27.6s/10m0s
+soak_public    [  65% ] 4 VUs  06m27.6s/10m0s
+soak_student   [  65% ] 3 VUs  06m27.6s/10m0s
+
+running (06m30.0s), 12/12 VUs, 2288 complete and 0 interrupted iterations
+soak_admin     [  65% ] 1 VUs  06m28.6s/10m0s
+soak_api       [  65% ] 4 VUs  06m28.6s/10m0s
+soak_public    [  65% ] 4 VUs  06m28.6s/10m0s
+soak_student   [  65% ] 3 VUs  06m28.6s/10m0s
+
+running (06m31.0s), 12/12 VUs, 2290 complete and 0 interrupted iterations
+soak_admin     [  65% ] 1 VUs  06m29.6s/10m0s
+soak_api       [  65% ] 4 VUs  06m29.6s/10m0s
+soak_public    [  65% ] 4 VUs  06m29.6s/10m0s
+soak_student   [  65% ] 3 VUs  06m29.6s/10m0s
+
+running (06m32.0s), 12/12 VUs, 2299 complete and 0 interrupted iterations
+soak_admin     [  65% ] 1 VUs  06m30.6s/10m0s
+soak_api       [  65% ] 4 VUs  06m30.6s/10m0s
+soak_public    [  65% ] 4 VUs  06m30.6s/10m0s
+soak_student   [  65% ] 3 VUs  06m30.6s/10m0s
+
+running (06m33.0s), 12/12 VUs, 2303 complete and 0 interrupted iterations
+soak_admin     [  65% ] 1 VUs  06m31.6s/10m0s
+soak_api       [  65% ] 4 VUs  06m31.6s/10m0s
+soak_public    [  65% ] 4 VUs  06m31.6s/10m0s
+soak_student   [  65% ] 3 VUs  06m31.6s/10m0s
+
+running (06m34.0s), 12/12 VUs, 2307 complete and 0 interrupted iterations
+soak_admin     [  65% ] 1 VUs  06m32.6s/10m0s
+soak_api       [  65% ] 4 VUs  06m32.6s/10m0s
+soak_public    [  65% ] 4 VUs  06m32.6s/10m0s
+soak_student   [  65% ] 3 VUs  06m32.6s/10m0s
+
+running (06m35.0s), 12/12 VUs, 2315 complete and 0 interrupted iterations
+soak_admin     [  66% ] 1 VUs  06m33.6s/10m0s
+soak_api       [  66% ] 4 VUs  06m33.6s/10m0s
+soak_public    [  66% ] 4 VUs  06m33.6s/10m0s
+soak_student   [  66% ] 3 VUs  06m33.6s/10m0s
+
+running (06m36.0s), 12/12 VUs, 2319 complete and 0 interrupted iterations
+soak_admin     [  66% ] 1 VUs  06m34.6s/10m0s
+soak_api       [  66% ] 4 VUs  06m34.6s/10m0s
+soak_public    [  66% ] 4 VUs  06m34.6s/10m0s
+soak_student   [  66% ] 3 VUs  06m34.6s/10m0s
+
+running (06m37.0s), 12/12 VUs, 2325 complete and 0 interrupted iterations
+soak_admin     [  66% ] 1 VUs  06m35.6s/10m0s
+soak_api       [  66% ] 4 VUs  06m35.6s/10m0s
+soak_public    [  66% ] 4 VUs  06m35.6s/10m0s
+soak_student   [  66% ] 3 VUs  06m35.6s/10m0s
+
+running (06m38.0s), 12/12 VUs, 2333 complete and 0 interrupted iterations
+soak_admin     [  66% ] 1 VUs  06m36.6s/10m0s
+soak_api       [  66% ] 4 VUs  06m36.6s/10m0s
+soak_public    [  66% ] 4 VUs  06m36.6s/10m0s
+soak_student   [  66% ] 3 VUs  06m36.6s/10m0s
+
+running (06m39.0s), 12/12 VUs, 2339 complete and 0 interrupted iterations
+soak_admin     [  66% ] 1 VUs  06m37.6s/10m0s
+soak_api       [  66% ] 4 VUs  06m37.6s/10m0s
+soak_public    [  66% ] 4 VUs  06m37.6s/10m0s
+soak_student   [  66% ] 3 VUs  06m37.6s/10m0s
+
+running (06m40.0s), 12/12 VUs, 2344 complete and 0 interrupted iterations
+soak_admin     [  66% ] 1 VUs  06m38.6s/10m0s
+soak_api       [  66% ] 4 VUs  06m38.6s/10m0s
+soak_public    [  66% ] 4 VUs  06m38.6s/10m0s
+soak_student   [  66% ] 3 VUs  06m38.6s/10m0s
+
+running (06m41.0s), 12/12 VUs, 2350 complete and 0 interrupted iterations
+soak_admin     [  67% ] 1 VUs  06m39.6s/10m0s
+soak_api       [  67% ] 4 VUs  06m39.6s/10m0s
+soak_public    [  67% ] 4 VUs  06m39.6s/10m0s
+soak_student   [  67% ] 3 VUs  06m39.6s/10m0s
+
+running (06m42.0s), 12/12 VUs, 2357 complete and 0 interrupted iterations
+soak_admin     [  67% ] 1 VUs  06m40.6s/10m0s
+soak_api       [  67% ] 4 VUs  06m40.6s/10m0s
+soak_public    [  67% ] 4 VUs  06m40.6s/10m0s
+soak_student   [  67% ] 3 VUs  06m40.6s/10m0s
+
+running (06m43.0s), 12/12 VUs, 2363 complete and 0 interrupted iterations
+soak_admin     [  67% ] 1 VUs  06m41.6s/10m0s
+soak_api       [  67% ] 4 VUs  06m41.6s/10m0s
+soak_public    [  67% ] 4 VUs  06m41.6s/10m0s
+soak_student   [  67% ] 3 VUs  06m41.6s/10m0s
+
+running (06m44.0s), 12/12 VUs, 2367 complete and 0 interrupted iterations
+soak_admin     [  67% ] 1 VUs  06m42.6s/10m0s
+soak_api       [  67% ] 4 VUs  06m42.6s/10m0s
+soak_public    [  67% ] 4 VUs  06m42.6s/10m0s
+soak_student   [  67% ] 3 VUs  06m42.6s/10m0s
+
+running (06m45.0s), 12/12 VUs, 2375 complete and 0 interrupted iterations
+soak_admin     [  67% ] 1 VUs  06m43.6s/10m0s
+soak_api       [  67% ] 4 VUs  06m43.6s/10m0s
+soak_public    [  67% ] 4 VUs  06m43.6s/10m0s
+soak_student   [  67% ] 3 VUs  06m43.6s/10m0s
+
+running (06m46.0s), 12/12 VUs, 2381 complete and 0 interrupted iterations
+soak_admin     [  67% ] 1 VUs  06m44.6s/10m0s
+soak_api       [  67% ] 4 VUs  06m44.6s/10m0s
+soak_public    [  67% ] 4 VUs  06m44.6s/10m0s
+soak_student   [  67% ] 3 VUs  06m44.6s/10m0s
+
+running (06m47.0s), 12/12 VUs, 2389 complete and 0 interrupted iterations
+soak_admin     [  68% ] 1 VUs  06m45.6s/10m0s
+soak_api       [  68% ] 4 VUs  06m45.6s/10m0s
+soak_public    [  68% ] 4 VUs  06m45.6s/10m0s
+soak_student   [  68% ] 3 VUs  06m45.6s/10m0s
+
+running (06m48.0s), 12/12 VUs, 2393 complete and 0 interrupted iterations
+soak_admin     [  68% ] 1 VUs  06m46.6s/10m0s
+soak_api       [  68% ] 4 VUs  06m46.6s/10m0s
+soak_public    [  68% ] 4 VUs  06m46.6s/10m0s
+soak_student   [  68% ] 3 VUs  06m46.6s/10m0s
+
+running (06m49.0s), 12/12 VUs, 2400 complete and 0 interrupted iterations
+soak_admin     [  68% ] 1 VUs  06m47.6s/10m0s
+soak_api       [  68% ] 4 VUs  06m47.6s/10m0s
+soak_public    [  68% ] 4 VUs  06m47.6s/10m0s
+soak_student   [  68% ] 3 VUs  06m47.6s/10m0s
+
+running (06m50.0s), 12/12 VUs, 2406 complete and 0 interrupted iterations
+soak_admin     [  68% ] 1 VUs  06m48.6s/10m0s
+soak_api       [  68% ] 4 VUs  06m48.6s/10m0s
+soak_public    [  68% ] 4 VUs  06m48.6s/10m0s
+soak_student   [  68% ] 3 VUs  06m48.6s/10m0s
+
+running (06m51.0s), 12/12 VUs, 2408 complete and 0 interrupted iterations
+soak_admin     [  68% ] 1 VUs  06m49.6s/10m0s
+soak_api       [  68% ] 4 VUs  06m49.6s/10m0s
+soak_public    [  68% ] 4 VUs  06m49.6s/10m0s
+soak_student   [  68% ] 3 VUs  06m49.6s/10m0s
+
+running (06m52.0s), 12/12 VUs, 2416 complete and 0 interrupted iterations
+soak_admin     [  68% ] 1 VUs  06m50.6s/10m0s
+soak_api       [  68% ] 4 VUs  06m50.6s/10m0s
+soak_public    [  68% ] 4 VUs  06m50.6s/10m0s
+soak_student   [  68% ] 3 VUs  06m50.6s/10m0s
+
+running (06m53.0s), 12/12 VUs, 2423 complete and 0 interrupted iterations
+soak_admin     [  69% ] 1 VUs  06m51.6s/10m0s
+soak_api       [  69% ] 4 VUs  06m51.6s/10m0s
+soak_public    [  69% ] 4 VUs  06m51.6s/10m0s
+soak_student   [  69% ] 3 VUs  06m51.6s/10m0s
+
+running (06m54.0s), 12/12 VUs, 2428 complete and 0 interrupted iterations
+soak_admin     [  69% ] 1 VUs  06m52.6s/10m0s
+soak_api       [  69% ] 4 VUs  06m52.6s/10m0s
+soak_public    [  69% ] 4 VUs  06m52.6s/10m0s
+soak_student   [  69% ] 3 VUs  06m52.6s/10m0s
+
+running (06m55.0s), 12/12 VUs, 2432 complete and 0 interrupted iterations
+soak_admin     [  69% ] 1 VUs  06m53.6s/10m0s
+soak_api       [  69% ] 4 VUs  06m53.6s/10m0s
+soak_public    [  69% ] 4 VUs  06m53.6s/10m0s
+soak_student   [  69% ] 3 VUs  06m53.6s/10m0s
+
+running (06m56.0s), 12/12 VUs, 2440 complete and 0 interrupted iterations
+soak_admin     [  69% ] 1 VUs  06m54.6s/10m0s
+soak_api       [  69% ] 4 VUs  06m54.6s/10m0s
+soak_public    [  69% ] 4 VUs  06m54.6s/10m0s
+soak_student   [  69% ] 3 VUs  06m54.6s/10m0s
+
+running (06m57.0s), 12/12 VUs, 2445 complete and 0 interrupted iterations
+soak_admin     [  69% ] 1 VUs  06m55.6s/10m0s
+soak_api       [  69% ] 4 VUs  06m55.6s/10m0s
+soak_public    [  69% ] 4 VUs  06m55.6s/10m0s
+soak_student   [  69% ] 3 VUs  06m55.6s/10m0s
+
+running (06m58.0s), 12/12 VUs, 2452 complete and 0 interrupted iterations
+soak_admin     [  69% ] 1 VUs  06m56.6s/10m0s
+soak_api       [  69% ] 4 VUs  06m56.6s/10m0s
+soak_public    [  69% ] 4 VUs  06m56.6s/10m0s
+soak_student   [  69% ] 3 VUs  06m56.6s/10m0s
+
+running (06m59.0s), 12/12 VUs, 2459 complete and 0 interrupted iterations
+soak_admin     [  70% ] 1 VUs  06m57.6s/10m0s
+soak_api       [  70% ] 4 VUs  06m57.6s/10m0s
+soak_public    [  70% ] 4 VUs  06m57.6s/10m0s
+soak_student   [  70% ] 3 VUs  06m57.6s/10m0s
+
+running (07m00.0s), 12/12 VUs, 2464 complete and 0 interrupted iterations
+soak_admin     [  70% ] 1 VUs  06m58.6s/10m0s
+soak_api       [  70% ] 4 VUs  06m58.6s/10m0s
+soak_public    [  70% ] 4 VUs  06m58.6s/10m0s
+soak_student   [  70% ] 3 VUs  06m58.6s/10m0s
+
+running (07m01.0s), 12/12 VUs, 2472 complete and 0 interrupted iterations
+soak_admin     [  70% ] 1 VUs  06m59.6s/10m0s
+soak_api       [  70% ] 4 VUs  06m59.6s/10m0s
+soak_public    [  70% ] 4 VUs  06m59.6s/10m0s
+soak_student   [  70% ] 3 VUs  06m59.6s/10m0s
+
+running (07m02.0s), 12/12 VUs, 2480 complete and 0 interrupted iterations
+soak_admin     [  70% ] 1 VUs  07m00.6s/10m0s
+soak_api       [  70% ] 4 VUs  07m00.6s/10m0s
+soak_public    [  70% ] 4 VUs  07m00.6s/10m0s
+soak_student   [  70% ] 3 VUs  07m00.6s/10m0s
+
+running (07m03.0s), 12/12 VUs, 2484 complete and 0 interrupted iterations
+soak_admin     [  70% ] 1 VUs  07m01.6s/10m0s
+soak_api       [  70% ] 4 VUs  07m01.6s/10m0s
+soak_public    [  70% ] 4 VUs  07m01.6s/10m0s
+soak_student   [  70% ] 3 VUs  07m01.6s/10m0s
+
+running (07m04.0s), 12/12 VUs, 2491 complete and 0 interrupted iterations
+soak_admin     [  70% ] 1 VUs  07m02.6s/10m0s
+soak_api       [  70% ] 4 VUs  07m02.6s/10m0s
+soak_public    [  70% ] 4 VUs  07m02.6s/10m0s
+soak_student   [  70% ] 3 VUs  07m02.6s/10m0s
+
+running (07m05.0s), 12/12 VUs, 2494 complete and 0 interrupted iterations
+soak_admin     [  71% ] 1 VUs  07m03.6s/10m0s
+soak_api       [  71% ] 4 VUs  07m03.6s/10m0s
+soak_public    [  71% ] 4 VUs  07m03.6s/10m0s
+soak_student   [  71% ] 3 VUs  07m03.6s/10m0s
+
+running (07m06.0s), 12/12 VUs, 2502 complete and 0 interrupted iterations
+soak_admin     [  71% ] 1 VUs  07m04.6s/10m0s
+soak_api       [  71% ] 4 VUs  07m04.6s/10m0s
+soak_public    [  71% ] 4 VUs  07m04.6s/10m0s
+soak_student   [  71% ] 3 VUs  07m04.6s/10m0s
+
+running (07m07.0s), 12/12 VUs, 2508 complete and 0 interrupted iterations
+soak_admin     [  71% ] 1 VUs  07m05.6s/10m0s
+soak_api       [  71% ] 4 VUs  07m05.6s/10m0s
+soak_public    [  71% ] 4 VUs  07m05.6s/10m0s
+soak_student   [  71% ] 3 VUs  07m05.6s/10m0s
+
+running (07m08.0s), 12/12 VUs, 2511 complete and 0 interrupted iterations
+soak_admin     [  71% ] 1 VUs  07m06.6s/10m0s
+soak_api       [  71% ] 4 VUs  07m06.6s/10m0s
+soak_public    [  71% ] 4 VUs  07m06.6s/10m0s
+soak_student   [  71% ] 3 VUs  07m06.6s/10m0s
+
+running (07m09.0s), 12/12 VUs, 2516 complete and 0 interrupted iterations
+soak_admin     [  71% ] 1 VUs  07m07.6s/10m0s
+soak_api       [  71% ] 4 VUs  07m07.6s/10m0s
+soak_public    [  71% ] 4 VUs  07m07.6s/10m0s
+soak_student   [  71% ] 3 VUs  07m07.6s/10m0s
+
+running (07m10.0s), 12/12 VUs, 2522 complete and 0 interrupted iterations
+soak_admin     [  71% ] 1 VUs  07m08.6s/10m0s
+soak_api       [  71% ] 4 VUs  07m08.6s/10m0s
+soak_public    [  71% ] 4 VUs  07m08.6s/10m0s
+soak_student   [  71% ] 3 VUs  07m08.6s/10m0s
+
+running (07m11.0s), 12/12 VUs, 2529 complete and 0 interrupted iterations
+soak_admin     [  72% ] 1 VUs  07m09.6s/10m0s
+soak_api       [  72% ] 4 VUs  07m09.6s/10m0s
+soak_public    [  72% ] 4 VUs  07m09.6s/10m0s
+soak_student   [  72% ] 3 VUs  07m09.6s/10m0s
+
+running (07m12.0s), 12/12 VUs, 2535 complete and 0 interrupted iterations
+soak_admin     [  72% ] 1 VUs  07m10.6s/10m0s
+soak_api       [  72% ] 4 VUs  07m10.6s/10m0s
+soak_public    [  72% ] 4 VUs  07m10.6s/10m0s
+soak_student   [  72% ] 3 VUs  07m10.6s/10m0s
+
+running (07m13.0s), 12/12 VUs, 2540 complete and 0 interrupted iterations
+soak_admin     [  72% ] 1 VUs  07m11.6s/10m0s
+soak_api       [  72% ] 4 VUs  07m11.6s/10m0s
+soak_public    [  72% ] 4 VUs  07m11.6s/10m0s
+soak_student   [  72% ] 3 VUs  07m11.6s/10m0s
+
+running (07m14.0s), 12/12 VUs, 2546 complete and 0 interrupted iterations
+soak_admin     [  72% ] 1 VUs  07m12.6s/10m0s
+soak_api       [  72% ] 4 VUs  07m12.6s/10m0s
+soak_public    [  72% ] 4 VUs  07m12.6s/10m0s
+soak_student   [  72% ] 3 VUs  07m12.6s/10m0s
+
+running (07m15.0s), 12/12 VUs, 2554 complete and 0 interrupted iterations
+soak_admin     [  72% ] 1 VUs  07m13.6s/10m0s
+soak_api       [  72% ] 4 VUs  07m13.6s/10m0s
+soak_public    [  72% ] 4 VUs  07m13.6s/10m0s
+soak_student   [  72% ] 3 VUs  07m13.6s/10m0s
+
+running (07m16.0s), 12/12 VUs, 2556 complete and 0 interrupted iterations
+soak_admin     [  72% ] 1 VUs  07m14.6s/10m0s
+soak_api       [  72% ] 4 VUs  07m14.6s/10m0s
+soak_public    [  72% ] 4 VUs  07m14.6s/10m0s
+soak_student   [  72% ] 3 VUs  07m14.6s/10m0s
+
+running (07m17.0s), 12/12 VUs, 2564 complete and 0 interrupted iterations
+soak_admin     [  73% ] 1 VUs  07m15.6s/10m0s
+soak_api       [  73% ] 4 VUs  07m15.6s/10m0s
+soak_public    [  73% ] 4 VUs  07m15.6s/10m0s
+soak_student   [  73% ] 3 VUs  07m15.6s/10m0s
+
+running (07m18.0s), 12/12 VUs, 2567 complete and 0 interrupted iterations
+soak_admin     [  73% ] 1 VUs  07m16.6s/10m0s
+soak_api       [  73% ] 4 VUs  07m16.6s/10m0s
+soak_public    [  73% ] 4 VUs  07m16.6s/10m0s
+soak_student   [  73% ] 3 VUs  07m16.6s/10m0s
+
+running (07m19.0s), 12/12 VUs, 2574 complete and 0 interrupted iterations
+soak_admin     [  73% ] 1 VUs  07m17.6s/10m0s
+soak_api       [  73% ] 4 VUs  07m17.6s/10m0s
+soak_public    [  73% ] 4 VUs  07m17.6s/10m0s
+soak_student   [  73% ] 3 VUs  07m17.6s/10m0s
+
+running (07m20.0s), 12/12 VUs, 2580 complete and 0 interrupted iterations
+soak_admin     [  73% ] 1 VUs  07m18.6s/10m0s
+soak_api       [  73% ] 4 VUs  07m18.6s/10m0s
+soak_public    [  73% ] 4 VUs  07m18.6s/10m0s
+soak_student   [  73% ] 3 VUs  07m18.6s/10m0s
+
+running (07m21.0s), 12/12 VUs, 2586 complete and 0 interrupted iterations
+soak_admin     [  73% ] 1 VUs  07m19.6s/10m0s
+soak_api       [  73% ] 4 VUs  07m19.6s/10m0s
+soak_public    [  73% ] 4 VUs  07m19.6s/10m0s
+soak_student   [  73% ] 3 VUs  07m19.6s/10m0s
+
+running (07m22.0s), 12/12 VUs, 2592 complete and 0 interrupted iterations
+soak_admin     [  73% ] 1 VUs  07m20.6s/10m0s
+soak_api       [  73% ] 4 VUs  07m20.6s/10m0s
+soak_public    [  73% ] 4 VUs  07m20.6s/10m0s
+soak_student   [  73% ] 3 VUs  07m20.6s/10m0s
+
+running (07m23.0s), 12/12 VUs, 2597 complete and 0 interrupted iterations
+soak_admin     [  74% ] 1 VUs  07m21.6s/10m0s
+soak_api       [  74% ] 4 VUs  07m21.6s/10m0s
+soak_public    [  74% ] 4 VUs  07m21.6s/10m0s
+soak_student   [  74% ] 3 VUs  07m21.6s/10m0s
+
+running (07m24.0s), 12/12 VUs, 2604 complete and 0 interrupted iterations
+soak_admin     [  74% ] 1 VUs  07m22.6s/10m0s
+soak_api       [  74% ] 4 VUs  07m22.6s/10m0s
+soak_public    [  74% ] 4 VUs  07m22.6s/10m0s
+soak_student   [  74% ] 3 VUs  07m22.6s/10m0s
+
+running (07m25.0s), 12/12 VUs, 2609 complete and 0 interrupted iterations
+soak_admin     [  74% ] 1 VUs  07m23.6s/10m0s
+soak_api       [  74% ] 4 VUs  07m23.6s/10m0s
+soak_public    [  74% ] 4 VUs  07m23.6s/10m0s
+soak_student   [  74% ] 3 VUs  07m23.6s/10m0s
+
+running (07m26.0s), 12/12 VUs, 2617 complete and 0 interrupted iterations
+soak_admin     [  74% ] 1 VUs  07m24.6s/10m0s
+soak_api       [  74% ] 4 VUs  07m24.6s/10m0s
+soak_public    [  74% ] 4 VUs  07m24.6s/10m0s
+soak_student   [  74% ] 3 VUs  07m24.6s/10m0s
+
+running (07m27.0s), 12/12 VUs, 2623 complete and 0 interrupted iterations
+soak_admin     [  74% ] 1 VUs  07m25.6s/10m0s
+soak_api       [  74% ] 4 VUs  07m25.6s/10m0s
+soak_public    [  74% ] 4 VUs  07m25.6s/10m0s
+soak_student   [  74% ] 3 VUs  07m25.6s/10m0s
+
+running (07m28.0s), 12/12 VUs, 2626 complete and 0 interrupted iterations
+soak_admin     [  74% ] 1 VUs  07m26.6s/10m0s
+soak_api       [  74% ] 4 VUs  07m26.6s/10m0s
+soak_public    [  74% ] 4 VUs  07m26.6s/10m0s
+soak_student   [  74% ] 3 VUs  07m26.6s/10m0s
+
+running (07m29.0s), 12/12 VUs, 2635 complete and 0 interrupted iterations
+soak_admin     [  75% ] 1 VUs  07m27.6s/10m0s
+soak_api       [  75% ] 4 VUs  07m27.6s/10m0s
+soak_public    [  75% ] 4 VUs  07m27.6s/10m0s
+soak_student   [  75% ] 3 VUs  07m27.6s/10m0s
+
+running (07m30.0s), 12/12 VUs, 2638 complete and 0 interrupted iterations
+soak_admin     [  75% ] 1 VUs  07m28.6s/10m0s
+soak_api       [  75% ] 4 VUs  07m28.6s/10m0s
+soak_public    [  75% ] 4 VUs  07m28.6s/10m0s
+soak_student   [  75% ] 3 VUs  07m28.6s/10m0s
+
+running (07m31.0s), 12/12 VUs, 2642 complete and 0 interrupted iterations
+soak_admin     [  75% ] 1 VUs  07m29.6s/10m0s
+soak_api       [  75% ] 4 VUs  07m29.6s/10m0s
+soak_public    [  75% ] 4 VUs  07m29.6s/10m0s
+soak_student   [  75% ] 3 VUs  07m29.6s/10m0s
+
+running (07m32.0s), 12/12 VUs, 2649 complete and 0 interrupted iterations
+soak_admin     [  75% ] 1 VUs  07m30.6s/10m0s
+soak_api       [  75% ] 4 VUs  07m30.6s/10m0s
+soak_public    [  75% ] 4 VUs  07m30.6s/10m0s
+soak_student   [  75% ] 3 VUs  07m30.6s/10m0s
+
+running (07m33.0s), 12/12 VUs, 2656 complete and 0 interrupted iterations
+soak_admin     [  75% ] 1 VUs  07m31.6s/10m0s
+soak_api       [  75% ] 4 VUs  07m31.6s/10m0s
+soak_public    [  75% ] 4 VUs  07m31.6s/10m0s
+soak_student   [  75% ] 3 VUs  07m31.6s/10m0s
+
+running (07m34.0s), 12/12 VUs, 2658 complete and 0 interrupted iterations
+soak_admin     [  75% ] 1 VUs  07m32.6s/10m0s
+soak_api       [  75% ] 4 VUs  07m32.6s/10m0s
+soak_public    [  75% ] 4 VUs  07m32.6s/10m0s
+soak_student   [  75% ] 3 VUs  07m32.6s/10m0s
+
+running (07m35.0s), 12/12 VUs, 2664 complete and 0 interrupted iterations
+soak_admin     [  76% ] 1 VUs  07m33.6s/10m0s
+soak_api       [  76% ] 4 VUs  07m33.6s/10m0s
+soak_public    [  76% ] 4 VUs  07m33.6s/10m0s
+soak_student   [  76% ] 3 VUs  07m33.6s/10m0s
+
+running (07m36.0s), 12/12 VUs, 2674 complete and 0 interrupted iterations
+soak_admin     [  76% ] 1 VUs  07m34.6s/10m0s
+soak_api       [  76% ] 4 VUs  07m34.6s/10m0s
+soak_public    [  76% ] 4 VUs  07m34.6s/10m0s
+soak_student   [  76% ] 3 VUs  07m34.6s/10m0s
+
+running (07m37.0s), 12/12 VUs, 2674 complete and 0 interrupted iterations
+soak_admin     [  76% ] 1 VUs  07m35.6s/10m0s
+soak_api       [  76% ] 4 VUs  07m35.6s/10m0s
+soak_public    [  76% ] 4 VUs  07m35.6s/10m0s
+soak_student   [  76% ] 3 VUs  07m35.6s/10m0s
+
+running (07m38.0s), 12/12 VUs, 2681 complete and 0 interrupted iterations
+soak_admin     [  76% ] 1 VUs  07m36.6s/10m0s
+soak_api       [  76% ] 4 VUs  07m36.6s/10m0s
+soak_public    [  76% ] 4 VUs  07m36.6s/10m0s
+soak_student   [  76% ] 3 VUs  07m36.6s/10m0s
+
+running (07m39.0s), 12/12 VUs, 2688 complete and 0 interrupted iterations
+soak_admin     [  76% ] 1 VUs  07m37.6s/10m0s
+soak_api       [  76% ] 4 VUs  07m37.6s/10m0s
+soak_public    [  76% ] 4 VUs  07m37.6s/10m0s
+soak_student   [  76% ] 3 VUs  07m37.6s/10m0s
+
+running (07m40.0s), 12/12 VUs, 2692 complete and 0 interrupted iterations
+soak_admin     [  76% ] 1 VUs  07m38.6s/10m0s
+soak_api       [  76% ] 4 VUs  07m38.6s/10m0s
+soak_public    [  76% ] 4 VUs  07m38.6s/10m0s
+soak_student   [  76% ] 3 VUs  07m38.6s/10m0s
+
+running (07m41.0s), 12/12 VUs, 2698 complete and 0 interrupted iterations
+soak_admin     [  77% ] 1 VUs  07m39.6s/10m0s
+soak_api       [  77% ] 4 VUs  07m39.6s/10m0s
+soak_public    [  77% ] 4 VUs  07m39.6s/10m0s
+soak_student   [  77% ] 3 VUs  07m39.6s/10m0s
+
+running (07m42.0s), 12/12 VUs, 2704 complete and 0 interrupted iterations
+soak_admin     [  77% ] 1 VUs  07m40.6s/10m0s
+soak_api       [  77% ] 4 VUs  07m40.6s/10m0s
+soak_public    [  77% ] 4 VUs  07m40.6s/10m0s
+soak_student   [  77% ] 3 VUs  07m40.6s/10m0s
+
+running (07m43.0s), 12/12 VUs, 2712 complete and 0 interrupted iterations
+soak_admin     [  77% ] 1 VUs  07m41.6s/10m0s
+soak_api       [  77% ] 4 VUs  07m41.6s/10m0s
+soak_public    [  77% ] 4 VUs  07m41.6s/10m0s
+soak_student   [  77% ] 3 VUs  07m41.6s/10m0s
+
+running (07m44.0s), 12/12 VUs, 2715 complete and 0 interrupted iterations
+soak_admin     [  77% ] 1 VUs  07m42.6s/10m0s
+soak_api       [  77% ] 4 VUs  07m42.6s/10m0s
+soak_public    [  77% ] 4 VUs  07m42.6s/10m0s
+soak_student   [  77% ] 3 VUs  07m42.6s/10m0s
+
+running (07m45.0s), 12/12 VUs, 2722 complete and 0 interrupted iterations
+soak_admin     [  77% ] 1 VUs  07m43.6s/10m0s
+soak_api       [  77% ] 4 VUs  07m43.6s/10m0s
+soak_public    [  77% ] 4 VUs  07m43.6s/10m0s
+soak_student   [  77% ] 3 VUs  07m43.6s/10m0s
+
+running (07m46.0s), 12/12 VUs, 2729 complete and 0 interrupted iterations
+soak_admin     [  77% ] 1 VUs  07m44.6s/10m0s
+soak_api       [  77% ] 4 VUs  07m44.6s/10m0s
+soak_public    [  77% ] 4 VUs  07m44.6s/10m0s
+soak_student   [  77% ] 3 VUs  07m44.6s/10m0s
+
+running (07m47.0s), 12/12 VUs, 2734 complete and 0 interrupted iterations
+soak_admin     [  78% ] 1 VUs  07m45.6s/10m0s
+soak_api       [  78% ] 4 VUs  07m45.6s/10m0s
+soak_public    [  78% ] 4 VUs  07m45.6s/10m0s
+soak_student   [  78% ] 3 VUs  07m45.6s/10m0s
+
+running (07m48.0s), 12/12 VUs, 2739 complete and 0 interrupted iterations
+soak_admin     [  78% ] 1 VUs  07m46.6s/10m0s
+soak_api       [  78% ] 4 VUs  07m46.6s/10m0s
+soak_public    [  78% ] 4 VUs  07m46.6s/10m0s
+soak_student   [  78% ] 3 VUs  07m46.6s/10m0s
+
+running (07m49.0s), 12/12 VUs, 2746 complete and 0 interrupted iterations
+soak_admin     [  78% ] 1 VUs  07m47.6s/10m0s
+soak_api       [  78% ] 4 VUs  07m47.6s/10m0s
+soak_public    [  78% ] 4 VUs  07m47.6s/10m0s
+soak_student   [  78% ] 3 VUs  07m47.6s/10m0s
+
+running (07m50.0s), 12/12 VUs, 2752 complete and 0 interrupted iterations
+soak_admin     [  78% ] 1 VUs  07m48.6s/10m0s
+soak_api       [  78% ] 4 VUs  07m48.6s/10m0s
+soak_public    [  78% ] 4 VUs  07m48.6s/10m0s
+soak_student   [  78% ] 3 VUs  07m48.6s/10m0s
+
+running (07m51.0s), 12/12 VUs, 2759 complete and 0 interrupted iterations
+soak_admin     [  78% ] 1 VUs  07m49.6s/10m0s
+soak_api       [  78% ] 4 VUs  07m49.6s/10m0s
+soak_public    [  78% ] 4 VUs  07m49.6s/10m0s
+soak_student   [  78% ] 3 VUs  07m49.6s/10m0s
+
+running (07m52.0s), 12/12 VUs, 2763 complete and 0 interrupted iterations
+soak_admin     [  78% ] 1 VUs  07m50.6s/10m0s
+soak_api       [  78% ] 4 VUs  07m50.6s/10m0s
+soak_public    [  78% ] 4 VUs  07m50.6s/10m0s
+soak_student   [  78% ] 3 VUs  07m50.6s/10m0s
+
+running (07m53.0s), 12/12 VUs, 2770 complete and 0 interrupted iterations
+soak_admin     [  79% ] 1 VUs  07m51.6s/10m0s
+soak_api       [  79% ] 4 VUs  07m51.6s/10m0s
+soak_public    [  79% ] 4 VUs  07m51.6s/10m0s
+soak_student   [  79% ] 3 VUs  07m51.6s/10m0s
+
+running (07m54.0s), 12/12 VUs, 2776 complete and 0 interrupted iterations
+soak_admin     [  79% ] 1 VUs  07m52.6s/10m0s
+soak_api       [  79% ] 4 VUs  07m52.6s/10m0s
+soak_public    [  79% ] 4 VUs  07m52.6s/10m0s
+soak_student   [  79% ] 3 VUs  07m52.6s/10m0s
+
+running (07m55.0s), 12/12 VUs, 2783 complete and 0 interrupted iterations
+soak_admin     [  79% ] 1 VUs  07m53.6s/10m0s
+soak_api       [  79% ] 4 VUs  07m53.6s/10m0s
+soak_public    [  79% ] 4 VUs  07m53.6s/10m0s
+soak_student   [  79% ] 3 VUs  07m53.6s/10m0s
+
+running (07m56.0s), 12/12 VUs, 2787 complete and 0 interrupted iterations
+soak_admin     [  79% ] 1 VUs  07m54.6s/10m0s
+soak_api       [  79% ] 4 VUs  07m54.6s/10m0s
+soak_public    [  79% ] 4 VUs  07m54.6s/10m0s
+soak_student   [  79% ] 3 VUs  07m54.6s/10m0s
+
+running (07m57.0s), 12/12 VUs, 2793 complete and 0 interrupted iterations
+soak_admin     [  79% ] 1 VUs  07m55.6s/10m0s
+soak_api       [  79% ] 4 VUs  07m55.6s/10m0s
+soak_public    [  79% ] 4 VUs  07m55.6s/10m0s
+soak_student   [  79% ] 3 VUs  07m55.6s/10m0s
+
+running (07m58.0s), 12/12 VUs, 2799 complete and 0 interrupted iterations
+soak_admin     [  79% ] 1 VUs  07m56.6s/10m0s
+soak_api       [  79% ] 4 VUs  07m56.6s/10m0s
+soak_public    [  79% ] 4 VUs  07m56.6s/10m0s
+soak_student   [  79% ] 3 VUs  07m56.6s/10m0s
+
+running (07m59.0s), 12/12 VUs, 2804 complete and 0 interrupted iterations
+soak_admin     [  80% ] 1 VUs  07m57.6s/10m0s
+soak_api       [  80% ] 4 VUs  07m57.6s/10m0s
+soak_public    [  80% ] 4 VUs  07m57.6s/10m0s
+soak_student   [  80% ] 3 VUs  07m57.6s/10m0s
+
+running (08m00.0s), 12/12 VUs, 2811 complete and 0 interrupted iterations
+soak_admin     [  80% ] 1 VUs  07m58.6s/10m0s
+soak_api       [  80% ] 4 VUs  07m58.6s/10m0s
+soak_public    [  80% ] 4 VUs  07m58.6s/10m0s
+soak_student   [  80% ] 3 VUs  07m58.6s/10m0s
+
+running (08m01.0s), 12/12 VUs, 2814 complete and 0 interrupted iterations
+soak_admin     [  80% ] 1 VUs  07m59.6s/10m0s
+soak_api       [  80% ] 4 VUs  07m59.6s/10m0s
+soak_public    [  80% ] 4 VUs  07m59.6s/10m0s
+soak_student   [  80% ] 3 VUs  07m59.6s/10m0s
+
+running (08m02.0s), 12/12 VUs, 2821 complete and 0 interrupted iterations
+soak_admin     [  80% ] 1 VUs  08m00.6s/10m0s
+soak_api       [  80% ] 4 VUs  08m00.6s/10m0s
+soak_public    [  80% ] 4 VUs  08m00.6s/10m0s
+soak_student   [  80% ] 3 VUs  08m00.6s/10m0s
+
+running (08m03.0s), 12/12 VUs, 2828 complete and 0 interrupted iterations
+soak_admin     [  80% ] 1 VUs  08m01.6s/10m0s
+soak_api       [  80% ] 4 VUs  08m01.6s/10m0s
+soak_public    [  80% ] 4 VUs  08m01.6s/10m0s
+soak_student   [  80% ] 3 VUs  08m01.6s/10m0s
+
+running (08m04.0s), 12/12 VUs, 2834 complete and 0 interrupted iterations
+soak_admin     [  80% ] 1 VUs  08m02.6s/10m0s
+soak_api       [  80% ] 4 VUs  08m02.6s/10m0s
+soak_public    [  80% ] 4 VUs  08m02.6s/10m0s
+soak_student   [  80% ] 3 VUs  08m02.6s/10m0s
+
+running (08m05.0s), 12/12 VUs, 2837 complete and 0 interrupted iterations
+soak_admin     [  81% ] 1 VUs  08m03.6s/10m0s
+soak_api       [  81% ] 4 VUs  08m03.6s/10m0s
+soak_public    [  81% ] 4 VUs  08m03.6s/10m0s
+soak_student   [  81% ] 3 VUs  08m03.6s/10m0s
+
+running (08m06.0s), 12/12 VUs, 2844 complete and 0 interrupted iterations
+soak_admin     [  81% ] 1 VUs  08m04.6s/10m0s
+soak_api       [  81% ] 4 VUs  08m04.6s/10m0s
+soak_public    [  81% ] 4 VUs  08m04.6s/10m0s
+soak_student   [  81% ] 3 VUs  08m04.6s/10m0s
+
+running (08m07.0s), 12/12 VUs, 2851 complete and 0 interrupted iterations
+soak_admin     [  81% ] 1 VUs  08m05.6s/10m0s
+soak_api       [  81% ] 4 VUs  08m05.6s/10m0s
+soak_public    [  81% ] 4 VUs  08m05.6s/10m0s
+soak_student   [  81% ] 3 VUs  08m05.6s/10m0s
+
+running (08m08.0s), 12/12 VUs, 2856 complete and 0 interrupted iterations
+soak_admin     [  81% ] 1 VUs  08m06.6s/10m0s
+soak_api       [  81% ] 4 VUs  08m06.6s/10m0s
+soak_public    [  81% ] 4 VUs  08m06.6s/10m0s
+soak_student   [  81% ] 3 VUs  08m06.6s/10m0s
+
+running (08m09.0s), 12/12 VUs, 2861 complete and 0 interrupted iterations
+soak_admin     [  81% ] 1 VUs  08m07.6s/10m0s
+soak_api       [  81% ] 4 VUs  08m07.6s/10m0s
+soak_public    [  81% ] 4 VUs  08m07.6s/10m0s
+soak_student   [  81% ] 3 VUs  08m07.6s/10m0s
+
+running (08m10.0s), 12/12 VUs, 2867 complete and 0 interrupted iterations
+soak_admin     [  81% ] 1 VUs  08m08.6s/10m0s
+soak_api       [  81% ] 4 VUs  08m08.6s/10m0s
+soak_public    [  81% ] 4 VUs  08m08.6s/10m0s
+soak_student   [  81% ] 3 VUs  08m08.6s/10m0s
+
+running (08m11.0s), 12/12 VUs, 2875 complete and 0 interrupted iterations
+soak_admin     [  82% ] 1 VUs  08m09.6s/10m0s
+soak_api       [  82% ] 4 VUs  08m09.6s/10m0s
+soak_public    [  82% ] 4 VUs  08m09.6s/10m0s
+soak_student   [  82% ] 3 VUs  08m09.6s/10m0s
+
+running (08m12.0s), 12/12 VUs, 2881 complete and 0 interrupted iterations
+soak_admin     [  82% ] 1 VUs  08m10.6s/10m0s
+soak_api       [  82% ] 4 VUs  08m10.6s/10m0s
+soak_public    [  82% ] 4 VUs  08m10.6s/10m0s
+soak_student   [  82% ] 3 VUs  08m10.6s/10m0s
+
+running (08m13.0s), 12/12 VUs, 2886 complete and 0 interrupted iterations
+soak_admin     [  82% ] 1 VUs  08m11.6s/10m0s
+soak_api       [  82% ] 4 VUs  08m11.6s/10m0s
+soak_public    [  82% ] 4 VUs  08m11.6s/10m0s
+soak_student   [  82% ] 3 VUs  08m11.6s/10m0s
+
+running (08m14.0s), 12/12 VUs, 2892 complete and 0 interrupted iterations
+soak_admin     [  82% ] 1 VUs  08m12.6s/10m0s
+soak_api       [  82% ] 4 VUs  08m12.6s/10m0s
+soak_public    [  82% ] 4 VUs  08m12.6s/10m0s
+soak_student   [  82% ] 3 VUs  08m12.6s/10m0s
+
+running (08m15.0s), 12/12 VUs, 2898 complete and 0 interrupted iterations
+soak_admin     [  82% ] 1 VUs  08m13.6s/10m0s
+soak_api       [  82% ] 4 VUs  08m13.6s/10m0s
+soak_public    [  82% ] 4 VUs  08m13.6s/10m0s
+soak_student   [  82% ] 3 VUs  08m13.6s/10m0s
+
+running (08m16.0s), 12/12 VUs, 2904 complete and 0 interrupted iterations
+soak_admin     [  82% ] 1 VUs  08m14.6s/10m0s
+soak_api       [  82% ] 4 VUs  08m14.6s/10m0s
+soak_public    [  82% ] 4 VUs  08m14.6s/10m0s
+soak_student   [  82% ] 3 VUs  08m14.6s/10m0s
+
+running (08m17.0s), 12/12 VUs, 2910 complete and 0 interrupted iterations
+soak_admin     [  83% ] 1 VUs  08m15.6s/10m0s
+soak_api       [  83% ] 4 VUs  08m15.6s/10m0s
+soak_public    [  83% ] 4 VUs  08m15.6s/10m0s
+soak_student   [  83% ] 3 VUs  08m15.6s/10m0s
+
+running (08m18.0s), 12/12 VUs, 2915 complete and 0 interrupted iterations
+soak_admin     [  83% ] 1 VUs  08m16.6s/10m0s
+soak_api       [  83% ] 4 VUs  08m16.6s/10m0s
+soak_public    [  83% ] 4 VUs  08m16.6s/10m0s
+soak_student   [  83% ] 3 VUs  08m16.6s/10m0s
+
+running (08m19.0s), 12/12 VUs, 2919 complete and 0 interrupted iterations
+soak_admin     [  83% ] 1 VUs  08m17.6s/10m0s
+soak_api       [  83% ] 4 VUs  08m17.6s/10m0s
+soak_public    [  83% ] 4 VUs  08m17.6s/10m0s
+soak_student   [  83% ] 3 VUs  08m17.6s/10m0s
+
+running (08m20.0s), 12/12 VUs, 2928 complete and 0 interrupted iterations
+soak_admin     [  83% ] 1 VUs  08m18.6s/10m0s
+soak_api       [  83% ] 4 VUs  08m18.6s/10m0s
+soak_public    [  83% ] 4 VUs  08m18.6s/10m0s
+soak_student   [  83% ] 3 VUs  08m18.6s/10m0s
+
+running (08m21.0s), 12/12 VUs, 2932 complete and 0 interrupted iterations
+soak_admin     [  83% ] 1 VUs  08m19.6s/10m0s
+soak_api       [  83% ] 4 VUs  08m19.6s/10m0s
+soak_public    [  83% ] 4 VUs  08m19.6s/10m0s
+soak_student   [  83% ] 3 VUs  08m19.6s/10m0s
+
+running (08m22.0s), 12/12 VUs, 2937 complete and 0 interrupted iterations
+soak_admin     [  83% ] 1 VUs  08m20.6s/10m0s
+soak_api       [  83% ] 4 VUs  08m20.6s/10m0s
+soak_public    [  83% ] 4 VUs  08m20.6s/10m0s
+soak_student   [  83% ] 3 VUs  08m20.6s/10m0s
+
+running (08m23.0s), 12/12 VUs, 2942 complete and 0 interrupted iterations
+soak_admin     [  84% ] 1 VUs  08m21.6s/10m0s
+soak_api       [  84% ] 4 VUs  08m21.6s/10m0s
+soak_public    [  84% ] 4 VUs  08m21.6s/10m0s
+soak_student   [  84% ] 3 VUs  08m21.6s/10m0s
+
+running (08m24.0s), 12/12 VUs, 2948 complete and 0 interrupted iterations
+soak_admin     [  84% ] 1 VUs  08m22.6s/10m0s
+soak_api       [  84% ] 4 VUs  08m22.6s/10m0s
+soak_public    [  84% ] 4 VUs  08m22.6s/10m0s
+soak_student   [  84% ] 3 VUs  08m22.6s/10m0s
+
+running (08m25.0s), 12/12 VUs, 2956 complete and 0 interrupted iterations
+soak_admin     [  84% ] 1 VUs  08m23.6s/10m0s
+soak_api       [  84% ] 4 VUs  08m23.6s/10m0s
+soak_public    [  84% ] 4 VUs  08m23.6s/10m0s
+soak_student   [  84% ] 3 VUs  08m23.6s/10m0s
+
+running (08m26.0s), 12/12 VUs, 2960 complete and 0 interrupted iterations
+soak_admin     [  84% ] 1 VUs  08m24.6s/10m0s
+soak_api       [  84% ] 4 VUs  08m24.6s/10m0s
+soak_public    [  84% ] 4 VUs  08m24.6s/10m0s
+soak_student   [  84% ] 3 VUs  08m24.6s/10m0s
+
+running (08m27.0s), 12/12 VUs, 2965 complete and 0 interrupted iterations
+soak_admin     [  84% ] 1 VUs  08m25.6s/10m0s
+soak_api       [  84% ] 4 VUs  08m25.6s/10m0s
+soak_public    [  84% ] 4 VUs  08m25.6s/10m0s
+soak_student   [  84% ] 3 VUs  08m25.6s/10m0s
+
+running (08m28.0s), 12/12 VUs, 2971 complete and 0 interrupted iterations
+soak_admin     [  84% ] 1 VUs  08m26.6s/10m0s
+soak_api       [  84% ] 4 VUs  08m26.6s/10m0s
+soak_public    [  84% ] 4 VUs  08m26.6s/10m0s
+soak_student   [  84% ] 3 VUs  08m26.6s/10m0s
+
+running (08m29.0s), 12/12 VUs, 2979 complete and 0 interrupted iterations
+soak_admin     [  85% ] 1 VUs  08m27.6s/10m0s
+soak_api       [  85% ] 4 VUs  08m27.6s/10m0s
+soak_public    [  85% ] 4 VUs  08m27.6s/10m0s
+soak_student   [  85% ] 3 VUs  08m27.6s/10m0s
+
+running (08m30.0s), 12/12 VUs, 2985 complete and 0 interrupted iterations
+soak_admin     [  85% ] 1 VUs  08m28.6s/10m0s
+soak_api       [  85% ] 4 VUs  08m28.6s/10m0s
+soak_public    [  85% ] 4 VUs  08m28.6s/10m0s
+soak_student   [  85% ] 3 VUs  08m28.6s/10m0s
+
+running (08m31.0s), 12/12 VUs, 2992 complete and 0 interrupted iterations
+soak_admin     [  85% ] 1 VUs  08m29.6s/10m0s
+soak_api       [  85% ] 4 VUs  08m29.6s/10m0s
+soak_public    [  85% ] 4 VUs  08m29.6s/10m0s
+soak_student   [  85% ] 3 VUs  08m29.6s/10m0s
+
+running (08m32.0s), 12/12 VUs, 2996 complete and 0 interrupted iterations
+soak_admin     [  85% ] 1 VUs  08m30.6s/10m0s
+soak_api       [  85% ] 4 VUs  08m30.6s/10m0s
+soak_public    [  85% ] 4 VUs  08m30.6s/10m0s
+soak_student   [  85% ] 3 VUs  08m30.6s/10m0s
+
+running (08m33.0s), 12/12 VUs, 3002 complete and 0 interrupted iterations
+soak_admin     [  85% ] 1 VUs  08m31.6s/10m0s
+soak_api       [  85% ] 4 VUs  08m31.6s/10m0s
+soak_public    [  85% ] 4 VUs  08m31.6s/10m0s
+soak_student   [  85% ] 3 VUs  08m31.6s/10m0s
+
+running (08m34.0s), 12/12 VUs, 3009 complete and 0 interrupted iterations
+soak_admin     [  85% ] 1 VUs  08m32.6s/10m0s
+soak_api       [  85% ] 4 VUs  08m32.6s/10m0s
+soak_public    [  85% ] 4 VUs  08m32.6s/10m0s
+soak_student   [  85% ] 3 VUs  08m32.6s/10m0s
+
+running (08m35.0s), 12/12 VUs, 3014 complete and 0 interrupted iterations
+soak_admin     [  86% ] 1 VUs  08m33.6s/10m0s
+soak_api       [  86% ] 4 VUs  08m33.6s/10m0s
+soak_public    [  86% ] 4 VUs  08m33.6s/10m0s
+soak_student   [  86% ] 3 VUs  08m33.6s/10m0s
+
+running (08m36.0s), 12/12 VUs, 3023 complete and 0 interrupted iterations
+soak_admin     [  86% ] 1 VUs  08m34.6s/10m0s
+soak_api       [  86% ] 4 VUs  08m34.6s/10m0s
+soak_public    [  86% ] 4 VUs  08m34.6s/10m0s
+soak_student   [  86% ] 3 VUs  08m34.6s/10m0s
+
+running (08m37.0s), 12/12 VUs, 3028 complete and 0 interrupted iterations
+soak_admin     [  86% ] 1 VUs  08m35.6s/10m0s
+soak_api       [  86% ] 4 VUs  08m35.6s/10m0s
+soak_public    [  86% ] 4 VUs  08m35.6s/10m0s
+soak_student   [  86% ] 3 VUs  08m35.6s/10m0s
+
+running (08m38.0s), 12/12 VUs, 3032 complete and 0 interrupted iterations
+soak_admin     [  86% ] 1 VUs  08m36.6s/10m0s
+soak_api       [  86% ] 4 VUs  08m36.6s/10m0s
+soak_public    [  86% ] 4 VUs  08m36.6s/10m0s
+soak_student   [  86% ] 3 VUs  08m36.6s/10m0s
+
+running (08m39.0s), 12/12 VUs, 3040 complete and 0 interrupted iterations
+soak_admin     [  86% ] 1 VUs  08m37.6s/10m0s
+soak_api       [  86% ] 4 VUs  08m37.6s/10m0s
+soak_public    [  86% ] 4 VUs  08m37.6s/10m0s
+soak_student   [  86% ] 3 VUs  08m37.6s/10m0s
+
+running (08m40.0s), 12/12 VUs, 3044 complete and 0 interrupted iterations
+soak_admin     [  86% ] 1 VUs  08m38.6s/10m0s
+soak_api       [  86% ] 4 VUs  08m38.6s/10m0s
+soak_public    [  86% ] 4 VUs  08m38.6s/10m0s
+soak_student   [  86% ] 3 VUs  08m38.6s/10m0s
+
+running (08m41.0s), 12/12 VUs, 3052 complete and 0 interrupted iterations
+soak_admin     [  87% ] 1 VUs  08m39.6s/10m0s
+soak_api       [  87% ] 4 VUs  08m39.6s/10m0s
+soak_public    [  87% ] 4 VUs  08m39.6s/10m0s
+soak_student   [  87% ] 3 VUs  08m39.6s/10m0s
+
+running (08m42.0s), 12/12 VUs, 3056 complete and 0 interrupted iterations
+soak_admin     [  87% ] 1 VUs  08m40.6s/10m0s
+soak_api       [  87% ] 4 VUs  08m40.6s/10m0s
+soak_public    [  87% ] 4 VUs  08m40.6s/10m0s
+soak_student   [  87% ] 3 VUs  08m40.6s/10m0s
+
+running (08m43.0s), 12/12 VUs, 3066 complete and 0 interrupted iterations
+soak_admin     [  87% ] 1 VUs  08m41.6s/10m0s
+soak_api       [  87% ] 4 VUs  08m41.6s/10m0s
+soak_public    [  87% ] 4 VUs  08m41.6s/10m0s
+soak_student   [  87% ] 3 VUs  08m41.6s/10m0s
+
+running (08m44.0s), 12/12 VUs, 3069 complete and 0 interrupted iterations
+soak_admin     [  87% ] 1 VUs  08m42.6s/10m0s
+soak_api       [  87% ] 4 VUs  08m42.6s/10m0s
+soak_public    [  87% ] 4 VUs  08m42.6s/10m0s
+soak_student   [  87% ] 3 VUs  08m42.6s/10m0s
+
+running (08m45.0s), 12/12 VUs, 3074 complete and 0 interrupted iterations
+soak_admin     [  87% ] 1 VUs  08m43.6s/10m0s
+soak_api       [  87% ] 4 VUs  08m43.6s/10m0s
+soak_public    [  87% ] 4 VUs  08m43.6s/10m0s
+soak_student   [  87% ] 3 VUs  08m43.6s/10m0s
+
+running (08m46.0s), 12/12 VUs, 3080 complete and 0 interrupted iterations
+soak_admin     [  87% ] 1 VUs  08m44.6s/10m0s
+soak_api       [  87% ] 4 VUs  08m44.6s/10m0s
+soak_public    [  87% ] 4 VUs  08m44.6s/10m0s
+soak_student   [  87% ] 3 VUs  08m44.6s/10m0s
+
+running (08m47.0s), 12/12 VUs, 3088 complete and 0 interrupted iterations
+soak_admin     [  88% ] 1 VUs  08m45.6s/10m0s
+soak_api       [  88% ] 4 VUs  08m45.6s/10m0s
+soak_public    [  88% ] 4 VUs  08m45.6s/10m0s
+soak_student   [  88% ] 3 VUs  08m45.6s/10m0s
+
+running (08m48.0s), 12/12 VUs, 3092 complete and 0 interrupted iterations
+soak_admin     [  88% ] 1 VUs  08m46.6s/10m0s
+soak_api       [  88% ] 4 VUs  08m46.6s/10m0s
+soak_public    [  88% ] 4 VUs  08m46.6s/10m0s
+soak_student   [  88% ] 3 VUs  08m46.6s/10m0s
+
+running (08m49.0s), 12/12 VUs, 3097 complete and 0 interrupted iterations
+soak_admin     [  88% ] 1 VUs  08m47.6s/10m0s
+soak_api       [  88% ] 4 VUs  08m47.6s/10m0s
+soak_public    [  88% ] 4 VUs  08m47.6s/10m0s
+soak_student   [  88% ] 3 VUs  08m47.6s/10m0s
+
+running (08m50.0s), 12/12 VUs, 3103 complete and 0 interrupted iterations
+soak_admin     [  88% ] 1 VUs  08m48.6s/10m0s
+soak_api       [  88% ] 4 VUs  08m48.6s/10m0s
+soak_public    [  88% ] 4 VUs  08m48.6s/10m0s
+soak_student   [  88% ] 3 VUs  08m48.6s/10m0s
+
+running (08m51.0s), 12/12 VUs, 3111 complete and 0 interrupted iterations
+soak_admin     [  88% ] 1 VUs  08m49.6s/10m0s
+soak_api       [  88% ] 4 VUs  08m49.6s/10m0s
+soak_public    [  88% ] 4 VUs  08m49.6s/10m0s
+soak_student   [  88% ] 3 VUs  08m49.6s/10m0s
+
+running (08m52.0s), 12/12 VUs, 3116 complete and 0 interrupted iterations
+soak_admin     [  88% ] 1 VUs  08m50.6s/10m0s
+soak_api       [  88% ] 4 VUs  08m50.6s/10m0s
+soak_public    [  88% ] 4 VUs  08m50.6s/10m0s
+soak_student   [  88% ] 3 VUs  08m50.6s/10m0s
+
+running (08m53.0s), 12/12 VUs, 3119 complete and 0 interrupted iterations
+soak_admin     [  89% ] 1 VUs  08m51.6s/10m0s
+soak_api       [  89% ] 4 VUs  08m51.6s/10m0s
+soak_public    [  89% ] 4 VUs  08m51.6s/10m0s
+soak_student   [  89% ] 3 VUs  08m51.6s/10m0s
+
+running (08m54.0s), 12/12 VUs, 3128 complete and 0 interrupted iterations
+soak_admin     [  89% ] 1 VUs  08m52.6s/10m0s
+soak_api       [  89% ] 4 VUs  08m52.6s/10m0s
+soak_public    [  89% ] 4 VUs  08m52.6s/10m0s
+soak_student   [  89% ] 3 VUs  08m52.6s/10m0s
+
+running (08m55.0s), 12/12 VUs, 3131 complete and 0 interrupted iterations
+soak_admin     [  89% ] 1 VUs  08m53.6s/10m0s
+soak_api       [  89% ] 4 VUs  08m53.6s/10m0s
+soak_public    [  89% ] 4 VUs  08m53.6s/10m0s
+soak_student   [  89% ] 3 VUs  08m53.6s/10m0s
+
+running (08m56.0s), 12/12 VUs, 3138 complete and 0 interrupted iterations
+soak_admin     [  89% ] 1 VUs  08m54.6s/10m0s
+soak_api       [  89% ] 4 VUs  08m54.6s/10m0s
+soak_public    [  89% ] 4 VUs  08m54.6s/10m0s
+soak_student   [  89% ] 3 VUs  08m54.6s/10m0s
+
+running (08m57.0s), 12/12 VUs, 3144 complete and 0 interrupted iterations
+soak_admin     [  89% ] 1 VUs  08m55.6s/10m0s
+soak_api       [  89% ] 4 VUs  08m55.6s/10m0s
+soak_public    [  89% ] 4 VUs  08m55.6s/10m0s
+soak_student   [  89% ] 3 VUs  08m55.6s/10m0s
+
+running (08m58.0s), 12/12 VUs, 3149 complete and 0 interrupted iterations
+soak_admin     [  89% ] 1 VUs  08m56.6s/10m0s
+soak_api       [  89% ] 4 VUs  08m56.6s/10m0s
+soak_public    [  89% ] 4 VUs  08m56.6s/10m0s
+soak_student   [  89% ] 3 VUs  08m56.6s/10m0s
+
+running (08m59.0s), 12/12 VUs, 3156 complete and 0 interrupted iterations
+soak_admin     [  90% ] 1 VUs  08m57.6s/10m0s
+soak_api       [  90% ] 4 VUs  08m57.6s/10m0s
+soak_public    [  90% ] 4 VUs  08m57.6s/10m0s
+soak_student   [  90% ] 3 VUs  08m57.6s/10m0s
+
+running (09m00.0s), 12/12 VUs, 3162 complete and 0 interrupted iterations
+soak_admin     [  90% ] 1 VUs  08m58.6s/10m0s
+soak_api       [  90% ] 4 VUs  08m58.6s/10m0s
+soak_public    [  90% ] 4 VUs  08m58.6s/10m0s
+soak_student   [  90% ] 3 VUs  08m58.6s/10m0s
+
+running (09m01.0s), 12/12 VUs, 3170 complete and 0 interrupted iterations
+soak_admin     [  90% ] 1 VUs  08m59.6s/10m0s
+soak_api       [  90% ] 4 VUs  08m59.6s/10m0s
+soak_public    [  90% ] 4 VUs  08m59.6s/10m0s
+soak_student   [  90% ] 3 VUs  08m59.6s/10m0s
+
+running (09m02.0s), 12/12 VUs, 3173 complete and 0 interrupted iterations
+soak_admin     [  90% ] 1 VUs  09m00.6s/10m0s
+soak_api       [  90% ] 4 VUs  09m00.6s/10m0s
+soak_public    [  90% ] 4 VUs  09m00.6s/10m0s
+soak_student   [  90% ] 3 VUs  09m00.6s/10m0s
+
+running (09m03.0s), 12/12 VUs, 3183 complete and 0 interrupted iterations
+soak_admin     [  90% ] 1 VUs  09m01.6s/10m0s
+soak_api       [  90% ] 4 VUs  09m01.6s/10m0s
+soak_public    [  90% ] 4 VUs  09m01.6s/10m0s
+soak_student   [  90% ] 3 VUs  09m01.6s/10m0s
+
+running (09m04.0s), 12/12 VUs, 3186 complete and 0 interrupted iterations
+soak_admin     [  90% ] 1 VUs  09m02.6s/10m0s
+soak_api       [  90% ] 4 VUs  09m02.6s/10m0s
+soak_public    [  90% ] 4 VUs  09m02.6s/10m0s
+soak_student   [  90% ] 3 VUs  09m02.6s/10m0s
+
+running (09m05.0s), 12/12 VUs, 3192 complete and 0 interrupted iterations
+soak_admin     [  91% ] 1 VUs  09m03.6s/10m0s
+soak_api       [  91% ] 4 VUs  09m03.6s/10m0s
+soak_public    [  91% ] 4 VUs  09m03.6s/10m0s
+soak_student   [  91% ] 3 VUs  09m03.6s/10m0s
+
+running (09m06.0s), 12/12 VUs, 3198 complete and 0 interrupted iterations
+soak_admin     [  91% ] 1 VUs  09m04.6s/10m0s
+soak_api       [  91% ] 4 VUs  09m04.6s/10m0s
+soak_public    [  91% ] 4 VUs  09m04.6s/10m0s
+soak_student   [  91% ] 3 VUs  09m04.6s/10m0s
+
+running (09m07.0s), 12/12 VUs, 3203 complete and 0 interrupted iterations
+soak_admin     [  91% ] 1 VUs  09m05.6s/10m0s
+soak_api       [  91% ] 4 VUs  09m05.6s/10m0s
+soak_public    [  91% ] 4 VUs  09m05.6s/10m0s
+soak_student   [  91% ] 3 VUs  09m05.6s/10m0s
+
+running (09m08.0s), 12/12 VUs, 3209 complete and 0 interrupted iterations
+soak_admin     [  91% ] 1 VUs  09m06.6s/10m0s
+soak_api       [  91% ] 4 VUs  09m06.6s/10m0s
+soak_public    [  91% ] 4 VUs  09m06.6s/10m0s
+soak_student   [  91% ] 3 VUs  09m06.6s/10m0s
+
+running (09m09.0s), 12/12 VUs, 3215 complete and 0 interrupted iterations
+soak_admin     [  91% ] 1 VUs  09m07.6s/10m0s
+soak_api       [  91% ] 4 VUs  09m07.6s/10m0s
+soak_public    [  91% ] 4 VUs  09m07.6s/10m0s
+soak_student   [  91% ] 3 VUs  09m07.6s/10m0s
+
+running (09m10.0s), 12/12 VUs, 3221 complete and 0 interrupted iterations
+soak_admin     [  91% ] 1 VUs  09m08.6s/10m0s
+soak_api       [  91% ] 4 VUs  09m08.6s/10m0s
+soak_public    [  91% ] 4 VUs  09m08.6s/10m0s
+soak_student   [  91% ] 3 VUs  09m08.6s/10m0s
+
+running (09m11.0s), 12/12 VUs, 3228 complete and 0 interrupted iterations
+soak_admin     [  92% ] 1 VUs  09m09.6s/10m0s
+soak_api       [  92% ] 4 VUs  09m09.6s/10m0s
+soak_public    [  92% ] 4 VUs  09m09.6s/10m0s
+soak_student   [  92% ] 3 VUs  09m09.6s/10m0s
+
+running (09m12.0s), 12/12 VUs, 3230 complete and 0 interrupted iterations
+soak_admin     [  92% ] 1 VUs  09m10.6s/10m0s
+soak_api       [  92% ] 4 VUs  09m10.6s/10m0s
+soak_public    [  92% ] 4 VUs  09m10.6s/10m0s
+soak_student   [  92% ] 3 VUs  09m10.6s/10m0s
+
+running (09m13.0s), 12/12 VUs, 3238 complete and 0 interrupted iterations
+soak_admin     [  92% ] 1 VUs  09m11.6s/10m0s
+soak_api       [  92% ] 4 VUs  09m11.6s/10m0s
+soak_public    [  92% ] 4 VUs  09m11.6s/10m0s
+soak_student   [  92% ] 3 VUs  09m11.6s/10m0s
+
+running (09m14.0s), 12/12 VUs, 3245 complete and 0 interrupted iterations
+soak_admin     [  92% ] 1 VUs  09m12.6s/10m0s
+soak_api       [  92% ] 4 VUs  09m12.6s/10m0s
+soak_public    [  92% ] 4 VUs  09m12.6s/10m0s
+soak_student   [  92% ] 3 VUs  09m12.6s/10m0s
+
+running (09m15.0s), 12/12 VUs, 3251 complete and 0 interrupted iterations
+soak_admin     [  92% ] 1 VUs  09m13.6s/10m0s
+soak_api       [  92% ] 4 VUs  09m13.6s/10m0s
+soak_public    [  92% ] 4 VUs  09m13.6s/10m0s
+soak_student   [  92% ] 3 VUs  09m13.6s/10m0s
+
+running (09m16.0s), 12/12 VUs, 3256 complete and 0 interrupted iterations
+soak_admin     [  92% ] 1 VUs  09m14.6s/10m0s
+soak_api       [  92% ] 4 VUs  09m14.6s/10m0s
+soak_public    [  92% ] 4 VUs  09m14.6s/10m0s
+soak_student   [  92% ] 3 VUs  09m14.6s/10m0s
+
+running (09m17.0s), 12/12 VUs, 3263 complete and 0 interrupted iterations
+soak_admin     [  93% ] 1 VUs  09m15.6s/10m0s
+soak_api       [  93% ] 4 VUs  09m15.6s/10m0s
+soak_public    [  93% ] 4 VUs  09m15.6s/10m0s
+soak_student   [  93% ] 3 VUs  09m15.6s/10m0s
+
+running (09m18.0s), 12/12 VUs, 3269 complete and 0 interrupted iterations
+soak_admin     [  93% ] 1 VUs  09m16.6s/10m0s
+soak_api       [  93% ] 4 VUs  09m16.6s/10m0s
+soak_public    [  93% ] 4 VUs  09m16.6s/10m0s
+soak_student   [  93% ] 3 VUs  09m16.6s/10m0s
+
+running (09m19.0s), 12/12 VUs, 3275 complete and 0 interrupted iterations
+soak_admin     [  93% ] 1 VUs  09m17.6s/10m0s
+soak_api       [  93% ] 4 VUs  09m17.6s/10m0s
+soak_public    [  93% ] 4 VUs  09m17.6s/10m0s
+soak_student   [  93% ] 3 VUs  09m17.6s/10m0s
+
+running (09m20.0s), 12/12 VUs, 3281 complete and 0 interrupted iterations
+soak_admin     [  93% ] 1 VUs  09m18.6s/10m0s
+soak_api       [  93% ] 4 VUs  09m18.6s/10m0s
+soak_public    [  93% ] 4 VUs  09m18.6s/10m0s
+soak_student   [  93% ] 3 VUs  09m18.6s/10m0s
+
+running (09m21.0s), 12/12 VUs, 3287 complete and 0 interrupted iterations
+soak_admin     [  93% ] 1 VUs  09m19.6s/10m0s
+soak_api       [  93% ] 4 VUs  09m19.6s/10m0s
+soak_public    [  93% ] 4 VUs  09m19.6s/10m0s
+soak_student   [  93% ] 3 VUs  09m19.6s/10m0s
+
+running (09m22.0s), 12/12 VUs, 3292 complete and 0 interrupted iterations
+soak_admin     [  93% ] 1 VUs  09m20.6s/10m0s
+soak_api       [  93% ] 4 VUs  09m20.6s/10m0s
+soak_public    [  93% ] 4 VUs  09m20.6s/10m0s
+soak_student   [  93% ] 3 VUs  09m20.6s/10m0s
+
+running (09m23.0s), 12/12 VUs, 3299 complete and 0 interrupted iterations
+soak_admin     [  94% ] 1 VUs  09m21.6s/10m0s
+soak_api       [  94% ] 4 VUs  09m21.6s/10m0s
+soak_public    [  94% ] 4 VUs  09m21.6s/10m0s
+soak_student   [  94% ] 3 VUs  09m21.6s/10m0s
+
+running (09m24.0s), 12/12 VUs, 3304 complete and 0 interrupted iterations
+soak_admin     [  94% ] 1 VUs  09m22.6s/10m0s
+soak_api       [  94% ] 4 VUs  09m22.6s/10m0s
+soak_public    [  94% ] 4 VUs  09m22.6s/10m0s
+soak_student   [  94% ] 3 VUs  09m22.6s/10m0s
+
+running (09m25.0s), 12/12 VUs, 3312 complete and 0 interrupted iterations
+soak_admin     [  94% ] 1 VUs  09m23.6s/10m0s
+soak_api       [  94% ] 4 VUs  09m23.6s/10m0s
+soak_public    [  94% ] 4 VUs  09m23.6s/10m0s
+soak_student   [  94% ] 3 VUs  09m23.6s/10m0s
+
+running (09m26.0s), 12/12 VUs, 3316 complete and 0 interrupted iterations
+soak_admin     [  94% ] 1 VUs  09m24.6s/10m0s
+soak_api       [  94% ] 4 VUs  09m24.6s/10m0s
+soak_public    [  94% ] 4 VUs  09m24.6s/10m0s
+soak_student   [  94% ] 3 VUs  09m24.6s/10m0s
+
+running (09m27.0s), 12/12 VUs, 3323 complete and 0 interrupted iterations
+soak_admin     [  94% ] 1 VUs  09m25.6s/10m0s
+soak_api       [  94% ] 4 VUs  09m25.6s/10m0s
+soak_public    [  94% ] 4 VUs  09m25.6s/10m0s
+soak_student   [  94% ] 3 VUs  09m25.6s/10m0s
+
+running (09m28.0s), 12/12 VUs, 3331 complete and 0 interrupted iterations
+soak_admin     [  94% ] 1 VUs  09m26.6s/10m0s
+soak_api       [  94% ] 4 VUs  09m26.6s/10m0s
+soak_public    [  94% ] 4 VUs  09m26.6s/10m0s
+soak_student   [  94% ] 3 VUs  09m26.6s/10m0s
+
+running (09m29.0s), 12/12 VUs, 3336 complete and 0 interrupted iterations
+soak_admin     [  95% ] 1 VUs  09m27.6s/10m0s
+soak_api       [  95% ] 4 VUs  09m27.6s/10m0s
+soak_public    [  95% ] 4 VUs  09m27.6s/10m0s
+soak_student   [  95% ] 3 VUs  09m27.6s/10m0s
+
+running (09m30.0s), 12/12 VUs, 3342 complete and 0 interrupted iterations
+soak_admin     [  95% ] 1 VUs  09m28.6s/10m0s
+soak_api       [  95% ] 4 VUs  09m28.6s/10m0s
+soak_public    [  95% ] 4 VUs  09m28.6s/10m0s
+soak_student   [  95% ] 3 VUs  09m28.6s/10m0s
+
+running (09m31.0s), 12/12 VUs, 3348 complete and 0 interrupted iterations
+soak_admin     [  95% ] 1 VUs  09m29.6s/10m0s
+soak_api       [  95% ] 4 VUs  09m29.6s/10m0s
+soak_public    [  95% ] 4 VUs  09m29.6s/10m0s
+soak_student   [  95% ] 3 VUs  09m29.6s/10m0s
+
+running (09m32.0s), 12/12 VUs, 3355 complete and 0 interrupted iterations
+soak_admin     [  95% ] 1 VUs  09m30.6s/10m0s
+soak_api       [  95% ] 4 VUs  09m30.6s/10m0s
+soak_public    [  95% ] 4 VUs  09m30.6s/10m0s
+soak_student   [  95% ] 3 VUs  09m30.6s/10m0s
+
+running (09m33.0s), 12/12 VUs, 3361 complete and 0 interrupted iterations
+soak_admin     [  95% ] 1 VUs  09m31.6s/10m0s
+soak_api       [  95% ] 4 VUs  09m31.6s/10m0s
+soak_public    [  95% ] 4 VUs  09m31.6s/10m0s
+soak_student   [  95% ] 3 VUs  09m31.6s/10m0s
+
+running (09m34.0s), 12/12 VUs, 3366 complete and 0 interrupted iterations
+soak_admin     [  95% ] 1 VUs  09m32.6s/10m0s
+soak_api       [  95% ] 4 VUs  09m32.6s/10m0s
+soak_public    [  95% ] 4 VUs  09m32.6s/10m0s
+soak_student   [  95% ] 3 VUs  09m32.6s/10m0s
+
+running (09m35.0s), 12/12 VUs, 3373 complete and 0 interrupted iterations
+soak_admin     [  96% ] 1 VUs  09m33.6s/10m0s
+soak_api       [  96% ] 4 VUs  09m33.6s/10m0s
+soak_public    [  96% ] 4 VUs  09m33.6s/10m0s
+soak_student   [  96% ] 3 VUs  09m33.6s/10m0s
+
+running (09m36.0s), 12/12 VUs, 3378 complete and 0 interrupted iterations
+soak_admin     [  96% ] 1 VUs  09m34.6s/10m0s
+soak_api       [  96% ] 4 VUs  09m34.6s/10m0s
+soak_public    [  96% ] 4 VUs  09m34.6s/10m0s
+soak_student   [  96% ] 3 VUs  09m34.6s/10m0s
+
+running (09m37.0s), 12/12 VUs, 3385 complete and 0 interrupted iterations
+soak_admin     [  96% ] 1 VUs  09m35.6s/10m0s
+soak_api       [  96% ] 4 VUs  09m35.6s/10m0s
+soak_public    [  96% ] 4 VUs  09m35.6s/10m0s
+soak_student   [  96% ] 3 VUs  09m35.6s/10m0s
+
+running (09m38.0s), 12/12 VUs, 3391 complete and 0 interrupted iterations
+soak_admin     [  96% ] 1 VUs  09m36.6s/10m0s
+soak_api       [  96% ] 4 VUs  09m36.6s/10m0s
+soak_public    [  96% ] 4 VUs  09m36.6s/10m0s
+soak_student   [  96% ] 3 VUs  09m36.6s/10m0s
+
+running (09m39.0s), 12/12 VUs, 3396 complete and 0 interrupted iterations
+soak_admin     [  96% ] 1 VUs  09m37.6s/10m0s
+soak_api       [  96% ] 4 VUs  09m37.6s/10m0s
+soak_public    [  96% ] 4 VUs  09m37.6s/10m0s
+soak_student   [  96% ] 3 VUs  09m37.6s/10m0s
+
+running (09m40.0s), 12/12 VUs, 3405 complete and 0 interrupted iterations
+soak_admin     [  96% ] 1 VUs  09m38.6s/10m0s
+soak_api       [  96% ] 4 VUs  09m38.6s/10m0s
+soak_public    [  96% ] 4 VUs  09m38.6s/10m0s
+soak_student   [  96% ] 3 VUs  09m38.6s/10m0s
+
+running (09m41.0s), 12/12 VUs, 3411 complete and 0 interrupted iterations
+soak_admin     [  97% ] 1 VUs  09m39.6s/10m0s
+soak_api       [  97% ] 4 VUs  09m39.6s/10m0s
+soak_public    [  97% ] 4 VUs  09m39.6s/10m0s
+soak_student   [  97% ] 3 VUs  09m39.6s/10m0s
+
+running (09m42.0s), 12/12 VUs, 3418 complete and 0 interrupted iterations
+soak_admin     [  97% ] 1 VUs  09m40.6s/10m0s
+soak_api       [  97% ] 4 VUs  09m40.6s/10m0s
+soak_public    [  97% ] 4 VUs  09m40.6s/10m0s
+soak_student   [  97% ] 3 VUs  09m40.6s/10m0s
+
+running (09m43.0s), 12/12 VUs, 3423 complete and 0 interrupted iterations
+soak_admin     [  97% ] 1 VUs  09m41.6s/10m0s
+soak_api       [  97% ] 4 VUs  09m41.6s/10m0s
+soak_public    [  97% ] 4 VUs  09m41.6s/10m0s
+soak_student   [  97% ] 3 VUs  09m41.6s/10m0s
+
+running (09m44.0s), 12/12 VUs, 3428 complete and 0 interrupted iterations
+soak_admin     [  97% ] 1 VUs  09m42.6s/10m0s
+soak_api       [  97% ] 4 VUs  09m42.6s/10m0s
+soak_public    [  97% ] 4 VUs  09m42.6s/10m0s
+soak_student   [  97% ] 3 VUs  09m42.6s/10m0s
+
+running (09m45.0s), 12/12 VUs, 3436 complete and 0 interrupted iterations
+soak_admin     [  97% ] 1 VUs  09m43.6s/10m0s
+soak_api       [  97% ] 4 VUs  09m43.6s/10m0s
+soak_public    [  97% ] 4 VUs  09m43.6s/10m0s
+soak_student   [  97% ] 3 VUs  09m43.6s/10m0s
+
+running (09m46.0s), 12/12 VUs, 3440 complete and 0 interrupted iterations
+soak_admin     [  97% ] 1 VUs  09m44.6s/10m0s
+soak_api       [  97% ] 4 VUs  09m44.6s/10m0s
+soak_public    [  97% ] 4 VUs  09m44.6s/10m0s
+soak_student   [  97% ] 3 VUs  09m44.6s/10m0s
+
+running (09m47.0s), 12/12 VUs, 3446 complete and 0 interrupted iterations
+soak_admin     [  98% ] 1 VUs  09m45.6s/10m0s
+soak_api       [  98% ] 4 VUs  09m45.6s/10m0s
+soak_public    [  98% ] 4 VUs  09m45.6s/10m0s
+soak_student   [  98% ] 3 VUs  09m45.6s/10m0s
+
+running (09m48.0s), 12/12 VUs, 3455 complete and 0 interrupted iterations
+soak_admin     [  98% ] 1 VUs  09m46.6s/10m0s
+soak_api       [  98% ] 4 VUs  09m46.6s/10m0s
+soak_public    [  98% ] 4 VUs  09m46.6s/10m0s
+soak_student   [  98% ] 3 VUs  09m46.6s/10m0s
+
+running (09m49.0s), 12/12 VUs, 3459 complete and 0 interrupted iterations
+soak_admin     [  98% ] 1 VUs  09m47.6s/10m0s
+soak_api       [  98% ] 4 VUs  09m47.6s/10m0s
+soak_public    [  98% ] 4 VUs  09m47.6s/10m0s
+soak_student   [  98% ] 3 VUs  09m47.6s/10m0s
+
+running (09m50.0s), 12/12 VUs, 3468 complete and 0 interrupted iterations
+soak_admin     [  98% ] 1 VUs  09m48.6s/10m0s
+soak_api       [  98% ] 4 VUs  09m48.6s/10m0s
+soak_public    [  98% ] 4 VUs  09m48.6s/10m0s
+soak_student   [  98% ] 3 VUs  09m48.6s/10m0s
+
+running (09m51.0s), 12/12 VUs, 3472 complete and 0 interrupted iterations
+soak_admin     [  98% ] 1 VUs  09m49.6s/10m0s
+soak_api       [  98% ] 4 VUs  09m49.6s/10m0s
+soak_public    [  98% ] 4 VUs  09m49.6s/10m0s
+soak_student   [  98% ] 3 VUs  09m49.6s/10m0s
+
+running (09m52.0s), 12/12 VUs, 3479 complete and 0 interrupted iterations
+soak_admin     [  98% ] 1 VUs  09m50.6s/10m0s
+soak_api       [  98% ] 4 VUs  09m50.6s/10m0s
+soak_public    [  98% ] 4 VUs  09m50.6s/10m0s
+soak_student   [  98% ] 3 VUs  09m50.6s/10m0s
+
+running (09m53.0s), 12/12 VUs, 3486 complete and 0 interrupted iterations
+soak_admin     [  99% ] 1 VUs  09m51.6s/10m0s
+soak_api       [  99% ] 4 VUs  09m51.6s/10m0s
+soak_public    [  99% ] 4 VUs  09m51.6s/10m0s
+soak_student   [  99% ] 3 VUs  09m51.6s/10m0s
+
+running (09m54.0s), 12/12 VUs, 3492 complete and 0 interrupted iterations
+soak_admin     [  99% ] 1 VUs  09m52.6s/10m0s
+soak_api       [  99% ] 4 VUs  09m52.6s/10m0s
+soak_public    [  99% ] 4 VUs  09m52.6s/10m0s
+soak_student   [  99% ] 3 VUs  09m52.6s/10m0s
+
+running (09m55.0s), 12/12 VUs, 3498 complete and 0 interrupted iterations
+soak_admin     [  99% ] 1 VUs  09m53.6s/10m0s
+soak_api       [  99% ] 4 VUs  09m53.6s/10m0s
+soak_public    [  99% ] 4 VUs  09m53.6s/10m0s
+soak_student   [  99% ] 3 VUs  09m53.6s/10m0s
+
+running (09m56.0s), 12/12 VUs, 3501 complete and 0 interrupted iterations
+soak_admin     [  99% ] 1 VUs  09m54.6s/10m0s
+soak_api       [  99% ] 4 VUs  09m54.6s/10m0s
+soak_public    [  99% ] 4 VUs  09m54.6s/10m0s
+soak_student   [  99% ] 3 VUs  09m54.6s/10m0s
+
+running (09m57.0s), 12/12 VUs, 3509 complete and 0 interrupted iterations
+soak_admin     [  99% ] 1 VUs  09m55.6s/10m0s
+soak_api       [  99% ] 4 VUs  09m55.6s/10m0s
+soak_public    [  99% ] 4 VUs  09m55.6s/10m0s
+soak_student   [  99% ] 3 VUs  09m55.6s/10m0s
+
+running (09m58.0s), 12/12 VUs, 3514 complete and 0 interrupted iterations
+soak_admin     [  99% ] 1 VUs  09m56.6s/10m0s
+soak_api       [  99% ] 4 VUs  09m56.6s/10m0s
+soak_public    [  99% ] 4 VUs  09m56.6s/10m0s
+soak_student   [  99% ] 3 VUs  09m56.6s/10m0s
+
+running (09m59.0s), 12/12 VUs, 3519 complete and 0 interrupted iterations
+soak_admin     [ 100% ] 1 VUs  09m57.6s/10m0s
+soak_api       [ 100% ] 4 VUs  09m57.6s/10m0s
+soak_public    [ 100% ] 4 VUs  09m57.6s/10m0s
+soak_student   [ 100% ] 3 VUs  09m57.6s/10m0s
+
+running (10m00.0s), 12/12 VUs, 3525 complete and 0 interrupted iterations
+soak_admin     [ 100% ] 1 VUs  09m58.6s/10m0s
+soak_api       [ 100% ] 4 VUs  09m58.6s/10m0s
+soak_public    [ 100% ] 4 VUs  09m58.6s/10m0s
+soak_student   [ 100% ] 3 VUs  09m58.6s/10m0s
+
+running (10m01.0s), 12/12 VUs, 3530 complete and 0 interrupted iterations
+soak_admin     [ 100% ] 1 VUs  09m59.6s/10m0s
+soak_api       [ 100% ] 4 VUs  09m59.6s/10m0s
+soak_public    [ 100% ] 4 VUs  09m59.6s/10m0s
+soak_student   [ 100% ] 3 VUs  09m59.6s/10m0s
+
+running (10m02.0s), 07/12 VUs, 3538 complete and 0 interrupted iterations
+soak_admin   ↓ [ 100% ] 1 VUs  10m0s
+soak_api     ↓ [ 100% ] 4 VUs  10m0s
+soak_public  ↓ [ 100% ] 4 VUs  10m0s
+soak_student ↓ [ 100% ] 3 VUs  10m0s
+
+running (10m03.0s), 03/12 VUs, 3542 complete and 0 interrupted iterations
+soak_admin   ✓ [ 100% ] 1 VUs  10m0s
+soak_api     ✓ [ 100% ] 4 VUs  10m0s
+soak_public  ↓ [ 100% ] 4 VUs  10m0s
+soak_student ↓ [ 100% ] 3 VUs  10m0s
+
+running (10m04.0s), 01/12 VUs, 3544 complete and 0 interrupted iterations
+soak_admin   ✓ [ 100% ] 1 VUs  10m0s
+soak_api     ✓ [ 100% ] 4 VUs  10m0s
+soak_public  ✓ [ 100% ] 4 VUs  10m0s
+soak_student ↓ [ 100% ] 3 VUs  10m0s
+
+
+  █ THRESHOLDS 
+
+    checks
+    ✓ 'rate>0.98' rate=100.00%
+
+    http_req_duration{scenario:soak_admin}
+    ✓ 'p(95)<3500' p(95)=129.83ms
+
+    http_req_duration{scenario:soak_api}
+    ✓ 'p(95)<1500' p(95)=122.68ms
+    ✓ 'p(99)<3000' p(99)=157ms
+
+    http_req_duration{scenario:soak_public}
+    ✓ 'p(95)<3500' p(95)=141.45ms
+
+    http_req_duration{scenario:soak_student}
+    ✓ 'p(95)<3500' p(95)=130.1ms
+
+    http_req_failed
+    ✓ 'rate<0.02' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 39383   65.171645/s
+    checks_succeeded...: 100.00% 39383 out of 39383
+    checks_failed......: 0.00%   0 out of 39383
+
+    ✓ login web -> 302
+    ✓ login web -> dapat session cookie
+    ✓ login web -> redirect sesuai role
+    ✓ login api -> 200
+    ✓ login api -> dapat access_token
+    ✓ setup: aset CSS ditemukan
+    ✓ setup: aset JS ditemukan
+    ✓ setup: session siswa tersedia
+    ✓ setup: session admin tersedia
+    ✓ GET / -> 200
+    ✓ landing -> judul BUBA
+    ✓ GET /siswa/welcome -> 200
+    ✓ GET /api/me -> 200
+    ✓ GET /admin/dashboard -> 200
+    ✓ halaman dashboard -> tidak kosong
+    ✓ GET /login -> 200
+    ✓ GET /siswa/konten -> 200
+    ✓ GET /api/email/status -> 200
+    ✓ GET /admin/kelas -> 200
+    ✓ halaman kelas -> tidak kosong
+    ✓ GET /register -> 200
+    ✓ GET /siswa/materi/pilih-kelas -> 200
+    ✓ GET /api/siswa/kelas -> 200
+    ✓ GET /admin/kategori -> 200
+    ✓ halaman kategori -> tidak kosong
+    ✓ GET /clock -> 200
+    ✓ GET /siswa/{kelas} -> 200
+    ✓ GET /api/siswa/kategori -> 200
+    ✓ GET /admin/materi -> 200
+    ✓ halaman materi -> tidak kosong
+    ✓ ASET /build/manifest.json -> 200
+    ✓ ASET /build/manifest.json -> tidak kosong
+    ✓ ASET /build/assets/app-CbZY8taC.css -> 200
+    ✓ ASET /build/assets/app-CbZY8taC.css -> tidak kosong
+    ✓ ASET /build/assets/app-CxH6i6o_.js -> 200
+    ✓ ASET /build/assets/app-CxH6i6o_.js -> tidak kosong
+    ✓ ASET /images/logoBuba.png -> 200
+    ✓ ASET /images/logoBuba.png -> tidak kosong
+    ✓ ASET /favicon.ico -> 200
+    ✓ ASET /favicon.ico -> tidak kosong
+    ✓ GET /siswa/materi-list -> 200
+    ✓ GET /api/siswa/materi -> 200
+    ✓ GET /admin/kuis -> 200
+    ✓ halaman kuis -> tidak kosong
+    ✓ GET /siswa/materi-show -> 200
+    ✓ GET /api/siswa/materi/{kode} -> 200
+    ✓ GET /admin/siswa -> 200
+    ✓ halaman siswa -> tidak kosong
+    ✓ GET /siswa/kuis-list -> 200
+    ✓ GET /api/siswa/kuis -> 200
+    ✓ GET /admin/reward -> 200
+    ✓ halaman reward -> tidak kosong
+    ✓ GET /siswa/reward -> 200
+    ✓ GET /api/siswa/hasil-kuis -> 200
+    ✓ GET /admin/kelas/edit -> 200
+    ✓ GET /profile -> 200
+    ✓ GET /admin/kategori/edit -> 200
+    ✓ GET /admin/materi/detail -> 200
+    ✓ GET /admin/materi/edit -> 200
+    ✓ GET /admin/siswa/edit -> 200
+    ✓ GET /admin/kelas/tambah -> 200
+    ✓ GET /admin/kategori/tambah -> 200
+    ✓ GET /admin/materi/tambah -> 200
+    ✓ GET /admin/kuis/tambah -> 200
+    ✓ GET /admin/siswa/tambah -> 200
+    ✓ GET /profile (admin) -> 200
+
+    HTTP
+    http_req_duration..............: avg=61.43ms min=345.28µs med=55.6ms  max=353.35ms p(90)=112.14ms p(95)=130.75ms p(99)=167.92ms
+      { expected_response:true }...: avg=61.43ms min=345.28µs med=55.6ms  max=353.35ms p(90)=112.14ms p(95)=130.75ms p(99)=167.92ms
+      { scenario:soak_admin }......: avg=67.01ms min=16.85ms  med=63.17ms max=353.35ms p(90)=113.39ms p(95)=129.83ms p(99)=157.63ms
+      { scenario:soak_api }........: avg=56.75ms min=12.32ms  med=50.83ms max=332.89ms p(90)=105.42ms p(95)=122.68ms p(99)=157ms   
+      { scenario:soak_public }.....: avg=63.66ms min=597.01µs med=58.21ms max=342.25ms p(90)=120.73ms p(95)=141.45ms p(99)=183.83ms
+      { scenario:soak_student }....: avg=65.04ms min=15.61ms  med=59.45ms max=333.08ms p(90)=112ms    p(95)=130.1ms  p(99)=165.87ms
+    http_req_failed................: 0.00%  0 out of 31966
+    http_reqs......................: 31966  52.897869/s
+
+    EXECUTION
+    iteration_duration.............: avg=2.03s   min=623.66ms med=1.87s   max=4.72s    p(90)=3.15s    p(95)=3.4s     p(99)=3.93s   
+    iterations.....................: 3545   5.866325/s
+    vus............................: 1      min=0          max=12
+    vus_max........................: 12     min=12         max=12
+
+    NETWORK
+    data_received..................: 1.1 GB 1.9 MB/s
+    data_sent......................: 17 MB  28 kB/s
+
+
+
+
+running (10m04.3s), 00/12 VUs, 3545 complete and 0 interrupted iterations
+soak_admin   ✓ [ 100% ] 1 VUs  10m0s
+soak_api     ✓ [ 100% ] 4 VUs  10m0s
+soak_public  ✓ [ 100% ] 4 VUs  10m0s
+soak_student ✓ [ 100% ] 3 VUs  10m0s

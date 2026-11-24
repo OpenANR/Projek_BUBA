@@ -1,0 +1,159 @@
+>> k6 profile : smoke
+>> target     : http://localhost:8000
+
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /var/home/nuzulurrozaq/Projects/Coding/Web/Projek_BUBA/tests/k6/smoke.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 10m30s max duration (incl. graceful stop):
+              * default: 1 iterations shared among 1 VUs (maxDuration: 10m0s, gracefulStop: 30s)
+
+
+Run       [ 100% ] setup()
+default   [   0% ]
+
+running (00m02.0s), 1/1 VUs, 0 complete and 0 interrupted iterations
+default   [   0% ] 1 VUs  00m00.7s/10m0s  0/1 shared iters
+
+
+  █ THRESHOLDS 
+
+    checks
+    ✓ 'rate>0.95' rate=100.00%
+
+    http_req_duration
+    ✓ 'p(95)<3000' p(95)=54.28ms
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 111     39.01294/s
+    checks_succeeded...: 100.00% 111 out of 111
+    checks_failed......: 0.00%   0 out of 111
+
+    ✓ login web -> 302
+    ✓ login web -> dapat session cookie
+    ✓ login web -> redirect sesuai role
+    ✓ login api -> 200
+    ✓ login api -> dapat access_token
+    ✓ setup: aset CSS ditemukan
+    ✓ setup: aset JS ditemukan
+    ✓ setup: session siswa tersedia
+    ✓ setup: session admin tersedia
+    ✓ GET / -> 200
+    ✓ landing -> judul BUBA
+    ✓ GET /login -> 200
+    ✓ GET /register -> 200
+    ✓ GET /clock -> 200
+    ✓ ASET /build/manifest.json -> 200
+    ✓ ASET /build/manifest.json -> tidak kosong
+    ✓ ASET /build/assets/app-CbZY8taC.css -> 200
+    ✓ ASET /build/assets/app-CbZY8taC.css -> tidak kosong
+    ✓ ASET /build/assets/app-CxH6i6o_.js -> 200
+    ✓ ASET /build/assets/app-CxH6i6o_.js -> tidak kosong
+    ✓ ASET /images/logoBuba.png -> 200
+    ✓ ASET /images/logoBuba.png -> tidak kosong
+    ✓ ASET /favicon.ico -> 200
+    ✓ ASET /favicon.ico -> tidak kosong
+    ✓ GET /api/me -> 200
+    ✓ GET /api/email/status -> 200
+    ✓ GET /api/siswa/kelas -> 200
+    ✓ GET /api/siswa/kategori -> 200
+    ✓ GET /api/siswa/materi -> 200
+    ✓ GET /api/siswa/materi/{kode} -> 200
+    ✓ GET /api/siswa/kuis -> 200
+    ✓ GET /api/siswa/hasil-kuis -> 200
+    ✓ GET /siswa/welcome -> 200
+    ✓ GET /siswa/konten -> 200
+    ✓ GET /siswa/materi/pilih-kelas -> 200
+    ✓ GET /siswa/{kelas} -> 200
+    ✓ GET /siswa/materi-list -> 200
+    ✓ GET /siswa/materi-show -> 200
+    ✓ GET /siswa/kuis-list -> 200
+    ✓ GET /siswa/reward -> 200
+    ✓ GET /profile -> 200
+    ✓ siswa /admin/dashboard -> 302
+    ✓ siswa /admin/dashboard -> diarahkan ke /siswa/welcome
+    ✓ GET /admin/dashboard -> 200
+    ✓ halaman dashboard -> tidak kosong
+    ✓ GET /admin/kelas -> 200
+    ✓ halaman kelas -> tidak kosong
+    ✓ GET /admin/kategori -> 200
+    ✓ halaman kategori -> tidak kosong
+    ✓ GET /admin/materi -> 200
+    ✓ halaman materi -> tidak kosong
+    ✓ GET /admin/kuis -> 200
+    ✓ halaman kuis -> tidak kosong
+    ✓ GET /admin/siswa -> 200
+    ✓ halaman siswa -> tidak kosong
+    ✓ GET /admin/reward -> 200
+    ✓ halaman reward -> tidak kosong
+    ✓ GET /admin/kelas/edit -> 200
+    ✓ GET /admin/kategori/edit -> 200
+    ✓ GET /admin/materi/detail -> 200
+    ✓ GET /admin/materi/edit -> 200
+    ✓ GET /admin/siswa/edit -> 200
+    ✓ GET /admin/kelas/tambah -> 200
+    ✓ GET /admin/kategori/tambah -> 200
+    ✓ GET /admin/materi/tambah -> 200
+    ✓ GET /admin/kuis/tambah -> 200
+    ✓ GET /admin/siswa/tambah -> 200
+    ✓ GET /profile (admin) -> 200
+    ✓ GET /admin/reward/pdf -> 200
+    ✓ PDF -> content-type pdf
+    ✓ POST /api/login -> 200|429
+    ✓ POST /api/login -> access_token ada
+    ✓ GET /up -> 200
+    ✓ GET /download -> 200|404
+    ✓ download -> ada isi atau 404 rapi
+    ✓ GET /mail/preview -> 200|404
+    ✓ ASET /images/icon-materi.png -> 200
+    ✓ ASET /images/icon-materi.png -> tidak kosong
+    ✓ ASET /images/icon-kuis.png -> 200
+    ✓ ASET /images/icon-kuis.png -> tidak kosong
+    ✓ ASET /images/icon-piala.png -> 200
+    ✓ ASET /images/icon-piala.png -> tidak kosong
+    ✓ ASET /images/backgroundSplash.png -> 200
+    ✓ ASET /images/backgroundSplash.png -> tidak kosong
+    ✓ ASET /images/backgroundAuth.jpg -> 200
+    ✓ ASET /images/backgroundAuth.jpg -> tidak kosong
+    ✓ ASET /images/adminBackground.jpg -> 200
+    ✓ ASET /images/adminBackground.jpg -> tidak kosong
+    ✓ ASET /images/logoAdmin.png -> 200
+    ✓ ASET /images/logoAdmin.png -> tidak kosong
+    ✓ ASET /images/navbarDecoration.png -> 200
+    ✓ ASET /images/navbarDecoration.png -> tidak kosong
+    ✓ ASET /images/sidebarBackground.png -> 200
+    ✓ ASET /images/sidebarBackground.png -> tidak kosong
+    ✓ guest /admin/dashboard -> 302
+    ✓ guest /api/me -> 401
+
+    HTTP
+    http_req_duration..............: avg=28.5ms  min=372.47µs med=18.58ms max=283.65ms p(90)=32.06ms p(95)=54.28ms
+      { expected_response:true }...: avg=28.71ms min=372.47µs med=18.6ms  max=283.65ms p(90)=32.38ms p(95)=55.07ms
+    http_req_failed................: 1.09% 1 out of 91
+    http_reqs......................: 91    31.983581/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.56s   min=1.56s    med=1.56s   max=1.56s    p(90)=1.56s   p(95)=1.56s  
+    iterations.....................: 1     0.351468/s
+    vus............................: 1     min=0       max=1
+    vus_max........................: 1     min=1       max=1
+
+    NETWORK
+    data_received..................: 16 MB 5.6 MB/s
+    data_sent......................: 74 kB 26 kB/s
+
+
+
+
+running (00m02.8s), 0/1 VUs, 1 complete and 0 interrupted iterations
+default ✓ [ 100% ] 1 VUs  00m01.6s/10m0s  1/1 shared iters

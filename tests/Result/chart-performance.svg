@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="780" viewBox="0 0 1120 780" role="img" aria-label="Ringkasan performa aplikasi BUBA">
+<rect x="0" y="0" width="1120" height="780" rx="0" fill="#ffffff" stroke="none" stroke-width="0"/>
+<text x="40" y="42" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="start">Ringkasan Performa Aplikasi BUBA</text>
+<text x="40" y="66" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" fill="#64748b" text-anchor="start">Grafana k6 v2.4.0  |  22 November 2026  |  target: http://localhost:8000</text>
+<line x1="40" y1="82" x2="1080" y2="82" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="40" y="98" width="510" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="60" y="128" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="start">p95 Latency per Profil</text>
+<text x="60" y="148" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#64748b" text-anchor="start">p95 agregat; garis merah = target web 3.000 ms</text>
+<line x1="110" y1="353.0" x2="520" y2="353.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="357.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">0</text>
+<line x1="110" y1="306.75" x2="520" y2="306.75" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="310.75" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">800</text>
+<line x1="110" y1="260.5" x2="520" y2="260.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="264.5" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">1.600</text>
+<line x1="110" y1="214.25" x2="520" y2="214.25" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="218.25" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">2.400</text>
+<line x1="110" y1="168.0" x2="520" y2="168.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="172.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">3.200</text>
+<line x1="110" y1="353" x2="520" y2="353" stroke="#94a3b8" stroke-width="1"/>
+<text x="58" y="156" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">ms</text>
+<line x1="110" y1="179.5625" x2="520" y2="179.5625" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="520" y="173.5625" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="end">target 3.000 ms</text>
+<rect x="128.0" y="349.8619375" width="46" height="3.1380624999999895" rx="4" fill="#94a3b8" stroke="none" stroke-width="0"/>
+<text x="151.0" y="342.8619375" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">54,28</text>
+<text x="151.0" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Smoke</text>
+<rect x="210.0" y="342.174609375" width="46" height="10.825390625000011" rx="4" fill="#2563eb" stroke="none" stroke-width="0"/>
+<text x="233.0" y="335.174609375" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">187,25</text>
+<text x="233.0" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Load</text>
+<rect x="292.0" y="264.546875" width="46" height="88.453125" rx="4" fill="#f59e0b" stroke="none" stroke-width="0"/>
+<text x="315.0" y="257.546875" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">1.530</text>
+<text x="315.0" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Spike</text>
+<rect x="374.0" y="193.4375" width="46" height="159.5625" rx="4" fill="#dc2626" stroke="none" stroke-width="0"/>
+<text x="397.0" y="211.4375" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">2.760</text>
+<text x="397.0" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Stress</text>
+<rect x="456.0" y="345.441015625" width="46" height="7.558984375000023" rx="4" fill="#16a34a" stroke="none" stroke-width="0"/>
+<text x="479.0" y="338.441015625" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">130,75</text>
+<text x="479.0" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Soak</text>
+<rect x="570" y="98" width="510" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="590" y="128" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="start">Beban vs p95 Latency</text>
+<text x="590" y="148" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#64748b" text-anchor="start">Kenaikan beban tidak lagi proporsional</text>
+<line x1="640" y1="353.0" x2="1050" y2="353.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="357.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">0</text>
+<line x1="640" y1="306.75" x2="1050" y2="306.75" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="310.75" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">800</text>
+<line x1="640" y1="260.5" x2="1050" y2="260.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="264.5" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">1.600</text>
+<line x1="640" y1="214.25" x2="1050" y2="214.25" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="218.25" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">2.400</text>
+<line x1="640" y1="168.0" x2="1050" y2="168.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="172.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">3.200</text>
+<line x1="640" y1="353" x2="1050" y2="353" stroke="#94a3b8" stroke-width="1"/>
+<text x="588" y="156" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">ms</text>
+<line x1="640" y1="179.5625" x2="1050" y2="179.5625" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1050" y="173.5625" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="end">target 3.000 ms</text>
+<path d="M 708.9 342.2 L 825.6 264.5 L 981.1 193.4" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<circle cx="708.9" cy="342.2" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="708.8888888888889" y="332.174609375" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">187 ms</text>
+<text x="708.8888888888889" y="360.174609375" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="middle">Load (20 VU)</text>
+<circle cx="825.6" cy="264.5" r="6" fill="#f59e0b" stroke="#ffffff" stroke-width="2"/>
+<text x="825.5555555555555" y="254.546875" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">1.530 ms</text>
+<text x="825.5555555555555" y="282.546875" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="middle">Spike (80 VU)</text>
+<circle cx="981.1" cy="193.4" r="6" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+<text x="991.1111111111111" y="197.4375" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="start">2.760 ms</text>
+<text x="971.1111111111111" y="243.4375" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="end">Stress (160 VU)</text>
+<text x="708.8888888888889" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">20</text>
+<text x="825.5555555555555" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">80</text>
+<text x="981.1111111111111" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">160</text>
+<text x="845.0" y="395" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="middle">Virtual User (VU)</text>
+<rect x="40" y="438" width="510" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="60" y="468" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="start">Beban vs Throughput</text>
+<text x="60" y="488" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#64748b" text-anchor="start">Throughput rata-rata selama pengujian</text>
+<line x1="110" y1="693.0" x2="520" y2="693.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="697.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">0</text>
+<line x1="110" y1="646.75" x2="520" y2="646.75" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="650.75" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">17,5</text>
+<line x1="110" y1="600.5" x2="520" y2="600.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="604.5" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">35</text>
+<line x1="110" y1="554.25" x2="520" y2="554.25" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="558.25" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">52,5</text>
+<line x1="110" y1="508.0" x2="520" y2="508.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="512.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">70</text>
+<line x1="110" y1="693" x2="520" y2="693" stroke="#94a3b8" stroke-width="1"/>
+<text x="58" y="496" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">req/s</text>
+<path d="M 178.9 575.0 L 295.6 546.0 L 451.1 533.5" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<circle cx="178.9" cy="575.0" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="178.88888888888889" y="564.97" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">44,66 req/s</text>
+<text x="178.88888888888889" y="592.97" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="middle">Load (20 VU)</text>
+<circle cx="295.6" cy="546.0" r="6" fill="#f59e0b" stroke="#ffffff" stroke-width="2"/>
+<text x="295.55555555555554" y="535.9778571428571" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">55,63 req/s</text>
+<text x="295.55555555555554" y="563.9778571428571" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="middle">Spike (80 VU)</text>
+<circle cx="451.1" cy="533.5" r="6" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+<text x="461.1111111111111" y="537.4771428571428" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="start">60,36</text>
+<text x="441.1111111111111" y="567.4771428571428" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="end">Stress (160 VU)</text>
+<text x="178.88888888888889" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">20</text>
+<text x="295.55555555555554" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">80</text>
+<text x="451.1111111111111" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">160</text>
+<text x="315.0" y="735" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="middle">Virtual User (VU)</text>
+<rect x="570" y="438" width="510" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="590" y="468" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="start">Efisiensi per VU</text>
+<text x="590" y="488" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#64748b" text-anchor="start">Throughput per VU; turun saat beban tinggi</text>
+<line x1="640" y1="693.0" x2="1050" y2="693.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="697.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">0</text>
+<line x1="640" y1="646.75" x2="1050" y2="646.75" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="650.75" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">1,25</text>
+<line x1="640" y1="600.5" x2="1050" y2="600.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="604.5" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">2,5</text>
+<line x1="640" y1="554.25" x2="1050" y2="554.25" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="558.25" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">3,75</text>
+<line x1="640" y1="508.0" x2="1050" y2="508.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="512.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">5</text>
+<line x1="640" y1="693" x2="1050" y2="693" stroke="#94a3b8" stroke-width="1"/>
+<text x="588" y="496" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">req/s per VU</text>
+<rect x="663.25" y="529.83" width="56" height="163.16999999999996" rx="4" fill="#16a34a" stroke="none" stroke-width="0"/>
+<text x="691.25" y="522.83" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">4,41</text>
+<text x="691.25" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Soak</text>
+<rect x="765.75" y="610.49" width="56" height="82.50999999999999" rx="4" fill="#2563eb" stroke="none" stroke-width="0"/>
+<text x="793.75" y="603.49" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">2,23</text>
+<text x="793.75" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Load</text>
+<rect x="868.25" y="667.1" width="56" height="25.899999999999977" rx="4" fill="#f59e0b" stroke="none" stroke-width="0"/>
+<text x="896.25" y="660.1" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">0,70</text>
+<text x="896.25" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Spike</text>
+<rect x="970.75" y="678.94" width="56" height="14.059999999999945" rx="4" fill="#dc2626" stroke="none" stroke-width="0"/>
+<text x="998.75" y="671.94" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">0,38</text>
+<text x="998.75" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Stress</text>
+<text x="644" y="735" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">Semakin tinggi = semakin efisien</text>
+<line x1="40" y1="752" x2="1080" y2="752" stroke="#e2e8f0" stroke-width="1"/>
+<text x="40" y="770" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">Sumber: tests/Result/smoke.txt, load.txt, stress.txt, spike.txt, soak.txt  |  angka p95 agregat per profil</text>
+</svg>

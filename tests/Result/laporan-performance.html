@@ -1,0 +1,2735 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laporan Pengujian Performance — BUBA</title>
+<style>
+:root {
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --blue: #2563eb;
+  --blue-dark: #1e3a8a;
+  --red: #dc2626;
+  --green: #16a34a;
+  --amber: #f59e0b;
+  --bg: #f1f5f9;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.68;
+}
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 18px 60px rgba(15, 23, 42, .10);
+}
+.cover {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  padding: 56px 56px 44px;
+  background: linear-gradient(135deg, #0f172a 0%, #172554 48%, #1d4ed8 100%);
+}
+.cover::after {
+  content: "";
+  position: absolute;
+  right: -140px;
+  top: -160px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  right: 90px;
+  bottom: -190px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.05);
+}
+.eyebrow {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #bfdbfe;
+  margin-bottom: 14px;
+}
+.cover h1 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -.02em;
+}
+.cover .subtitle {
+  position: relative;
+  z-index: 1;
+  margin: 12px 0 6px;
+  font-size: 1.2rem;
+  color: #dbeafe;
+  font-weight: 500;
+}
+.cover .tagline {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 24px;
+  color: #93c5fd;
+  font-size: .92rem;
+}
+.badge {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: .35em .8em;
+  border-radius: 999px;
+  background: rgba(22, 163, 74, .18);
+  border: 1px solid rgba(134, 239, 172, .45);
+  color: #bbf7d0;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.stats {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 26px 0 24px;
+}
+.stat {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(4px);
+}
+.stat .num {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff;
+}
+.stat .lbl {
+  display: block;
+  margin-top: 4px;
+  font-size: .74rem;
+  color: #cbd5e1;
+  line-height: 1.35;
+}
+.identity {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .84rem;
+  background: rgba(255,255,255,.07);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.identity th, .identity td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  text-align: left;
+  vertical-align: top;
+}
+.identity tr:last-child th, .identity tr:last-child td { border-bottom: none; }
+.identity th {
+  width: 190px;
+  color: #bfdbfe;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.identity td { color: #e2e8f0; }
+main { padding: 40px 56px 56px; }
+.scope-note {
+  margin: 0 0 28px;
+  padding: 16px 20px;
+  border-left: 4px solid var(--amber);
+  background: #fffbeb;
+  color: #78350f;
+  border-radius: 0 8px 8px 0;
+}
+.scope-note p { margin: 0; text-align: left; }
+.toc {
+  margin: 0 0 34px;
+  padding: 20px 24px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.toc h2 {
+  margin: 0 0 10px;
+  padding: 0;
+  border: none;
+  font-size: 1.05rem;
+  color: var(--blue-dark);
+}
+.toc ol { margin: 0; padding-left: 1.25em; }
+.toc li { margin: 3px 0; }
+.toc a { color: #1e40af; text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.toc-h3 { margin-left: 14px; font-size: .9rem; color: var(--muted); }
+h2 {
+  margin: 2.4em 0 .7em;
+  padding-bottom: .35em;
+  border-bottom: 2px solid var(--line);
+  font-size: 1.55rem;
+  line-height: 1.25;
+  color: var(--ink);
+  letter-spacing: -.01em;
+}
+h3 {
+  margin: 1.9em 0 .5em;
+  font-size: 1.12rem;
+  color: var(--blue-dark);
+}
+p { margin: .7em 0; text-align: justify; }
+ul, ol { margin: .7em 0; padding-left: 1.5em; }
+li { margin: .3em 0; }
+strong { color: #0b1220; }
+a { color: #1d4ed8; }
+hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 2em 0;
+}
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1em 0 1.4em;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .86rem;
+  line-height: 1.45;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: .55em .65em;
+  vertical-align: top;
+}
+th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #1e293b;
+}
+tbody tr:nth-child(even) { background: #fbfdff; }
+tbody tr:hover { background: #eff6ff; }
+code {
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: .12em .35em;
+  border-radius: 4px;
+  font-size: .88em;
+}
+pre {
+  margin: 1em 0 1.3em;
+  padding: 16px 18px;
+  border-radius: 10px;
+  background: #0f172a;
+  color: #e2e8f0;
+  overflow-x: auto;
+  font-size: .84rem;
+  line-height: 1.55;
+}
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+blockquote {
+  margin: 1.2em 0;
+  padding: 14px 18px;
+  border-left: 4px solid var(--blue);
+  background: #eff6ff;
+  border-radius: 0 8px 8px 0;
+  color: #1e3a8a;
+}
+blockquote p { margin: 0; }
+figure.chart {
+  margin: 1.4em 0 1.8em;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(15,23,42,.04);
+}
+figure.chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+figure img { max-width: 100%; height: auto; }
+.page-footer {
+  margin-top: 40px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .78rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.print-btn {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 10;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 700;
+  font-size: .9rem;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, .35);
+}
+.print-btn:hover { background: #1d4ed8; }
+@media (max-width: 760px) {
+  .cover, main { padding-left: 22px; padding-right: 22px; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .identity th { width: 120px; white-space: normal; }
+}
+@page { size: A4; margin: 1.6cm; }
+@media print {
+  body { background: #fff; font-size: 10.5pt; }
+  .page { max-width: none; box-shadow: none; }
+  main { padding: 0; }
+  .cover { padding: 1.2cm 1.2cm 1cm; }
+  .cover h1 { font-size: 24pt; }
+  .stats { grid-template-columns: repeat(4, 1fr); }
+  h2 { page-break-before: always; page-break-after: avoid; }
+  h3 { page-break-after: avoid; }
+  table, figure, pre, blockquote { page-break-inside: avoid; }
+  .no-print { display: none !important; }
+  a { color: inherit; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="cover">
+    <div class="eyebrow">Non-Functional Testing · Performance Testing</div>
+    <h1>Laporan Pengujian Performance</h1>
+    <p class="subtitle">Aplikasi BUBA (Belajar, Bermain, Berkembang)</p>
+    <p class="tagline">Grafana k6 v2.4.0 · Laravel 12.70.1 · PHP 8.5.13 · MySQL</p>
+    <span class="badge">Status: Lulus dengan catatan</span>
+    <div class="stats">
+      <div class="stat"><span class="num">5</span><span class="lbl">profil pengujian</span></div>
+      <div class="stat"><span class="num">0%</span><span class="lbl">error pada load, stress, spike, soak</span></div>
+      <div class="stat"><span class="num">187 ms</span><span class="lbl">p95 load test (20 VU)</span></div>
+      <div class="stat"><span class="num">160 VU</span><span class="lbl">beban puncak stress test</span></div>
+    </div>
+    <table class="identity">
+      <tr><th>Mata kuliah</th><td>Pengujian Perangkat Lunak</td></tr>
+      <tr><th>Topik</th><td>Non-Functional Testing — Performance Testing</td></tr>
+      <tr><th>Proyek</th><td>BUBA (Belajar, Bermain, Berkembang)</td></tr>
+      <tr><th>Tools</th><td>Grafana k6 v2.4.0</td></tr>
+      <tr><th>Lingkungan</th><td>Lokal, http://localhost:8000</td></tr>
+      <tr><th>Tanggal pengujian</th><td>22 November 2026</td></tr>
+      <tr><th>Tanggal laporan</th><td>23 November 2026</td></tr>
+      <tr><th>Kelompok</th><td>______________________________</td></tr>
+      <tr><th>Anggota</th><td>1. ______________________________<br>2. ______________________________<br>3. ______________________________<br>4. ______________________________<br>5. ______________________________</td></tr>
+    </table>
+  </header>
+  <main>
+    <div class="scope-note"><p><strong>Ruang lingkup dokumen.</strong> Dokumen ini membahas <strong>Performance Testing</strong> sebagai bagian dari tugas Non-Functional Testing. Pengujian keamanan menyeluruh (vulnerability scanning, penetration testing, OWASP ZAP, dan sejenisnya) serta pengujian usability (SUS, kuesioner, dan sejenisnya) belum tercakup dalam dokumen ini. Suite k6 memang memuat pengecekan keamanan dasar berupa akses guest dan pembatasan role, tetapi hasilnya hanya bukti tambahan dan <strong>bukan pengganti security testing</strong> yang lengkap.</p></div>
+    <nav class="toc no-print"><h2>Daftar Isi</h2><ol>
+<li class="toc-h2"><a href="#ringkasan-eksekutif">Ringkasan Eksekutif</a></li>
+<li class="toc-h2"><a href="#1-requirement-analysis">1. Requirement Analysis</a></li>
+<li class="toc-h3"><a href="#11-gambaran-aplikasi-dan-konteks-pengujian">1.1 Gambaran aplikasi dan konteks pengujian</a></li>
+<li class="toc-h3"><a href="#12-aktor-dan-pola-akses">1.2 Aktor dan pola akses</a></li>
+<li class="toc-h3"><a href="#13-kebutuhan-kualitas-performance">1.3 Kebutuhan kualitas performance</a></li>
+<li class="toc-h3"><a href="#14-justifikasi-target">1.4 Justifikasi target</a></li>
+<li class="toc-h3"><a href="#15-ruang-lingkup-dan-batasan">1.5 Ruang lingkup dan batasan</a></li>
+<li class="toc-h2"><a href="#2-test-planning">2. Test Planning</a></li>
+<li class="toc-h3"><a href="#21-pemilihan-tools">2.1 Pemilihan tools</a></li>
+<li class="toc-h3"><a href="#22-lingkungan-pengujian">2.2 Lingkungan pengujian</a></li>
+<li class="toc-h3"><a href="#23-data-uji-dan-akun">2.3 Data uji dan akun</a></li>
+<li class="toc-h3"><a href="#24-model-beban-dan-skenario">2.4 Model beban dan skenario</a></li>
+<li class="toc-h3"><a href="#25-metrik-yang-dikumpulkan">2.5 Metrik yang dikumpulkan</a></li>
+<li class="toc-h3"><a href="#26-threshold-dan-kriteria-keberhasilan">2.6 Threshold dan kriteria keberhasilan</a></li>
+<li class="toc-h3"><a href="#27-rencana-urutan-eksekusi">2.7 Rencana urutan eksekusi</a></li>
+<li class="toc-h3"><a href="#28-risiko-dan-mitigasi">2.8 Risiko dan mitigasi</a></li>
+<li class="toc-h2"><a href="#3-test-execution">3. Test Execution</a></li>
+<li class="toc-h3"><a href="#31-prosedur-eksekusi">3.1 Prosedur eksekusi</a></li>
+<li class="toc-h3"><a href="#32-waktu-dan-durasi-eksekusi">3.2 Waktu dan durasi eksekusi</a></li>
+<li class="toc-h3"><a href="#33-hasil-smoke-test">3.3 Hasil smoke test</a></li>
+<li class="toc-h3"><a href="#34-hasil-load-test">3.4 Hasil load test</a></li>
+<li class="toc-h3"><a href="#35-hasil-stress-test">3.5 Hasil stress test</a></li>
+<li class="toc-h3"><a href="#36-hasil-spike-test">3.6 Hasil spike test</a></li>
+<li class="toc-h3"><a href="#37-hasil-soak-test">3.7 Hasil soak test</a></li>
+<li class="toc-h3"><a href="#38-rekapitulasi-hasil">3.8 Rekapitulasi hasil</a></li>
+<li class="toc-h2"><a href="#4-analysis-and-evaluation">4. Analysis and Evaluation</a></li>
+<li class="toc-h3"><a href="#41-perbandingan-target-dan-hasil-aktual">4.1 Perbandingan target dan hasil aktual</a></li>
+<li class="toc-h3"><a href="#42-analisis-load-test">4.2 Analisis load test</a></li>
+<li class="toc-h3"><a href="#43-analisis-stress-test-dan-skalabilitas">4.3 Analisis stress test dan skalabilitas</a></li>
+<li class="toc-h3"><a href="#44-analisis-spike-test">4.4 Analisis spike test</a></li>
+<li class="toc-h3"><a href="#45-analisis-soak-test">4.5 Analisis soak test</a></li>
+<li class="toc-h3"><a href="#46-analisis-throughput-error-rate-dan-efisiensi">4.6 Analisis throughput, error rate, dan efisiensi</a></li>
+<li class="toc-h3"><a href="#47-temuan-dan-hipotesis-akar-masalah">4.7 Temuan dan hipotesis akar masalah</a></li>
+<li class="toc-h3"><a href="#48-keterbatasan-dan-ancaman-validitas">4.8 Keterbatasan dan ancaman validitas</a></li>
+<li class="toc-h3"><a href="#49-evaluasi-kelayakan">4.9 Evaluasi kelayakan</a></li>
+<li class="toc-h2"><a href="#5-test-report-and-recommendation">5. Test Report and Recommendation</a></li>
+<li class="toc-h3"><a href="#51-kesimpulan">5.1 Kesimpulan</a></li>
+<li class="toc-h3"><a href="#52-rekomendasi-perbaikan">5.2 Rekomendasi perbaikan</a></li>
+<li class="toc-h3"><a href="#53-rekomendasi-pengujian-lanjutan">5.3 Rekomendasi pengujian lanjutan</a></li>
+<li class="toc-h3"><a href="#54-matriks-status-akhir">5.4 Matriks status akhir</a></li>
+<li class="toc-h2"><a href="#lampiran-a-ringkasan-metrik-mentah">Lampiran A — Ringkasan Metrik Mentah</a></li>
+<li class="toc-h2"><a href="#lampiran-b-perintah-eksekusi">Lampiran B — Perintah Eksekusi</a></li>
+<li class="toc-h2"><a href="#lampiran-c-glosarium">Lampiran C — Glosarium</a></li>
+<li class="toc-h2"><a href="#lampiran-d-referensi">Lampiran D — Referensi</a></li>
+<li class="toc-h2"><a href="#lampiran-e-file-hasil">Lampiran E — File Hasil</a></li>
+</ol></nav>
+    <h2 id="ringkasan-eksekutif">Ringkasan Eksekutif</h2>
+<p>Pengujian performance dilakukan terhadap aplikasi BUBA menggunakan lima profil Grafana k6: smoke, load, stress, spike, dan soak. Seluruh profil berhasil dijalankan pada 22 November 2026 dengan total waktu eksekusi sekitar 19 menit 13 detik. Hasil lengkap disimpan di direktori <code>tests/Result/</code>.</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Profil</th>
+<th style="text-align:right">Beban puncak</th>
+<th style="text-align:right">Durasi</th>
+<th style="text-align:right">Request</th>
+<th style="text-align:right">Throughput</th>
+<th style="text-align:right">Error rate</th>
+<th style="text-align:right">p95</th>
+<th style="text-align:right">p99</th>
+<th>Status</th>
+</tr></thead><tbody>
+<tr>
+<td>Smoke</td>
+<td style="text-align:right">1 VU</td>
+<td style="text-align:right">2,8 s</td>
+<td style="text-align:right">91</td>
+<td style="text-align:right">31,98 req/s</td>
+<td style="text-align:right">1,09%¹</td>
+<td style="text-align:right">54,28 ms</td>
+<td style="text-align:right">—</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Load</td>
+<td style="text-align:right">20 VU</td>
+<td style="text-align:right">2 m 3,7 s</td>
+<td style="text-align:right">5.524</td>
+<td style="text-align:right">44,66 req/s</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">187,25 ms</td>
+<td style="text-align:right">242,74 ms</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Stress</td>
+<td style="text-align:right">160 VU</td>
+<td style="text-align:right">5 m 35,1 s</td>
+<td style="text-align:right">20.223</td>
+<td style="text-align:right">60,36 req/s</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">2.760 ms</td>
+<td style="text-align:right">2.840 ms</td>
+<td>Lulus²</td>
+</tr>
+<tr>
+<td>Spike</td>
+<td style="text-align:right">80 VU</td>
+<td style="text-align:right">1 m 26,9 s</td>
+<td style="text-align:right">4.837</td>
+<td style="text-align:right">55,63 req/s</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">1.530 ms</td>
+<td style="text-align:right">1.810 ms</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Soak</td>
+<td style="text-align:right">12 VU</td>
+<td style="text-align:right">10 m 4,3 s</td>
+<td style="text-align:right">31.966</td>
+<td style="text-align:right">52,90 req/s</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">130,75 ms</td>
+<td style="text-align:right">167,92 ms</td>
+<td>Lulus</td>
+</tr>
+</tbody></table></div>
+<p>¹ Smoke: 1 dari 91 request merupakan respons 4xx yang memang disengaja oleh skenario negatif. Seluruh 111 check tetap lulus.</p>
+<p>² Stress: threshold yang dipakai memang longgar karena tujuan stress test adalah mencari titik jenuh, bukan sekadar lulus/gagal.</p>
+<p><strong>Temuan utama:</strong></p>
+<ol>
+<li><strong>Beban normal aman.</strong> Pada 20 VU, p95 latency web terburuk hanya 210,72 ms dan p95 API 177,44 ms. Keduanya jauh di bawah target 3.000 ms dan 1.200 ms, dengan headroom di atas 85%.</li>
+<li><strong>Tidak ada kegagalan fungsional.</strong> Load, stress, spike, dan soak semuanya mencatat <strong>0% error</strong> dan <strong>100% check lulus</strong>. Aplikasi tetap merespons dengan status yang benar meskipun dibebani hingga 160 VU.</li>
+<li><strong>Terjadi saturasi latency pada beban tinggi.</strong> Saat beban naik dari 20 VU ke 160 VU (8 kali lipat), throughput rata-rata hanya naik dari 44,66 menjadi 60,36 req/s (+35%), sedangkan p95 latency melonjak dari 187,25 ms menjadi 2.760 ms (sekitar 14,7 kali lipat). Ini indikasi kuat bahwa kapasitas server mulai jenuh, bukan aplikasi yang error.</li>
+<li><strong>Lonjakan mendadak tertangani.</strong> Spike 80 VU dalam 10 detik menghasilkan p95 1.530 ms tanpa error. Soak yang dijalankan setelahnya menunjukkan p95 130,75 ms, sehingga tidak ada indikasi degradasi permanen.</li>
+<li><strong>Stabil selama 10 menit.</strong> Soak 12 VU selama 10 menit mencatat p95 130,75 ms, p99 167,92 ms, 0 error, dan 0 iterasi terputus. Tidak terlihat penurunan performa dari sisi client.</li>
+<li><strong>Keterbatasan utama.</strong> Pengujian dilakukan di lingkungan lokal, tanpa metrik CPU, memori, koneksi database, dan tanpa pemisahan metrik per endpoint pada stress/spike. Oleh karena itu, penyebab pasti saturasi belum dapat dibuktikan; diperlukan pengujian lanjutan di lingkungan yang menyerupai produksi.</li>
+</ol>
+<p><strong>Kesimpulan singkat:</strong> Aplikasi <strong>lulus</strong> untuk beban normal, spike, dan soak 10 menit. Pada beban 160 VU aplikasi tetap tersedia tanpa error, tetapi p95 agregat sudah mencapai 92% dari batas 3 detik sehingga kapasitas aman berada di bawah 160 VU. Optimasi server dan database diperlukan sebelum aplikasi digunakan pada beban puncak yang lebih tinggi.</p>
+<figure class="chart" aria-label="Grafik ringkasan performa BUBA"><svg xmlns="http://www.w3.org/2000/svg" width="1120" height="780" viewBox="0 0 1120 780" role="img" aria-label="Ringkasan performa aplikasi BUBA">
+<rect x="0" y="0" width="1120" height="780" rx="0" fill="#ffffff" stroke="none" stroke-width="0"/>
+<text x="40" y="42" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="start">Ringkasan Performa Aplikasi BUBA</text>
+<text x="40" y="66" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" fill="#64748b" text-anchor="start">Grafana k6 v2.4.0  |  22 November 2026  |  target: http://localhost:8000</text>
+<line x1="40" y1="82" x2="1080" y2="82" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="40" y="98" width="510" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="60" y="128" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="start">p95 Latency per Profil</text>
+<text x="60" y="148" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#64748b" text-anchor="start">p95 agregat; garis merah = target web 3.000 ms</text>
+<line x1="110" y1="353.0" x2="520" y2="353.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="357.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">0</text>
+<line x1="110" y1="306.75" x2="520" y2="306.75" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="310.75" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">800</text>
+<line x1="110" y1="260.5" x2="520" y2="260.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="264.5" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">1.600</text>
+<line x1="110" y1="214.25" x2="520" y2="214.25" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="218.25" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">2.400</text>
+<line x1="110" y1="168.0" x2="520" y2="168.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="172.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">3.200</text>
+<line x1="110" y1="353" x2="520" y2="353" stroke="#94a3b8" stroke-width="1"/>
+<text x="58" y="156" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">ms</text>
+<line x1="110" y1="179.5625" x2="520" y2="179.5625" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="520" y="173.5625" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="end">target 3.000 ms</text>
+<rect x="128.0" y="349.8619375" width="46" height="3.1380624999999895" rx="4" fill="#94a3b8" stroke="none" stroke-width="0"/>
+<text x="151.0" y="342.8619375" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">54,28</text>
+<text x="151.0" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Smoke</text>
+<rect x="210.0" y="342.174609375" width="46" height="10.825390625000011" rx="4" fill="#2563eb" stroke="none" stroke-width="0"/>
+<text x="233.0" y="335.174609375" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">187,25</text>
+<text x="233.0" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Load</text>
+<rect x="292.0" y="264.546875" width="46" height="88.453125" rx="4" fill="#f59e0b" stroke="none" stroke-width="0"/>
+<text x="315.0" y="257.546875" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">1.530</text>
+<text x="315.0" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Spike</text>
+<rect x="374.0" y="193.4375" width="46" height="159.5625" rx="4" fill="#dc2626" stroke="none" stroke-width="0"/>
+<text x="397.0" y="211.4375" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">2.760</text>
+<text x="397.0" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Stress</text>
+<rect x="456.0" y="345.441015625" width="46" height="7.558984375000023" rx="4" fill="#16a34a" stroke="none" stroke-width="0"/>
+<text x="479.0" y="338.441015625" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">130,75</text>
+<text x="479.0" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Soak</text>
+<rect x="570" y="98" width="510" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="590" y="128" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="start">Beban vs p95 Latency</text>
+<text x="590" y="148" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#64748b" text-anchor="start">Kenaikan beban tidak lagi proporsional</text>
+<line x1="640" y1="353.0" x2="1050" y2="353.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="357.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">0</text>
+<line x1="640" y1="306.75" x2="1050" y2="306.75" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="310.75" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">800</text>
+<line x1="640" y1="260.5" x2="1050" y2="260.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="264.5" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">1.600</text>
+<line x1="640" y1="214.25" x2="1050" y2="214.25" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="218.25" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">2.400</text>
+<line x1="640" y1="168.0" x2="1050" y2="168.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="172.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">3.200</text>
+<line x1="640" y1="353" x2="1050" y2="353" stroke="#94a3b8" stroke-width="1"/>
+<text x="588" y="156" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">ms</text>
+<line x1="640" y1="179.5625" x2="1050" y2="179.5625" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1050" y="173.5625" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="end">target 3.000 ms</text>
+<path d="M 708.9 342.2 L 825.6 264.5 L 981.1 193.4" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<circle cx="708.9" cy="342.2" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="708.8888888888889" y="332.174609375" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">187 ms</text>
+<text x="708.8888888888889" y="360.174609375" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="middle">Load (20 VU)</text>
+<circle cx="825.6" cy="264.5" r="6" fill="#f59e0b" stroke="#ffffff" stroke-width="2"/>
+<text x="825.5555555555555" y="254.546875" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">1.530 ms</text>
+<text x="825.5555555555555" y="282.546875" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="middle">Spike (80 VU)</text>
+<circle cx="981.1" cy="193.4" r="6" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+<text x="991.1111111111111" y="197.4375" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="start">2.760 ms</text>
+<text x="971.1111111111111" y="243.4375" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="end">Stress (160 VU)</text>
+<text x="708.8888888888889" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">20</text>
+<text x="825.5555555555555" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">80</text>
+<text x="981.1111111111111" y="373" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">160</text>
+<text x="845.0" y="395" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="middle">Virtual User (VU)</text>
+<rect x="40" y="438" width="510" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="60" y="468" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="start">Beban vs Throughput</text>
+<text x="60" y="488" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#64748b" text-anchor="start">Throughput rata-rata selama pengujian</text>
+<line x1="110" y1="693.0" x2="520" y2="693.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="697.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">0</text>
+<line x1="110" y1="646.75" x2="520" y2="646.75" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="650.75" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">17,5</text>
+<line x1="110" y1="600.5" x2="520" y2="600.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="604.5" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">35</text>
+<line x1="110" y1="554.25" x2="520" y2="554.25" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="558.25" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">52,5</text>
+<line x1="110" y1="508.0" x2="520" y2="508.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="100" y="512.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">70</text>
+<line x1="110" y1="693" x2="520" y2="693" stroke="#94a3b8" stroke-width="1"/>
+<text x="58" y="496" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">req/s</text>
+<path d="M 178.9 575.0 L 295.6 546.0 L 451.1 533.5" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<circle cx="178.9" cy="575.0" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="178.88888888888889" y="564.97" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">44,66 req/s</text>
+<text x="178.88888888888889" y="592.97" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="middle">Load (20 VU)</text>
+<circle cx="295.6" cy="546.0" r="6" fill="#f59e0b" stroke="#ffffff" stroke-width="2"/>
+<text x="295.55555555555554" y="535.9778571428571" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">55,63 req/s</text>
+<text x="295.55555555555554" y="563.9778571428571" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="middle">Spike (80 VU)</text>
+<circle cx="451.1" cy="533.5" r="6" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+<text x="461.1111111111111" y="537.4771428571428" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="start">60,36</text>
+<text x="441.1111111111111" y="567.4771428571428" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#475569" text-anchor="end">Stress (160 VU)</text>
+<text x="178.88888888888889" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">20</text>
+<text x="295.55555555555554" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">80</text>
+<text x="451.1111111111111" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">160</text>
+<text x="315.0" y="735" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="middle">Virtual User (VU)</text>
+<rect x="570" y="438" width="510" height="310" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="590" y="468" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="start">Efisiensi per VU</text>
+<text x="590" y="488" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#64748b" text-anchor="start">Throughput per VU; turun saat beban tinggi</text>
+<line x1="640" y1="693.0" x2="1050" y2="693.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="697.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">0</text>
+<line x1="640" y1="646.75" x2="1050" y2="646.75" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="650.75" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">1,25</text>
+<line x1="640" y1="600.5" x2="1050" y2="600.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="604.5" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">2,5</text>
+<line x1="640" y1="554.25" x2="1050" y2="554.25" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="558.25" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">3,75</text>
+<line x1="640" y1="508.0" x2="1050" y2="508.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="630" y="512.0" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="end">5</text>
+<line x1="640" y1="693" x2="1050" y2="693" stroke="#94a3b8" stroke-width="1"/>
+<text x="588" y="496" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">req/s per VU</text>
+<rect x="663.25" y="529.83" width="56" height="163.16999999999996" rx="4" fill="#16a34a" stroke="none" stroke-width="0"/>
+<text x="691.25" y="522.83" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">4,41</text>
+<text x="691.25" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Soak</text>
+<rect x="765.75" y="610.49" width="56" height="82.50999999999999" rx="4" fill="#2563eb" stroke="none" stroke-width="0"/>
+<text x="793.75" y="603.49" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">2,23</text>
+<text x="793.75" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Load</text>
+<rect x="868.25" y="667.1" width="56" height="25.899999999999977" rx="4" fill="#f59e0b" stroke="none" stroke-width="0"/>
+<text x="896.25" y="660.1" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">0,70</text>
+<text x="896.25" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Spike</text>
+<rect x="970.75" y="678.94" width="56" height="14.059999999999945" rx="4" fill="#dc2626" stroke="none" stroke-width="0"/>
+<text x="998.75" y="671.94" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">0,38</text>
+<text x="998.75" y="713" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" fill="#334155" text-anchor="middle">Stress</text>
+<text x="644" y="735" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">Semakin tinggi = semakin efisien</text>
+<line x1="40" y1="752" x2="1080" y2="752" stroke="#e2e8f0" stroke-width="1"/>
+<text x="40" y="770" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748b" text-anchor="start">Sumber: tests/Result/smoke.txt, load.txt, stress.txt, spike.txt, soak.txt  |  angka p95 agregat per profil</text>
+</svg></figure>
+<p><strong>Gambar 1.</strong> Ringkasan p95 per profil, hubungan beban dengan latency dan throughput, serta efisiensi per VU.</p>
+<hr>
+<h2 id="1-requirement-analysis">1. Requirement Analysis</h2>
+<h3 id="11-gambaran-aplikasi-dan-konteks-pengujian">1.1 Gambaran aplikasi dan konteks pengujian</h3>
+<p>BUBA adalah aplikasi pembelajaran berbasis web yang dibangun dengan Laravel 12 dan MySQL. Aplikasi memiliki tiga kelompok pengguna utama:</p>
+<ul>
+<li><strong>Pengunjung publik/guest</strong>, yang mengakses landing page, login, registrasi, halaman jam, unduhan APK, dan aset statis.</li>
+<li><strong>Siswa</strong>, yang mengakses splash screen, daftar kelas, kategori materi, materi, kuis, hasil kuis, reward, dan profil.</li>
+<li><strong>Guru/admin</strong>, yang mengakses dashboard, daftar kelas/kategori/materi/kuis/siswa/reward, form tambah/edit, detail data, serta unduh PDF reward.</li>
+<li><strong>Klien API (aplikasi mobile)</strong>, yang mengakses endpoint Sanctum untuk profil, kelas, kategori, materi, kuis, dan hasil kuis.</li>
+</ul>
+<p>Pola akses aplikasi didominasi operasi <strong>read-heavy</strong>: pengguna banyak membaca daftar materi, membuka detail, dan memuat aset halaman. Operasi tulis (login, submit kuis, logout, CRUD admin) tetap ada, tetapi tidak dijalankan pada pengujian ini agar data hasil seed tidak berubah. Pengujian difokuskan pada jalur baca yang paling sering dipakai agar hasilnya merepresentasikan beban sehari-hari.</p>
+<h3 id="12-aktor-dan-pola-akses">1.2 Aktor dan pola akses</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Aktor</th>
+<th>Halaman/Endpoint utama</th>
+<th>Perilaku yang diuji</th>
+<th>Bobot pada load test</th>
+</tr></thead><tbody>
+<tr>
+<td>Pengunjung publik</td>
+<td><code>/</code>, <code>/login</code>, <code>/register</code>, <code>/clock</code>, aset CSS/JS/gambar</td>
+<td>Membuka halaman dan memuat aset statis</td>
+<td>6 VU</td>
+</tr>
+<tr>
+<td>Siswa</td>
+<td><code>/siswa/welcome</code>, <code>/siswa/konten</code>, materi, kuis, reward, <code>/profile</code></td>
+<td>Menelusuri alur belajar dari splash sampai reward</td>
+<td>4 VU</td>
+</tr>
+<tr>
+<td>Guru/admin</td>
+<td><code>/admin/dashboard</code>, daftar data, form tambah/edit, detail, PDF</td>
+<td>Membuka dashboard dan halaman pengelolaan data</td>
+<td>2 VU</td>
+</tr>
+<tr>
+<td>Klien API</td>
+<td><code>/api/me</code>, <code>/api/siswa/kelas</code>, kategori, materi, kuis, hasil</td>
+<td>Membaca data JSON dengan Bearer token Sanctum</td>
+<td>8 VU</td>
+</tr>
+</tbody></table></div>
+<h3 id="13-kebutuhan-kualitas-performance">1.3 Kebutuhan kualitas performance</h3>
+<p>Target diturunkan dari kebutuhan pengalaman pengguna dan contoh kriteria pada materi tugas: response time p95 maksimal 3 detik dan error rate maksimal 1% untuk aplikasi e-commerce. Karena BUBA adalah aplikasi pembelajaran dengan halaman web dan API JSON, target web dibuat 3 detik, sedangkan target API dibuat lebih ketat karena respons API seharusnya lebih ringan.</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>ID</th>
+<th>Kebutuhan</th>
+<th>Metrik</th>
+<th>Target</th>
+<th>Alasan</th>
+</tr></thead><tbody>
+<tr>
+<td>NFR-P01</td>
+<td>Halaman web merespons cepat</td>
+<td><code>http_req_duration</code> p95</td>
+<td>&lt; 3.000 ms</td>
+<td>Batas toleransi umum agar pengguna tidak menunggu terlalu lama</td>
+</tr>
+<tr>
+<td>NFR-P02</td>
+<td>Ekor latency web terkendali</td>
+<td><code>http_req_duration</code> p99</td>
+<td>&lt; 6.000 ms</td>
+<td>Melindungi pengguna dari request yang sangat lambat</td>
+</tr>
+<tr>
+<td>NFR-P03</td>
+<td>API mobile responsif</td>
+<td><code>http_req_duration</code> p95</td>
+<td>&lt; 1.200 ms</td>
+<td>API JSON harus lebih cepat daripada render halaman</td>
+</tr>
+<tr>
+<td>NFR-P04</td>
+<td>Ekor latency API terkendali</td>
+<td><code>http_req_duration</code> p99</td>
+<td>&lt; 2.500 ms</td>
+<td>Menjaga kualitas pengalaman pada kondisi terburuk</td>
+</tr>
+<tr>
+<td>NFR-P05</td>
+<td>Tingkat kegagalan rendah</td>
+<td><code>http_req_failed</code></td>
+<td>&lt; 2%</td>
+<td>Kegagalan request harus minimal</td>
+</tr>
+<tr>
+<td>NFR-P06</td>
+<td>Fungsionalitas tetap benar saat dibebani</td>
+<td><code>checks</code></td>
+<td>&gt; 98%</td>
+<td>Status, isi halaman, dan autentikasi tetap sesuai</td>
+</tr>
+<tr>
+<td>NFR-P07</td>
+<td>Stabil dalam durasi panjang</td>
+<td>p95/p99 soak, error rate</td>
+<td>API p95 &lt; 1.500 ms, API p99 &lt; 3.000 ms, web p95 &lt; 3.500 ms, error &lt; 2%</td>
+<td>Mendeteksi penurunan performa dan kebocoran memori</td>
+</tr>
+<tr>
+<td>NFR-P08</td>
+<td>Mampu menghadapi tekanan</td>
+<td>Error rate, checks, latency</td>
+<td>Tidak ada 5xx, checks &gt; 90%, failed &lt; 10%</td>
+<td>Mengetahui perilaku saat beban melebihi normal</td>
+</tr>
+<tr>
+<td>NFR-P09</td>
+<td>Mampu menghadapi lonjakan</td>
+<td>Error rate, checks, latency</td>
+<td>checks &gt; 95%, failed &lt; 5%, pulih setelah lonjakan</td>
+<td>Memastikan aplikasi tidak runtuh saat trafik naik mendadak</td>
+</tr>
+<tr>
+<td>NFR-P10</td>
+<td>Skalabilitas terukur</td>
+<td>Throughput vs VU</td>
+<td>Throughput naik, titik jenuh teridentifikasi</td>
+<td>Menjadi dasar kapasitas dan scaling</td>
+</tr>
+<tr>
+<td>NFR-P11</td>
+<td>Observabilitas</td>
+<td>CPU, memori, koneksi DB</td>
+<td>Tersedia saat pengujian</td>
+<td>Menghubungkan gejala latency dengan penyebab</td>
+</tr>
+<tr>
+<td>NFR-P12</td>
+<td>Efisiensi transfer data</td>
+<td><code>data_received</code>, <code>data_sent</code></td>
+<td>Wajar, tidak mendominasi waktu</td>
+<td>Memastikan bottleneck bukan jaringan</td>
+</tr>
+</tbody></table></div>
+<h3 id="14-justifikasi-target">1.4 Justifikasi target</h3>
+<ul>
+<li><strong>3.000 ms p95 web</strong> dipilih karena masih dalam batas nyaman untuk halaman yang memuat beberapa aset dan render server-side. Angka ini juga sejalan dengan contoh pada materi tugas.</li>
+<li><strong>1.200 ms p95 API</strong> dipilih lebih ketat karena API tidak merender HTML dan seharusnya hanya mengembalikan JSON.</li>
+<li><strong>2% error rate</strong> pada load test memberi toleransi kecil untuk gangguan jaringan lokal, tetapi hasil aktual justru 0%.</li>
+<li><strong>Soak</strong> memakai target sedikit lebih longgar (3.500 ms p95 web) karena pengujian berjalan lebih lama dan bertujuan melihat tren, bukan hanya satu titik pengukuran.</li>
+<li><strong>Stress dan spike</strong> memakai threshold longgar karena tujuannya adalah observasi perilaku dan pencarian batas, bukan sekadar lulus/gagal.</li>
+</ul>
+<h3 id="15-ruang-lingkup-dan-batasan">1.5 Ruang lingkup dan batasan</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Cakupan</th>
+<th>Keterangan</th>
+</tr></thead><tbody>
+<tr>
+<td>Termasuk</td>
+<td>Smoke, load, stress, spike, soak; halaman publik, siswa, admin, API baca; pengecekan keamanan dasar guest/role; aset statis</td>
+</tr>
+<tr>
+<td>Tidak termasuk</td>
+<td>Alur tulis (<code>write.js</code> tidak dijalankan), CRUD create/update/delete, submit kuis, login per VU, unduh APK pada load test, PDF reward pada load test</td>
+</tr>
+<tr>
+<td>Tidak termasuk</td>
+<td>Security testing menyeluruh (OWASP ZAP, Burp Suite, SQL injection, XSS, broken access control)</td>
+</tr>
+<tr>
+<td>Tidak termasuk</td>
+<td>Usability testing (SUS, kuesioner, think aloud, heuristic evaluation)</td>
+</tr>
+<tr>
+<td>Tidak termasuk</td>
+<td>Metrik server: CPU, RAM, disk I/O, koneksi MySQL, query time, OPcache hit rate</td>
+</tr>
+<tr>
+<td>Asumsi</td>
+<td>Database sudah di-seed, akun uji valid, aplikasi berjalan di <code>http://localhost:8000</code>, session dan cache memakai database</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="2-test-planning">2. Test Planning</h2>
+<h3 id="21-pemilihan-tools">2.1 Pemilihan tools</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Kebutuhan</th>
+<th>Pilihan</th>
+<th>Alasan</th>
+</tr></thead><tbody>
+<tr>
+<td>Load generator</td>
+<td><strong>Grafana k6 v2.4.0</strong></td>
+<td>Berbasis JavaScript, skenario fleksibel, threshold terukur, cocok untuk CI, ringan dijalankan dari CLI</td>
+</tr>
+<tr>
+<td>Alternatif yang dipertimbangkan</td>
+<td>Apache JMeter, Gatling, Locust</td>
+<td>JMeter berat untuk skenario berbasis kode; Gatling butuh Scala/Java; Locust butuh Python dan kurang terintegrasi dengan threshold k6</td>
+</tr>
+<tr>
+<td>Runner</td>
+<td><code>tests/k6/run.sh</code></td>
+<td>Membungkus perintah k6, menetapkan <code>BASE_URL</code>, dan memudahkan pengulangan</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>Ringkasan CLI dan file <code>.txt</code></td>
+<td>Eksekusi memakai <code>output: -</code>, sehingga tidak ada dashboard Grafana Cloud atau time-series; analisis berbasis ringkasan k6</td>
+</tr>
+</tbody></table></div>
+<p>Seluruh skrip pengujian berada di <code>tests/k6/</code>. Skrip memakai <code>setup()</code> untuk login sekali sebagai siswa dan admin, lalu membagikan cookie session ke seluruh VU. Pendekatan ini menghindari rate limit login (5 kali per menit per email dan IP) sekaligus mempercepat inisialisasi. Data kelas, kategori, materi, kuis, dan ID admin diambil secara dinamis melalui discovery agar pengujian tidak bergantung pada ID hardcode.</p>
+<h3 id="22-lingkungan-pengujian">2.2 Lingkungan pengujian</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Komponen</th>
+<th>Nilai</th>
+</tr></thead><tbody>
+<tr>
+<td>Sistem operasi</td>
+<td>Linux</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>8.5.13 (CLI)</td>
+</tr>
+<tr>
+<td>Framework</td>
+<td>Laravel 12.70.1</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>MySQL</td>
+</tr>
+<tr>
+<td>Session driver</td>
+<td><code>database</code></td>
+</tr>
+<tr>
+<td>Cache store</td>
+<td><code>database</code></td>
+</tr>
+<tr>
+<td>Queue connection</td>
+<td><code>database</code></td>
+</tr>
+<tr>
+<td>Lingkungan aplikasi</td>
+<td><code>local</code></td>
+</tr>
+<tr>
+<td>Target</td>
+<td><code>http://localhost:8000</code></td>
+</tr>
+<tr>
+<td>Load generator</td>
+<td>Grafana k6 v2.4.0</td>
+</tr>
+<tr>
+<td>Jumlah host</td>
+<td>1 host (aplikasi dan k6 berjalan di mesin yang sama)</td>
+</tr>
+<tr>
+<td>Monitoring server</td>
+<td>Tidak tersedia pada eksekusi ini</td>
+</tr>
+</tbody></table></div>
+<blockquote><p><strong>Catatan versi.</strong> File hasil k6 tidak mencetak versi tool secara eksplisit. Versi v2.4.0 dicatat dari lingkungan saat laporan disusun; jika eksekusi memakai versi lain, angka metrik tetap dapat dibandingkan karena format ringkasan k6 tidak berubah.</p></blockquote>
+<blockquote><p><strong>Catatan penting.</strong> Target <code>localhost:8000</code> sangat mungkin dilayani oleh <code>php artisan serve</code>. Secara default server pengembangan PHP hanya memakai satu worker. Jika benar demikian, hasil stress dan spike mencerminkan <strong>batas server pengembangan</strong>, bukan kapasitas aplikasi di produksi. README suite k6 juga mengingatkan hal ini. Oleh karena itu, angka kapasitas pada laporan ini tidak boleh langsung dipakai sebagai kapasitas produksi.</p></blockquote>
+<p>Penggunaan <code>SESSION_DRIVER=database</code> dan <code>CACHE_STORE=database</code> juga relevan: setiap request berpotensi melakukan baca/tulis session dan cache ke MySQL. Pada beban tinggi, lalu lintas database ini dapat menjadi bottleneck tambahan.</p>
+<h3 id="23-data-uji-dan-akun">2.3 Data uji dan akun</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Data</th>
+<th>Keterangan</th>
+</tr></thead><tbody>
+<tr>
+<td>Akun admin/guru</td>
+<td><code>admin@example.com</code> / <code>admin123</code></td>
+</tr>
+<tr>
+<td>Akun siswa utama</td>
+<td><code>siswa.3206095003@example.test</code> / <code>siswa123</code></td>
+</tr>
+<tr>
+<td>Pool akun siswa</td>
+<td>8 akun kelas B dengan password <code>siswa123</code>, dipakai untuk rotasi dan menghindari rate limit</td>
+</tr>
+<tr>
+<td>Data discovery</td>
+<td>Kelas, kategori, materi, kuis, hasil kuis, ID edit admin, aset CSS/JS/gambar</td>
+</tr>
+<tr>
+<td>Session</td>
+<td>Dibuat sekali di <code>setup()</code>, dipakai bersama oleh seluruh VU</td>
+</tr>
+<tr>
+<td>Token API</td>
+<td>Dibuat sekali di <code>setup()</code>, dihapus di <code>teardown()</code> melalui <code>POST /api/logout</code></td>
+</tr>
+<tr>
+<td>Sifat pengujian</td>
+<td>Read-only; tidak menulis data kecuali token sementara dan session</td>
+</tr>
+</tbody></table></div>
+<p>Data seed yang dipakai relatif kecil dibanding data produksi. Hal ini perlu dicatat karena query yang cepat pada data kecil bisa melambat pada data besar, terutama pada halaman daftar admin yang mungkin memakai pagination, join, atau pencarian.</p>
+<h3 id="24-model-beban-dan-skenario">2.4 Model beban dan skenario</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Profil</th>
+<th>Executor</th>
+<th>Skenario dan VU</th>
+<th>Tahapan</th>
+<th style="text-align:right">Durasi</th>
+<th>Think time</th>
+</tr></thead><tbody>
+<tr>
+<td>Smoke</td>
+<td><code>shared-iterations</code></td>
+<td>1 VU, 1 iterasi</td>
+<td>—</td>
+<td style="text-align:right">±2,8 s</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Load</td>
+<td><code>ramping-vus</code></td>
+<td><code>public_browse</code> 6 VU, <code>student_web</code> 4 VU, <code>admin_web</code> 2 VU, <code>api_read</code> 8 VU</td>
+<td>30 s naik ke 40%, 60 s naik ke 100%, 30 s turun ke 0</td>
+<td style="text-align:right">2 m</td>
+<td>Web 1–3 s; API 0,5–1,5 s</td>
+</tr>
+<tr>
+<td>Stress</td>
+<td><code>ramping-vus</code></td>
+<td><code>stress_web</code> 80 VU, <code>stress_api</code> 80 VU</td>
+<td>1 m ke 25%, 1 m ke 50%, 1 m ke 75%, 1 m ke 100%, 1 m bertahan 100%, 30 s turun ke 0</td>
+<td style="text-align:right">5 m 30 s</td>
+<td>Web 0,5–1,5 s; API 0,3–1,0 s</td>
+</tr>
+<tr>
+<td>Spike</td>
+<td><code>ramping-vus</code></td>
+<td><code>spike_api</code> 60 VU, <code>spike_web</code> 20 VU</td>
+<td>10 s naik ke 100%, 1 m bertahan, 10 s turun ke 0</td>
+<td style="text-align:right">1 m 20 s</td>
+<td>Web 0,5–1,5 s; API 0,3–1,0 s</td>
+</tr>
+<tr>
+<td>Soak</td>
+<td><code>constant-vus</code></td>
+<td><code>soak_public</code> 4 VU, <code>soak_student</code> 3 VU, <code>soak_admin</code> 1 VU, <code>soak_api</code> 4 VU</td>
+<td>Konstan</td>
+<td style="text-align:right">10 m</td>
+<td>Web 1–3 s; API 0,5–1,5 s</td>
+</tr>
+<tr>
+<td>Write</td>
+<td><code>per-vu-iterations</code></td>
+<td>3 VU, 1 iterasi per VU</td>
+<td>—</td>
+<td style="text-align:right">Maks 2 m</td>
+<td>—</td>
+</tr>
+</tbody></table></div>
+<p>Profil <code>write.js</code> tersedia di suite, tetapi <strong>tidak dijalankan</strong> pada pengujian ini karena menulis ke database (menambah baris <code>rewards</code> dan <code>personal_access_tokens</code>) dan sebaiknya dijalankan di staging atau database salinan. Karena itu, laporan ini belum mencakup performa alur tulis.</p>
+<h3 id="25-metrik-yang-dikumpulkan">2.5 Metrik yang dikumpulkan</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Metrik</th>
+<th>Satuan</th>
+<th>Makna</th>
+</tr></thead><tbody>
+<tr>
+<td><code>http_req_duration</code></td>
+<td>ms</td>
+<td>Waktu request dari client sampai respons diterima</td>
+</tr>
+<tr>
+<td><code>http_req_failed</code></td>
+<td>%</td>
+<td>Persentase request yang dianggap gagal (di luar 2xx/3xx)</td>
+</tr>
+<tr>
+<td><code>checks</code></td>
+<td>%</td>
+<td>Persentase assertion yang lulus</td>
+</tr>
+<tr>
+<td><code>http_reqs</code></td>
+<td>req/s</td>
+<td>Throughput request</td>
+</tr>
+<tr>
+<td><code>iteration_duration</code></td>
+<td>ms</td>
+<td>Waktu satu iterasi lengkap, termasuk think time</td>
+</tr>
+<tr>
+<td><code>iterations</code></td>
+<td>iterasi/s</td>
+<td>Jumlah iterasi skenario yang selesai</td>
+</tr>
+<tr>
+<td><code>vus</code> / <code>vus_max</code></td>
+<td>VU</td>
+<td>Jumlah virtual user aktif dan maksimum</td>
+</tr>
+<tr>
+<td><code>data_received</code> / <code>data_sent</code></td>
+<td>MB</td>
+<td>Volume data yang diterima dan dikirim</td>
+</tr>
+</tbody></table></div>
+<p>Metrik yang <strong>tidak</strong> dikumpulkan: CPU usage, memory usage, disk I/O, jumlah koneksi MySQL, slow query, OPcache hit rate, dan metrik PHP-FPM. Ketiadaan metrik ini menjadi keterbatasan utama dalam analisis akar masalah.</p>
+<h3 id="26-threshold-dan-kriteria-keberhasilan">2.6 Threshold dan kriteria keberhasilan</h3>
+<p><strong>Load test:</strong></p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Metrik</th>
+<th>Threshold</th>
+</tr></thead><tbody>
+<tr>
+<td><code>checks</code></td>
+<td>&gt; 98%</td>
+</tr>
+<tr>
+<td><code>http_req_failed</code> per skenario</td>
+<td>&lt; 2%</td>
+</tr>
+<tr>
+<td><code>http_req_duration{scenario:public_browse}</code></td>
+<td>p95 &lt; 3.000 ms, p99 &lt; 6.000 ms</td>
+</tr>
+<tr>
+<td><code>http_req_duration{scenario:student_web}</code></td>
+<td>p95 &lt; 3.000 ms, p99 &lt; 6.000 ms</td>
+</tr>
+<tr>
+<td><code>http_req_duration{scenario:admin_web}</code></td>
+<td>p95 &lt; 3.000 ms, p99 &lt; 6.000 ms</td>
+</tr>
+<tr>
+<td><code>http_req_duration{scenario:api_read}</code></td>
+<td>p95 &lt; 1.200 ms, p99 &lt; 2.500 ms</td>
+</tr>
+</tbody></table></div>
+<p><strong>Soak test:</strong></p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Metrik</th>
+<th>Threshold</th>
+</tr></thead><tbody>
+<tr>
+<td><code>checks</code></td>
+<td>&gt; 98%</td>
+</tr>
+<tr>
+<td><code>http_req_failed</code></td>
+<td>&lt; 2%</td>
+</tr>
+<tr>
+<td><code>http_req_duration{scenario:soak_api}</code></td>
+<td>p95 &lt; 1.500 ms, p99 &lt; 3.000 ms</td>
+</tr>
+<tr>
+<td><code>http_req_duration{scenario:soak_public}</code></td>
+<td>p95 &lt; 3.500 ms</td>
+</tr>
+<tr>
+<td><code>http_req_duration{scenario:soak_student}</code></td>
+<td>p95 &lt; 3.500 ms</td>
+</tr>
+<tr>
+<td><code>http_req_duration{scenario:soak_admin}</code></td>
+<td>p95 &lt; 3.500 ms</td>
+</tr>
+</tbody></table></div>
+<p><strong>Stress test:</strong> <code>checks</code> &gt; 90%, <code>http_req_failed</code> &lt; 10%. Threshold ini longgar karena tujuannya mengamati kapan sistem mulai jenuh.</p>
+<p><strong>Spike test:</strong> <code>checks</code> &gt; 95%, <code>http_req_failed</code> &lt; 5%.</p>
+<p><strong>Smoke test:</strong> <code>checks</code> &gt; 95%, <code>http_req_duration</code> p95 &lt; 3.000 ms.</p>
+<p>Kriteria keberhasilan keseluruhan:</p>
+<ol>
+<li>Seluruh threshold profil yang dijalankan terpenuhi.</li>
+<li>Tidak ada error 5xx atau timeout pada load, stress, spike, dan soak.</li>
+<li>Performa beban normal memenuhi target p95 web dan API.</li>
+<li>Stress dapat mengidentifikasi titik jenuh atau setidaknya menunjukkan tren saturasi.</li>
+<li>Spike tidak menyebabkan kegagalan dan sistem kembali normal.</li>
+<li>Soak tidak menunjukkan penurunan performa yang berarti.</li>
+</ol>
+<h3 id="27-rencana-urutan-eksekusi">2.7 Rencana urutan eksekusi</h3>
+<p>Urutan eksekusi dipilih dari yang paling ringan ke paling berat agar setiap kegagalan dasar diketahui lebih awal:</p>
+<ol>
+<li><strong>Smoke</strong> — memastikan seluruh halaman dan endpoint hidup sebelum diberi beban.</li>
+<li><strong>Load</strong> — membangun baseline performa pada beban normal.</li>
+<li><strong>Stress</strong> — menaikkan beban bertahap untuk melihat titik jenuh.</li>
+<li><strong>Spike</strong> — menguji lonjakan mendadak setelah sistem diketahui stabil.</li>
+<li><strong>Soak</strong> — menguji stabilitas jangka panjang.</li>
+<li><strong>Write</strong> — tidak dijalankan pada pengujian ini; direncanakan terpisah di staging.</li>
+</ol>
+<h3 id="28-risiko-dan-mitigasi">2.8 Risiko dan mitigasi</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Risiko</th>
+<th>Dampak</th>
+<th>Mitigasi</th>
+</tr></thead><tbody>
+<tr>
+<td>Rate limit login 5 kali per menit</td>
+<td>Setup gagal atau 429</td>
+<td>Login sekali di <code>setup()</code>, rotasi 8 akun siswa, <code>php artisan cache:clear</code> bila perlu</td>
+</tr>
+<tr>
+<td>Session dibagi antar VU</td>
+<td>Hasil tidak sepenuhnya merepresentasikan tiap pengguna</td>
+<td>Catat sebagai batasan; uji login per VU melalui <code>write.js</code> di staging</td>
+</tr>
+<tr>
+<td><code>write.js</code> mengubah data</td>
+<td>Data seed rusak</td>
+<td>Tidak dijalankan pada pengujian ini</td>
+</tr>
+<tr>
+<td>Server pengembangan 1 worker</td>
+<td>Hasil mentok di kapasitas server, bukan aplikasi</td>
+<td>Ulangi di PHP-FPM/nginx atau naikkan <code>PHP_CLI_SERVER_WORKERS</code></td>
+</tr>
+<tr>
+<td>Tidak ada monitoring server</td>
+<td>Akar masalah tidak dapat dipastikan</td>
+<td>Tambahkan Prometheus/Grafana, PHP-FPM status, dan slow query log</td>
+</tr>
+<tr>
+<td>Data seed kecil</td>
+<td>Query terlihat lebih cepat dari produksi</td>
+<td>Uji dengan volume data mendekati produksi</td>
+</tr>
+<tr>
+<td>Test berjalan berurutan</td>
+<td>Cache/session sudah hangat saat stress</td>
+<td>Catat sebagai ancaman validitas; ulangi dengan urutan acak atau beberapa run</td>
+</tr>
+<tr>
+<td>Lingkungan lokal tanpa latency jaringan</td>
+<td>Hasil cenderung optimistis</td>
+<td>Uji ulang di staging dengan jaringan nyata</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="3-test-execution">3. Test Execution</h2>
+<h3 id="31-prosedur-eksekusi">3.1 Prosedur eksekusi</h3>
+<p>Prasyarat yang digunakan:</p>
+<pre><code class="language-bash"># 1. Siapkan database dan data seed
+php artisan migrate:fresh --seed
+
+# 2. Jalankan aplikasi
+php artisan serve --host=0.0.0.0 --port=8000
+
+# 3. Pastikan k6 tersedia
+k6 version</code></pre>
+<p>Perintah pengujian yang dijalankan dari root proyek:</p>
+<pre><code class="language-bash">./tests/k6/run.sh smoke  | tee tests/Result/smoke.txt
+./tests/k6/run.sh load   | tee tests/Result/load.txt
+./tests/k6/run.sh stress | tee tests/Result/stress.txt
+./tests/k6/run.sh spike  | tee tests/Result/spike.txt
+./tests/k6/run.sh soak   | tee tests/Result/soak.txt</code></pre>
+<p><code>run.sh</code> menambahkan header profil dan target, lalu menjalankan <code>k6 run</code> dengan <code>BASE_URL</code> yang sesuai. Eksekusi ini memakai <code>output: -</code>, sehingga ringkasan ditulis ke terminal dan disimpan sebagai file <code>.txt</code>.</p>
+<h3 id="32-waktu-dan-durasi-eksekusi">3.2 Waktu dan durasi eksekusi</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Profil</th>
+<th>File hasil</th>
+<th>Perkiraan mulai</th>
+<th style="text-align:right">Perkiraan selesai</th>
+<th style="text-align:right">Durasi</th>
+<th>Status</th>
+</tr></thead><tbody>
+<tr>
+<td>Smoke</td>
+<td><code>tests/Result/smoke.txt</code></td>
+<td>22:16:19</td>
+<td style="text-align:right">22:16:22</td>
+<td style="text-align:right">2,8 s</td>
+<td>Selesai</td>
+</tr>
+<tr>
+<td>Load</td>
+<td><code>tests/Result/load.txt</code></td>
+<td>22:17:23</td>
+<td style="text-align:right">22:19:27</td>
+<td style="text-align:right">2 m 3,7 s</td>
+<td>Selesai</td>
+</tr>
+<tr>
+<td>Stress</td>
+<td><code>tests/Result/stress.txt</code></td>
+<td>22:21:12</td>
+<td style="text-align:right">22:26:47</td>
+<td style="text-align:right">5 m 35,1 s</td>
+<td>Selesai</td>
+</tr>
+<tr>
+<td>Spike</td>
+<td><code>tests/Result/spike.txt</code></td>
+<td>22:29:51</td>
+<td style="text-align:right">22:31:18</td>
+<td style="text-align:right">1 m 26,9 s</td>
+<td>Selesai</td>
+</tr>
+<tr>
+<td>Soak</td>
+<td><code>tests/Result/soak.txt</code></td>
+<td>22:32:31</td>
+<td style="text-align:right">22:42:35</td>
+<td style="text-align:right">10 m 4,3 s</td>
+<td>Selesai</td>
+</tr>
+</tbody></table></div>
+<p>Waktu di atas adalah perkiraan yang dihitung dari timestamp file hasil dan durasi yang tercatat di ringkasan k6. Semua pengujian dilakukan pada 22 November 2026, zona waktu WIB (UTC+7). Rentang dari mulai smoke sampai selesai soak sekitar 26 menit, dengan total durasi pengujian sekitar 19 menit 13 detik.</p>
+<h3 id="33-hasil-smoke-test">3.3 Hasil smoke test</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Metrik</th>
+<th>Nilai</th>
+</tr></thead><tbody>
+<tr>
+<td>VU / iterasi</td>
+<td>1 VU / 1 iterasi</td>
+</tr>
+<tr>
+<td>Total request</td>
+<td>91</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td>31,98 req/s</td>
+</tr>
+<tr>
+<td>Checks</td>
+<td>111/111 lulus (100%)</td>
+</tr>
+<tr>
+<td><code>http_req_failed</code></td>
+<td>1,09% (1 dari 91)</td>
+</tr>
+<tr>
+<td>Rata-rata respons</td>
+<td>28,50 ms</td>
+</tr>
+<tr>
+<td>Median</td>
+<td>18,58 ms</td>
+</tr>
+<tr>
+<td>p90</td>
+<td>32,06 ms</td>
+</tr>
+<tr>
+<td>p95</td>
+<td>54,28 ms</td>
+</tr>
+<tr>
+<td>Maksimum</td>
+<td>283,65 ms</td>
+</tr>
+<tr>
+<td>Data diterima</td>
+<td>16 MB</td>
+</tr>
+</tbody></table></div>
+<p>Smoke test membuktikan seluruh halaman publik, siswa, admin, API, aset statis, PDF reward, dan endpoint kesehatan hidup. Pengecekan keamanan dasar juga lulus:</p>
+<ul>
+<li>Guest membuka <code>/admin/dashboard</code> menghasilkan <code>302</code> ke login.</li>
+<li>Guest memanggil <code>/api/me</code> menghasilkan <code>401</code>.</li>
+<li>Siswa membuka <code>/admin/dashboard</code> menghasilkan <code>302</code> ke <code>/siswa/welcome</code>.</li>
+</ul>
+<p>Satu request yang tercatat gagal adalah respons 4xx yang memang disengaja oleh skenario negatif (misalnya <code>401</code> pada guest <code>/api/me</code> atau <code>404</code> pada <code>/download</code> dan <code>/mail/preview</code>). Karena seluruh check lulus, angka ini <strong>bukan defect</strong>. Data sebesar 16 MB berasal dari unduhan APK pada smoke test, sehingga throughput smoke tidak sebanding dengan profil lain.</p>
+<h3 id="34-hasil-load-test">3.4 Hasil load test</h3>
+<p><strong>Ringkasan keseluruhan:</strong></p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Metrik</th>
+<th style="text-align:right">Nilai</th>
+</tr></thead><tbody>
+<tr>
+<td>Skenario</td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td>Beban maksimum</td>
+<td style="text-align:right">20 VU</td>
+</tr>
+<tr>
+<td>Durasi</td>
+<td style="text-align:right">2 m 3,7 s</td>
+</tr>
+<tr>
+<td>Total request</td>
+<td style="text-align:right">5.524</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td style="text-align:right">44,66 req/s</td>
+</tr>
+<tr>
+<td>Checks</td>
+<td style="text-align:right">6.666/6.666 (100%)</td>
+</tr>
+<tr>
+<td>Error rate</td>
+<td style="text-align:right">0,00% (0 dari 5.524)</td>
+</tr>
+<tr>
+<td>Iterasi selesai</td>
+<td style="text-align:right">603</td>
+</tr>
+<tr>
+<td>Rata-rata respons</td>
+<td style="text-align:right">69,95 ms</td>
+</tr>
+<tr>
+<td>Median</td>
+<td style="text-align:right">54,22 ms</td>
+</tr>
+<tr>
+<td>p90</td>
+<td style="text-align:right">150,32 ms</td>
+</tr>
+<tr>
+<td>p95</td>
+<td style="text-align:right">187,25 ms</td>
+</tr>
+<tr>
+<td>p99</td>
+<td style="text-align:right">242,74 ms</td>
+</tr>
+<tr>
+<td>Maksimum</td>
+<td style="text-align:right">307,69 ms</td>
+</tr>
+<tr>
+<td>Rata-rata durasi iterasi</td>
+<td style="text-align:right">2,05 s</td>
+</tr>
+<tr>
+<td>p95 durasi iterasi</td>
+<td style="text-align:right">3,62 s</td>
+</tr>
+<tr>
+<td>Data diterima / dikirim</td>
+<td style="text-align:right">173 MB / 2,8 MB</td>
+</tr>
+</tbody></table></div>
+<p><strong>Rincian per skenario:</strong></p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Skenario</th>
+<th style="text-align:right">VU</th>
+<th style="text-align:right">Request</th>
+<th style="text-align:right">Gagal</th>
+<th style="text-align:right">Rata-rata</th>
+<th style="text-align:right">p95</th>
+<th style="text-align:right">p99</th>
+</tr></thead><tbody>
+<tr>
+<td><code>public_browse</code></td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">1.269</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">78,16 ms</td>
+<td style="text-align:right">210,72 ms</td>
+<td style="text-align:right">265,59 ms</td>
+</tr>
+<tr>
+<td><code>student_web</code></td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">855</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">76,51 ms</td>
+<td style="text-align:right">192,67 ms</td>
+<td style="text-align:right">253,85 ms</td>
+</tr>
+<tr>
+<td><code>admin_web</code></td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">792</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">65,86 ms</td>
+<td style="text-align:right">168,55 ms</td>
+<td style="text-align:right">209,34 ms</td>
+</tr>
+<tr>
+<td><code>api_read</code></td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">2.584</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">65,13 ms</td>
+<td style="text-align:right">177,44 ms</td>
+<td style="text-align:right">233,37 ms</td>
+</tr>
+</tbody></table></div>
+<p>Seluruh threshold load test terpenuhi. p95 tertinggi ada pada <code>public_browse</code> (210,72 ms), masih hanya 7,0% dari batas 3.000 ms. API p95 177,44 ms hanya 14,8% dari batas 1.200 ms. Dengan demikian, pada beban normal aplikasi memiliki headroom yang sangat besar.</p>
+<h3 id="35-hasil-stress-test">3.5 Hasil stress test</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Metrik</th>
+<th style="text-align:right">Nilai</th>
+</tr></thead><tbody>
+<tr>
+<td>Skenario</td>
+<td style="text-align:right">2 (<code>stress_web</code> 80 VU, <code>stress_api</code> 80 VU)</td>
+</tr>
+<tr>
+<td>Beban maksimum</td>
+<td style="text-align:right">160 VU</td>
+</tr>
+<tr>
+<td>Durasi</td>
+<td style="text-align:right">5 m 35,1 s</td>
+</tr>
+<tr>
+<td>Total request</td>
+<td style="text-align:right">20.223</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td style="text-align:right">60,36 req/s</td>
+</tr>
+<tr>
+<td>Checks</td>
+<td style="text-align:right">24.136/24.136 (100%)</td>
+</tr>
+<tr>
+<td>Error rate</td>
+<td style="text-align:right">0,00% (0 dari 20.223)</td>
+</tr>
+<tr>
+<td>Iterasi selesai</td>
+<td style="text-align:right">2.079</td>
+</tr>
+<tr>
+<td>Iterasi terputus</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td>Rata-rata respons</td>
+<td style="text-align:right">1.610 ms</td>
+</tr>
+<tr>
+<td>Median</td>
+<td style="text-align:right">1.680 ms</td>
+</tr>
+<tr>
+<td>p90</td>
+<td style="text-align:right">2.710 ms</td>
+</tr>
+<tr>
+<td>p95</td>
+<td style="text-align:right">2.760 ms</td>
+</tr>
+<tr>
+<td>p99</td>
+<td style="text-align:right">2.840 ms</td>
+</tr>
+<tr>
+<td>Maksimum</td>
+<td style="text-align:right">3.420 ms</td>
+</tr>
+<tr>
+<td>Rata-rata durasi iterasi</td>
+<td style="text-align:right">15,49 s</td>
+</tr>
+<tr>
+<td>p95 durasi iterasi</td>
+<td style="text-align:right">41,08 s</td>
+</tr>
+<tr>
+<td>Maksimum durasi iterasi</td>
+<td style="text-align:right">50,95 s</td>
+</tr>
+<tr>
+<td>Data diterima / dikirim</td>
+<td style="text-align:right">551 MB / 10 MB</td>
+</tr>
+</tbody></table></div>
+<p>Stress test tidak menghasilkan error satu pun. Aplikasi tetap mengembalikan status dan isi yang benar hingga 160 VU. Namun, latency meningkat sangat tajam: rata-rata 1.610 ms dan p95 2.760 ms, dibandingkan 69,95 ms dan 187,25 ms pada load test. p95 stress sudah mencapai <strong>92% dari batas 3.000 ms</strong>, sehingga margin tersisa hanya sekitar 240 ms.</p>
+<p>Tiga iterasi terputus di akhir pengujian karena proses graceful stop ketika durasi iterasi sedang panjang (p95 41,08 detik, maksimum 50,95 detik). Iterasi yang terputus bukan error request; ini konsekuensi normal dari penghentian bertahap. Karena durasi iterasi sangat panjang, beberapa VU juga belum menyelesaikan iterasi saat tahap ramp-down berakhir.</p>
+<blockquote><p><strong>Catatan keterbatasan:</strong> ringkasan stress tidak memecah <code>http_req_duration</code> per skenario karena tidak ada threshold per skenario pada profil ini. Angka p95 2.760 ms adalah gabungan <code>stress_web</code> dan <code>stress_api</code>. Untuk mengetahui apakah API atau web yang lebih lambat, perlu threshold/tag per skenario pada pengujian berikutnya.</p></blockquote>
+<h3 id="36-hasil-spike-test">3.6 Hasil spike test</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Metrik</th>
+<th style="text-align:right">Nilai</th>
+</tr></thead><tbody>
+<tr>
+<td>Skenario</td>
+<td style="text-align:right">2 (<code>spike_api</code> 60 VU, <code>spike_web</code> 20 VU)</td>
+</tr>
+<tr>
+<td>Beban maksimum</td>
+<td style="text-align:right">80 VU</td>
+</tr>
+<tr>
+<td>Durasi</td>
+<td style="text-align:right">1 m 26,9 s</td>
+</tr>
+<tr>
+<td>Total request</td>
+<td style="text-align:right">4.837</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td style="text-align:right">55,63 req/s</td>
+</tr>
+<tr>
+<td>Checks</td>
+<td style="text-align:right">5.235/5.235 (100%)</td>
+</tr>
+<tr>
+<td>Error rate</td>
+<td style="text-align:right">0,00% (0 dari 4.837)</td>
+</tr>
+<tr>
+<td>Iterasi selesai</td>
+<td style="text-align:right">541</td>
+</tr>
+<tr>
+<td>Iterasi terputus</td>
+<td style="text-align:right">7</td>
+</tr>
+<tr>
+<td>Rata-rata respons</td>
+<td style="text-align:right">1.180 ms</td>
+</tr>
+<tr>
+<td>Median</td>
+<td style="text-align:right">1.250 ms</td>
+</tr>
+<tr>
+<td>p90</td>
+<td style="text-align:right">1.450 ms</td>
+</tr>
+<tr>
+<td>p95</td>
+<td style="text-align:right">1.530 ms</td>
+</tr>
+<tr>
+<td>p99</td>
+<td style="text-align:right">1.810 ms</td>
+</tr>
+<tr>
+<td>Maksimum</td>
+<td style="text-align:right">2.100 ms</td>
+</tr>
+<tr>
+<td>Rata-rata durasi iterasi</td>
+<td style="text-align:right">10,99 s</td>
+</tr>
+<tr>
+<td>p95 durasi iterasi</td>
+<td style="text-align:right">21,28 s</td>
+</tr>
+<tr>
+<td>Data diterima / dikirim</td>
+<td style="text-align:right">59 MB / 1,7 MB</td>
+</tr>
+</tbody></table></div>
+<p>Spike test menaikkan beban dari 1 VU ke 80 VU dalam 10 detik, menahannya selama 1 menit, lalu menurunkannya dalam 10 detik. Aplikasi tidak menghasilkan error dan seluruh check lulus. p95 1.530 ms masih 51% dari batas 3.000 ms, sehingga lonjakan mendadak masih dapat ditangani.</p>
+<p>Tujuh iterasi terputus di akhir karena ramp-down hanya 10 detik, sementara durasi iterasi bisa mencapai 25,41 detik. Sama seperti stress, ini bukan error; iterasi tersebut dihentikan saat VU dimatikan.</p>
+<h3 id="37-hasil-soak-test">3.7 Hasil soak test</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Metrik</th>
+<th style="text-align:right">Nilai</th>
+</tr></thead><tbody>
+<tr>
+<td>Skenario</td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td>Beban</td>
+<td style="text-align:right">12 VU konstan (public 4, student 3, admin 1, API 4)</td>
+</tr>
+<tr>
+<td>Durasi</td>
+<td style="text-align:right">10 m 4,3 s</td>
+</tr>
+<tr>
+<td>Total request</td>
+<td style="text-align:right">31.966</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td style="text-align:right">52,90 req/s</td>
+</tr>
+<tr>
+<td>Checks</td>
+<td style="text-align:right">39.383/39.383 (100%)</td>
+</tr>
+<tr>
+<td>Error rate</td>
+<td style="text-align:right">0,00% (0 dari 31.966)</td>
+</tr>
+<tr>
+<td>Iterasi selesai</td>
+<td style="text-align:right">3.545</td>
+</tr>
+<tr>
+<td>Iterasi terputus</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>Rata-rata respons</td>
+<td style="text-align:right">61,43 ms</td>
+</tr>
+<tr>
+<td>Median</td>
+<td style="text-align:right">55,60 ms</td>
+</tr>
+<tr>
+<td>p90</td>
+<td style="text-align:right">112,14 ms</td>
+</tr>
+<tr>
+<td>p95</td>
+<td style="text-align:right">130,75 ms</td>
+</tr>
+<tr>
+<td>p99</td>
+<td style="text-align:right">167,92 ms</td>
+</tr>
+<tr>
+<td>Maksimum</td>
+<td style="text-align:right">353,35 ms</td>
+</tr>
+<tr>
+<td>Rata-rata durasi iterasi</td>
+<td style="text-align:right">2,03 s</td>
+</tr>
+<tr>
+<td>p95 durasi iterasi</td>
+<td style="text-align:right">3,40 s</td>
+</tr>
+<tr>
+<td>Data diterima / dikirim</td>
+<td style="text-align:right">1,1 GB / 17 MB</td>
+</tr>
+</tbody></table></div>
+<p><strong>Rincian per skenario:</strong></p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Skenario</th>
+<th style="text-align:right">VU</th>
+<th style="text-align:right">Rata-rata</th>
+<th style="text-align:right">p90</th>
+<th style="text-align:right">p95</th>
+<th style="text-align:right">p99</th>
+<th style="text-align:right">Maksimum</th>
+</tr></thead><tbody>
+<tr>
+<td><code>soak_admin</code></td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">67,01 ms</td>
+<td style="text-align:right">113,39 ms</td>
+<td style="text-align:right">129,83 ms</td>
+<td style="text-align:right">157,63 ms</td>
+<td style="text-align:right">353,35 ms</td>
+</tr>
+<tr>
+<td><code>soak_api</code></td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">56,75 ms</td>
+<td style="text-align:right">105,42 ms</td>
+<td style="text-align:right">122,68 ms</td>
+<td style="text-align:right">157,00 ms</td>
+<td style="text-align:right">332,89 ms</td>
+</tr>
+<tr>
+<td><code>soak_public</code></td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">63,66 ms</td>
+<td style="text-align:right">120,73 ms</td>
+<td style="text-align:right">141,45 ms</td>
+<td style="text-align:right">183,83 ms</td>
+<td style="text-align:right">342,25 ms</td>
+</tr>
+<tr>
+<td><code>soak_student</code></td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">65,04 ms</td>
+<td style="text-align:right">112,00 ms</td>
+<td style="text-align:right">130,10 ms</td>
+<td style="text-align:right">165,87 ms</td>
+<td style="text-align:right">333,08 ms</td>
+</tr>
+</tbody></table></div>
+<p>Seluruh threshold soak terpenuhi. Sebaran p95 antar skenario sangat sempit, yaitu 122,68–141,45 ms, dan tidak ada iterasi yang terputus. Tidak ada kenaikan error atau latency yang mencolok selama 10 menit. Namun, ringkasan k6 hanya memberikan agregat akhir, bukan tren per menit; oleh karena itu, klaim “tidak ada kebocoran memori” belum bisa dibuktikan tanpa metrik memori server.</p>
+<h3 id="38-rekapitulasi-hasil">3.8 Rekapitulasi hasil</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Profil</th>
+<th style="text-align:right">VU</th>
+<th style="text-align:right">Request</th>
+<th style="text-align:right">Throughput</th>
+<th style="text-align:right">Error</th>
+<th style="text-align:right">p95</th>
+<th style="text-align:right">p99</th>
+<th style="text-align:right">Checks</th>
+<th>Status</th>
+</tr></thead><tbody>
+<tr>
+<td>Smoke</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">91</td>
+<td style="text-align:right">31,98 req/s</td>
+<td style="text-align:right">1,09%¹</td>
+<td style="text-align:right">54,28 ms</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">100%</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Load</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">5.524</td>
+<td style="text-align:right">44,66 req/s</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">187,25 ms</td>
+<td style="text-align:right">242,74 ms</td>
+<td style="text-align:right">100%</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Stress</td>
+<td style="text-align:right">160</td>
+<td style="text-align:right">20.223</td>
+<td style="text-align:right">60,36 req/s</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">2.760 ms</td>
+<td style="text-align:right">2.840 ms</td>
+<td style="text-align:right">100%</td>
+<td>Lulus²</td>
+</tr>
+<tr>
+<td>Spike</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">4.837</td>
+<td style="text-align:right">55,63 req/s</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">1.530 ms</td>
+<td style="text-align:right">1.810 ms</td>
+<td style="text-align:right">100%</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Soak</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">31.966</td>
+<td style="text-align:right">52,90 req/s</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">130,75 ms</td>
+<td style="text-align:right">167,92 ms</td>
+<td style="text-align:right">100%</td>
+<td>Lulus</td>
+</tr>
+</tbody></table></div>
+<p>¹ 4xx yang disengaja. ² Threshold longgar; lihat analisis saturasi.</p>
+<hr>
+<h2 id="4-analysis-and-evaluation">4. Analysis and Evaluation</h2>
+<h3 id="41-perbandingan-target-dan-hasil-aktual">4.1 Perbandingan target dan hasil aktual</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Profil</th>
+<th>Metrik</th>
+<th>Target</th>
+<th style="text-align:right">Aktual</th>
+<th style="text-align:right">Margin</th>
+<th>Evaluasi</th>
+</tr></thead><tbody>
+<tr>
+<td>Smoke</td>
+<td>p95 respons</td>
+<td>&lt; 3.000 ms</td>
+<td style="text-align:right">54,28 ms</td>
+<td style="text-align:right">98,2% di bawah target</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Smoke</td>
+<td>Checks</td>
+<td>&gt; 95%</td>
+<td style="text-align:right">100%</td>
+<td style="text-align:right">+5 poin</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Load</td>
+<td>p95 web terburuk</td>
+<td>&lt; 3.000 ms</td>
+<td style="text-align:right">210,72 ms</td>
+<td style="text-align:right">93,0% di bawah target</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Load</td>
+<td>p95 API</td>
+<td>&lt; 1.200 ms</td>
+<td style="text-align:right">177,44 ms</td>
+<td style="text-align:right">85,2% di bawah target</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Load</td>
+<td>p99 web terburuk</td>
+<td>&lt; 6.000 ms</td>
+<td style="text-align:right">265,59 ms</td>
+<td style="text-align:right">95,6% di bawah target</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Load</td>
+<td>p99 API</td>
+<td>&lt; 2.500 ms</td>
+<td style="text-align:right">233,37 ms</td>
+<td style="text-align:right">90,7% di bawah target</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Load</td>
+<td>Error rate</td>
+<td>&lt; 2%</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">2 poin</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Load</td>
+<td>Checks</td>
+<td>&gt; 98%</td>
+<td style="text-align:right">100%</td>
+<td style="text-align:right">+2 poin</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Stress</td>
+<td>p95 agregat</td>
+<td>&lt; 3.000 ms (acuan web)</td>
+<td style="text-align:right">2.760 ms</td>
+<td style="text-align:right">8,0% di bawah target</td>
+<td>Lulus, margin tipis</td>
+</tr>
+<tr>
+<td>Stress</td>
+<td>Error rate</td>
+<td>&lt; 10%</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">10 poin</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Stress</td>
+<td>Checks</td>
+<td>&gt; 90%</td>
+<td style="text-align:right">100%</td>
+<td style="text-align:right">+10 poin</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Spike</td>
+<td>p95 agregat</td>
+<td>&lt; 3.000 ms (acuan web)</td>
+<td style="text-align:right">1.530 ms</td>
+<td style="text-align:right">49,0% di bawah target</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Spike</td>
+<td>Error rate</td>
+<td>&lt; 5%</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">5 poin</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Spike</td>
+<td>Checks</td>
+<td>&gt; 95%</td>
+<td style="text-align:right">100%</td>
+<td style="text-align:right">+5 poin</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Soak</td>
+<td>p95 API</td>
+<td>&lt; 1.500 ms</td>
+<td style="text-align:right">122,68 ms</td>
+<td style="text-align:right">91,8% di bawah target</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Soak</td>
+<td>p99 API</td>
+<td>&lt; 3.000 ms</td>
+<td style="text-align:right">157,00 ms</td>
+<td style="text-align:right">94,8% di bawah target</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Soak</td>
+<td>p95 web terburuk</td>
+<td>&lt; 3.500 ms</td>
+<td style="text-align:right">141,45 ms</td>
+<td style="text-align:right">96,0% di bawah target</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Soak</td>
+<td>Error rate</td>
+<td>&lt; 2%</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">2 poin</td>
+<td>Lulus</td>
+</tr>
+<tr>
+<td>Soak</td>
+<td>Checks</td>
+<td>&gt; 98%</td>
+<td style="text-align:right">100%</td>
+<td style="text-align:right">+2 poin</td>
+<td>Lulus</td>
+</tr>
+</tbody></table></div>
+<h3 id="42-analisis-load-test">4.2 Analisis load test</h3>
+<p>Pada beban normal 20 VU, aplikasi memberikan performa yang sangat baik:</p>
+<ul>
+<li>Rata-rata respons 69,95 ms dan p95 187,25 ms. Artinya, 95% request selesai di bawah 187 ms, jauh lebih cepat dari persepsi manusia terhadap waktu tunggu.</li>
+<li>Skenario publik memiliki p95 tertinggi (210,72 ms) karena memuat HTML dan aset statis. Perbedaan dengan skenario lain hanya sekitar 20–42 ms, jadi tidak ada endpoint yang menonjol sebagai bottleneck.</li>
+<li>API memiliki p95 177,44 ms, hanya 14,8% dari target 1.200 ms. Ini menunjukkan endpoint JSON cukup ringan pada beban normal.</li>
+<li>Tidak ada error dan seluruh 6.666 check lulus, termasuk pengecekan judul landing page, isi halaman admin, status API, dan session.</li>
+<li>Throughput 44,66 req/s adalah rata-rata selama 2 menit, termasuk fase ramp-up dan ramp-down. Angka ini bukan kapasitas puncak; pada fase bertahan di 20 VU, throughput aktual kemungkinan lebih tinggi.</li>
+</ul>
+<p>Dengan headroom di atas 85% untuk semua target latency, beban normal 20 VU masih sangat jauh dari batas kemampuan sistem. Untuk kapasitas produksi awal, angka ini memberi keyakinan bahwa aplikasi mampu melayani puluhan pengguna bersamaan pada lingkungan yang setara.</p>
+<h3 id="43-analisis-stress-test-dan-skalabilitas">4.3 Analisis stress test dan skalabilitas</h3>
+<p>Stress test memberikan gambaran yang berbeda. Beban naik bertahap sampai 160 VU, tetapi:</p>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Indikator</th>
+<th style="text-align:right">Load (20 VU)</th>
+<th style="text-align:right">Spike (80 VU)</th>
+<th style="text-align:right">Stress (160 VU)</th>
+</tr></thead><tbody>
+<tr>
+<td>Throughput</td>
+<td style="text-align:right">44,66 req/s</td>
+<td style="text-align:right">55,63 req/s</td>
+<td style="text-align:right">60,36 req/s</td>
+</tr>
+<tr>
+<td>p95 latency</td>
+<td style="text-align:right">187,25 ms</td>
+<td style="text-align:right">1.530 ms</td>
+<td style="text-align:right">2.760 ms</td>
+</tr>
+<tr>
+<td>p99 latency</td>
+<td style="text-align:right">242,74 ms</td>
+<td style="text-align:right">1.810 ms</td>
+<td style="text-align:right">2.840 ms</td>
+</tr>
+<tr>
+<td>Rata-rata latency</td>
+<td style="text-align:right">69,95 ms</td>
+<td style="text-align:right">1.180 ms</td>
+<td style="text-align:right">1.610 ms</td>
+</tr>
+<tr>
+<td>Error rate</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">0,00%</td>
+</tr>
+<tr>
+<td>Throughput per VU</td>
+<td style="text-align:right">2,23 req/s/VU</td>
+<td style="text-align:right">0,70 req/s/VU</td>
+<td style="text-align:right">0,38 req/s/VU</td>
+</tr>
+</tbody></table></div>
+<p><strong>Interpretasi:</strong></p>
+<ol>
+<li><strong>Throughput tidak naik proporsional.</strong> Dari 20 VU ke 160 VU (8 kali lipat), throughput rata-rata hanya naik 35%, dari 44,66 menjadi 60,36 req/s. Jika sistem memiliki skalabilitas linear, kenaikan beban 8 kali seharusnya diikuti kenaikan throughput yang jauh lebih besar.</li>
+<li><strong>Latency naik sangat tajam.</strong> p95 naik dari 187,25 ms ke 2.760 ms, sekitar 14,7 kali lipat. Rata-rata naik dari 69,95 ms ke 1.610 ms, sekitar 23 kali lipat.</li>
+<li><strong>Efisiensi per VU turun.</strong> Pada load test, setiap VU menghasilkan sekitar 2,23 req/s. Pada stress, hanya 0,38 req/s per VU. Artinya, semakin banyak VU, semakin besar proporsi waktu yang dihabiskan untuk menunggu respons, bukan mengirim request baru.</li>
+<li><strong>Tidak ada kegagalan, tetapi terjadi saturasi.</strong> Aplikasi tidak mengembalikan 5xx dan tidak timeout. Ini berarti sistem mengalami <strong>graceful degradation</strong>: tetap melayani, tetapi makin lambat. Titik jenuh dalam arti kegagalan belum tercapai; yang tercapai adalah titik jenuh latency.</li>
+<li><strong>p95 stress mendekati batas.</strong> p95 2.760 ms adalah 92% dari 3.000 ms. Hanya tersisa sekitar 240 ms margin. Jika target API 1.200 ms diterapkan, kemungkinan besar API sudah melewati target pada beban ini, meskipun angka per skenario tidak tercatat.</li>
+<li><strong>Iterasi menjadi sangat panjang.</strong> p95 durasi iterasi 41,08 detik dan maksimum 50,95 detik. Satu iterasi berisi sekitar 9–10 request; jika tiap request lambat, total waktu satu iterasi melonjak. Ini juga menjelaskan mengapa beberapa iterasi terputus saat ramp-down.</li>
+</ol>
+<p><strong>Hipotesis penyebab saturasi (perlu verifikasi):</strong></p>
+<ul>
+<li><strong>Server pengembangan satu worker.</strong> Jika aplikasi dijalankan dengan <code>php artisan serve</code> tanpa <code>PHP_CLI_SERVER_WORKERS</code>, hanya ada satu proses PHP yang melayani request. Pada kondisi ini, penambahan VU hanya membuat antrean semakin panjang.</li>
+<li><strong>Session dan cache di database.</strong> Dengan <code>SESSION_DRIVER=database</code> dan <code>CACHE_STORE=database</code>, setiap request dapat melakukan beberapa query tambahan ke MySQL. Pada 160 VU, query session/cache ini ikut membebani database.</li>
+<li><strong>OPcache tidak aktif pada CLI server.</strong> <code>php artisan serve</code> memakai SAPI CLI. Jika <code>opcache.enable_cli</code> mati, kode PHP dikompilasi ulang pada setiap request, sehingga biaya CPU meningkat.</li>
+<li><strong>Query yang belum optimal.</strong> Halaman admin yang menampilkan daftar kelas, kategori, materi, kuis, siswa, dan reward berpotensi melakukan join atau query berulang (N+1). Pada data seed yang kecil, masalah ini belum terlihat; pada data produksi, dampaknya bisa lebih besar.</li>
+<li><strong>Koneksi database terbatas.</strong> Jika <code>max_connections</code> MySQL tercapai, request akan menunggu koneksi. Namun, karena tidak ada error, kemungkinan besar antrean terjadi di level aplikasi/server, bukan penolakan koneksi.</li>
+<li><strong>Aset statis dan payload.</strong> Load test menerima 173 MB untuk 5.524 request (sekitar 31 KB per request). Soak menerima 1,1 GB untuk 31.966 request (sekitar 34 KB per request). Static asset caching dan kompresi dapat mengurangi beban jaringan, meskipun pada localhost jaringan bukan bottleneck utama.</li>
+</ul>
+<p>Hipotesis di atas belum dapat dipastikan tanpa metrik server. Prioritas berikutnya adalah mengukur CPU, memori, query time, dan jumlah koneksi DB saat stress test berjalan.</p>
+<h3 id="44-analisis-spike-test">4.4 Analisis spike test</h3>
+<p>Spike test menaikkan beban ke 80 VU hanya dalam 10 detik. Hasilnya:</p>
+<ul>
+<li>Tidak ada error dan seluruh 5.235 check lulus.</li>
+<li>p95 1.530 ms, p99 1.810 ms, maksimum 2.100 ms. Semua masih di bawah 3.000 ms.</li>
+<li>Throughput 55,63 req/s, lebih tinggi dari load test, tetapi lebih rendah dari stress test karena beban puncaknya lebih kecil (80 VU vs 160 VU).</li>
+<li>Tujuh iterasi terputus saat ramp-down 10 detik. Durasi iterasi maksimum 25,41 detik, sehingga beberapa iterasi belum selesai ketika VU dimatikan. Ini bukan kegagalan request.</li>
+</ul>
+<p>Spike test menunjukkan aplikasi cukup elastis: kenaikan beban mendadak tidak menyebabkan error atau lonjakan latency yang ekstrem. p95 1.530 ms masih memberikan margin sekitar 49% terhadap target 3.000 ms.</p>
+<p><strong>Pemulihan setelah spike:</strong> pengujian soak dijalankan sekitar satu menit setelah spike selesai. Soak mencatat p95 130,75 ms dan 0 error selama 10 menit. Meskipun bukan pengukuran “sebelum-sesudah” dalam satu skenario, hasil ini memberi indikasi bahwa sistem kembali ke kondisi normal setelah lonjakan dan tidak mengalami degradasi permanen.</p>
+<h3 id="45-analisis-soak-test">4.5 Analisis soak test</h3>
+<p>Soak test menjalankan beban sedang (12 VU) selama 10 menit. Hasilnya sangat stabil:</p>
+<ul>
+<li>p95 130,75 ms dan p99 167,92 ms, dengan sebaran antar skenario hanya 122,68–141,45 ms.</li>
+<li>0 error, 100% check lulus, dan 0 iterasi terputus.</li>
+<li>Rata-rata 61,43 ms, bahkan lebih rendah dari load test (69,95 ms). Perbedaan ini tidak boleh langsung diartikan sebagai peningkatan performa, karena komposisi VU dan pola beban berbeda (konstan vs ramp). Namun, setidaknya tidak ada tanda penurunan performa seiring waktu.</li>
+<li>Throughput 52,90 req/s pada 12 VU menunjukkan sistem masih nyaman pada beban ini.</li>
+</ul>
+<p><strong>Tentang kebocoran memori:</strong> hasil client-side tidak menunjukkan gejala kebocoran memori, seperti kenaikan latency atau error di akhir pengujian. Namun, ringkasan k6 tidak memuat tren per menit dan tidak mengukur memori server. Oleh karena itu, klaim “bebas memory leak” belum dapat dinyatakan. Yang dapat dikatakan adalah <strong>tidak ada indikasi degradasi performa dari sisi client selama 10 menit</strong>.</p>
+<p>Durasi 10 menit juga relatif singkat untuk soak test. Untuk aplikasi produksi, soak 30–60 menit atau lebih sangat disarankan, terutama untuk mendeteksi penumpukan session, file log, cache, dan koneksi database.</p>
+<h3 id="46-analisis-throughput-error-rate-dan-efisiensi">4.6 Analisis throughput, error rate, dan efisiensi</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Profil</th>
+<th style="text-align:right">VU</th>
+<th style="text-align:right">Throughput</th>
+<th style="text-align:right">Throughput per VU</th>
+<th style="text-align:right">p95</th>
+<th style="text-align:right">Error</th>
+<th>Catatan</th>
+</tr></thead><tbody>
+<tr>
+<td>Soak</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">52,90 req/s</td>
+<td style="text-align:right">4,41 req/s/VU</td>
+<td style="text-align:right">130,75 ms</td>
+<td style="text-align:right">0,00%</td>
+<td>Konstan, beban sedang, paling efisien</td>
+</tr>
+<tr>
+<td>Load</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">44,66 req/s</td>
+<td style="text-align:right">2,23 req/s/VU</td>
+<td style="text-align:right">187,25 ms</td>
+<td style="text-align:right">0,00%</td>
+<td>Rata-rata termasuk ramp-up/down</td>
+</tr>
+<tr>
+<td>Spike</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">55,63 req/s</td>
+<td style="text-align:right">0,70 req/s/VU</td>
+<td style="text-align:right">1.530 ms</td>
+<td style="text-align:right">0,00%</td>
+<td>Lonjakan cepat, 60 VU API</td>
+</tr>
+<tr>
+<td>Stress</td>
+<td style="text-align:right">160</td>
+<td style="text-align:right">60,36 req/s</td>
+<td style="text-align:right">0,38 req/s/VU</td>
+<td style="text-align:right">2.760 ms</td>
+<td style="text-align:right">0,00%</td>
+<td>Saturasi, efisiensi per VU terendah</td>
+</tr>
+</tbody></table></div>
+<p>Angka throughput per VU bersifat indikatif karena komposisi skenario dan think time berbeda. Namun, polanya konsisten: semakin tinggi beban, semakin kecil kontribusi setiap VU terhadap throughput. Ini adalah ciri klasik sistem yang mendekati kapasitas.</p>
+<p>Error rate 0% pada semua profil berbeban adalah hasil yang sangat baik. Aplikasi tidak hanya “hidup”, tetapi juga mengembalikan status, isi halaman, dan data API yang benar. Smoke test mencatat 1,09% <code>http_req_failed</code>, tetapi itu berasal dari respons 4xx yang disengaja dan seluruh check tetap lulus.</p>
+<p>Dari sisi transfer data, soak menerima 1,1 GB dalam 10 menit (sekitar 1,9 MB/s). Pada localhost, angka ini tidak menjadi bottleneck. Di produksi, ukuran ini perlu diimbangi dengan cache header, kompresi, dan CDN untuk aset statis.</p>
+<h3 id="47-temuan-dan-hipotesis-akar-masalah">4.7 Temuan dan hipotesis akar masalah</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>ID</th>
+<th>Temuan</th>
+<th>Bukti</th>
+<th>Dampak</th>
+<th>Hipotesis</th>
+<th>Keyakinan</th>
+</tr></thead><tbody>
+<tr>
+<td>F-01</td>
+<td>Saturasi latency pada beban tinggi</td>
+<td>p95 2.760 ms pada 160 VU vs 187,25 ms pada 20 VU</td>
+<td>Pengguna menunggu lebih lama; margin target tipis</td>
+<td>Server/DB mulai jenuh</td>
+<td>Tinggi</td>
+</tr>
+<tr>
+<td>F-02</td>
+<td>Throughput tidak naik proporsional</td>
+<td>+35% throughput untuk 8x VU</td>
+<td>Kapasitas tambahan mahal</td>
+<td>Bottleneck di server atau database</td>
+<td>Tinggi</td>
+</tr>
+<tr>
+<td>F-03</td>
+<td>API berpotensi melewati target 1.200 ms saat stress</td>
+<td>p95 agregat 2.760 ms, separuh VU adalah API</td>
+<td>Pengalaman mobile menurun pada beban tinggi</td>
+<td>API dan web sama-sama terdampak; perlu metrik per skenario</td>
+<td>Sedang</td>
+</tr>
+<tr>
+<td>F-04</td>
+<td>Iterasi terputus pada stress/spike</td>
+<td>3 dan 7 iterasi terputus</td>
+<td>Tidak memengaruhi error rate, tetapi mengganggu pengukuran</td>
+<td>Graceful stop saat iterasi panjang</td>
+<td>Rendah</td>
+</tr>
+<tr>
+<td>F-05</td>
+<td>Tidak ada metrik server</td>
+<td>Hanya metrik client-side</td>
+<td>Akar masalah tidak dapat dipastikan</td>
+<td>Observability belum memadai</td>
+<td>Tinggi</td>
+</tr>
+<tr>
+<td>F-06</td>
+<td>Smoke 1,09% request failed</td>
+<td>1 dari 91 request 4xx</td>
+<td>Tidak ada dampak fungsional</td>
+<td>Respons negatif yang disengaja</td>
+<td>Rendah</td>
+</tr>
+<tr>
+<td>F-07</td>
+<td>Alur tulis belum diuji</td>
+<td><code>write.js</code> tidak dijalankan</td>
+<td>Risiko performa CRUD belum diketahui</td>
+<td>Dibutuhkan staging</td>
+<td>Sedang</td>
+</tr>
+<tr>
+<td>F-08</td>
+<td>Lingkungan uji lokal</td>
+<td><code>localhost:8000</code>, tanpa latency jaringan</td>
+<td>Hasil cenderung optimistis</td>
+<td>Perlu uji staging/produksi</td>
+<td>Tinggi</td>
+</tr>
+</tbody></table></div>
+<h3 id="48-keterbatasan-dan-ancaman-validitas">4.8 Keterbatasan dan ancaman validitas</h3>
+<ol>
+<li><strong>Lingkungan lokal dan satu host.</strong> Aplikasi dan k6 berjalan di mesin yang sama. Hasil tidak memasukkan latency jaringan nyata dan dapat saling berebut CPU/RAM.</li>
+<li><strong>Kemungkinan server pengembangan satu worker.</strong> Jika memakai <code>php artisan serve</code> default, kapasitas yang terukur adalah kapasitas server pengembangan, bukan aplikasi di PHP-FPM/nginx.</li>
+<li><strong>Tidak ada metrik CPU, memori, dan database.</strong> Penyebab saturasi hanya bisa dihipotesiskan, tidak dibuktikan.</li>
+<li><strong>Session dibagi antar VU.</strong> Semua VU memakai session siswa/admin yang sama. Ini menghindari rate limit, tetapi tidak merepresentasikan isolasi session per pengguna dan dapat menimbulkan kontensi pada penyimpanan session.</li>
+<li><strong>Read-only.</strong> Alur tulis, submit kuis, dan CRUD admin tidak diuji. Beban tulis bisa berbeda jauh dari beban baca.</li>
+<li><strong>Data seed kecil.</strong> Volume data lebih kecil dari produksi, sehingga query daftar dan pencarian mungkin terlihat lebih cepat.</li>
+<li><strong>Stress/spike tanpa rincian per skenario.</strong> p95 agregat mencampur web dan API; tidak bisa memisahkan kontribusi masing-masing.</li>
+<li><strong>Soak tanpa time-series.</strong> Ringkasan hanya agregat akhir; tren per menit tidak tersedia.</li>
+<li><strong>Satu kali eksekusi.</strong> Tidak ada pengulangan untuk mengukur variansi. Hasil bisa dipengaruhi cache yang sudah hangat, urutan pengujian, atau proses lain di mesin.</li>
+<li><strong>Tidak ada pengujian login per VU.</strong> Rate limit dihindari dengan login sekali di setup, sehingga beban autentikasi massal belum diuji.</li>
+</ol>
+<h3 id="49-evaluasi-kelayakan">4.9 Evaluasi kelayakan</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Aspek</th>
+<th>Status</th>
+<th>Penjelasan</th>
+</tr></thead><tbody>
+<tr>
+<td>Beban normal (20 VU)</td>
+<td><strong>Layak</strong></td>
+<td>p95 187,25 ms, error 0%, headroom &gt; 85%</td>
+</tr>
+<tr>
+<td>Beban tinggi (160 VU)</td>
+<td><strong>Layak dengan catatan</strong></td>
+<td>Tetap 0% error, tetapi p95 2.760 ms (92% target) dan throughput tidak skalabel</td>
+</tr>
+<tr>
+<td>Lonjakan (80 VU)</td>
+<td><strong>Layak</strong></td>
+<td>p95 1.530 ms, error 0%, pulih setelah lonjakan</td>
+</tr>
+<tr>
+<td>Stabilitas 10 menit</td>
+<td><strong>Layak</strong></td>
+<td>p95 130,75 ms, error 0%, tidak ada degradasi client-side</td>
+</tr>
+<tr>
+<td>Observabilitas</td>
+<td><strong>Belum memadai</strong></td>
+<td>Tidak ada metrik CPU/memori/DB</td>
+</tr>
+<tr>
+<td>Alur tulis</td>
+<td><strong>Belum diuji</strong></td>
+<td>Perlu staging dan <code>write.js</code></td>
+</tr>
+<tr>
+<td>Keamanan menyeluruh</td>
+<td><strong>Belum diuji</strong></td>
+<td>Hanya pengecekan dasar guest/role</td>
+</tr>
+<tr>
+<td>Usability</td>
+<td><strong>Belum diuji</strong></td>
+<td>Perlu SUS/kuesioner</td>
+</tr>
+</tbody></table></div>
+<p><strong>Kesimpulan evaluasi:</strong> Aplikasi BUBA <strong>lulus</strong> untuk beban normal, spike, dan soak 10 menit di lingkungan uji. Pada beban 160 VU, aplikasi tetap tersedia tanpa error, tetapi latency sudah mendekati batas dan throughput tidak lagi naik proporsional. Kapasitas aman berada di bawah 160 VU, dan angka pastinya perlu ditentukan melalui pengujian bertahap dengan metrik per tahap.</p>
+<hr>
+<h2 id="5-test-report-and-recommendation">5. Test Report and Recommendation</h2>
+<h3 id="51-kesimpulan">5.1 Kesimpulan</h3>
+<ol>
+<li>Lima profil pengujian performance berhasil dijalankan: smoke, load, stress, spike, dan soak.</li>
+<li>Seluruh threshold yang ditetapkan terpenuhi. Tidak ada error 5xx atau timeout pada load, stress, spike, dan soak; seluruh check mencapai 100%.</li>
+<li>Pada beban normal 20 VU, performa sangat baik: p95 187,25 ms (web) dan 177,44 ms (API), jauh di bawah target.</li>
+<li>Pada beban 160 VU, aplikasi tetap tersedia tanpa error, tetapi terjadi saturasi latency: p95 2.760 ms, rata-rata 1.610 ms, dan throughput hanya naik 35% dibanding 20 VU.</li>
+<li>Spike 80 VU ditangani tanpa error dengan p95 1.530 ms. Soak 10 menit stabil dengan p95 130,75 ms dan 0 iterasi terputus.</li>
+<li>Temuan utama bukan kegagalan fungsional, melainkan <strong>keterbatasan skalabilitas</strong> pada beban tinggi. Penyebab pastinya belum dapat dibuktikan karena tidak ada metrik server.</li>
+<li>Aplikasi disimpulkan <strong>lulus untuk beban normal dan pilot terbatas</strong>, tetapi <strong>perlu optimasi dan pengujian lanjutan</strong> sebelum digunakan pada beban puncak yang lebih tinggi.</li>
+</ol>
+<h3 id="52-rekomendasi-perbaikan">5.2 Rekomendasi perbaikan</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Prioritas</th>
+<th>Rekomendasi</th>
+<th>Alasan</th>
+<th>Ukuran keberhasilan</th>
+</tr></thead><tbody>
+<tr>
+<td>P1</td>
+<td>Jalankan ulang di lingkungan menyerupai produksi: nginx/Apache + PHP-FPM, beberapa worker, OPcache aktif</td>
+<td>Hasil saat ini kemungkinan dibatasi server pengembangan</td>
+<td>p95 stress turun signifikan pada beban yang sama</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Pindahkan session dan cache dari database ke Redis atau driver yang lebih cepat</td>
+<td><code>SESSION_DRIVER=database</code> dan <code>CACHE_STORE=database</code> menambah beban MySQL per request</td>
+<td>Waktu respons turun, query session/cache berkurang</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Tambahkan monitoring: CPU, RAM, disk I/O, koneksi MySQL, slow query, PHP-FPM status, OPcache hit rate</td>
+<td>Tanpa metrik ini, akar saturasi tidak bisa dipastikan</td>
+<td>Dashboard Grafana/Prometheus tersedia saat retest</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Profiling endpoint lambat dengan Laravel Telescope/Debugbar dan slow query log</td>
+<td>Menemukan query atau halaman yang paling mahal</td>
+<td>Daftar endpoint dan query terberat terdokumentasi</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Optimasi query: eager loading, index pada kolom filter/join, pagination, hindari N+1</td>
+<td>Halaman admin dan daftar materi berpotensi mahal pada data besar</td>
+<td>Query time dan p95 halaman admin turun</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Aktifkan cache konfigurasi, route, view, dan cache respons yang aman</td>
+<td>Mengurangi pekerjaan berulang di setiap request</td>
+<td>Throughput naik pada beban tinggi</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Optimasi aset statis: cache header, kompresi, CDN</td>
+<td>Mengurangi transfer data dan waktu muat halaman publik</td>
+<td><code>data_received</code> dan waktu muat turun</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Pertimbangkan load balancer dan horizontal scaling</td>
+<td>Meningkatkan kapasitas ketika satu instance sudah jenuh</td>
+<td>Throughput naik mendekati linear saat VU ditambah</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Pindahkan pekerjaan berat seperti generate PDF ke queue</td>
+<td>Mencegah request berat memblokir request lain</td>
+<td>PDF tidak memengaruhi p95 halaman lain</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Tambahkan threshold dan tag per endpoint/skenario pada stress dan spike</td>
+<td>Ringkasan saat ini mencampur web dan API</td>
+<td>Laporan per endpoint tersedia</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Jalankan <code>write.js</code> di staging dan uji beban tulis</td>
+<td>Alur tulis belum tercakup</td>
+<td>Performa CRUD dan submit kuis diketahui</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Ulangi soak 30–60 menit dengan monitoring memori</td>
+<td>10 menit belum cukup untuk mendeteksi kebocoran</td>
+<td>Tren memori dan latency stabil</td>
+</tr>
+</tbody></table></div>
+<h3 id="53-rekomendasi-pengujian-lanjutan">5.3 Rekomendasi pengujian lanjutan</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Tahap</th>
+<th>Aktivitas</th>
+<th>Target</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>Retest di staging dengan stack produksi</td>
+<td>Baseline yang representatif</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Stress bertahap 40, 80, 120, 160, 240, 320 VU; tahan 2 menit per tahap; catat p95 per tahap</td>
+<td>Menemukan titik jenuh dan kapasitas aman</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Spike 100 dan 200 VU; ukur 5 menit setelah lonjakan</td>
+<td>Memastikan pemulihan</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Soak 30–60 menit pada 12–20 VU; monitor RSS memori, koneksi DB, dan error log</td>
+<td>Memastikan stabilitas jangka panjang</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Uji <code>write.js</code> di staging</td>
+<td>Mengukur performa alur tulis</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Security testing dengan OWASP ZAP/Burp Suite</td>
+<td>Melengkapi komponen security pada tugas</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Usability testing dengan SUS/kuesioner</td>
+<td>Melengkapi komponen usability pada tugas</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Otomasi di CI dan bandingkan baseline antar rilis</td>
+<td>Mencegah regresi performa</td>
+</tr>
+</tbody></table></div>
+<p>Contoh perintah untuk pengujian lanjutan:</p>
+<pre><code class="language-bash"># Baseline di staging
+BASE_URL=https://staging.example.test ./tests/k6/run.sh smoke
+
+# Load lebih besar
+BASE_URL=https://staging.example.test \
+PUBLIC_VUS=10 STUDENT_VUS=8 ADMIN_VUS=3 API_VUS=20 \
+./tests/k6/run.sh load
+
+# Stress sampai 320 VU
+BASE_URL=https://staging.example.test STRESS_PEAK=320 ./tests/k6/run.sh stress
+
+# Spike 200 VU
+BASE_URL=https://staging.example.test SPIKE_VUS=200 ./tests/k6/run.sh spike
+
+# Soak 30 menit
+BASE_URL=https://staging.example.test SOAK_DURATION=30m SOAK_VUS=12 ./tests/k6/run.sh soak
+
+# Simpan metrik mentah dan ringkasan JSON
+mkdir -p reports
+./tests/k6/run.sh load --out json=reports/load.json --summary-export=reports/load-summary.json
+
+# Dashboard web real-time
+K6_WEB_DASHBOARD=true ./tests/k6/run.sh load</code></pre>
+<p>Untuk <code>write.js</code>, jalankan hanya di staging atau database salinan:</p>
+<pre><code class="language-bash">BASE_URL=https://staging.example.test WRITE_VUS=3 ./tests/k6/run.sh write</code></pre>
+<h3 id="54-matriks-status-akhir">5.4 Matriks status akhir</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Komponen</th>
+<th>Status</th>
+<th>Catatan</th>
+</tr></thead><tbody>
+<tr>
+<td>Ketersediaan fungsional saat dibebani</td>
+<td><strong>Lulus</strong></td>
+<td>0% error pada load, stress, spike, soak</td>
+</tr>
+<tr>
+<td>Performa beban normal</td>
+<td><strong>Lulus</strong></td>
+<td>p95 187,25 ms web, 177,44 ms API</td>
+</tr>
+<tr>
+<td>Ketahanan beban tinggi</td>
+<td><strong>Lulus dengan catatan</strong></td>
+<td>p95 2.760 ms, mendekati batas 3.000 ms</td>
+</tr>
+<tr>
+<td>Ketahanan lonjakan</td>
+<td><strong>Lulus</strong></td>
+<td>p95 1.530 ms, 0 error</td>
+</tr>
+<tr>
+<td>Stabilitas 10 menit</td>
+<td><strong>Lulus</strong></td>
+<td>p95 130,75 ms, 0 iterasi terputus</td>
+</tr>
+<tr>
+<td>Skalabilitas</td>
+<td><strong>Perlu perbaikan</strong></td>
+<td>Throughput +35% untuk 8x VU</td>
+</tr>
+<tr>
+<td>Observabilitas server</td>
+<td><strong>Belum memadai</strong></td>
+<td>Tidak ada CPU/memori/DB</td>
+</tr>
+<tr>
+<td>Cakupan alur tulis</td>
+<td><strong>Belum diuji</strong></td>
+<td><code>write.js</code> belum dijalankan</td>
+</tr>
+<tr>
+<td>Security testing menyeluruh</td>
+<td><strong>Belum diuji</strong></td>
+<td>Hanya pengecekan dasar guest/role</td>
+</tr>
+<tr>
+<td>Usability testing</td>
+<td><strong>Belum diuji</strong></td>
+<td>Perlu SUS/kuesioner</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="lampiran-a-ringkasan-metrik-mentah">Lampiran A — Ringkasan Metrik Mentah</h2>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Metrik</th>
+<th style="text-align:right">Smoke</th>
+<th style="text-align:right">Load</th>
+<th style="text-align:right">Stress</th>
+<th style="text-align:right">Spike</th>
+<th style="text-align:right">Soak</th>
+</tr></thead><tbody>
+<tr>
+<td>VU maksimum</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">160</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">12</td>
+</tr>
+<tr>
+<td>Durasi</td>
+<td style="text-align:right">2,8 s</td>
+<td style="text-align:right">2 m 3,7 s</td>
+<td style="text-align:right">5 m 35,1 s</td>
+<td style="text-align:right">1 m 26,9 s</td>
+<td style="text-align:right">10 m 4,3 s</td>
+</tr>
+<tr>
+<td>Total request</td>
+<td style="text-align:right">91</td>
+<td style="text-align:right">5.524</td>
+<td style="text-align:right">20.223</td>
+<td style="text-align:right">4.837</td>
+<td style="text-align:right">31.966</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td style="text-align:right">31,98 req/s</td>
+<td style="text-align:right">44,66 req/s</td>
+<td style="text-align:right">60,36 req/s</td>
+<td style="text-align:right">55,63 req/s</td>
+<td style="text-align:right">52,90 req/s</td>
+</tr>
+<tr>
+<td>Total check</td>
+<td style="text-align:right">111</td>
+<td style="text-align:right">6.666</td>
+<td style="text-align:right">24.136</td>
+<td style="text-align:right">5.235</td>
+<td style="text-align:right">39.383</td>
+</tr>
+<tr>
+<td>Check lulus</td>
+<td style="text-align:right">100%</td>
+<td style="text-align:right">100%</td>
+<td style="text-align:right">100%</td>
+<td style="text-align:right">100%</td>
+<td style="text-align:right">100%</td>
+</tr>
+<tr>
+<td>Error rate</td>
+<td style="text-align:right">1,09%¹</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">0,00%</td>
+<td style="text-align:right">0,00%</td>
+</tr>
+<tr>
+<td>Rata-rata respons</td>
+<td style="text-align:right">28,50 ms</td>
+<td style="text-align:right">69,95 ms</td>
+<td style="text-align:right">1.610 ms</td>
+<td style="text-align:right">1.180 ms</td>
+<td style="text-align:right">61,43 ms</td>
+</tr>
+<tr>
+<td>Median</td>
+<td style="text-align:right">18,58 ms</td>
+<td style="text-align:right">54,22 ms</td>
+<td style="text-align:right">1.680 ms</td>
+<td style="text-align:right">1.250 ms</td>
+<td style="text-align:right">55,60 ms</td>
+</tr>
+<tr>
+<td>p90</td>
+<td style="text-align:right">32,06 ms</td>
+<td style="text-align:right">150,32 ms</td>
+<td style="text-align:right">2.710 ms</td>
+<td style="text-align:right">1.450 ms</td>
+<td style="text-align:right">112,14 ms</td>
+</tr>
+<tr>
+<td>p95</td>
+<td style="text-align:right">54,28 ms</td>
+<td style="text-align:right">187,25 ms</td>
+<td style="text-align:right">2.760 ms</td>
+<td style="text-align:right">1.530 ms</td>
+<td style="text-align:right">130,75 ms</td>
+</tr>
+<tr>
+<td>p99</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">242,74 ms</td>
+<td style="text-align:right">2.840 ms</td>
+<td style="text-align:right">1.810 ms</td>
+<td style="text-align:right">167,92 ms</td>
+</tr>
+<tr>
+<td>Maksimum</td>
+<td style="text-align:right">283,65 ms</td>
+<td style="text-align:right">307,69 ms</td>
+<td style="text-align:right">3.420 ms</td>
+<td style="text-align:right">2.100 ms</td>
+<td style="text-align:right">353,35 ms</td>
+</tr>
+<tr>
+<td>Iterasi selesai</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">603</td>
+<td style="text-align:right">2.079</td>
+<td style="text-align:right">541</td>
+<td style="text-align:right">3.545</td>
+</tr>
+<tr>
+<td>Iterasi terputus</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">7</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>Data diterima</td>
+<td style="text-align:right">16 MB</td>
+<td style="text-align:right">173 MB</td>
+<td style="text-align:right">551 MB</td>
+<td style="text-align:right">59 MB</td>
+<td style="text-align:right">1,1 GB</td>
+</tr>
+<tr>
+<td>Data dikirim</td>
+<td style="text-align:right">74 kB</td>
+<td style="text-align:right">2,8 MB</td>
+<td style="text-align:right">10 MB</td>
+<td style="text-align:right">1,7 MB</td>
+<td style="text-align:right">17 MB</td>
+</tr>
+</tbody></table></div>
+<p>¹ 4xx yang disengaja; seluruh check lulus.</p>
+<h2 id="lampiran-b-perintah-eksekusi">Lampiran B — Perintah Eksekusi</h2>
+<pre><code class="language-bash"># Prasyarat
+php artisan migrate:fresh --seed
+php artisan serve --host=0.0.0.0 --port=8000
+k6 version
+
+# Eksekusi lima profil
+./tests/k6/run.sh smoke  | tee tests/Result/smoke.txt
+./tests/k6/run.sh load   | tee tests/Result/load.txt
+./tests/k6/run.sh stress | tee tests/Result/stress.txt
+./tests/k6/run.sh spike  | tee tests/Result/spike.txt
+./tests/k6/run.sh soak   | tee tests/Result/soak.txt</code></pre>
+<h2 id="lampiran-c-glosarium">Lampiran C — Glosarium</h2>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>Istilah</th>
+<th>Arti</th>
+</tr></thead><tbody>
+<tr>
+<td>VU</td>
+<td>Virtual User, pengguna virtual yang menjalankan skenario</td>
+</tr>
+<tr>
+<td>p95</td>
+<td>Persentil ke-95; 95% request selesai pada atau di bawah nilai ini</td>
+</tr>
+<tr>
+<td>p99</td>
+<td>Persentil ke-99; 99% request selesai pada atau di bawah nilai ini</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td>Jumlah request yang diproses per satuan waktu</td>
+</tr>
+<tr>
+<td>Error rate</td>
+<td>Persentase request yang gagal</td>
+</tr>
+<tr>
+<td>Threshold</td>
+<td>Batas nilai yang harus dipenuhi agar pengujian dianggap lulus</td>
+</tr>
+<tr>
+<td>Ramp-up</td>
+<td>Kenaikan beban secara bertahap</td>
+</tr>
+<tr>
+<td>Ramp-down</td>
+<td>Penurunan beban secara bertahap</td>
+</tr>
+<tr>
+<td>Graceful stop</td>
+<td>Penghentian VU secara bertahap dengan memberi waktu iterasi selesai</td>
+</tr>
+<tr>
+<td>Load test</td>
+<td>Pengujian pada beban normal yang direncanakan</td>
+</tr>
+<tr>
+<td>Stress test</td>
+<td>Pengujian dengan beban melebihi kapasitas normal untuk mencari titik jenuh</td>
+</tr>
+<tr>
+<td>Spike test</td>
+<td>Pengujian dengan lonjakan beban mendadak</td>
+</tr>
+<tr>
+<td>Soak test</td>
+<td>Pengujian beban sedang dalam durasi panjang untuk mendeteksi degradasi</td>
+</tr>
+<tr>
+<td>Saturasi</td>
+<td>Kondisi ketika penambahan beban tidak lagi menaikkan throughput secara proporsional</td>
+</tr>
+</tbody></table></div>
+<h2 id="lampiran-d-referensi">Lampiran D — Referensi</h2>
+<ol>
+<li>Grafana k6 Documentation — https://grafana.com/docs/k6/latest/</li>
+<li>Laravel 12 Documentation — https://laravel.com/docs/12.x</li>
+<li>Materi Pengujian Non-Fungsional, Minggu 13 — Performance Testing, Security Testing, dan Usability Testing.</li>
+<li>Dokumentasi suite pengujian proyek — <code>tests/k6/README.md</code>.</li>
+</ol>
+<h2 id="lampiran-e-file-hasil">Lampiran E — File Hasil</h2>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>File</th>
+<th>Isi</th>
+</tr></thead><tbody>
+<tr>
+<td><code>tests/Result/smoke.txt</code></td>
+<td>Hasil smoke test</td>
+</tr>
+<tr>
+<td><code>tests/Result/load.txt</code></td>
+<td>Hasil load test</td>
+</tr>
+<tr>
+<td><code>tests/Result/stress.txt</code></td>
+<td>Hasil stress test</td>
+</tr>
+<tr>
+<td><code>tests/Result/spike.txt</code></td>
+<td>Hasil spike test</td>
+</tr>
+<tr>
+<td><code>tests/Result/soak.txt</code></td>
+<td>Hasil soak test</td>
+</tr>
+<tr>
+<td><code>tests/Result/LAPORAN_PERFORMANCE_TESTING.md</code></td>
+<td>Laporan ini</td>
+</tr>
+<tr>
+<td><code>tests/Result/laporan-performance.html</code></td>
+<td>Versi HTML siap cetak</td>
+</tr>
+<tr>
+<td><code>tests/Result/chart-performance.svg</code></td>
+<td>Grafik ringkasan performa</td>
+</tr>
+</tbody></table></div>
+<hr>
+<blockquote><p><strong>Catatan penutup.</strong> Laporan ini menjawab komponen <strong>Performance Testing</strong> pada tugas Non-Functional Testing. Untuk melengkapi tugas secara utuh, komponen <strong>Security Testing</strong> dan <strong>Usability Testing</strong> perlu disusun sebagai bagian terpisah dengan tools dan metode yang sesuai, misalnya OWASP ZAP/Burp Suite untuk keamanan dan SUS/kuesioner untuk usability.</p></blockquote>
+    <footer class="page-footer">
+      <span>Laporan Performance Testing — BUBA</span>
+      <span>Grafana k6 v2.4.0 · 22 November 2026</span>
+    </footer>
+  </main>
+</div>
+<button class="print-btn no-print" onclick="window.print()">Cetak / Simpan PDF</button>
+</body>
+</html>

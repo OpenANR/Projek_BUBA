@@ -1,0 +1,900 @@
+>> k6 profile : load
+>> target     : http://localhost:8000
+
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /var/home/nuzulurrozaq/Projects/Coding/Web/Projek_BUBA/tests/k6/load.js
+        output: -
+
+     scenarios: (100.00%) 4 scenarios, 20 max VUs, 2m15s max duration (incl. graceful stop):
+              * admin_web: Up to 2 looping VUs for 2m0s over 3 stages (gracefulRampDown: 15s, exec: adminScenario, gracefulStop: 30s)
+              * api_read: Up to 8 looping VUs for 2m0s over 3 stages (gracefulRampDown: 15s, exec: apiScenario, gracefulStop: 30s)
+              * public_browse: Up to 6 looping VUs for 2m0s over 3 stages (gracefulRampDown: 15s, exec: publicScenario, gracefulStop: 30s)
+              * student_web: Up to 4 looping VUs for 2m0s over 3 stages (gracefulRampDown: 15s, exec: studentScenario, gracefulStop: 30s)
+
+
+Run             [ 100% ] setup()
+admin_web       [   0% ]
+api_read        [   0% ]
+public_browse   [   0% ]
+student_web     [   0% ]
+
+running (0m02.0s), 04/20 VUs, 0 complete and 0 interrupted iterations
+admin_web       [   1% ] 1/2 VUs  0m00.7s/2m00.0s
+api_read        [   1% ] 1/8 VUs  0m00.7s/2m00.0s
+public_browse   [   1% ] 1/6 VUs  0m00.7s/2m00.0s
+student_web     [   1% ] 1/4 VUs  0m00.7s/2m00.0s
+
+running (0m03.0s), 04/20 VUs, 1 complete and 0 interrupted iterations
+admin_web       [   1% ] 1/2 VUs  0m01.7s/2m00.0s
+api_read        [   1% ] 1/8 VUs  0m01.7s/2m00.0s
+public_browse   [   1% ] 1/6 VUs  0m01.7s/2m00.0s
+student_web     [   1% ] 1/4 VUs  0m01.7s/2m00.0s
+
+running (0m04.0s), 04/20 VUs, 3 complete and 0 interrupted iterations
+admin_web       [   2% ] 1/2 VUs  0m02.7s/2m00.0s
+api_read        [   2% ] 1/8 VUs  0m02.7s/2m00.0s
+public_browse   [   2% ] 1/6 VUs  0m02.7s/2m00.0s
+student_web     [   2% ] 1/4 VUs  0m02.7s/2m00.0s
+
+running (0m05.0s), 04/20 VUs, 6 complete and 0 interrupted iterations
+admin_web       [   3% ] 1/2 VUs  0m03.7s/2m00.0s
+api_read        [   3% ] 1/8 VUs  0m03.7s/2m00.0s
+public_browse   [   3% ] 1/6 VUs  0m03.7s/2m00.0s
+student_web     [   3% ] 1/4 VUs  0m03.7s/2m00.0s
+
+running (0m06.0s), 04/20 VUs, 8 complete and 0 interrupted iterations
+admin_web       [   4% ] 1/2 VUs  0m04.7s/2m00.0s
+api_read        [   4% ] 1/8 VUs  0m04.7s/2m00.0s
+public_browse   [   4% ] 1/6 VUs  0m04.7s/2m00.0s
+student_web     [   4% ] 1/4 VUs  0m04.7s/2m00.0s
+
+running (0m07.0s), 04/20 VUs, 10 complete and 0 interrupted iterations
+admin_web       [   5% ] 1/2 VUs  0m05.7s/2m00.0s
+api_read        [   5% ] 1/8 VUs  0m05.7s/2m00.0s
+public_browse   [   5% ] 1/6 VUs  0m05.7s/2m00.0s
+student_web     [   5% ] 1/4 VUs  0m05.7s/2m00.0s
+
+running (0m08.0s), 04/20 VUs, 13 complete and 0 interrupted iterations
+admin_web       [   6% ] 1/2 VUs  0m06.7s/2m00.0s
+api_read        [   6% ] 1/8 VUs  0m06.7s/2m00.0s
+public_browse   [   6% ] 1/6 VUs  0m06.7s/2m00.0s
+student_web     [   6% ] 1/4 VUs  0m06.7s/2m00.0s
+
+running (0m09.0s), 04/20 VUs, 14 complete and 0 interrupted iterations
+admin_web       [   6% ] 1/2 VUs  0m07.7s/2m00.0s
+api_read        [   6% ] 1/8 VUs  0m07.7s/2m00.0s
+public_browse   [   6% ] 1/6 VUs  0m07.7s/2m00.0s
+student_web     [   6% ] 1/4 VUs  0m07.7s/2m00.0s
+
+running (0m10.0s), 04/20 VUs, 17 complete and 0 interrupted iterations
+admin_web       [   7% ] 1/2 VUs  0m08.7s/2m00.0s
+api_read        [   7% ] 1/8 VUs  0m08.7s/2m00.0s
+public_browse   [   7% ] 1/6 VUs  0m08.7s/2m00.0s
+student_web     [   7% ] 1/4 VUs  0m08.7s/2m00.0s
+
+running (0m11.0s), 04/20 VUs, 20 complete and 0 interrupted iterations
+admin_web       [   8% ] 1/2 VUs  0m09.7s/2m00.0s
+api_read        [   8% ] 1/8 VUs  0m09.7s/2m00.0s
+public_browse   [   8% ] 1/6 VUs  0m09.7s/2m00.0s
+student_web     [   8% ] 1/4 VUs  0m09.7s/2m00.0s
+
+running (0m12.0s), 04/20 VUs, 21 complete and 0 interrupted iterations
+admin_web       [   9% ] 1/2 VUs  0m10.7s/2m00.0s
+api_read        [   9% ] 1/8 VUs  0m10.7s/2m00.0s
+public_browse   [   9% ] 1/6 VUs  0m10.7s/2m00.0s
+student_web     [   9% ] 1/4 VUs  0m10.7s/2m00.0s
+
+running (0m13.0s), 04/20 VUs, 24 complete and 0 interrupted iterations
+admin_web       [  10% ] 1/2 VUs  0m11.7s/2m00.0s
+api_read        [  10% ] 1/8 VUs  0m11.7s/2m00.0s
+public_browse   [  10% ] 1/6 VUs  0m11.7s/2m00.0s
+student_web     [  10% ] 1/4 VUs  0m11.7s/2m00.0s
+
+running (0m14.0s), 04/20 VUs, 25 complete and 0 interrupted iterations
+admin_web       [  11% ] 1/2 VUs  0m12.7s/2m00.0s
+api_read        [  11% ] 1/8 VUs  0m12.7s/2m00.0s
+public_browse   [  11% ] 1/6 VUs  0m12.7s/2m00.0s
+student_web     [  11% ] 1/4 VUs  0m12.7s/2m00.0s
+
+running (0m15.0s), 04/20 VUs, 26 complete and 0 interrupted iterations
+admin_web       [  11% ] 1/2 VUs  0m13.7s/2m00.0s
+api_read        [  11% ] 1/8 VUs  0m13.7s/2m00.0s
+public_browse   [  11% ] 1/6 VUs  0m13.7s/2m00.0s
+student_web     [  11% ] 1/4 VUs  0m13.7s/2m00.0s
+
+running (0m16.0s), 04/20 VUs, 31 complete and 0 interrupted iterations
+admin_web       [  12% ] 1/2 VUs  0m14.7s/2m00.0s
+api_read        [  12% ] 1/8 VUs  0m14.7s/2m00.0s
+public_browse   [  12% ] 1/6 VUs  0m14.7s/2m00.0s
+student_web     [  12% ] 1/4 VUs  0m14.7s/2m00.0s
+
+running (0m17.0s), 05/20 VUs, 32 complete and 0 interrupted iterations
+admin_web       [  13% ] 1/2 VUs  0m15.7s/2m00.0s
+api_read        [  13% ] 2/8 VUs  0m15.7s/2m00.0s
+public_browse   [  13% ] 1/6 VUs  0m15.7s/2m00.0s
+student_web     [  13% ] 1/4 VUs  0m15.7s/2m00.0s
+
+running (0m18.0s), 05/20 VUs, 36 complete and 0 interrupted iterations
+admin_web       [  14% ] 1/2 VUs  0m16.7s/2m00.0s
+api_read        [  14% ] 2/8 VUs  0m16.7s/2m00.0s
+public_browse   [  14% ] 1/6 VUs  0m16.7s/2m00.0s
+student_web     [  14% ] 1/4 VUs  0m16.7s/2m00.0s
+
+running (0m19.0s), 05/20 VUs, 38 complete and 0 interrupted iterations
+admin_web       [  15% ] 1/2 VUs  0m17.7s/2m00.0s
+api_read        [  15% ] 2/8 VUs  0m17.7s/2m00.0s
+public_browse   [  15% ] 1/6 VUs  0m17.7s/2m00.0s
+student_web     [  15% ] 1/4 VUs  0m17.7s/2m00.0s
+
+running (0m20.0s), 05/20 VUs, 41 complete and 0 interrupted iterations
+admin_web       [  16% ] 1/2 VUs  0m18.7s/2m00.0s
+api_read        [  16% ] 2/8 VUs  0m18.7s/2m00.0s
+public_browse   [  16% ] 1/6 VUs  0m18.7s/2m00.0s
+student_web     [  16% ] 1/4 VUs  0m18.7s/2m00.0s
+
+running (0m21.0s), 05/20 VUs, 44 complete and 0 interrupted iterations
+admin_web       [  16% ] 1/2 VUs  0m19.7s/2m00.0s
+api_read        [  16% ] 2/8 VUs  0m19.7s/2m00.0s
+public_browse   [  16% ] 1/6 VUs  0m19.7s/2m00.0s
+student_web     [  16% ] 1/4 VUs  0m19.7s/2m00.0s
+
+running (0m22.0s), 05/20 VUs, 47 complete and 0 interrupted iterations
+admin_web       [  17% ] 1/2 VUs  0m20.7s/2m00.0s
+api_read        [  17% ] 2/8 VUs  0m20.7s/2m00.0s
+public_browse   [  17% ] 1/6 VUs  0m20.7s/2m00.0s
+student_web     [  17% ] 1/4 VUs  0m20.7s/2m00.0s
+
+running (0m23.0s), 05/20 VUs, 49 complete and 0 interrupted iterations
+admin_web       [  18% ] 1/2 VUs  0m21.7s/2m00.0s
+api_read        [  18% ] 2/8 VUs  0m21.7s/2m00.0s
+public_browse   [  18% ] 1/6 VUs  0m21.7s/2m00.0s
+student_web     [  18% ] 1/4 VUs  0m21.7s/2m00.0s
+
+running (0m24.0s), 05/20 VUs, 52 complete and 0 interrupted iterations
+admin_web       [  19% ] 1/2 VUs  0m22.7s/2m00.0s
+api_read        [  19% ] 2/8 VUs  0m22.7s/2m00.0s
+public_browse   [  19% ] 1/6 VUs  0m22.7s/2m00.0s
+student_web     [  19% ] 1/4 VUs  0m22.7s/2m00.0s
+
+running (0m25.0s), 05/20 VUs, 55 complete and 0 interrupted iterations
+admin_web       [  20% ] 1/2 VUs  0m23.7s/2m00.0s
+api_read        [  20% ] 2/8 VUs  0m23.7s/2m00.0s
+public_browse   [  20% ] 1/6 VUs  0m23.7s/2m00.0s
+student_web     [  20% ] 1/4 VUs  0m23.7s/2m00.0s
+
+running (0m26.0s), 05/20 VUs, 58 complete and 0 interrupted iterations
+admin_web       [  21% ] 1/2 VUs  0m24.7s/2m00.0s
+api_read        [  21% ] 2/8 VUs  0m24.7s/2m00.0s
+public_browse   [  21% ] 1/6 VUs  0m24.7s/2m00.0s
+student_web     [  21% ] 1/4 VUs  0m24.7s/2m00.0s
+
+running (0m27.0s), 05/20 VUs, 62 complete and 0 interrupted iterations
+admin_web       [  21% ] 1/2 VUs  0m25.7s/2m00.0s
+api_read        [  21% ] 2/8 VUs  0m25.7s/2m00.0s
+public_browse   [  21% ] 1/6 VUs  0m25.7s/2m00.0s
+student_web     [  21% ] 1/4 VUs  0m25.7s/2m00.0s
+
+running (0m28.0s), 05/20 VUs, 65 complete and 0 interrupted iterations
+admin_web       [  22% ] 1/2 VUs  0m26.7s/2m00.0s
+api_read        [  22% ] 2/8 VUs  0m26.7s/2m00.0s
+public_browse   [  22% ] 1/6 VUs  0m26.7s/2m00.0s
+student_web     [  22% ] 1/4 VUs  0m26.7s/2m00.0s
+
+running (0m29.0s), 05/20 VUs, 68 complete and 0 interrupted iterations
+admin_web       [  23% ] 1/2 VUs  0m27.7s/2m00.0s
+api_read        [  23% ] 2/8 VUs  0m27.7s/2m00.0s
+public_browse   [  23% ] 1/6 VUs  0m27.7s/2m00.0s
+student_web     [  23% ] 1/4 VUs  0m27.7s/2m00.0s
+
+running (0m30.0s), 05/20 VUs, 69 complete and 0 interrupted iterations
+admin_web       [  24% ] 1/2 VUs  0m28.7s/2m00.0s
+api_read        [  24% ] 2/8 VUs  0m28.7s/2m00.0s
+public_browse   [  24% ] 1/6 VUs  0m28.7s/2m00.0s
+student_web     [  24% ] 1/4 VUs  0m28.7s/2m00.0s
+
+running (0m31.0s), 05/20 VUs, 74 complete and 0 interrupted iterations
+admin_web       [  25% ] 1/2 VUs  0m29.7s/2m00.0s
+api_read        [  25% ] 2/8 VUs  0m29.7s/2m00.0s
+public_browse   [  25% ] 1/6 VUs  0m29.7s/2m00.0s
+student_web     [  25% ] 1/4 VUs  0m29.7s/2m00.0s
+
+running (0m32.0s), 08/20 VUs, 76 complete and 0 interrupted iterations
+admin_web       [  26% ] 1/2 VUs  0m30.7s/2m00.0s
+api_read        [  26% ] 3/8 VUs  0m30.7s/2m00.0s
+public_browse   [  26% ] 2/6 VUs  0m30.7s/2m00.0s
+student_web     [  26% ] 2/4 VUs  0m30.7s/2m00.0s
+
+running (0m33.0s), 08/20 VUs, 81 complete and 0 interrupted iterations
+admin_web       [  26% ] 1/2 VUs  0m31.7s/2m00.0s
+api_read        [  26% ] 3/8 VUs  0m31.7s/2m00.0s
+public_browse   [  26% ] 2/6 VUs  0m31.7s/2m00.0s
+student_web     [  26% ] 2/4 VUs  0m31.7s/2m00.0s
+
+running (0m34.0s), 08/20 VUs, 85 complete and 0 interrupted iterations
+admin_web       [  27% ] 1/2 VUs  0m32.7s/2m00.0s
+api_read        [  27% ] 3/8 VUs  0m32.7s/2m00.0s
+public_browse   [  27% ] 2/6 VUs  0m32.7s/2m00.0s
+student_web     [  27% ] 2/4 VUs  0m32.7s/2m00.0s
+
+running (0m35.0s), 08/20 VUs, 87 complete and 0 interrupted iterations
+admin_web       [  28% ] 1/2 VUs  0m33.7s/2m00.0s
+api_read        [  28% ] 3/8 VUs  0m33.7s/2m00.0s
+public_browse   [  28% ] 2/6 VUs  0m33.7s/2m00.0s
+student_web     [  28% ] 2/4 VUs  0m33.7s/2m00.0s
+
+running (0m36.0s), 08/20 VUs, 94 complete and 0 interrupted iterations
+admin_web       [  29% ] 1/2 VUs  0m34.7s/2m00.0s
+api_read        [  29% ] 3/8 VUs  0m34.7s/2m00.0s
+public_browse   [  29% ] 2/6 VUs  0m34.7s/2m00.0s
+student_web     [  29% ] 2/4 VUs  0m34.7s/2m00.0s
+
+running (0m37.0s), 08/20 VUs, 97 complete and 0 interrupted iterations
+admin_web       [  30% ] 1/2 VUs  0m35.7s/2m00.0s
+api_read        [  30% ] 3/8 VUs  0m35.7s/2m00.0s
+public_browse   [  30% ] 2/6 VUs  0m35.7s/2m00.0s
+student_web     [  30% ] 2/4 VUs  0m35.7s/2m00.0s
+
+running (0m38.0s), 08/20 VUs, 100 complete and 0 interrupted iterations
+admin_web       [  31% ] 1/2 VUs  0m36.7s/2m00.0s
+api_read        [  31% ] 3/8 VUs  0m36.7s/2m00.0s
+public_browse   [  31% ] 2/6 VUs  0m36.7s/2m00.0s
+student_web     [  31% ] 2/4 VUs  0m36.7s/2m00.0s
+
+running (0m39.0s), 08/20 VUs, 106 complete and 0 interrupted iterations
+admin_web       [  31% ] 1/2 VUs  0m37.7s/2m00.0s
+api_read        [  31% ] 3/8 VUs  0m37.7s/2m00.0s
+public_browse   [  31% ] 2/6 VUs  0m37.7s/2m00.0s
+student_web     [  31% ] 2/4 VUs  0m37.7s/2m00.0s
+
+running (0m40.0s), 08/20 VUs, 109 complete and 0 interrupted iterations
+admin_web       [  32% ] 1/2 VUs  0m38.7s/2m00.0s
+api_read        [  32% ] 3/8 VUs  0m38.7s/2m00.0s
+public_browse   [  32% ] 2/6 VUs  0m38.7s/2m00.0s
+student_web     [  32% ] 2/4 VUs  0m38.7s/2m00.0s
+
+running (0m41.0s), 08/20 VUs, 110 complete and 0 interrupted iterations
+admin_web       [  33% ] 1/2 VUs  0m39.7s/2m00.0s
+api_read        [  33% ] 3/8 VUs  0m39.7s/2m00.0s
+public_browse   [  33% ] 2/6 VUs  0m39.7s/2m00.0s
+student_web     [  33% ] 2/4 VUs  0m39.7s/2m00.0s
+
+running (0m42.0s), 08/20 VUs, 117 complete and 0 interrupted iterations
+admin_web       [  34% ] 1/2 VUs  0m40.7s/2m00.0s
+api_read        [  34% ] 3/8 VUs  0m40.7s/2m00.0s
+public_browse   [  34% ] 2/6 VUs  0m40.7s/2m00.0s
+student_web     [  34% ] 2/4 VUs  0m40.7s/2m00.0s
+
+running (0m43.0s), 08/20 VUs, 122 complete and 0 interrupted iterations
+admin_web       [  35% ] 1/2 VUs  0m41.7s/2m00.0s
+api_read        [  35% ] 3/8 VUs  0m41.7s/2m00.0s
+public_browse   [  35% ] 2/6 VUs  0m41.7s/2m00.0s
+student_web     [  35% ] 2/4 VUs  0m41.7s/2m00.0s
+
+running (0m44.0s), 09/20 VUs, 124 complete and 0 interrupted iterations
+admin_web       [  36% ] 1/2 VUs  0m42.7s/2m00.0s
+api_read        [  36% ] 4/8 VUs  0m42.7s/2m00.0s
+public_browse   [  36% ] 2/6 VUs  0m42.7s/2m00.0s
+student_web     [  36% ] 2/4 VUs  0m42.7s/2m00.0s
+
+running (0m45.0s), 09/20 VUs, 132 complete and 0 interrupted iterations
+admin_web       [  36% ] 1/2 VUs  0m43.7s/2m00.0s
+api_read        [  36% ] 4/8 VUs  0m43.7s/2m00.0s
+public_browse   [  36% ] 2/6 VUs  0m43.7s/2m00.0s
+student_web     [  36% ] 2/4 VUs  0m43.7s/2m00.0s
+
+running (0m46.0s), 09/20 VUs, 134 complete and 0 interrupted iterations
+admin_web       [  37% ] 1/2 VUs  0m44.7s/2m00.0s
+api_read        [  37% ] 4/8 VUs  0m44.7s/2m00.0s
+public_browse   [  37% ] 2/6 VUs  0m44.7s/2m00.0s
+student_web     [  37% ] 2/4 VUs  0m44.7s/2m00.0s
+
+running (0m47.0s), 10/20 VUs, 140 complete and 0 interrupted iterations
+admin_web       [  38% ] 1/2 VUs  0m45.7s/2m00.0s
+api_read        [  38% ] 4/8 VUs  0m45.7s/2m00.0s
+public_browse   [  38% ] 3/6 VUs  0m45.7s/2m00.0s
+student_web     [  38% ] 2/4 VUs  0m45.7s/2m00.0s
+
+running (0m48.0s), 10/20 VUs, 146 complete and 0 interrupted iterations
+admin_web       [  39% ] 1/2 VUs  0m46.7s/2m00.0s
+api_read        [  39% ] 4/8 VUs  0m46.7s/2m00.0s
+public_browse   [  39% ] 3/6 VUs  0m46.7s/2m00.0s
+student_web     [  39% ] 2/4 VUs  0m46.7s/2m00.0s
+
+running (0m49.0s), 10/20 VUs, 152 complete and 0 interrupted iterations
+admin_web       [  40% ] 1/2 VUs  0m47.7s/2m00.0s
+api_read        [  40% ] 4/8 VUs  0m47.7s/2m00.0s
+public_browse   [  40% ] 3/6 VUs  0m47.7s/2m00.0s
+student_web     [  40% ] 2/4 VUs  0m47.7s/2m00.0s
+
+running (0m50.0s), 10/20 VUs, 155 complete and 0 interrupted iterations
+admin_web       [  41% ] 1/2 VUs  0m48.7s/2m00.0s
+api_read        [  41% ] 4/8 VUs  0m48.7s/2m00.0s
+public_browse   [  41% ] 3/6 VUs  0m48.7s/2m00.0s
+student_web     [  41% ] 2/4 VUs  0m48.7s/2m00.0s
+
+running (0m51.0s), 10/20 VUs, 161 complete and 0 interrupted iterations
+admin_web       [  41% ] 1/2 VUs  0m49.7s/2m00.0s
+api_read        [  41% ] 4/8 VUs  0m49.7s/2m00.0s
+public_browse   [  41% ] 3/6 VUs  0m49.7s/2m00.0s
+student_web     [  41% ] 2/4 VUs  0m49.7s/2m00.0s
+
+running (0m52.0s), 10/20 VUs, 166 complete and 0 interrupted iterations
+admin_web       [  42% ] 1/2 VUs  0m50.7s/2m00.0s
+api_read        [  42% ] 4/8 VUs  0m50.7s/2m00.0s
+public_browse   [  42% ] 3/6 VUs  0m50.7s/2m00.0s
+student_web     [  42% ] 2/4 VUs  0m50.7s/2m00.0s
+
+running (0m53.0s), 10/20 VUs, 170 complete and 0 interrupted iterations
+admin_web       [  43% ] 1/2 VUs  0m51.7s/2m00.0s
+api_read        [  43% ] 4/8 VUs  0m51.7s/2m00.0s
+public_browse   [  43% ] 3/6 VUs  0m51.7s/2m00.0s
+student_web     [  43% ] 2/4 VUs  0m51.7s/2m00.0s
+
+running (0m54.0s), 10/20 VUs, 176 complete and 0 interrupted iterations
+admin_web       [  44% ] 1/2 VUs  0m52.7s/2m00.0s
+api_read        [  44% ] 4/8 VUs  0m52.7s/2m00.0s
+public_browse   [  44% ] 3/6 VUs  0m52.7s/2m00.0s
+student_web     [  44% ] 2/4 VUs  0m52.7s/2m00.0s
+
+running (0m55.0s), 10/20 VUs, 184 complete and 0 interrupted iterations
+admin_web       [  45% ] 1/2 VUs  0m53.7s/2m00.0s
+api_read        [  45% ] 4/8 VUs  0m53.7s/2m00.0s
+public_browse   [  45% ] 3/6 VUs  0m53.7s/2m00.0s
+student_web     [  45% ] 2/4 VUs  0m53.7s/2m00.0s
+
+running (0m56.0s), 11/20 VUs, 187 complete and 0 interrupted iterations
+admin_web       [  46% ] 1/2 VUs  0m54.7s/2m00.0s
+api_read        [  46% ] 5/8 VUs  0m54.7s/2m00.0s
+public_browse   [  46% ] 3/6 VUs  0m54.7s/2m00.0s
+student_web     [  46% ] 2/4 VUs  0m54.7s/2m00.0s
+
+running (0m57.0s), 11/20 VUs, 190 complete and 0 interrupted iterations
+admin_web       [  46% ] 1/2 VUs  0m55.7s/2m00.0s
+api_read        [  46% ] 5/8 VUs  0m55.7s/2m00.0s
+public_browse   [  46% ] 3/6 VUs  0m55.7s/2m00.0s
+student_web     [  46% ] 2/4 VUs  0m55.7s/2m00.0s
+
+running (0m58.0s), 11/20 VUs, 197 complete and 0 interrupted iterations
+admin_web       [  47% ] 1/2 VUs  0m56.7s/2m00.0s
+api_read        [  47% ] 5/8 VUs  0m56.7s/2m00.0s
+public_browse   [  47% ] 3/6 VUs  0m56.7s/2m00.0s
+student_web     [  47% ] 2/4 VUs  0m56.7s/2m00.0s
+
+running (0m59.0s), 11/20 VUs, 203 complete and 0 interrupted iterations
+admin_web       [  48% ] 1/2 VUs  0m57.7s/2m00.0s
+api_read        [  48% ] 5/8 VUs  0m57.7s/2m00.0s
+public_browse   [  48% ] 3/6 VUs  0m57.7s/2m00.0s
+student_web     [  48% ] 2/4 VUs  0m57.7s/2m00.0s
+
+running (1m00.0s), 11/20 VUs, 211 complete and 0 interrupted iterations
+admin_web       [  49% ] 1/2 VUs  0m58.7s/2m00.0s
+api_read        [  49% ] 5/8 VUs  0m58.7s/2m00.0s
+public_browse   [  49% ] 3/6 VUs  0m58.7s/2m00.0s
+student_web     [  49% ] 2/4 VUs  0m58.7s/2m00.0s
+
+running (1m01.0s), 11/20 VUs, 215 complete and 0 interrupted iterations
+admin_web       [  50% ] 1/2 VUs  0m59.7s/2m00.0s
+api_read        [  50% ] 5/8 VUs  0m59.7s/2m00.0s
+public_browse   [  50% ] 3/6 VUs  0m59.7s/2m00.0s
+student_web     [  50% ] 2/4 VUs  0m59.7s/2m00.0s
+
+running (1m02.0s), 13/20 VUs, 220 complete and 0 interrupted iterations
+admin_web       [  51% ] 1/2 VUs  1m00.7s/2m00.0s
+api_read        [  51% ] 5/8 VUs  1m00.7s/2m00.0s
+public_browse   [  51% ] 4/6 VUs  1m00.7s/2m00.0s
+student_web     [  51% ] 3/4 VUs  1m00.7s/2m00.0s
+
+running (1m03.0s), 13/20 VUs, 226 complete and 0 interrupted iterations
+admin_web       [  51% ] 1/2 VUs  1m01.7s/2m00.0s
+api_read        [  51% ] 5/8 VUs  1m01.7s/2m00.0s
+public_browse   [  51% ] 4/6 VUs  1m01.7s/2m00.0s
+student_web     [  51% ] 3/4 VUs  1m01.7s/2m00.0s
+
+running (1m04.0s), 13/20 VUs, 233 complete and 0 interrupted iterations
+admin_web       [  52% ] 1/2 VUs  1m02.7s/2m00.0s
+api_read        [  52% ] 5/8 VUs  1m02.7s/2m00.0s
+public_browse   [  52% ] 4/6 VUs  1m02.7s/2m00.0s
+student_web     [  52% ] 3/4 VUs  1m02.7s/2m00.0s
+
+running (1m05.0s), 13/20 VUs, 240 complete and 0 interrupted iterations
+admin_web       [  53% ] 1/2 VUs  1m03.7s/2m00.0s
+api_read        [  53% ] 5/8 VUs  1m03.7s/2m00.0s
+public_browse   [  53% ] 4/6 VUs  1m03.7s/2m00.0s
+student_web     [  53% ] 3/4 VUs  1m03.7s/2m00.0s
+
+running (1m06.0s), 13/20 VUs, 247 complete and 0 interrupted iterations
+admin_web       [  54% ] 1/2 VUs  1m04.7s/2m00.0s
+api_read        [  54% ] 5/8 VUs  1m04.7s/2m00.0s
+public_browse   [  54% ] 4/6 VUs  1m04.7s/2m00.0s
+student_web     [  54% ] 3/4 VUs  1m04.7s/2m00.0s
+
+running (1m07.0s), 13/20 VUs, 253 complete and 0 interrupted iterations
+admin_web       [  55% ] 1/2 VUs  1m05.7s/2m00.0s
+api_read        [  55% ] 5/8 VUs  1m05.7s/2m00.0s
+public_browse   [  55% ] 4/6 VUs  1m05.7s/2m00.0s
+student_web     [  55% ] 3/4 VUs  1m05.7s/2m00.0s
+
+running (1m08.0s), 14/20 VUs, 260 complete and 0 interrupted iterations
+admin_web       [  56% ] 1/2 VUs  1m06.7s/2m00.0s
+api_read        [  56% ] 6/8 VUs  1m06.7s/2m00.0s
+public_browse   [  56% ] 4/6 VUs  1m06.7s/2m00.0s
+student_web     [  56% ] 3/4 VUs  1m06.7s/2m00.0s
+
+running (1m09.0s), 14/20 VUs, 266 complete and 0 interrupted iterations
+admin_web       [  56% ] 1/2 VUs  1m07.7s/2m00.0s
+api_read        [  56% ] 6/8 VUs  1m07.7s/2m00.0s
+public_browse   [  56% ] 4/6 VUs  1m07.7s/2m00.0s
+student_web     [  56% ] 3/4 VUs  1m07.7s/2m00.0s
+
+running (1m10.0s), 14/20 VUs, 273 complete and 0 interrupted iterations
+admin_web       [  57% ] 1/2 VUs  1m08.7s/2m00.0s
+api_read        [  57% ] 6/8 VUs  1m08.7s/2m00.0s
+public_browse   [  57% ] 4/6 VUs  1m08.7s/2m00.0s
+student_web     [  57% ] 3/4 VUs  1m08.7s/2m00.0s
+
+running (1m11.0s), 14/20 VUs, 280 complete and 0 interrupted iterations
+admin_web       [  58% ] 1/2 VUs  1m09.7s/2m00.0s
+api_read        [  58% ] 6/8 VUs  1m09.7s/2m00.0s
+public_browse   [  58% ] 4/6 VUs  1m09.7s/2m00.0s
+student_web     [  58% ] 3/4 VUs  1m09.7s/2m00.0s
+
+running (1m12.0s), 14/20 VUs, 286 complete and 0 interrupted iterations
+admin_web       [  59% ] 1/2 VUs  1m10.7s/2m00.0s
+api_read        [  59% ] 6/8 VUs  1m10.7s/2m00.0s
+public_browse   [  59% ] 4/6 VUs  1m10.7s/2m00.0s
+student_web     [  59% ] 3/4 VUs  1m10.7s/2m00.0s
+
+running (1m13.0s), 14/20 VUs, 295 complete and 0 interrupted iterations
+admin_web       [  60% ] 1/2 VUs  1m11.7s/2m00.0s
+api_read        [  60% ] 6/8 VUs  1m11.7s/2m00.0s
+public_browse   [  60% ] 4/6 VUs  1m11.7s/2m00.0s
+student_web     [  60% ] 3/4 VUs  1m11.7s/2m00.0s
+
+running (1m14.0s), 14/20 VUs, 302 complete and 0 interrupted iterations
+admin_web       [  61% ] 1/2 VUs  1m12.7s/2m00.0s
+api_read        [  61% ] 6/8 VUs  1m12.7s/2m00.0s
+public_browse   [  61% ] 4/6 VUs  1m12.7s/2m00.0s
+student_web     [  61% ] 3/4 VUs  1m12.7s/2m00.0s
+
+running (1m15.0s), 14/20 VUs, 311 complete and 0 interrupted iterations
+admin_web       [  61% ] 1/2 VUs  1m13.7s/2m00.0s
+api_read        [  61% ] 6/8 VUs  1m13.7s/2m00.0s
+public_browse   [  61% ] 4/6 VUs  1m13.7s/2m00.0s
+student_web     [  61% ] 3/4 VUs  1m13.7s/2m00.0s
+
+running (1m16.0s), 14/20 VUs, 316 complete and 0 interrupted iterations
+admin_web       [  62% ] 1/2 VUs  1m14.7s/2m00.0s
+api_read        [  62% ] 6/8 VUs  1m14.7s/2m00.0s
+public_browse   [  62% ] 4/6 VUs  1m14.7s/2m00.0s
+student_web     [  62% ] 3/4 VUs  1m14.7s/2m00.0s
+
+running (1m17.0s), 15/20 VUs, 324 complete and 0 interrupted iterations
+admin_web       [  63% ] 1/2 VUs  1m15.7s/2m00.0s
+api_read        [  63% ] 6/8 VUs  1m15.7s/2m00.0s
+public_browse   [  63% ] 5/6 VUs  1m15.7s/2m00.0s
+student_web     [  63% ] 3/4 VUs  1m15.7s/2m00.0s
+
+running (1m18.0s), 15/20 VUs, 331 complete and 0 interrupted iterations
+admin_web       [  64% ] 1/2 VUs  1m16.7s/2m00.0s
+api_read        [  64% ] 6/8 VUs  1m16.7s/2m00.0s
+public_browse   [  64% ] 5/6 VUs  1m16.7s/2m00.0s
+student_web     [  64% ] 3/4 VUs  1m16.7s/2m00.0s
+
+running (1m19.0s), 15/20 VUs, 339 complete and 0 interrupted iterations
+admin_web       [  65% ] 1/2 VUs  1m17.7s/2m00.0s
+api_read        [  65% ] 6/8 VUs  1m17.7s/2m00.0s
+public_browse   [  65% ] 5/6 VUs  1m17.7s/2m00.0s
+student_web     [  65% ] 3/4 VUs  1m17.7s/2m00.0s
+
+running (1m20.0s), 16/20 VUs, 348 complete and 0 interrupted iterations
+admin_web       [  66% ] 1/2 VUs  1m18.7s/2m00.0s
+api_read        [  66% ] 7/8 VUs  1m18.7s/2m00.0s
+public_browse   [  66% ] 5/6 VUs  1m18.7s/2m00.0s
+student_web     [  66% ] 3/4 VUs  1m18.7s/2m00.0s
+
+running (1m21.0s), 16/20 VUs, 356 complete and 0 interrupted iterations
+admin_web       [  66% ] 1/2 VUs  1m19.7s/2m00.0s
+api_read        [  66% ] 7/8 VUs  1m19.7s/2m00.0s
+public_browse   [  66% ] 5/6 VUs  1m19.7s/2m00.0s
+student_web     [  66% ] 3/4 VUs  1m19.7s/2m00.0s
+
+running (1m22.0s), 16/20 VUs, 363 complete and 0 interrupted iterations
+admin_web       [  67% ] 1/2 VUs  1m20.7s/2m00.0s
+api_read        [  67% ] 7/8 VUs  1m20.7s/2m00.0s
+public_browse   [  67% ] 5/6 VUs  1m20.7s/2m00.0s
+student_web     [  67% ] 3/4 VUs  1m20.7s/2m00.0s
+
+running (1m23.0s), 16/20 VUs, 370 complete and 0 interrupted iterations
+admin_web       [  68% ] 1/2 VUs  1m21.7s/2m00.0s
+api_read        [  68% ] 7/8 VUs  1m21.7s/2m00.0s
+public_browse   [  68% ] 5/6 VUs  1m21.7s/2m00.0s
+student_web     [  68% ] 3/4 VUs  1m21.7s/2m00.0s
+
+running (1m24.0s), 16/20 VUs, 376 complete and 0 interrupted iterations
+admin_web       [  69% ] 1/2 VUs  1m22.7s/2m00.0s
+api_read        [  69% ] 7/8 VUs  1m22.7s/2m00.0s
+public_browse   [  69% ] 5/6 VUs  1m22.7s/2m00.0s
+student_web     [  69% ] 3/4 VUs  1m22.7s/2m00.0s
+
+running (1m25.0s), 16/20 VUs, 386 complete and 0 interrupted iterations
+admin_web       [  70% ] 1/2 VUs  1m23.7s/2m00.0s
+api_read        [  70% ] 7/8 VUs  1m23.7s/2m00.0s
+public_browse   [  70% ] 5/6 VUs  1m23.7s/2m00.0s
+student_web     [  70% ] 3/4 VUs  1m23.7s/2m00.0s
+
+running (1m26.0s), 16/20 VUs, 390 complete and 0 interrupted iterations
+admin_web       [  71% ] 1/2 VUs  1m24.7s/2m00.0s
+api_read        [  71% ] 7/8 VUs  1m24.7s/2m00.0s
+public_browse   [  71% ] 5/6 VUs  1m24.7s/2m00.0s
+student_web     [  71% ] 3/4 VUs  1m24.7s/2m00.0s
+
+running (1m27.0s), 16/20 VUs, 397 complete and 0 interrupted iterations
+admin_web       [  71% ] 1/2 VUs  1m25.7s/2m00.0s
+api_read        [  71% ] 7/8 VUs  1m25.7s/2m00.0s
+public_browse   [  71% ] 5/6 VUs  1m25.7s/2m00.0s
+student_web     [  71% ] 3/4 VUs  1m25.7s/2m00.0s
+
+running (1m28.0s), 16/20 VUs, 407 complete and 0 interrupted iterations
+admin_web       [  72% ] 1/2 VUs  1m26.7s/2m00.0s
+api_read        [  72% ] 7/8 VUs  1m26.7s/2m00.0s
+public_browse   [  72% ] 5/6 VUs  1m26.7s/2m00.0s
+student_web     [  72% ] 3/4 VUs  1m26.7s/2m00.0s
+
+running (1m29.0s), 16/20 VUs, 417 complete and 0 interrupted iterations
+admin_web       [  73% ] 1/2 VUs  1m27.7s/2m00.0s
+api_read        [  73% ] 7/8 VUs  1m27.7s/2m00.0s
+public_browse   [  73% ] 5/6 VUs  1m27.7s/2m00.0s
+student_web     [  73% ] 3/4 VUs  1m27.7s/2m00.0s
+
+running (1m30.0s), 16/20 VUs, 423 complete and 0 interrupted iterations
+admin_web       [  74% ] 1/2 VUs  1m28.7s/2m00.0s
+api_read        [  74% ] 7/8 VUs  1m28.7s/2m00.0s
+public_browse   [  74% ] 5/6 VUs  1m28.7s/2m00.0s
+student_web     [  74% ] 3/4 VUs  1m28.7s/2m00.0s
+
+running (1m31.0s), 16/20 VUs, 427 complete and 0 interrupted iterations
+admin_web       [  75% ] 1/2 VUs  1m29.7s/2m00.0s
+api_read        [  75% ] 7/8 VUs  1m29.7s/2m00.0s
+public_browse   [  75% ] 5/6 VUs  1m29.7s/2m00.0s
+student_web     [  75% ] 3/4 VUs  1m29.7s/2m00.0s
+
+running (1m32.0s), 20/20 VUs, 439 complete and 0 interrupted iterations
+admin_web       [  76% ] 2/2 VUs  1m30.7s/2m00.0s
+api_read        [  76% ] 8/8 VUs  1m30.7s/2m00.0s
+public_browse   [  76% ] 6/6 VUs  1m30.7s/2m00.0s
+student_web     [  76% ] 4/4 VUs  1m30.7s/2m00.0s
+
+running (1m33.0s), 20/20 VUs, 442 complete and 0 interrupted iterations
+admin_web       [  76% ] 2/2 VUs  1m31.7s/2m00.0s
+api_read        [  76% ] 8/8 VUs  1m31.7s/2m00.0s
+public_browse   [  76% ] 6/6 VUs  1m31.7s/2m00.0s
+student_web     [  76% ] 4/4 VUs  1m31.7s/2m00.0s
+
+running (1m34.0s), 20/20 VUs, 445 complete and 0 interrupted iterations
+admin_web       [  77% ] 2/2 VUs  1m32.7s/2m00.0s
+api_read        [  77% ] 8/8 VUs  1m32.7s/2m00.0s
+public_browse   [  77% ] 6/6 VUs  1m32.7s/2m00.0s
+student_web     [  77% ] 4/4 VUs  1m32.7s/2m00.0s
+
+running (1m35.0s), 20/20 VUs, 458 complete and 0 interrupted iterations
+admin_web       [  78% ] 2/2 VUs  1m33.7s/2m00.0s
+api_read        [  78% ] 8/8 VUs  1m33.7s/2m00.0s
+public_browse   [  78% ] 6/6 VUs  1m33.7s/2m00.0s
+student_web     [  78% ] 4/4 VUs  1m33.7s/2m00.0s
+
+running (1m36.0s), 19/20 VUs, 466 complete and 0 interrupted iterations
+admin_web       [  79% ] 2/2 VUs  1m34.7s/2m00.0s
+api_read        [  79% ] 7/8 VUs  1m34.7s/2m00.0s
+public_browse   [  79% ] 6/6 VUs  1m34.7s/2m00.0s
+student_web     [  79% ] 4/4 VUs  1m34.7s/2m00.0s
+
+running (1m37.0s), 18/20 VUs, 471 complete and 0 interrupted iterations
+admin_web       [  80% ] 2/2 VUs  1m35.7s/2m00.0s
+api_read        [  80% ] 7/8 VUs  1m35.7s/2m00.0s
+public_browse   [  80% ] 5/6 VUs  1m35.7s/2m00.0s
+student_web     [  80% ] 4/4 VUs  1m35.7s/2m00.0s
+
+running (1m38.0s), 18/20 VUs, 474 complete and 0 interrupted iterations
+admin_web       [  81% ] 2/2 VUs  1m36.7s/2m00.0s
+api_read        [  81% ] 7/8 VUs  1m36.7s/2m00.0s
+public_browse   [  81% ] 5/6 VUs  1m36.7s/2m00.0s
+student_web     [  81% ] 4/4 VUs  1m36.7s/2m00.0s
+
+running (1m39.0s), 18/20 VUs, 487 complete and 0 interrupted iterations
+admin_web       [  81% ] 2/2 VUs  1m37.7s/2m00.0s
+api_read        [  81% ] 7/8 VUs  1m37.7s/2m00.0s
+public_browse   [  81% ] 5/6 VUs  1m37.7s/2m00.0s
+student_web     [  81% ] 4/4 VUs  1m37.7s/2m00.0s
+
+running (1m40.0s), 18/20 VUs, 492 complete and 0 interrupted iterations
+admin_web       [  82% ] 2/2 VUs  1m38.7s/2m00.0s
+api_read        [  82% ] 7/8 VUs  1m38.7s/2m00.0s
+public_browse   [  82% ] 5/6 VUs  1m38.7s/2m00.0s
+student_web     [  82% ] 4/4 VUs  1m38.7s/2m00.0s
+
+running (1m41.0s), 18/20 VUs, 494 complete and 0 interrupted iterations
+admin_web       [  83% ] 2/2 VUs  1m39.7s/2m00.0s
+api_read        [  83% ] 7/8 VUs  1m39.7s/2m00.0s
+public_browse   [  83% ] 5/6 VUs  1m39.7s/2m00.0s
+student_web     [  83% ] 4/4 VUs  1m39.7s/2m00.0s
+
+running (1m42.0s), 16/20 VUs, 502 complete and 0 interrupted iterations
+admin_web       [  84% ] 2/2 VUs  1m40.7s/2m00.0s
+api_read        [  84% ] 6/8 VUs  1m40.7s/2m00.0s
+public_browse   [  84% ] 4/6 VUs  1m40.7s/2m00.0s
+student_web     [  84% ] 4/4 VUs  1m40.7s/2m00.0s
+
+running (1m43.0s), 15/20 VUs, 511 complete and 0 interrupted iterations
+admin_web       [  85% ] 2/2 VUs  1m41.7s/2m00.0s
+api_read        [  85% ] 6/8 VUs  1m41.7s/2m00.0s
+public_browse   [  85% ] 4/6 VUs  1m41.7s/2m00.0s
+student_web     [  85% ] 3/4 VUs  1m41.7s/2m00.0s
+
+running (1m44.0s), 14/20 VUs, 518 complete and 0 interrupted iterations
+admin_web       [  86% ] 2/2 VUs  1m42.7s/2m00.0s
+api_read        [  86% ] 5/8 VUs  1m42.7s/2m00.0s
+public_browse   [  86% ] 4/6 VUs  1m42.7s/2m00.0s
+student_web     [  86% ] 3/4 VUs  1m42.7s/2m00.0s
+
+running (1m45.0s), 14/20 VUs, 527 complete and 0 interrupted iterations
+admin_web       [  86% ] 2/2 VUs  1m43.7s/2m00.0s
+api_read        [  86% ] 5/8 VUs  1m43.7s/2m00.0s
+public_browse   [  86% ] 4/6 VUs  1m43.7s/2m00.0s
+student_web     [  86% ] 3/4 VUs  1m43.7s/2m00.0s
+
+running (1m46.0s), 14/20 VUs, 530 complete and 0 interrupted iterations
+admin_web       [  87% ] 2/2 VUs  1m44.7s/2m00.0s
+api_read        [  87% ] 5/8 VUs  1m44.7s/2m00.0s
+public_browse   [  87% ] 4/6 VUs  1m44.7s/2m00.0s
+student_web     [  87% ] 3/4 VUs  1m44.7s/2m00.0s
+
+running (1m47.0s), 13/20 VUs, 535 complete and 0 interrupted iterations
+admin_web       [  88% ] 2/2 VUs  1m45.7s/2m00.0s
+api_read        [  88% ] 4/8 VUs  1m45.7s/2m00.0s
+public_browse   [  88% ] 4/6 VUs  1m45.7s/2m00.0s
+student_web     [  88% ] 3/4 VUs  1m45.7s/2m00.0s
+
+running (1m48.0s), 13/20 VUs, 540 complete and 0 interrupted iterations
+admin_web       [  89% ] 2/2 VUs  1m46.7s/2m00.0s
+api_read        [  89% ] 4/8 VUs  1m46.7s/2m00.0s
+public_browse   [  89% ] 4/6 VUs  1m46.7s/2m00.0s
+student_web     [  89% ] 3/4 VUs  1m46.7s/2m00.0s
+
+running (1m49.0s), 10/20 VUs, 549 complete and 0 interrupted iterations
+admin_web       [  90% ] 1/2 VUs  1m47.7s/2m00.0s
+api_read        [  90% ] 4/8 VUs  1m47.7s/2m00.0s
+public_browse   [  90% ] 3/6 VUs  1m47.7s/2m00.0s
+student_web     [  90% ] 2/4 VUs  1m47.7s/2m00.0s
+
+running (1m50.0s), 10/20 VUs, 555 complete and 0 interrupted iterations
+admin_web       [  91% ] 1/2 VUs  1m48.7s/2m00.0s
+api_read        [  91% ] 4/8 VUs  1m48.7s/2m00.0s
+public_browse   [  91% ] 3/6 VUs  1m48.7s/2m00.0s
+student_web     [  91% ] 2/4 VUs  1m48.7s/2m00.0s
+
+running (1m51.0s), 10/20 VUs, 561 complete and 0 interrupted iterations
+admin_web       [  91% ] 1/2 VUs  1m49.7s/2m00.0s
+api_read        [  91% ] 4/8 VUs  1m49.7s/2m00.0s
+public_browse   [  91% ] 3/6 VUs  1m49.7s/2m00.0s
+student_web     [  91% ] 2/4 VUs  1m49.7s/2m00.0s
+
+running (1m52.0s), 09/20 VUs, 568 complete and 0 interrupted iterations
+admin_web       [  92% ] 1/2 VUs  1m50.7s/2m00.0s
+api_read        [  92% ] 3/8 VUs  1m50.7s/2m00.0s
+public_browse   [  92% ] 3/6 VUs  1m50.7s/2m00.0s
+student_web     [  92% ] 2/4 VUs  1m50.7s/2m00.0s
+
+running (1m53.0s), 08/20 VUs, 572 complete and 0 interrupted iterations
+admin_web       [  93% ] 1/2 VUs  1m51.7s/2m00.0s
+api_read        [  93% ] 3/8 VUs  1m51.7s/2m00.0s
+public_browse   [  93% ] 2/6 VUs  1m51.7s/2m00.0s
+student_web     [  93% ] 2/4 VUs  1m51.7s/2m00.0s
+
+running (1m54.0s), 08/20 VUs, 576 complete and 0 interrupted iterations
+admin_web       [  94% ] 1/2 VUs  1m52.7s/2m00.0s
+api_read        [  94% ] 3/8 VUs  1m52.7s/2m00.0s
+public_browse   [  94% ] 2/6 VUs  1m52.7s/2m00.0s
+student_web     [  94% ] 2/4 VUs  1m52.7s/2m00.0s
+
+running (1m55.0s), 06/20 VUs, 581 complete and 0 interrupted iterations
+admin_web       [  95% ] 1/2 VUs  1m53.7s/2m00.0s
+api_read        [  95% ] 2/8 VUs  1m53.7s/2m00.0s
+public_browse   [  95% ] 2/6 VUs  1m53.7s/2m00.0s
+student_web     [  95% ] 1/4 VUs  1m53.7s/2m00.0s
+
+running (1m56.0s), 06/20 VUs, 585 complete and 0 interrupted iterations
+admin_web       [  96% ] 1/2 VUs  1m54.7s/2m00.0s
+api_read        [  96% ] 2/8 VUs  1m54.7s/2m00.0s
+public_browse   [  96% ] 2/6 VUs  1m54.7s/2m00.0s
+student_web     [  96% ] 1/4 VUs  1m54.7s/2m00.0s
+
+running (1m57.0s), 05/20 VUs, 588 complete and 0 interrupted iterations
+admin_web       [  96% ] 1/2 VUs  1m55.7s/2m00.0s
+api_read        [  96% ] 2/8 VUs  1m55.7s/2m00.0s
+public_browse   [  96% ] 1/6 VUs  1m55.7s/2m00.0s
+student_web     [  96% ] 1/4 VUs  1m55.7s/2m00.0s
+
+running (1m58.0s), 04/20 VUs, 591 complete and 0 interrupted iterations
+admin_web       [  97% ] 1/2 VUs  1m56.7s/2m00.0s
+api_read        [  97% ] 1/8 VUs  1m56.7s/2m00.0s
+public_browse   [  97% ] 1/6 VUs  1m56.7s/2m00.0s
+student_web     [  97% ] 1/4 VUs  1m56.7s/2m00.0s
+
+running (1m59.0s), 04/20 VUs, 593 complete and 0 interrupted iterations
+admin_web       [  98% ] 1/2 VUs  1m57.7s/2m00.0s
+api_read        [  98% ] 1/8 VUs  1m57.7s/2m00.0s
+public_browse   [  98% ] 1/6 VUs  1m57.7s/2m00.0s
+student_web     [  98% ] 1/4 VUs  1m57.7s/2m00.0s
+
+running (2m00.0s), 04/20 VUs, 597 complete and 0 interrupted iterations
+admin_web       [  99% ] 1/2 VUs  1m58.7s/2m00.0s
+api_read        [  99% ] 1/8 VUs  1m58.7s/2m00.0s
+public_browse   [  99% ] 1/6 VUs  1m58.7s/2m00.0s
+student_web     [  99% ] 1/4 VUs  1m58.7s/2m00.0s
+
+running (2m01.0s), 04/20 VUs, 599 complete and 0 interrupted iterations
+admin_web       [ 100% ] 1/2 VUs  1m59.7s/2m00.0s
+api_read        [ 100% ] 1/8 VUs  1m59.7s/2m00.0s
+public_browse   [ 100% ] 1/6 VUs  1m59.7s/2m00.0s
+student_web     [ 100% ] 1/4 VUs  1m59.7s/2m00.0s
+
+running (2m02.0s), 03/20 VUs, 600 complete and 0 interrupted iterations
+admin_web     ↓ [ 100% ] 1/2 VUs  2m0s
+api_read      ✓ [ 100% ] 0/8 VUs  2m0s
+public_browse ↓ [ 100% ] 1/6 VUs  2m0s
+student_web   ↓ [ 100% ] 1/4 VUs  2m0s
+
+running (2m03.0s), 02/20 VUs, 601 complete and 0 interrupted iterations
+admin_web     ✓ [ 100% ] 0/2 VUs  2m0s
+api_read      ✓ [ 100% ] 0/8 VUs  2m0s
+public_browse ↓ [ 100% ] 1/6 VUs  2m0s
+student_web   ↓ [ 100% ] 1/4 VUs  2m0s
+
+
+  █ THRESHOLDS 
+
+    checks
+    ✓ 'rate>0.98' rate=100.00%
+
+    http_req_duration{scenario:admin_web}
+    ✓ 'p(95)<3000' p(95)=168.55ms
+    ✓ 'p(99)<6000' p(99)=209.34ms
+
+    http_req_duration{scenario:api_read}
+    ✓ 'p(95)<1200' p(95)=177.44ms
+    ✓ 'p(99)<2500' p(99)=233.37ms
+
+    http_req_duration{scenario:public_browse}
+    ✓ 'p(95)<3000' p(95)=210.72ms
+    ✓ 'p(99)<6000' p(99)=265.59ms
+
+    http_req_duration{scenario:student_web}
+    ✓ 'p(95)<3000' p(95)=192.67ms
+    ✓ 'p(99)<6000' p(99)=253.85ms
+
+    http_req_failed{scenario:admin_web}
+    ✓ 'rate<0.02' rate=0.00%
+
+    http_req_failed{scenario:api_read}
+    ✓ 'rate<0.02' rate=0.00%
+
+    http_req_failed{scenario:public_browse}
+    ✓ 'rate<0.02' rate=0.00%
+
+    http_req_failed{scenario:student_web}
+    ✓ 'rate<0.02' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 6666    53.892773/s
+    checks_succeeded...: 100.00% 6666 out of 6666
+    checks_failed......: 0.00%   0 out of 6666
+
+    ✓ login web -> 302
+    ✓ login web -> dapat session cookie
+    ✓ login web -> redirect sesuai role
+    ✓ login api -> 200
+    ✓ login api -> dapat access_token
+    ✓ setup: aset CSS ditemukan
+    ✓ setup: aset JS ditemukan
+    ✓ setup: session siswa tersedia
+    ✓ setup: session admin tersedia
+    ✓ GET / -> 200
+    ✓ landing -> judul BUBA
+    ✓ GET /siswa/welcome -> 200
+    ✓ GET /api/me -> 200
+    ✓ GET /admin/dashboard -> 200
+    ✓ halaman dashboard -> tidak kosong
+    ✓ GET /login -> 200
+    ✓ GET /siswa/konten -> 200
+    ✓ GET /api/email/status -> 200
+    ✓ GET /admin/kelas -> 200
+    ✓ halaman kelas -> tidak kosong
+    ✓ GET /register -> 200
+    ✓ GET /siswa/materi/pilih-kelas -> 200
+    ✓ GET /api/siswa/kelas -> 200
+    ✓ GET /admin/kategori -> 200
+    ✓ halaman kategori -> tidak kosong
+    ✓ GET /clock -> 200
+    ✓ GET /siswa/{kelas} -> 200
+    ✓ GET /api/siswa/kategori -> 200
+    ✓ GET /admin/materi -> 200
+    ✓ halaman materi -> tidak kosong
+    ✓ GET /siswa/materi-list -> 200
+    ✓ GET /api/siswa/materi -> 200
+    ✓ GET /admin/kuis -> 200
+    ✓ ASET /build/manifest.json -> 200
+    ✓ ASET /build/manifest.json -> tidak kosong
+    ✓ ASET /build/assets/app-CbZY8taC.css -> 200
+    ✓ halaman kuis -> tidak kosong
+    ✓ ASET /build/assets/app-CbZY8taC.css -> tidak kosong
+    ✓ ASET /build/assets/app-CxH6i6o_.js -> 200
+    ✓ ASET /build/assets/app-CxH6i6o_.js -> tidak kosong
+    ✓ ASET /images/logoBuba.png -> 200
+    ✓ ASET /images/logoBuba.png -> tidak kosong
+    ✓ ASET /favicon.ico -> 200
+    ✓ ASET /favicon.ico -> tidak kosong
+    ✓ GET /siswa/materi-show -> 200
+    ✓ GET /api/siswa/materi/{kode} -> 200
+    ✓ GET /admin/siswa -> 200
+    ✓ halaman siswa -> tidak kosong
+    ✓ GET /siswa/kuis-list -> 200
+    ✓ GET /api/siswa/kuis -> 200
+    ✓ GET /admin/reward -> 200
+    ✓ halaman reward -> tidak kosong
+    ✓ GET /siswa/reward -> 200
+    ✓ GET /api/siswa/hasil-kuis -> 200
+    ✓ GET /admin/kelas/edit -> 200
+    ✓ GET /profile -> 200
+    ✓ GET /admin/kategori/edit -> 200
+    ✓ GET /admin/materi/detail -> 200
+    ✓ GET /admin/materi/edit -> 200
+    ✓ GET /admin/siswa/edit -> 200
+    ✓ GET /admin/kelas/tambah -> 200
+    ✓ GET /admin/kategori/tambah -> 200
+    ✓ GET /admin/materi/tambah -> 200
+    ✓ GET /admin/kuis/tambah -> 200
+    ✓ GET /admin/siswa/tambah -> 200
+    ✓ GET /profile (admin) -> 200
+
+    HTTP
+    http_req_duration..............: avg=69.95ms min=366.49µs med=54.22ms max=307.69ms p(90)=150.32ms p(95)=187.25ms p(99)=242.74ms
+      { expected_response:true }...: avg=69.95ms min=366.49µs med=54.22ms max=307.69ms p(90)=150.32ms p(95)=187.25ms p(99)=242.74ms
+      { scenario:admin_web }.......: avg=65.86ms min=17.33ms  med=51.39ms max=276.67ms p(90)=126.36ms p(95)=168.55ms p(99)=209.34ms
+      { scenario:api_read }........: avg=65.13ms min=12.48ms  med=50.31ms max=285.69ms p(90)=137.43ms p(95)=177.44ms p(99)=233.37ms
+      { scenario:public_browse }...: avg=78.16ms min=654.19µs med=63.62ms max=307.69ms p(90)=173.26ms p(95)=210.72ms p(99)=265.59ms
+      { scenario:student_web }.....: avg=76.51ms min=16.9ms   med=60.51ms max=273.52ms p(90)=166.04ms p(95)=192.67ms p(99)=253.85ms
+    http_req_failed................: 0.00%  0 out of 5524
+      { scenario:admin_web }.......: 0.00%  0 out of 792
+      { scenario:api_read }........: 0.00%  0 out of 2584
+      { scenario:public_browse }...: 0.00%  0 out of 1269
+      { scenario:student_web }.....: 0.00%  0 out of 855
+    http_reqs......................: 5524   44.660017/s
+
+    EXECUTION
+    iteration_duration.............: avg=2.05s   min=646.97ms med=1.91s   max=4.87s    p(90)=3.26s    p(95)=3.62s    p(99)=4.41s   
+    iterations.....................: 603    4.875089/s
+    vus............................: 2      min=0         max=20
+    vus_max........................: 20     min=20        max=20
+
+    NETWORK
+    data_received..................: 173 MB 1.4 MB/s
+    data_sent......................: 2.8 MB 23 kB/s
+
+
+
+
+running (2m03.7s), 00/20 VUs, 603 complete and 0 interrupted iterations
+admin_web     ✓ [ 100% ] 0/2 VUs  2m0s
+api_read      ✓ [ 100% ] 0/8 VUs  2m0s
+public_browse ✓ [ 100% ] 0/6 VUs  2m0s
+student_web   ✓ [ 100% ] 0/4 VUs  2m0s

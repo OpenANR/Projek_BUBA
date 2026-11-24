@@ -1,0 +1,5 @@
+# Hasil test k6
+reports/
+results/
+*.json
+*.log
