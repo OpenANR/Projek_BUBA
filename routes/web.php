@@ -200,6 +200,20 @@ if (app()->environment('local')) {
         return view('emails.verify-email', compact('user', 'url'));
     })->name('mail.preview.verify-email');
 
+    Route::get('/mail/preview/reset-password', function () {
+        $user = new \App\Models\User([
+            'name' => 'Budi Pratama',
+            'email' => 'budi@sekolah.id',
+        ]);
+        $url = url(route('password.reset', [
+            'token' => '3f4a4d3e767efaf00ce268cc80469d2dab6e174f712d1c15292dbee17d287a63',
+            'email' => $user->email,
+        ], false));
+        $expireMinutes = config('auth.passwords.' . config('auth.defaults.passwords') . '.expire', 60);
+
+        return view('emails.reset-password', compact('user', 'url', 'expireMinutes'));
+    })->name('mail.preview.reset-password');
+
     /** audio flutter */
 
 Route::get('/audio-kuis/{filename}', function ($filename) {

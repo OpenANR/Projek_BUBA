@@ -147,7 +147,7 @@
                 </button>
             </div>
 
-            <!-- Pembatas / Divider Lembut -->
+            {{-- <!-- Pembatas / Divider Lembut -->
             <div class="relative flex items-center justify-center pt-2">
                 <div class="border-t border-slate-200 w-full"></div>
                 <span class="bg-white px-3 text-[11px] font-black uppercase text-slate-400 absolute">Atau</span>
@@ -166,7 +166,7 @@
                     <span>Buat Akun Baru Sekarang</span>
                     <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
-            </div>
+            </div> --}}
         </form>
     </div>
 @endsection

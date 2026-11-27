@@ -9,6 +9,7 @@ use App\Models\Quis;
 use App\Models\Reward;
 use App\Models\User;
 use App\Observers\DataChangeObserver;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -65,6 +66,31 @@ class AppServiceProvider extends ServiceProvider
                 ->text('emails.verify-email-text', [
                     'user' => $notifiable,
                     'url' => $url,
+                ]);
+        });
+
+        // Kustomisasi Tampilan Email Lupa / Atur Ulang Kata Sandi sesuai Tema Aplikasi BUBA
+        ResetPassword::toMailUsing(function (object $notifiable, string $token) {
+            $url = ResetPassword::$createUrlCallback
+                ? call_user_func(ResetPassword::$createUrlCallback, $notifiable, $token)
+                : url(route('password.reset', [
+                    'token' => $token,
+                    'email' => $notifiable->getEmailForPasswordReset(),
+                ], false));
+
+            $expireMinutes = config('auth.passwords.' . config('auth.defaults.passwords') . '.expire', 60);
+
+            return (new MailMessage)
+                ->subject('Atur Ulang Kata Sandi - BUBA')
+                ->view('emails.reset-password', [
+                    'user' => $notifiable,
+                    'url' => $url,
+                    'expireMinutes' => $expireMinutes,
+                ])
+                ->text('emails.reset-password-text', [
+                    'user' => $notifiable,
+                    'url' => $url,
+                    'expireMinutes' => $expireMinutes,
                 ]);
         });
     }

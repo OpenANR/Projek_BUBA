@@ -58,3 +58,35 @@ test('password can be reset with valid token', function () {
         return true;
     });
 });
+
+test('reset password notification uses custom indonesian BUBA email template', function () {
+    $user = User::factory()->create([
+        'name' => 'Budi Pratama',
+        'email' => 'budi@example.com',
+    ]);
+
+    $notification = new ResetPassword('test-reset-token-123');
+    $mailMessage = $notification->toMail($user);
+
+    expect($mailMessage->subject)->toBe('Atur Ulang Kata Sandi - BUBA');
+    expect($mailMessage->view)->toBe([
+        'html' => 'emails.reset-password',
+        'text' => 'emails.reset-password-text',
+    ]);
+
+    $renderedHtml = (string) $mailMessage->render();
+
+    expect($renderedHtml)
+        ->toContain('ATUR ULANG KATA SANDI')
+        ->toContain('Halo, Budi Pratama!')
+        ->toContain('test-reset-token-123')
+        ->toContain(urlencode('budi@example.com'))
+        ->toContain('60 menit');
+
+    $renderedText = view('emails.reset-password-text', $mailMessage->viewData)->render();
+
+    expect($renderedText)
+        ->toContain('Halo, Budi Pratama!')
+        ->toContain('test-reset-token-123')
+        ->toContain('60 menit');
+});
