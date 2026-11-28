@@ -17,6 +17,9 @@ Route::post('/login', [AuthController::class, 'login'])
     ->middleware('throttle:api-login')
     ->name('api.login');
 
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])
+    ->middleware('throttle:6,1')
+    ->name('api.password.email');
 /*
 |--------------------------------------------------------------------------
 | Protected Routes (Khusus yang memiliki Sanctum Token)

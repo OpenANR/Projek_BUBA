@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             KelasSeeder::class,
             KategoriSeeder::class,
             SiswaSeeder::class,
-            MateriSeeder::class,
+            // MateriSeeder::class,
         ]);
     }
 }
