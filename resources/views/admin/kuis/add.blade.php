@@ -50,7 +50,7 @@
             <div class="mb-5">
                 <label for="kelas_id"
                        class="block text-sm font-semibold text-gray-700 mb-2">
-                    Kelas
+                    Kelas <span class="text-red-500">*</span>
                 </label>
 
                 <select name="kelas_id"
@@ -74,7 +74,7 @@
             <div class="mb-6">
                 <label for="kategori_id"
                        class="block text-sm font-semibold text-gray-700 mb-2">
-                    Kategori
+                    Kategori <span class="text-red-500">*</span>
                 </label>
 
                 <select name="kategori_id"
@@ -127,7 +127,7 @@
                         {{-- PERTANYAAN --}}
                         <div class="mb-6">
                             <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                Pertanyaan
+                                Pertanyaan <span class="text-red-500">*</span>
                             </label>
 
                             <textarea name="soal[0][pertanyaan]"
@@ -164,7 +164,7 @@
                                 @foreach (['a', 'b', 'c', 'd'] as $opsi)
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                            Pilihan {{ strtoupper($opsi) }}
+                                            Pilihan {{ strtoupper($opsi) }} <span class="text-red-500">*</span>
                                         </label>
 
                                         <input type="text"
@@ -182,7 +182,7 @@
                         {{-- JAWABAN BENAR --}}
                         <div class="mb-6">
                             <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                Jawaban Benar
+                                Jawaban Benar <span class="text-red-500">*</span>
                             </label>
 
                             <select name="soal[0][jawaban]"
@@ -313,8 +313,9 @@
                     Batal
                 </a>
 
-                <button type="submit"
-                        class="px-5 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg transition">
+                <button type="submit" id="submitBtn"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-400 text-white font-semibold rounded-lg transition cursor-not-allowed" disabled>
+                    <i class="fas fa-check" aria-hidden="true"></i>
                     Simpan Kuis
                 </button>
 
@@ -383,6 +384,41 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     filterKategori();
+
+    // VALIDASI TOMBOL SIMPAN
+    const submitBtn = document.getElementById('submitBtn');
+
+    function updateSubmitButton() {
+        const kelasVal = kelasSelect.value;
+        const kategoriVal = kategoriSelect.value;
+        const pertanyaanVal = document.querySelector('textarea[name="soal[0][pertanyaan]"]').value.trim();
+        const pilihanA = document.querySelector('input[name="soal[0][pilihan_a]"]').value.trim();
+        const pilihanB = document.querySelector('input[name="soal[0][pilihan_b]"]').value.trim();
+        const pilihanC = document.querySelector('input[name="soal[0][pilihan_c]"]').value.trim();
+        const pilihanD = document.querySelector('input[name="soal[0][pilihan_d]"]').value.trim();
+        const jawaban = document.querySelector('select[name="soal[0][jawaban]"]').value;
+
+        const isValid = kelasVal !== '' && kategoriVal !== '' && pertanyaanVal !== '' &&
+                        pilihanA !== '' && pilihanB !== '' && pilihanC !== '' && pilihanD !== '' &&
+                        jawaban !== '';
+
+        submitBtn.disabled = !isValid;
+        submitBtn.classList.toggle('bg-blue-600', isValid);
+        submitBtn.classList.toggle('hover:bg-blue-700', isValid);
+        submitBtn.classList.toggle('bg-gray-400', !isValid);
+        submitBtn.classList.toggle('cursor-not-allowed', !isValid);
+    }
+
+    kelasSelect.addEventListener('change', updateSubmitButton);
+    kategoriSelect.addEventListener('change', updateSubmitButton);
+    document.querySelector('textarea[name="soal[0][pertanyaan]"]').addEventListener('input', updateSubmitButton);
+    document.querySelector('input[name="soal[0][pilihan_a]"]').addEventListener('input', updateSubmitButton);
+    document.querySelector('input[name="soal[0][pilihan_b]"]').addEventListener('input', updateSubmitButton);
+    document.querySelector('input[name="soal[0][pilihan_c]"]').addEventListener('input', updateSubmitButton);
+    document.querySelector('input[name="soal[0][pilihan_d]"]').addEventListener('input', updateSubmitButton);
+    document.querySelector('select[name="soal[0][jawaban]"]').addEventListener('change', updateSubmitButton);
+
+    updateSubmitButton();
 
     // JUMLAH KARAKTER DAN VALIDASI PERTANYAAN
     const pertanyaan = document.querySelector(

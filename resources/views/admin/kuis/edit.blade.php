@@ -48,7 +48,7 @@
             {{-- KELAS --}}
             <div class="mb-5">
                 <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Kelas
+                    Kelas <span class="text-red-500">*</span>
                 </label>
 
                 <select name="kelas_id"
@@ -69,7 +69,7 @@
             {{-- KATEGORI --}}
             <div class="mb-6">
                 <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Kategori
+                    Kategori <span class="text-red-500">*</span>
                 </label>
 
                 <select name="kategori_id"
@@ -162,7 +162,7 @@
                             {{-- PERTANYAAN --}}
                             <div class="mb-6">
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Pertanyaan
+                                    Pertanyaan <span class="text-red-500">*</span>
                                 </label>
 
                                 <textarea name="soal[{{ $index }}][pertanyaan]"
@@ -185,7 +185,7 @@
 
                                         <div>
                                             <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                                Pilihan {{ strtoupper($opsi) }}
+                                                Pilihan {{ strtoupper($opsi) }} <span class="text-red-500">*</span>
                                             </label>
 
                                             <input type="text"
@@ -205,7 +205,7 @@
                             <div class="mb-6">
 
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Jawaban Benar
+                                    Jawaban Benar <span class="text-red-500">*</span>
                                 </label>
 
                                 <select name="soal[{{ $index }}][jawaban]"
@@ -375,8 +375,9 @@
                     Batal
                 </a>
 
-                <button type="submit"
-                        class="px-5 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg">
+                <button type="submit" id="submitBtn"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg transition">
+                    <i class="fas fa-rotate" aria-hidden="true"></i>
                     Simpan Perubahan
                 </button>
 

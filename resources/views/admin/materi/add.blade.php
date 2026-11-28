@@ -416,11 +416,11 @@
 
                 <button
                     type="submit"
-                    class="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+                    id="submitBtn"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-400 text-white font-semibold transition cursor-not-allowed" disabled
                 >
-
-                    ✓ Simpan Materi
-
+                    <i class="fas fa-check" aria-hidden="true"></i>
+                    Simpan Materi
                 </button>
 
             </div>
@@ -646,6 +646,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     filterKategori();
+
+
+
+    /* =====================================================
+       VALIDASI TOMBOL SIMPAN
+    ====================================================== */
+
+    const submitBtn = document.getElementById('submitBtn');
+    const isiMateri = document.getElementById('isi_materi');
+
+    function updateSubmitButton() {
+        const isNamaValid = namaMateri.value.trim().length > 0;
+        const isKelasValid = kelasSelect.value !== '';
+        const isKategoriValid = kategoriSelect.value !== '';
+        const isIsiValid = isiMateri.value.trim().length > 0;
+
+        const isValid = isNamaValid && isKelasValid && isKategoriValid && isIsiValid;
+
+        submitBtn.disabled = !isValid;
+        submitBtn.classList.toggle('bg-blue-600', isValid);
+        submitBtn.classList.toggle('hover:bg-blue-700', isValid);
+        submitBtn.classList.toggle('bg-gray-400', !isValid);
+        submitBtn.classList.toggle('cursor-not-allowed', !isValid);
+    }
+
+    namaMateri.addEventListener('input', updateSubmitButton);
+    kelasSelect.addEventListener('change', updateSubmitButton);
+    kategoriSelect.addEventListener('change', updateSubmitButton);
+    isiMateri.addEventListener('input', updateSubmitButton);
+
+    updateSubmitButton();
 
 
 

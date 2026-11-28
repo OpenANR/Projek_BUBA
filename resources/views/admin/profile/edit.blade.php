@@ -87,7 +87,8 @@
                     <label for="name" class="block text-sm font-semibold text-gray-700 mb-1">
                         Nama Lengkap <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name"
+                    <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required
+                        autofocus autocomplete="name"
                         class="w-full px-4 py-2.5 text-black border @error('name') border-red-500 ring-1 ring-red-500 @else border-gray-300 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
                     @error('name')
                         <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
@@ -99,17 +100,19 @@
                     <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">
                         Alamat Email <span class="text-red-500">*</span>
                     </label>
-                    <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required autocomplete="username"
-                        class="w-full px-4 py-2.5 text-black border @error('email') border-red-500 ring-1 ring-red-500 @else border-gray-300 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                    <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required
+                        autocomplete="username" readonly
+                        class="w-full px-4 py-2.5 text-slate-500 bg-slate-100 border @error('email') border-red-500 ring-1 ring-red-500 @else border-gray-200 @enderror rounded-lg outline-none text-sm cursor-not-allowed">
                     @error('email')
                         <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                     @enderror
 
-                    @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+                    @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
                         <div class="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
                             <p class="text-xs text-amber-800">
                                 Alamat email Anda belum diverifikasi.
-                                <button form="send-verification" class="underline text-amber-900 font-semibold hover:text-amber-700 ml-1">
+                                <button form="send-verification"
+                                    class="underline text-amber-900 font-semibold hover:text-amber-700 ml-1">
                                     Klik di sini untuk mengirim ulang email verifikasi.
                                 </button>
                             </p>
@@ -145,38 +148,61 @@
                 @method('put')
 
                 <!-- Password Saat Ini -->
-                <div>
+                <div x-data="{ show: false }">
                     <label for="update_password_current_password" class="block text-sm font-semibold text-gray-700 mb-1">
                         Kata Sandi Saat Ini <span class="text-red-500">*</span>
                     </label>
-                    <input type="password" id="update_password_current_password" name="current_password" autocomplete="current-password"
-                        class="w-full px-4 py-2.5 text-black border {{ $errors->updatePassword->has('current_password') ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                    <div class="relative">
+                        <input :type="show ? 'text' : 'password'" id="update_password_current_password"
+                            name="current_password" autocomplete="current-password"
+                            class="w-full px-4 py-2.5 pr-11 text-black border {{ $errors->updatePassword->has('current_password') ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                        <button type="button" @click="show = !show" tabindex="-1"
+                            class="absolute inset-y-0 right-0 flex items-center px-3.5 text-slate-400 hover:text-slate-600 transition">
+                            <i class="fas" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
                     @if ($errors->updatePassword->has('current_password'))
                         <p class="mt-1 text-xs text-red-600">{{ $errors->updatePassword->first('current_password') }}</p>
                     @endif
                 </div>
 
                 <!-- Password Baru -->
-                <div>
+                <div x-data="{ show: false }">
                     <label for="update_password_password" class="block text-sm font-semibold text-gray-700 mb-1">
                         Kata Sandi Baru <span class="text-red-500">*</span>
                     </label>
-                    <input type="password" id="update_password_password" name="password" autocomplete="new-password"
-                        class="w-full px-4 py-2.5 text-black border {{ $errors->updatePassword->has('password') ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                    <div class="relative">
+                        <input :type="show ? 'text' : 'password'" id="update_password_password" name="password"
+                            autocomplete="new-password"
+                            class="w-full px-4 py-2.5 pr-11 text-black border {{ $errors->updatePassword->has('password') ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                        <button type="button" @click="show = !show" tabindex="-1"
+                            class="absolute inset-y-0 right-0 flex items-center px-3.5 text-slate-400 hover:text-slate-600 transition">
+                            <i class="fas" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
                     @if ($errors->updatePassword->has('password'))
                         <p class="mt-1 text-xs text-red-600">{{ $errors->updatePassword->first('password') }}</p>
                     @endif
                 </div>
 
                 <!-- Konfirmasi Password Baru -->
-                <div>
-                    <label for="update_password_password_confirmation" class="block text-sm font-semibold text-gray-700 mb-1">
+                <div x-data="{ show: false }">
+                    <label for="update_password_password_confirmation"
+                        class="block text-sm font-semibold text-gray-700 mb-1">
                         Konfirmasi Kata Sandi Baru <span class="text-red-500">*</span>
                     </label>
-                    <input type="password" id="update_password_password_confirmation" name="password_confirmation" autocomplete="new-password"
-                        class="w-full px-4 py-2.5 text-black border {{ $errors->updatePassword->has('password_confirmation') ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                    <div class="relative">
+                        <input :type="show ? 'text' : 'password'" id="update_password_password_confirmation"
+                            name="password_confirmation" autocomplete="new-password"
+                            class="w-full px-4 py-2.5 pr-11 text-black border {{ $errors->updatePassword->has('password_confirmation') ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                        <button type="button" @click="show = !show" tabindex="-1"
+                            class="absolute inset-y-0 right-0 flex items-center px-3.5 text-slate-400 hover:text-slate-600 transition">
+                            <i class="fas" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
                     @if ($errors->updatePassword->has('password_confirmation'))
-                        <p class="mt-1 text-xs text-red-600">{{ $errors->updatePassword->first('password_confirmation') }}</p>
+                        <p class="mt-1 text-xs text-red-600">{{ $errors->updatePassword->first('password_confirmation') }}
+                        </p>
                     @endif
                 </div>
 
@@ -196,7 +222,8 @@
                     <i class="fas fa-triangle-exclamation"></i> Hapus Akun
                 </h2>
                 <p class="text-sm text-slate-500 mt-1">
-                    Setelah akun Anda dihapus, semua sumber daya dan datanya akan dihapus secara permanen. Sebelum menghapus akun Anda, harap unduh data apa pun yang ingin Anda simpan.
+                    Setelah akun Anda dihapus, semua sumber daya dan datanya akan dihapus secara permanen. Sebelum menghapus
+                    akun Anda, harap unduh data apa pun yang ingin Anda simpan.
                 </p>
             </div>
 
@@ -206,22 +233,20 @@
             </button>
 
             <!-- Modal Konfirmasi Hapus Akun -->
-            <div x-show="showConfirmModal"
-                 x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0"
-                 x-transition:enter-end="opacity-100"
-                 x-transition:leave="transition ease-in duration-200"
-                 x-transition:leave-start="opacity-100"
-                 x-transition:leave-end="opacity-0"
-                 class="fixed inset-0 z-50 overflow-y-auto px-4 py-6 sm:px-0 flex items-center justify-center"
-                 style="display: none;">
-                
+            <div x-show="showConfirmModal" x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed inset-0 z-50 overflow-y-auto px-4 py-6 sm:px-0 flex items-center justify-center"
+                style="display: none;">
+
                 <!-- Backdrop -->
-                <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity" @click="showConfirmModal = false"></div>
+                <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"
+                    @click="showConfirmModal = false"></div>
 
                 <!-- Modal Dialog -->
                 <div class="relative bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 z-10"
-                     @keydown.escape.window="showConfirmModal = false">
+                    @keydown.escape.window="showConfirmModal = false">
                     <form method="post" action="{{ route('profile.destroy') }}">
                         @csrf
                         @method('delete')
@@ -234,15 +259,23 @@
                         </div>
 
                         <p class="text-sm text-slate-500 mb-4">
-                            Setelah akun Anda dihapus, semua sumber daya dan datanya akan dihapus secara permanen. Silakan masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda ingin menghapus akun secara permanen.
+                            Setelah akun Anda dihapus, semua sumber daya dan datanya akan dihapus secara permanen. Silakan
+                            masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda ingin menghapus akun secara permanen.
                         </p>
 
-                        <div class="mb-5">
+                        <div class="mb-5" x-data="{ show: false }">
                             <label for="delete_password" class="block text-sm font-semibold text-gray-700 mb-1">
                                 Kata Sandi <span class="text-red-500">*</span>
                             </label>
-                            <input type="password" id="delete_password" name="password" placeholder="Masukkan kata sandi Anda"
-                                class="w-full px-4 py-2.5 text-black border {{ $errors->userDeletion->has('password') ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition text-sm">
+                            <div class="relative">
+                                <input :type="show ? 'text' : 'password'" id="delete_password" name="password"
+                                    placeholder="Masukkan kata sandi Anda"
+                                    class="w-full px-4 py-2.5 pr-11 text-black border {{ $errors->userDeletion->has('password') ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300' }} rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition text-sm">
+                                <button type="button" @click="show = !show" tabindex="-1"
+                                    class="absolute inset-y-0 right-0 flex items-center px-3.5 text-slate-400 hover:text-slate-600 transition">
+                                    <i class="fas" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                </button>
+                            </div>
                             @if ($errors->userDeletion->has('password'))
                                 <p class="mt-1 text-xs text-red-600">{{ $errors->userDeletion->first('password') }}</p>
                             @endif

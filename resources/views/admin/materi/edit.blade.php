@@ -66,7 +66,7 @@
             {{-- Nama Materi --}}
             <div class="mb-5">
                 <label for="nama_materi" class="block text-sm font-semibold text-gray-700 mb-2">
-                    Nama Materi
+                    Nama Materi <span class="text-red-500">*</span>
                 </label>
 
                 <input
@@ -87,7 +87,7 @@
             {{-- Kelas --}}
             <div class="mb-5">
                 <label for="kelas_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                    Kelas
+                    Kelas <span class="text-red-500">*</span>
                 </label>
 
                 <select
@@ -116,7 +116,7 @@
             {{-- Kategori --}}
             <div class="mb-5">
                 <label for="kategori_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                    Kategori
+                    Kategori <span class="text-red-500">*</span>
                 </label>
 
                 <select
@@ -146,7 +146,7 @@
             {{-- Isi Materi --}}
             <div class="mb-5">
                 <label for="isi_materi" class="block text-sm font-semibold text-gray-700 mb-2">
-                    Isi Materi
+                    Isi Materi <span class="text-red-500">*</span>
                 </label>
 
                 <textarea
@@ -265,8 +265,9 @@
 
                 <button
                     type="submit"
-                    class="px-5 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg transition"
                 >
+                    <i class="fas fa-rotate" aria-hidden="true"></i>
                     Simpan Perubahan
                 </button>
 
